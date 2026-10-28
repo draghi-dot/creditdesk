@@ -39,6 +39,15 @@ export interface MonitorEvent {
   reviewedAt?: string
 }
 
+export type MonitorWorker = 'anaf' | 'news' | 'covenants'
+export const workerLabels: Record<MonitorWorker, string> = { anaf: 'ANAF register', news: 'News crawler', covenants: 'Covenants' }
+
+/** One worker's verdict at the last check: a word for the tile and a sentence for the detail. */
+export interface CheckResult { tone: 'ok' | 'watch' | 'alert' | 'off'; label: string; detail: string }
+
+/** A step a worker is taking right now, streamed live (not stored). */
+export interface MonitorActivity { companyId: string; worker: MonitorWorker; state: 'working' | 'done' | 'failed'; text: string; ts: string }
+
 export interface ClientStatus {
   companyId: string
   lastCheck: string | null
@@ -49,4 +58,8 @@ export interface ClientStatus {
   status: 'ok' | 'watch' | 'alert' | 'unknown'
   open: number
   results: Record<string, string>
+  /** Per worker, at the last check. */
+  checks: Partial<Record<MonitorWorker, CheckResult>>
+  /** The worker checking this client right now. */
+  working: MonitorWorker | null
 }

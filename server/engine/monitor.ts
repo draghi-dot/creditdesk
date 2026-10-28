@@ -21,13 +21,17 @@ import type { DatabaseSync } from 'node:sqlite'
 import type { Company } from '../../src/types.ts'
 import type { AssessmentSummary } from '../../src/assessment.ts'
 import { ratio } from '../../src/analysis.ts'
-import type { ClientStatus, MonitorEvent, MonitorSeverity, MonitorSource } from '../../src/monitoring.ts'
+import type { CheckResult, ClientStatus, MonitorActivity, MonitorEvent, MonitorSeverity, MonitorSource, MonitorWorker } from '../../src/monitoring.ts'
 import { lookupAnaf, nameWords } from './anaf.ts'
 import { USER_AGENT, pageText } from './contacts.ts'
 import type { CodexConfig } from './codex.ts'
 import { askCodex } from './codex.ts'
 
 type Listener = (e: MonitorEvent) => void
+type ActivityListener = (a: MonitorActivity) => void
+
+/** Register status in a word or two. */
+const shortStatus = (status: string) => /RADIER/i.test(status) ? 'Deregistered' : /DIZOLVARE|LICHIDARE/i.test(status) ? 'Dissolving' : /INSOLVEN|FALIMENT/i.test(status) ? 'Insolvent' : 'Registered'
 
 /** Words that make a news passage relevant to a lender, by how much attention they need. */
 const TOPICS: { topic: string; severity: MonitorSeverity; words: RegExp }[] = [
@@ -49,6 +53,10 @@ export class Monitor {
   private readonly clients: Company[]
   private readonly latestRun: (companyId: string) => AssessmentSummary | null
   private readonly listeners = new Set<Listener>()
+  private readonly activityListeners = new Set<ActivityListener>()
+  /** The last steps taken, for a page that opens mid-check. */
+  private readonly recent: MonitorActivity[] = []
+  private working: { companyId: string; worker: MonitorWorker } | null = null
   private readonly lastHit = new Map<string, number>()
   private readonly robots = new Map<string, { at: number; rules: { allow: boolean; path: RegExp; length: number }[] }>()
   private readonly queue: string[] = []
@@ -109,32 +117,55 @@ export class Monitor {
     return () => { this.listeners.delete(listener) }
   }
 
+  subscribeActivity(listener: ActivityListener): () => void {
+    this.activityListeners.add(listener)
+    return () => { this.activityListeners.delete(listener) }
+  }
+
+  activity(): MonitorActivity[] { return [...this.recent] }
+  now(): { companyId: string; worker: MonitorWorker } | null { return this.working }
+
+  /** Report what a worker is doing, live. */
+  private step(companyId: string, worker: MonitorWorker, state: MonitorActivity['state'], text: string): void {
+    this.working = state === 'working' ? { companyId, worker } : this.working
+    const a: MonitorActivity = { companyId, worker, state, text, ts: new Date().toISOString() }
+    this.recent.push(a)
+    if (this.recent.length > 80) this.recent.shift()
+    for (const listener of this.activityListeners) listener(a)
+  }
+
   // ─── Checks ────────────────────────────────────────────────────────────────
 
   async check(company: Company): Promise<void> {
-    const results: Record<string, string> = {}
-    results.anaf = await this.checkRegister(company)
-    results.credit = this.checkCreditLine(company)
-    results.web = process.env.CREDITDESK_MONITOR_WEB === 'off' ? 'Public news check is off (CREDITDESK_MONITOR_WEB=off)' : await this.checkNews(company)
-    this.setState(company.id, 'checked', { at: new Date().toISOString(), results })
+    const checks: Partial<Record<MonitorWorker, CheckResult>> = {}
+    checks.anaf = await this.checkRegister(company)
+    checks.covenants = this.checkCreditLine(company)
+    checks.news = process.env.CREDITDESK_MONITOR_WEB === 'off' ? { tone: 'off', label: 'Off', detail: 'Public news check is off (CREDITDESK_MONITOR_WEB=off)' } : await this.checkNews(company)
+    this.working = null
+    const results = { anaf: checks.anaf.detail, credit: checks.covenants.detail, web: checks.news.detail }
+    this.setState(company.id, 'checked', { at: new Date().toISOString(), results, checks })
     for (const listener of this.listeners) listener({ id: '', companyId: company.id, ts: new Date().toISOString(), source: 'engine', severity: 'info', title: 'checked', detail: '' })
   }
 
   /** The ANAF register, compared with what the previous check recorded. */
-  private async checkRegister(company: Company): Promise<string> {
+  private async checkRegister(company: Company): Promise<CheckResult> {
+    this.step(company.id, 'anaf', 'working', 'Asking the ANAF register about CUI ' + company.cui)
     const anaf = await lookupAnaf(company.cui, new Date().toISOString().slice(0, 10), new AbortController().signal, 20_000)
     if (!anaf.found) {
-      if (anaf.error) return 'ANAF not reached: ' + anaf.error
+      if (anaf.error) { this.step(company.id, 'anaf', 'failed', anaf.error); return { tone: 'off', label: 'Not reached', detail: 'ANAF not reached: ' + anaf.error } }
+      this.step(company.id, 'anaf', 'done', 'ANAF has no taxpayer with CUI ' + company.cui)
       this.emit(company.id, 'anaf', 'alert', 'Not found in the ANAF register', 'ANAF has no taxpayer with CUI ' + company.cui + '.')
-      return 'not found'
+      return { tone: 'alert', label: 'Not found', detail: 'ANAF has no taxpayer with CUI ' + company.cui }
     }
     const now = { name: anaf.found.name, status: anaf.found.registrationStatus, inactive: anaf.found.inactive, vatPayer: anaf.found.vatPayer, eInvoice: anaf.found.eInvoice, address: anaf.found.address }
     const before = this.state<typeof now>(company.id, 'anaf')
     this.setState(company.id, 'anaf', now)
     if (!before) {
-      this.emit(company.id, 'anaf', STATUS_ALERT.test(now.status) || now.inactive ? 'alert' : 'info', 'Register baseline recorded',
+      const bad = STATUS_ALERT.test(now.status) || now.inactive
+      this.emit(company.id, 'anaf', bad ? 'alert' : 'info', 'Register baseline recorded',
         now.name + ' · ' + now.status + (now.inactive ? ' · INACTIVE taxpayer' : '') + ' · VAT ' + (now.vatPayer ? 'registered' : 'not registered'), { url: anaf.found.endpoint })
-      return 'baseline recorded'
+      this.step(company.id, 'anaf', 'done', 'ANAF answered in ' + anaf.durationMs + ' ms · ' + shortStatus(now.status).toLowerCase() + ' · first reading kept to compare with')
+      return { tone: bad ? 'alert' : 'ok', label: shortStatus(now.status), detail: 'First reading recorded · ' + now.status }
     }
     const changes: [MonitorSeverity, string, string][] = []
     if (now.status !== before.status) changes.push([STATUS_ALERT.test(now.status) ? 'alert' : 'watch', 'Registration status changed', before.status + ' → ' + now.status])
@@ -143,21 +174,25 @@ export class Monitor {
     if (now.name !== before.name) changes.push(['watch', 'Registered name changed', before.name + ' → ' + now.name])
     if (now.address !== before.address) changes.push(['watch', 'Registered office moved', before.address + ' → ' + now.address])
     for (const [severity, title, detail] of changes) this.emit(company.id, 'anaf', severity, title, detail, { url: anaf.found.endpoint })
-    return changes.length ? changes.length + ' change(s)' : 'no change · ' + now.status
+    this.step(company.id, 'anaf', 'done', 'ANAF answered in ' + anaf.durationMs + ' ms · ' + (changes.length ? changes.map(c => c[1].toLowerCase()).join(', ') : 'nothing changed since the last check'))
+    const worst: CheckResult['tone'] = changes.some(c => c[0] === 'alert') ? 'alert' : changes.length ? 'watch' : 'ok'
+    return { tone: worst, label: changes.length ? changes.length + (changes.length === 1 ? ' change' : ' changes') : shortStatus(now.status), detail: changes.length ? changes.map(c => c[1]).join('; ') : 'No change since the last check · ' + now.status }
   }
 
   /** Covenants against the latest completed assessment, and the review date. */
-  private checkCreditLine(company: Company): string {
+  private checkCreditLine(company: Company): CheckResult {
     const line = company.creditLine
-    if (!line) return 'no credit line'
+    if (!line) return { tone: 'off', label: 'No credit line', detail: 'no credit line' }
     const run = this.latestRun(company.id)
     const notes: string[] = []
     const key = run ? run.runId : 'none'
     const before = this.state<{ run: string; breaches: string[] }>(company.id, 'covenants')
+    this.step(company.id, 'covenants', 'working', run ? 'Comparing the covenants with assessment ' + run.runId.slice(0, 8) : 'Looking for a completed assessment')
     if (!run?.digest) {
       if (before?.run !== key) this.emit(company.id, 'covenants', 'watch', 'No assessment on file', 'Covenants cannot be checked until the client is assessed. Run an assessment from the company page.')
       this.setState(company.id, 'covenants', { run: key, breaches: [] })
-      return 'not assessed'
+      this.step(company.id, 'covenants', 'done', 'No completed assessment yet: nothing to compare')
+      return { tone: 'watch', label: 'Not assessed', detail: 'not assessed' }
     }
     // An assessment now exists: the earlier "no assessment" notice is settled by it.
     if (before?.run === 'none') for (const e of this.events({ companyId: company.id, limit: 500 })) if (e.title === 'No assessment on file' && !e.reviewedAt) this.review(e.id, 'Monitoring (assessment ' + run.runId.slice(0, 8) + ' completed)')
@@ -172,22 +207,27 @@ export class Monitor {
     }
     this.setState(company.id, 'covenants', { run: key, breaches })
     notes.push(breaches.length ? breaches.length + ' breach(es)' : 'covenants met')
+    this.step(company.id, 'covenants', 'done', breaches.length ? breaches.join('; ') : 'DSCR ' + ratio(m.dscr) + ' ≥ ' + ratio(line.covenants.dscrMin) + ' · debt/EBITDA ' + ratio(m.leverage) + ' ≤ ' + ratio(line.covenants.leverageMax) + ' · liquidity ' + ratio(m.liquidity) + ' ≥ ' + ratio(line.covenants.liquidityMin))
     const days = Math.round((Date.parse(line.nextReview) - Date.now()) / 86_400_000)
     if (days <= 30 && !this.state(company.id, 'review-' + line.nextReview)) {
       this.setState(company.id, 'review-' + line.nextReview, { notified: true })
       this.emit(company.id, 'covenants', 'watch', days < 0 ? 'Annual review overdue' : 'Annual review due soon', 'Review date ' + line.nextReview + (days < 0 ? ' (' + -days + ' days ago)' : ' (in ' + days + ' days)') + '.')
     }
-    return notes.join(', ')
+    return { tone: breaches.length ? 'alert' : 'ok', label: breaches.length ? breaches.length + (breaches.length === 1 ? ' breach' : ' breaches') : 'Met', detail: notes.join(', ') }
   }
 
   /** Recent articles from business-news feeds, shared by all clients for a quarter of an hour. */
-  private async feedItems(): Promise<{ items: { title: string; link: string; description: string; date: string | null; site: string }[]; read: number }> {
-    if (this.feeds && Date.now() - this.feeds.at < 15 * 60_000) return this.feeds
+  private async feedItems(companyId: string): Promise<{ items: { title: string; link: string; description: string; date: string | null; site: string }[]; read: number }> {
+    if (this.feeds && Date.now() - this.feeds.at < 15 * 60_000) {
+      this.step(companyId, 'news', 'working', 'Using the ' + this.feeds.items.length + ' articles read from ' + this.feeds.read + ' news feeds at ' + new Date(this.feeds.at).toTimeString().slice(0, 5))
+      return this.feeds
+    }
     const items: { title: string; link: string; description: string; date: string | null; site: string }[] = []
     let read = 0
     for (const feed of FEEDS) {
+      this.step(companyId, 'news', 'working', 'Reading ' + feed.replace(/^https:\/\/(www\.)?/, ''))
       const page = await this.politeText(feed, true)
-      if (!page.raw) continue
+      if (!page.raw) { this.step(companyId, 'news', 'working', feed.replace(/^https:\/\/(www\.)?/, '') + ': ' + (page.blocked ?? 'not available')); continue }
       read++
       for (const m of page.raw.matchAll(/<item[\s\S]*?<\/item>/g)) {
         const field = (name: string) => (new RegExp('<' + name + '[^>]*>([\\s\\S]*?)<\\/' + name + '>').exec(m[0])?.[1] ?? '').replace(/<!\[CDATA\[|\]\]>/g, '').replace(/<[^>]+>/g, ' ').replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#8217;|&#039;/g, "'").replace(/\s+/g, ' ').trim()
@@ -202,28 +242,36 @@ export class Monitor {
   }
 
   /** Articles that name the client: each is opened (robots.txt permitting), kept by hash, and the sentence naming the company quoted. */
-  private async checkNews(company: Company): Promise<string> {
+  private async checkNews(company: Company): Promise<CheckResult> {
     const terms = (company.monitorTerms?.length ? company.monitorTerms : [...nameWords(company.name)].filter(w => w.length > 4)).map(t => t.toLowerCase())
     const names = (text: string) => { const plain = text.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''); return terms.some(t => new RegExp('(^|[^a-z0-9])' + t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '([^a-z0-9]|$)').test(plain)) }
-    const { items, read } = await this.feedItems()
-    if (!read) return 'news feeds unavailable'
+    const { items, read } = await this.feedItems(company.id)
+    if (!read) { this.step(company.id, 'news', 'failed', 'No news feed could be read'); return { tone: 'off', label: 'Unavailable', detail: 'news feeds unavailable' } }
     const mentions = items.filter(i => names(i.title + ' ' + i.description))
+    this.step(company.id, 'news', 'working', 'Looking for “' + terms.join('” or “') + '” in ' + items.length + ' articles: ' + mentions.length + (mentions.length === 1 ? ' match' : ' matches'))
+    let worst: 'alert' | 'watch' | null = null
     let kept = 0, gaps = 0
     for (const item of mentions.slice(0, 6)) {
       if (this.db.prepare('SELECT 1 FROM monitor_seen WHERE company_id = ? AND url = ?').get(company.id, item.link)) continue
       this.db.prepare('INSERT OR IGNORE INTO monitor_seen (company_id, url, ts) VALUES (?, ?, ?)').run(company.id, item.link, new Date().toISOString())
+      this.step(company.id, 'news', 'working', 'Opening ' + item.site + ' (checking its robots.txt first)')
       const page = await this.politeText(item.link)
+      this.step(company.id, 'news', 'working', page.text ? 'Read ' + item.site + ' · SHA-256 ' + page.sha256.slice(0, 10) : item.site + ': ' + (page.blocked ?? 'page not readable') + ' · quoting the feed instead')
       // The feed's own summary first, then the article's sentences of ordinary length (menus and footers are not sentences).
       const sentences = [item.description, page.text].join(' ').split(/(?<=[.!?])\s+/).filter(t => t.length >= 30 && t.length <= 350).filter(names)
       if (!page.text) gaps++
       const topic = TOPICS.find(t => sentences.some(s => t.words.test(s)))
       const sentence = (topic ? sentences.find(s => topic.words.test(s)) : sentences[0]) ?? item.title
       kept++
-      this.emit(company.id, 'web', topic?.severity ?? 'info', (topic?.topic ?? 'In the news') + ': ' + item.title, sentence.slice(0, 400), {
+      const severity = topic?.severity ?? 'info'
+      if (severity === 'alert' || (severity === 'watch' && worst !== 'alert')) worst = severity as 'alert' | 'watch'
+      this.emit(company.id, 'web', severity, (topic?.topic ?? 'In the news') + ': ' + item.title, sentence.slice(0, 400), {
         url: item.link, sha256: page.sha256 || undefined, published: page.published ?? item.date, site: item.site, ...(page.text ? {} : { note: page.blocked ?? 'article not readable; quoted from the feed' }),
       })
     }
-    return read + ' news feed(s), ' + items.length + ' recent articles, ' + mentions.length + ' naming the company' + (kept ? ', ' + kept + ' new' : '') + (gaps ? ' (' + gaps + ' not readable)' : '')
+    const detail = read + ' news feed(s), ' + items.length + ' recent articles, ' + mentions.length + ' naming the company' + (kept ? ', ' + kept + ' new' : '') + (gaps ? ' (' + gaps + ' not readable)' : '')
+    this.step(company.id, 'news', 'done', kept ? kept + ' new article(s) about the company kept' : mentions.length ? 'Nothing new about the company' : 'The company is not in today\'s news')
+    return { tone: worst ?? 'ok', label: mentions.length ? mentions.length + (mentions.length === 1 ? ' mention' : ' mentions') : 'No mentions', detail }
   }
 
   /**
@@ -328,13 +376,13 @@ export class Monitor {
 
   status(): ClientStatus[] {
     return this.clients.map(c => {
-      const checked = this.state<{ at: string; results: Record<string, string> }>(c.id, 'checked')
+      const checked = this.state<{ at: string; results: Record<string, string>; checks?: Partial<Record<MonitorWorker, CheckResult>> }>(c.id, 'checked')
       const open = (this.db.prepare('SELECT payload FROM monitor_events WHERE company_id = ?').all(c.id) as { payload: string }[]).map(r => JSON.parse(r.payload) as MonitorEvent)
         .filter(e => !e.reviewedAt && e.severity !== 'info')
       return {
         companyId: c.id, lastCheck: checked?.at ?? null, results: checked?.results ?? {},
         nextCheck: checked ? new Date(Date.parse(checked.at) + this.intervalMinutes * 60_000).toISOString() : null,
-        checking: this.current === c.id, queued: this.queue.includes(c.id),
+        checking: this.current === c.id, queued: this.queue.includes(c.id), checks: checked?.checks ?? {}, working: this.current === c.id && this.working?.companyId === c.id ? this.working.worker : null,
         status: open.some(e => e.severity === 'alert') ? 'alert' : open.length ? 'watch' : checked ? 'ok' : 'unknown', open: open.length,
       }
     })

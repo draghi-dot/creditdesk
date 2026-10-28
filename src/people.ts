@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import type { Policy } from './types'
 import type { ActivityEvent, Case, CaseEvent, CaseReport, CaseStatus, CompanyRequest, Contact, Delivery, DepartmentId, GmailState, SuggestionSet, User, WorkspaceSettings } from './workspace'
 import { api, setActingUser } from './runs'
-import type { ClientStatus, MonitorEvent } from './monitoring'
+import type { ClientStatus, MonitorActivity, MonitorEvent, MonitorWorker } from './monitoring'
 
 export interface Session { user: User; users: User[]; gmail: GmailState }
 
@@ -69,7 +69,7 @@ export function useCases(filter: { department?: DepartmentId; company?: string }
 }
 
 // ─── Live monitoring of credit clients ─────────────────────────────────────
-export interface MonitoringState { clients: ClientStatus[]; events: MonitorEvent[]; intervalMinutes: number }
+export interface MonitoringState { clients: ClientStatus[]; events: MonitorEvent[]; intervalMinutes: number; activity: MonitorActivity[]; now: { companyId: string; worker: MonitorWorker } | null }
 export const getMonitoring = () => api<MonitoringState>('/monitoring')
 export const checkNow = (companyId?: string) => post<ClientStatus[]>('/monitoring/check', companyId ? { companyId } : {})
 export const researchClient = (companyId: string) => post<{ result: string }>('/monitoring/research', { companyId })
@@ -84,6 +84,12 @@ export function useMonitoring() {
     const source = new EventSource('/api/monitoring/stream')
     let timer = 0
     source.addEventListener('monitor', () => { window.clearTimeout(timer); timer = window.setTimeout(refresh, 400) })
+    // Each step a worker takes arrives as it happens; the page shows it without waiting for a refresh.
+    source.addEventListener('activity', message => {
+      const a = JSON.parse((message as MessageEvent).data) as MonitorActivity
+      setState(s => s && { ...s, activity: [...s.activity.slice(-79), a], now: a.state === 'working' ? { companyId: a.companyId, worker: a.worker } : s.now,
+        clients: s.clients.map(c => c.companyId === a.companyId ? { ...c, checking: true, working: a.state === 'working' ? a.worker : c.working } : c) })
+    })
     return () => { source.close(); window.clearTimeout(timer) }
   }, [refresh])
   return { state, refresh }

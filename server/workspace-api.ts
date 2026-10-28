@@ -280,12 +280,13 @@ export function workspaceRoutes(ctx: WorkspaceContext) {
       }
 
       // ─── Live monitoring of credit clients ───────────────────────────────
-      if (is('GET', 'monitoring', 2)) return reply(200, { clients: ctx.monitor.status(), events: ctx.monitor.events({ limit: 300 }), intervalMinutes: ctx.monitor.intervalMinutes })
+      if (is('GET', 'monitoring', 2)) return reply(200, { clients: ctx.monitor.status(), events: ctx.monitor.events({ limit: 300 }), intervalMinutes: ctx.monitor.intervalMinutes, activity: ctx.monitor.activity(), now: ctx.monitor.now() })
       if (is('GET', 'monitoring', 3) && id === 'stream') {
         res.writeHead(200, { 'content-type': 'text/event-stream; charset=utf-8', 'cache-control': 'no-cache, no-transform', connection: 'keep-alive', 'x-accel-buffering': 'no' })
         const unsubscribe = ctx.monitor.subscribe(e => res.write('event: monitor\ndata: ' + JSON.stringify(e) + '\n\n'))
+        const unsubscribeActivity = ctx.monitor.subscribeActivity(a => res.write('event: activity\ndata: ' + JSON.stringify(a) + '\n\n'))
         const heartbeat = setInterval(() => res.write(': keep-alive\n\n'), 15_000)
-        req.on('close', () => { clearInterval(heartbeat); unsubscribe() })
+        req.on('close', () => { clearInterval(heartbeat); unsubscribe(); unsubscribeActivity() })
         return true
       }
       if (is('POST', 'monitoring', 3) && id === 'check') {

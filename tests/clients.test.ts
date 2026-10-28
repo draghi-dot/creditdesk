@@ -52,6 +52,11 @@ test('a client is monitored: no assessment is a notice, its assessment checks th
   assert.deepEqual(state.clients[0].results, { anaf: 'ANAF not reached: ANAF lookup disabled (CREDITDESK_ANAF=off)', credit: 'not assessed', web: 'Public news check is off (CREDITDESK_MONITOR_WEB=off)' })
   assert.equal(state.clients[0].status, 'watch')
   assert.deepEqual(state.events.map(e => [e.source, e.severity, e.title]), [['covenants', 'watch', 'No assessment on file']])
+  // Each worker's verdict for the tiles, and the steps it took for the live log.
+  const first = state.clients[0] as ClientStatus
+  assert.deepEqual([first.checks.anaf?.tone, first.checks.covenants?.label, first.checks.news?.tone], ['off', 'Not assessed', 'off'])
+  const steps = (state as any).activity.map((a: any) => a.worker + ':' + a.state + ':' + a.text)
+  assert.deepEqual(steps, ['anaf:working:Asking the ANAF register about CUI 13328043', 'anaf:failed:ANAF lookup disabled (CREDITDESK_ANAF=off)', 'covenants:working:Looking for a completed assessment', 'covenants:done:No completed assessment yet: nothing to compare'])
 
   // Assessing the client checks it again by itself.
   const runId = (await engine.post('/companies/TEST-DOS-051/runs')).runId
