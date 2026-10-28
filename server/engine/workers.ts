@@ -456,11 +456,12 @@ const legal: Worker = async ctx => {
       points.push({ text: point.observation, quote: point.quote, verified: refs.length > 0, review: point.severity === 'review' })
       evidence.push(...refs)
       if (refs.length && point.severity === 'review' && raised < 6) {
+        const [headline, ...rest] = point.observation.split(/(?<=\.)\s+/)
         ctx.finding({
-          impact: 'info', title: 'Legal reading: ' + point.observation.replace(/\.$/, ''),
+          impact: 'info', title: 'Legal reading: ' + headline.replace(/\.$/, ''),
           observed: name(point.document) + ', page ' + refs[0].page + ': "' + point.quote + '"',
           comparedAgainst: 'Application on file: ' + money(request.suma_solicitata) + ', ' + request.durata_luni + ' months, fees ' + money(request.comisioane) + '.',
-          whyItMatters: 'Raised by the model reading the original text; the quote was located on the page by the engine, the interpretation is the model\'s.',
+          whyItMatters: (rest.length ? rest.join(' ') + ' ' : '') + 'Raised by the model reading the original text; the quote was located on the page by the engine, the interpretation is the model\'s.',
           effect: effectText('info', []), ruleIds: [], evidence: refs,
         })
         raised++
