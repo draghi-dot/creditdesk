@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
-import type { FormEvent } from 'react'
-import { CircleAlert, Mail, PenLine, Plus, Send, Trash2, UserRound } from 'lucide-react'
+import type { FormEvent, ReactNode } from 'react'
+import { Check, CircleAlert, Mail, PenLine, Plus, Send, Trash2, UserRound, X } from 'lucide-react'
 import type { Company } from './types'
 import type { CompanyRequest, Contact, GmailState } from './workspace'
 import { undeliverable } from './workspace'
 import { Button, Dialog } from './components'
-import { when } from './runs'
+import { actingUser, when } from './runs'
 import type { Drafted } from './people'
-import { listContacts, removeContact, saveContact, saveRequest, sendRequest } from './people'
+import { gmailConnectUrl, listContacts, removeContact, saveContact, saveRequest, sendRequest } from './people'
 
 /** The company's representatives: who requests go to. */
 export function ContactsCard({ company, onChange }: { company: Company; onChange?: (c: Contact[]) => void }) {
@@ -70,6 +70,20 @@ export function DraftRequestButton({ label = 'Draft a request', draft, onDrafted
       </div><div className="dialog-actions"><Button type="button" onClick={() => setOpen(false)} disabled={busy}>Cancel</Button><Button variant="primary" type="submit" disabled={busy}>{busy ? 'Writing the draft…' : 'Write draft'}</Button></div></form>
     </Dialog>}
   </>
+}
+
+/** What still stands between this employee and a sent request, with the way to fix each. Hidden once nothing is missing. */
+export function SendChecklist({ contacts, gmail, requests }: { contacts: Contact[]; gmail: GmailState | null; requests: CompanyRequest[] }) {
+  const contact = contacts.find(c => !c.placeholder && c.email)
+  const steps: { done: boolean; label: ReactNode }[] = [
+    { done: !!contact, label: contact ? <>Contact: {contact.name} &lt;{contact.email}&gt;</> : <>Add the representative's email under <strong>Contacts</strong></> },
+    { done: !!gmail?.connected, label: gmail?.connected ? <>Gmail: {gmail.connected.email}</>
+      : gmail?.configured ? <><a href={gmailConnectUrl(actingUser(), '/#' + window.location.hash.slice(1))}>Connect your Gmail</a> (sends from your own mailbox)</>
+      : <>Gmail is not set up for this workspace yet: an OAuth client must be added once (README → Gmail)</> },
+    { done: requests.some(r => r.status !== 'sent'), label: requests.some(r => r.status !== 'sent') ? <>Draft ready to review</> : <>Write a draft with <strong>Draft request</strong></> },
+  ]
+  if (steps.every(st => st.done)) return null
+  return <div className="send-checklist"><span>Before a request can be sent</span><ul>{steps.map((st, i) => <li key={i} className={st.done ? 'done' : ''}>{st.done ? <Check size={13} /> : <X size={13} />}<span>{st.label}</span></li>)}</ul></div>
 }
 
 const statusText: Record<CompanyRequest['status'], string> = { draft: 'Draft', sent: 'Sent', failed: 'Not sent' }

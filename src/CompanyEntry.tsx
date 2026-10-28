@@ -12,7 +12,7 @@ import type { EngineHealth } from './runs'
 import { duration, getRun, when } from './runs'
 import { DossierDocuments, MissingDocuments, useDossier } from './DossierDocuments'
 import { draftCompanyRequest, getSuggestions, listRequests, makeSuggestions, useCases } from './people'
-import { ContactsCard, DraftRequestButton, RequestList } from './Requests'
+import { ContactsCard, DraftRequestButton, RequestList, SendChecklist } from './Requests'
 import { SendToDepartment, StatusChip } from './Departments'
 import './assessment.css'
 
@@ -109,6 +109,7 @@ export default function CompanyEntry({ company, runs, health, offline, starting,
         </section>
         <section className="panel side-card">
           <div className="side-card-head"><h2>Requests to the company</h2></div>
+          <SendChecklist contacts={contacts} gmail={gmail} requests={requests} />
           <RequestList key={requests.map(r => r.id + r.status).join()} requests={requests} gmail={gmail} onChange={() => loadRequests()} toast={toast} />
         </section>
       </aside>

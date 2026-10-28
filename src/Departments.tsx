@@ -10,7 +10,7 @@ import { EvidenceViewer, ImpactTag, emphasize } from './AssessmentUI'
 import { when } from './runs'
 import type { Session } from './people'
 import { addUser, commentCase, draftCaseRequest, getCase, openCase, updateCase, useCases, writeCaseReport } from './people'
-import { ContactsCard, DraftRequestButton, RequestList } from './Requests'
+import { ContactsCard, DraftRequestButton, RequestList, SendChecklist } from './Requests'
 
 const STATUSES: CaseStatus[] = ['open', 'in_progress', 'waiting', 'resolved']
 
@@ -162,6 +162,7 @@ export function CasePage({ caseId, companies, session, onCompany, onDepartment, 
         <ContactsCard company={company} onChange={setContacts} />
         <section className="panel side-card">
           <div className="side-card-head"><h2>Requests to the company</h2><DraftRequestButton small label="Draft request" contacts={contacts} draft={o => draftCaseRequest(c.id, o)} onDrafted={() => { load(); onChange() }} /></div>
+          <SendChecklist contacts={contacts} gmail={session?.gmail ?? null} requests={data.requests} />
           <RequestList key={data.requests.map(r => r.id + r.status).join()} requests={data.requests} gmail={session?.gmail ?? null} onChange={() => load()} toast={toast} />
         </section>
       </aside>
