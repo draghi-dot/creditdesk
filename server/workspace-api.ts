@@ -236,7 +236,7 @@ export function workspaceRoutes(ctx: WorkspaceContext) {
       if (method === 'POST' && area === 'runs' && id === 'all' && parts.length === 3) {
         const body = await readJson(req)
         await ctx.refreshProvider()
-        return reply(202, ctx.batch.start([...companies.keys()], ctx.policyFrom(body), engine.codex ? 3 : 6, actorOf(req).name))
+        return reply(202, ctx.batch.start([...companies.keys()], ctx.policyFrom(body), Number(process.env.CREDITDESK_BATCH_CONCURRENCY) || (engine.codex ? 2 : 6), actorOf(req).name))
       }
       if (method === 'POST' && area === 'runs' && id === 'all' && sub === 'stop') return reply(200, ctx.batch.stop())
     } catch (err: any) {

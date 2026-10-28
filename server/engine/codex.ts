@@ -9,6 +9,10 @@
  * is an empty scratch folder. The model only sees the prompt it is given and
  * must answer in the supplied JSON schema. Completion authority is
  * `turn.completed`; anything else is an error, never a result.
+ *
+ * Codex's own coding-agent instructions are replaced by a short statement of
+ * the job: about 40% fewer input tokens per call, which matters on a ChatGPT
+ * sign-in where bursts of calls get throttled.
  */
 
 import { execFile, spawn } from 'node:child_process'
@@ -36,7 +40,9 @@ type Frame = Record<string, any>
 
 const toml = (value: string) => JSON.stringify(value)
 
-export function codexArgs(config: CodexConfig, scratch: string, schemaFile: string): string[] {
+const INSTRUCTIONS = 'You are a component of CreditDesk, a bank credit-assessment workspace. You read only the text you are given and answer in the JSON schema you are given. You have no tools and you do not run commands.\n'
+
+export function codexArgs(config: CodexConfig, scratch: string, schemaFile: string, instructionsFile: string): string[] {
   return [
     'exec', '--json', '--ephemeral', '--skip-git-repo-check', '--ignore-user-config', '--ignore-rules',
     '--sandbox', 'read-only', '--color', 'never', '-C', scratch,
@@ -44,6 +50,7 @@ export function codexArgs(config: CodexConfig, scratch: string, schemaFile: stri
     '-c', 'features.shell_tool=false',
     '-c', 'web_search="disabled"',
     '-c', 'project_doc_max_bytes=0',
+    '-c', 'model_instructions_file=' + toml(instructionsFile),
     '-c', 'model_reasoning_effort=' + toml(config.effort),
     '-m', config.model,
     '--output-schema', schemaFile,
@@ -64,14 +71,16 @@ export function askCodex<T>(config: CodexConfig, prompt: string, schema: object,
   const started = Date.now()
   const scratch = mkdtempSync(join(tmpdir(), 'creditdesk-codex-'))
   const schemaFile = join(scratch, 'schema.json')
+  const instructionsFile = join(scratch, 'instructions.md')
   writeFileSync(schemaFile, JSON.stringify(schema))
+  writeFileSync(instructionsFile, INSTRUCTIONS)
   return new Promise(resolve => {
     let settled = false
     let stderr = ''
     let lastMessage: string | null = null
     let lastError: string | null = null
     let completed: Frame | null = null
-    const child = spawn(config.command, codexArgs(config, scratch, schemaFile), { cwd: scratch, stdio: ['pipe', 'pipe', 'pipe'], detached: true })
+    const child = spawn(config.command, codexArgs(config, scratch, schemaFile, instructionsFile), { cwd: scratch, stdio: ['pipe', 'pipe', 'pipe'], detached: true })
     const timer = setTimeout(() => finish(false, 'timed out after ' + Math.round(config.timeoutMs / 1000) + ' s'), config.timeoutMs)
     const onAbort = () => finish(false, 'cancelled')
     signal.addEventListener('abort', onAbort, { once: true })

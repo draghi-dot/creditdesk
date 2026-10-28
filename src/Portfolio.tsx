@@ -164,7 +164,7 @@ function RunAll({ policy, total, onChange, toast }: { policy: Policy; total: num
   return <>
     <Button variant="primary" onClick={() => setConfirm(true)}><Play size={15} />Run all assessments</Button>
     {confirm && <Dialog title="Run a new assessment for every company?" description={total + ' companies · ' + policy.politica_id + ' v' + policy.versiune} onClose={() => setConfirm(false)}>
-      <div className="form-content"><p className="dialog-text">Each company gets a new assessment under the current credit policy. Earlier assessments are kept and stay viewable. With the model, a run takes about one and a half minutes and three run at a time, so all of them take roughly 30–40 minutes. You can keep working meanwhile.</p></div>
+      <div className="form-content"><p className="dialog-text">Each company gets a new assessment under the current credit policy. Earlier assessments are kept and stay viewable. With the model two run at a time; depending on how fast the model answers, all of them take roughly 20–60 minutes. You can keep working meanwhile.</p></div>
       <div className="dialog-actions"><Button onClick={() => setConfirm(false)}>Cancel</Button><Button variant="primary" onClick={async () => { setConfirm(false); try { setStatus(await runAll(policy)); onChange(); toast('Assessments started for all companies') } catch (e: any) { toast(e.message) } }}><Play size={15} />Run {total} assessments</Button></div>
     </Dialog>}
   </>

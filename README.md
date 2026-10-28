@@ -18,6 +18,8 @@ Requirements: Node 25 (TypeScript runs natively, `node:sqlite` built in), Popple
 | `CREDITDESK_DATA` | `.data/` | Run database and rendered page cache |
 | `CREDITDESK_LLM` | `codex` | `none` runs deterministic workers only |
 | `CODEX_MODEL` / `CODEX_EFFORT` | `gpt-6.1-sol` / `medium` | Model for the legal reading and the analyst memo |
+| `CODEX_TIMEOUT_MS` | 180000 | Longest wait for one model answer before the engine writes its own text instead |
+| `CREDITDESK_BATCH_CONCURRENCY` | 2 with the model, 6 without | How many assessments Run all keeps going at once |
 | `CREDITDESK_ANAF` | on | `off` skips the live ANAF lookup (tests use this) |
 | `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` | — | Google OAuth client for Gmail (or save the client JSON as `.data/google-oauth.json`) |
 
@@ -49,7 +51,7 @@ When a worker finds an issue it emits a finding with what was observed, what it 
 
 ### Rules for the model
 
-Numbers and the decision always come from code. Codex runs via `codex exec` under the operator's own ChatGPT sign-in, isolated in the same way as the Baton orchestrator's runtime: user config ignored, no shell, no web, read-only sandbox, empty scratch directory, JSON-schema output. Every quote it returns is located on the page by the engine (unlocated quotes are flagged), and every figure in the memo is checked against the facts it was given. If the model is unavailable the deterministic workers still complete the run.
+Numbers and the decision always come from code. Codex runs via `codex exec` under the operator's own ChatGPT sign-in, isolated in the same way as the Baton orchestrator's runtime: user config ignored, no shell, no web, read-only sandbox, empty scratch directory, JSON-schema output. Every quote it returns is located on the page by the engine (unlocated quotes are flagged), and every figure in the memo is checked against the facts it was given. If the model is unavailable the deterministic workers still complete the run. Answer times on a ChatGPT sign-in vary a lot (measured from 5 s to over 4 minutes for the same request); a call that takes longer than `CODEX_TIMEOUT_MS` is dropped and the engine's own text is used, labelled as such.
 
 Subscription sign-in is for local use on the operator's machine. A hosted deployment needs API credentials.
 
@@ -82,7 +84,7 @@ The workspace opens as **Ioana Marinescu, Legal counsel**. Click your name (bott
 - **Contacts**: the dossier lists representatives without a deliverable address, so they show as "no contact on file" until an employee adds the real one.
 - **Assistant** (Codex, same isolation as the review workers): drafts a request to the company's representative (English or Romanian) for a case or for all problems, suggests an internal note and a requirement for each problem, and writes case reports. Figures it writes are checked against the facts it was given; without a model the engine writes plain drafts from the recorded findings. Ask also knows the company's contacts and cases.
 - **Activity log**: notes, reviews, signatures, scenario checks and routing are stored by the engine, chained per company with SHA-256, and verified in the browser.
-- **Run all assessments** (Companies): a new assessment for every company, three at a time with the model (six without). Earlier runs are kept.
+- **Run all assessments** (Companies): a new assessment for every company, two at a time with the model (six without; `CREDITDESK_BATCH_CONCURRENCY` changes it). Earlier runs are kept.
 
 ## Gmail
 

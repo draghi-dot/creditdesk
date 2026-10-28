@@ -26,7 +26,8 @@ let list: RunEvent[] = []
 before(async () => {
   const status = await codexStatus(process.env.CODEX_COMMAND ?? 'codex')
   assert.ok(status.available, 'Codex CLI must be installed and signed in (codex login): ' + status.detail)
-  engine = await startEngine({ CREDITDESK_LLM: 'codex', CREDITDESK_ANAF: 'on' })
+  // Codex answer times swing from seconds to minutes; this suite checks correctness, so it waits longer than the app does.
+  engine = await startEngine({ CREDITDESK_LLM: 'codex', CREDITDESK_ANAF: 'on', CODEX_TIMEOUT_MS: '300000' })
 })
 
 after(async () => {

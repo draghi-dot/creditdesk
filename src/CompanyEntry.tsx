@@ -129,7 +129,7 @@ function ProblemsPanel({ company, runId, problems, cases, onCase, onCasesChange,
   if (!problems.length) return <section className="panel problems-panel"><div className="side-card-head"><h2>Problems in the latest assessment</h2></div><p className="side-card-empty">None. Every document reconciled and every policy check passed.</p></section>
   return <section className="panel problems-panel">
     <div className="side-card-head"><h2>Problems in the latest assessment</h2>
-      <div className="side-card-actions"><Button small onClick={suggest} disabled={busy}><Lightbulb size={13} />{busy ? 'Thinking…' : suggestions ? 'Suggest again' : 'Suggest next steps'}</Button>
+      <div className="side-card-actions"><Button small onClick={suggest} disabled={busy}><Lightbulb size={13} />{busy ? 'Writing suggestions…' : suggestions ? 'Suggest again' : 'Suggest next steps'}</Button>
         <DraftRequestButton small label="Draft request for all" contacts={contacts} draft={o => draftCompanyRequest(company.id, o)} onDrafted={onDrafted} /></div></div>
     {suggestions && <p className="problems-note">Suggestions by {suggestions.author.startsWith('Codex') ? 'the assistant (' + suggestions.author + ')' : 'the engine, from the recorded findings'} · {when(suggestions.createdAt)}{suggestions.unsupported.length ? ' · check figures: ' + suggestions.unsupported.join(', ') : ''}</p>}
     <ol className="problems-mini">{problems.map((f, i) => {

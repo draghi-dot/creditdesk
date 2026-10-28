@@ -20,6 +20,8 @@ export type Language = 'en' | 'ro'
 interface Written<T> { value: T; author: string; unsupported: string[]; reason?: string }
 
 const docName = (kind: string) => docNames[kind] ?? kind
+/** Times as the bank's people read them (Bucharest), not UTC. */
+const local = (iso: string | null) => iso ? new Date(iso).toLocaleString('en-GB', { timeZone: 'Europe/Bucharest', day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }) : null
 const LANGUAGE: Record<Language, string> = { en: 'English', ro: 'Romanian (formal, using "dumneavoastră")' }
 
 function findingFacts(f: Finding) {
@@ -118,9 +120,9 @@ const REPORT_SCHEMA = {
 /** A short written report on a case for its department: the problem, the evidence, what was done, what is outstanding. */
 export async function caseReport(opts: { company: Company; case: Case; events: CaseEvent[]; requests: CompanyRequest[]; codex: CodexConfig | null; signal: AbortSignal }): Promise<Written<CaseReport>> {
   const c = opts.case
-  const timeline = opts.events.filter(e => e.kind !== 'report').map(e => ({ when: e.ts.slice(0, 16).replace('T', ' '), who: e.author, what: e.kind, text: e.text, data: e.data }))
-  const requests = opts.requests.map(r => ({ subject: r.subject, status: r.status, to: r.to.name || r.to.email, requirements: r.requirements, sent_at: r.sentAt }))
-  const facts = JSON.stringify({ ...requestFacts(opts.company), case: { ref: c.ref, department: departmentName(c.department), status: c.status, assignee: c.assignee, opened_by: c.createdBy, opened_at: c.createdAt }, problem: c.finding ? findingFacts(c.finding) : { title: c.title }, timeline, requests })
+  const timeline = opts.events.filter(e => e.kind !== 'report').map(e => ({ when: local(e.ts), who: e.author, what: e.kind, text: e.text, data: e.data }))
+  const requests = opts.requests.map(r => ({ subject: r.subject, status: r.status, to: r.to.name || r.to.email, requirements: r.requirements, sent_at: local(r.sentAt) }))
+  const facts = JSON.stringify({ ...requestFacts(opts.company), case: { ref: c.ref, department: departmentName(c.department), status: c.status, assignee: c.assignee, opened_by: c.createdBy, opened_at: local(c.createdAt) }, problem: c.finding ? findingFacts(c.finding) : { title: c.title }, timeline, requests })
   const prompt = [
     'Write a short case report for the ' + departmentName(c.department) + ' department of a bank about case ' + c.ref + ' for ' + opts.company.name + '.',
     'title: one line. paragraphs: 3-5 short paragraphs: the problem and where it is in the documents; why it matters; what has been done so far (who, when); what is outstanding and the recommended next step. At most 180 words in total.',
@@ -132,7 +134,7 @@ export async function caseReport(opts: { company: Company; case: Case; events: C
     paragraphs: [
       c.finding ? c.finding.observed + ' Compared against: ' + c.finding.comparedAgainst : c.title,
       c.finding?.whyItMatters ?? '',
-      'Opened by ' + c.createdBy + ' on ' + c.createdAt.slice(0, 10) + '; ' + opts.events.filter(e => e.kind === 'comment').length + ' comment(s); status ' + c.status.replace('_', ' ') + (c.assignee ? ', assigned to ' + c.assignee : ', not assigned') + '.',
+      'Opened by ' + c.createdBy + ' on ' + local(c.createdAt) + '; ' + opts.events.filter(e => e.kind === 'comment').length + ' comment(s); status ' + c.status.replace('_', ' ') + (c.assignee ? ', assigned to ' + c.assignee : ', not assigned') + '.',
       requests.length ? 'Requests to the company: ' + requests.map(r => r.subject + ' (' + r.status + ')').join('; ') + '.' : 'No request has been sent to the company yet.',
     ].filter(Boolean),
   }), opts.signal)

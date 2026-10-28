@@ -66,6 +66,7 @@ export function DraftRequestButton({ label = 'Draft a request', draft, onDrafted
         <label className="field-label">Language<select value={language} onChange={e => setLanguage(e.target.value as 'en' | 'ro')}><option value="en">English</option><option value="ro">Romanian</option></select></label>
         <label className="field-label">Anything to add (optional)<textarea rows={3} value={instructions} onChange={e => setInstructions(e.target.value)} placeholder="e.g. ask for the signed version; mention our call on Tuesday" /></label>
         {error && <p className="form-error"><CircleAlert size={14} />{error}</p>}
+        {busy && <p className="field-help">The assistant is writing the draft. This usually takes 10–60 seconds; nothing is sent.</p>}
       </div><div className="dialog-actions"><Button type="button" onClick={() => setOpen(false)} disabled={busy}>Cancel</Button><Button variant="primary" type="submit" disabled={busy}>{busy ? 'Writing the draft…' : 'Write draft'}</Button></div></form>
     </Dialog>}
   </>
