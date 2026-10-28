@@ -120,3 +120,32 @@ test('Ask with the model: answers from the run, points at the top finding, and a
   assert.equal(stored.length, 2)
   summary.ask = [biggest, quoted].map(a => ({ question: a.question, answer: a.answer, findingId: a.findingId, located: a.evidence.map(e => e.kind + ' p.' + e.page + ' · ' + e.marks.length + ' mark(s)'), unsupported: a.unsupported, durationMs: a.durationMs }))
 })
+
+test('the assistant drafts a request, suggests next steps and writes a case report with the model', async () => {
+  assert.ok(runId, 'needs the assessment above')
+  const view = foldAll(runId, list)
+  const finding = rankFindings(view.findings, view.decision)[0]
+  await engine.post('/companies/' + COMPANY + '/contacts', { name: 'Maria Enache', role: 'Chief financial officer', email: 'maria.enache@conpet.example.ro' })
+  const opened = await engine.post('/cases', { companyId: COMPANY, runId, findingId: finding.id, department: 'finance', note: 'Confirm the requested amount.' })
+  let started = Date.now()
+  const drafted = await engine.post('/cases/' + opened.case.id + '/request', { language: 'en' })
+  timings['model:request'] = Date.now() - started
+  assert.equal(drafted.author, AUTHOR)
+  assert.equal(drafted.request.to.email, 'maria.enache@conpet.example.ro')
+  assert.ok(drafted.request.requirements.length > 0 && drafted.request.body.length > 100)
+  started = Date.now()
+  const suggestions = await engine.post('/companies/' + COMPANY + '/suggestions')
+  timings['model:suggest'] = Date.now() - started
+  assert.equal(suggestions.author, AUTHOR)
+  assert.deepEqual(suggestions.items.map((i: any) => i.findingId), view.findings.map(f => f.id).filter(id => suggestions.items.some((i: any) => i.findingId === id)))
+  assert.ok(suggestions.items.length > 0)
+  started = Date.now()
+  const report = await engine.post('/cases/' + opened.case.id + '/report')
+  timings['model:report'] = Date.now() - started
+  assert.equal(report.data.author, AUTHOR)
+  assert.ok(report.data.report.paragraphs.length >= 2)
+  summary.assistant = {
+    request: { subject: drafted.request.subject, requirements: drafted.request.requirements, body: drafted.request.body, unsupported: drafted.unsupported },
+    suggestions: suggestions.items, report: report.data.report, reportUnsupported: report.data.unsupported,
+  }
+})

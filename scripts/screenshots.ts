@@ -18,9 +18,16 @@ try {
     runs[id] = (await engine.post('/companies/' + id + '/runs')).runId
     await readStream(engine.url + '/api/runs/' + runs[id] + '/stream?after=0')
   }
+  // Some people-side content: a case sent to Finance, a contact, a drafted request.
+  const events = await engine.get('/runs/' + runs['TEST-DOS-018'])
+  const finding = events.events.find((e: any) => e.type === 'finding_raised').payload.finding
+  const opened = await engine.post('/cases', { companyId: 'TEST-DOS-018', runId: runs['TEST-DOS-018'], findingId: finding.id, department: 'finance', note: 'Please confirm which amount is right before we go further.' })
+  await engine.post('/companies/TEST-DOS-018/contacts', { name: 'Maria Enache', role: 'Chief financial officer', email: 'maria.enache@conpet.example.ro', phone: '+40 244 401 360' })
+  await engine.post('/cases/' + opened.case.id + '/request', { language: 'en' })
+  await engine.post('/companies/TEST-DOS-018/suggestions')
   const shots: [string, string, string?][] = [
     ['overview', '/overview'], ['directory', '/companies'], ['queue', '/queue'], ['audit', '/audit'], ['policy', '/policy'],
-    ['departments', '/departments'],
+    ['departments', '/departments/finance'], ['case', '/cases/' + opened.case.id],
     ['entry-assessed', '/companies/TEST-DOS-018'], ['entry-new', '/companies/TEST-DOS-001'], ['entry-missing', '/companies/TEST-DOS-002'],
     ['run', '/companies/TEST-DOS-018/run/' + runs['TEST-DOS-018']],
     ['assessment', '/companies/TEST-DOS-018/assessment/' + runs['TEST-DOS-018']],

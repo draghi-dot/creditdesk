@@ -1,28 +1,6 @@
 import type { AuditEvent } from './types'
 
-const KEY = 'creditdesk.audit.v1'
-export function readEvents(): AuditEvent[] {
-  try { const value = JSON.parse(localStorage.getItem(KEY) || '[]'); return Array.isArray(value) ? value : [] } catch { return [] }
-}
-let pendingWrite: Promise<unknown> = Promise.resolve()
-export function appendEvent(companyId: string, action: string, detail: string, payload?: unknown): Promise<AuditEvent[]> {
-  const next = pendingWrite.then(() => writeEvent(companyId, action, detail, payload))
-  pendingWrite = next.catch(() => {})
-  return next
-}
-async function writeEvent(companyId: string, action: string, detail: string, payload?: unknown): Promise<AuditEvent[]> {
-  const events = readEvents()
-  const body = {
-    id: crypto.randomUUID(), companyId, time: new Date().toISOString(),
-    action, detail, actor: 'Demo analyst', previousHash: events.filter(e => e.companyId === companyId).at(-1)?.hash || '0'.repeat(64),
-    ...(payload === undefined ? {} : { payload }),
-  }
-  const bytes = new TextEncoder().encode(JSON.stringify(body))
-  const hash = [...new Uint8Array(await crypto.subtle.digest('SHA-256', bytes))].map(b => b.toString(16).padStart(2, '0')).join('')
-  const next = [...events, { ...body, hash }]
-  localStorage.setItem(KEY, JSON.stringify(next))
-  return next
-}
+/** Recompute each company's activity chain in the browser, independently of the engine. */
 export async function verifyEventChain(events: AuditEvent[]): Promise<boolean> {
   const previous = new Map<string, string>()
   for (const event of events) {

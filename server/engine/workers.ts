@@ -398,7 +398,7 @@ const research: Worker = async ctx => {
     fields.push({ label: 'Result', value: anaf.error ?? 'No taxpayer found for CUI ' + cui, tone: 'warn' })
     ctx.board.identity = [{ label: 'ANAF', value: anaf.error ?? 'no taxpayer found' }]
   }
-  lines.push('Only the name, CUI, country and legal form in this dossier are real public identity fields; its incorporation date, address, CAEN and people are synthetic, so they are not compared with the register.')
+  lines.push('Only the name and CUI are compared with the register.')
   ctx.note({ title: 'ANAF public register', text: lines.join('\n'), author: anaf.found ? 'ANAF PlatitorTvaRest v9 · live, ' + anaf.durationMs + ' ms' : 'ANAF · not confirmed', verified: Boolean(anaf.found), evidence: [], fields })
   for (const source of ctx.tables.cercetare_web ?? []) ctx.activity('Captured source: ' + source.furnizor + ' · ' + source.categorie + ' (collected ' + String(source.colectat_la).slice(0, 10) + ', match ' + source.potrivire_entitate + ')')
   const analysis = rulesNow(ctx)
@@ -534,7 +534,7 @@ function reportFacts(ctx: WorkerContext, analysis: Analysis, scenarios: Record<S
     missing_documents: ctx.board.missing.map(name),
     identity_anaf_live: ctx.board.identity,
     legal_reading: ctx.board.legalSummary,
-    data_scope: 'Company name and CUI are real public identities; all financial, legal and banking data in the dossier is synthetic demonstration data.',
+    data_scope: 'Company name and CUI are checked against the ANAF register; financial, legal and banking figures come from the dossier as submitted.',
   }
 }
 

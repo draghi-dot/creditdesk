@@ -3,8 +3,18 @@ import type { AskAnswer, AssessmentSummary, DossierUpload, ProviderInfo, RunEven
 import { canonicalEvent, emptyRun, foldRun } from './assessment'
 import type { Analysis, Policy, Scenario, Simulation } from './types'
 
-async function api<T>(path: string, init?: RequestInit): Promise<T> {
-  const res = await fetch('/api' + path, init)
+const USER_KEY = 'creditdesk.user'
+
+/** The employee this browser acts as; every engine call carries it. */
+export function actingUser(): string {
+  try { return localStorage.getItem(USER_KEY) ?? '' } catch { return '' }
+}
+export function setActingUser(id: string) {
+  try { localStorage.setItem(USER_KEY, id) } catch { /* private mode: this tab only */ }
+}
+
+export async function api<T>(path: string, init?: RequestInit): Promise<T> {
+  const res = await fetch('/api' + path, { ...init, headers: { ...init?.headers, 'x-user': actingUser() } })
   const body = await res.json().catch(() => ({}))
   if (!res.ok) throw Object.assign(new Error(body.error || 'The assessment engine answered ' + res.status), { status: res.status, body })
   return body as T
@@ -24,6 +34,7 @@ export const runWhatIf = (runId: string, settings: Simulation) =>
 export const askQuestion = (runId: string, question: string, findingId?: string | null) =>
   api<AskAnswer>('/runs/' + runId + '/ask', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ question, findingId }) })
 export const listQuestions = (runId: string) => api<AskAnswer[]>('/runs/' + runId + '/questions')
+export const getRun = (runId: string) => api<{ summary: AssessmentSummary; events: RunEvent[]; active: boolean }>('/runs/' + runId)
 export const verifyRunOnServer = (runId: string) => api<{ ok: boolean; events: number; brokenAt: number | null }>('/runs/' + runId + '/verify')
 
 export const pageImageUrl = (companyId: string, file: string, page: number) => '/api/documents/' + companyId + '/' + encodeURIComponent(file) + '/pages/' + page + '.png'

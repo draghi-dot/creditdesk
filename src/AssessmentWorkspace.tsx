@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import type { FormEvent, ReactNode } from 'react'
-import { ArrowRight, ArrowUpRight, Check, CircleAlert, ClipboardCopy, Download, FileSearch, FileX2, ListChecks, LoaderCircle, MessageSquareText, PanelLeftClose, PanelLeftOpen, Radio, Send, ShieldCheck, Sparkles, X } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, Check, CircleAlert, ClipboardCopy, Download, FileSearch, FileText, FileX2, ListChecks, LoaderCircle, MessageSquareText, PanelLeftClose, PanelLeftOpen, Radio, Send, ShieldCheck, X } from 'lucide-react'
 import type { AgentId, AskAnswer, CheckResult, EvidenceRef, FindingView, RunEvent, RunView } from './assessment'
 import { DEPENDENT_CHECKS, REQUIRED_DOCUMENTS, rankFindings } from './assessment'
 import type { Company } from './types'
@@ -10,6 +10,9 @@ import { AgentMap, EvidenceViewer, FindingDetail, ImpactTag, NoteCard, emphasize
 import type { EngineHealth } from './runs'
 import { askQuestion, clock, duration, getHealth, listQuestions } from './runs'
 import { AddDocumentButton } from './DossierDocuments'
+import type { Case } from './workspace'
+import { SendToDepartment } from './Departments'
+import { useCases } from './people'
 import { downloadFile } from './storage'
 
 type Panel = 'evidence' | 'ask' | 'activity' | 'sources'
@@ -19,7 +22,7 @@ type Focus = { finding: string } | { evidence: EvidenceRef[]; title: string; bac
 /** How long an automatically opened finding stays in view before the next one. */
 const DWELL_MS = 2600
 
-const SUGGESTIONS = ['What is the biggest problem?', 'Why did the assessment reach this decision?', 'Which documents have to be corrected?', 'Is the company identity confirmed?']
+const SUGGESTIONS = ['What is the biggest problem?', 'Why did the assessment reach this decision?', 'Which documents have to be corrected?', 'Who is the company contact?']
 const ABOUT_SUGGESTIONS = ['Explain this problem in plain words', 'What would resolve it?', 'Which figures cause it?', 'How does it change the decision?']
 
 const storedMap = () => { try { return localStorage.getItem('creditdesk.map.hidden') === 'true' } catch { return false } }
@@ -97,16 +100,20 @@ export default function AssessmentWorkspace({ company, view, events, live, conne
   const focusedFinding = focusedId ? view.findings.find(f => f.id === focusedId) ?? null : null
   const rankOf = (id: string) => ranked.findIndex(f => f.id === id) + 1
   const highlight = focusedFinding?.worker ?? worker
+  // Problems already sent to a department show their case instead of the send button.
+  const { cases, refresh: refreshCases } = useCases({ company: company.id })
+  const caseFor = (f: FindingView): Case | null => (cases ?? []).find(c => c.status !== 'resolved' && c.finding?.id === f.id && c.finding?.title === f.title) ?? null
+  const routing = { company, runId: view.runId, completed: view.status === 'completed', caseFor, onSent: () => { refreshCases() }, onOpenCase: (c: Case) => { window.location.hash = '/cases/' + c.id } }
 
   return <div className="ws">
     <div className={'ws-top' + (mapHidden ? ' map-hidden' : '')} ref={top}>
-      {mapHidden ? <section className="ws-map-rail" aria-label="Agent map (hidden)">
-        <button className="ws-icon" onClick={toggleMap} title="Show the agent map" aria-label="Show the agent map"><PanelLeftOpen size={14} /></button>
+      {mapHidden ? <section className="ws-map-rail" aria-label="Review progress (hidden)">
+        <button className="ws-icon" onClick={toggleMap} title="Show the review progress" aria-label="Show the review progress"><PanelLeftOpen size={14} /></button>
         {view.order.filter(id => view.workers[id].state !== 'hidden').map(id => { const w = view.workers[id]; const Icon = workerIcons[id]; return <button key={id} className={'rail-worker state-' + w.state + (highlight === id ? ' rail-highlight' : '')} title={w.role.name + ' · ' + w.state + (w.summary ? ' · ' + w.summary : '')} onClick={() => { setWorker(id); setPanel('activity') }}><Icon size={14} />{w.findings.length > 0 && <span>{w.findings.length}</span>}</button> })}
       </section> : <section className="ws-map">
-        <div className="ws-heading"><h2>Agent map</h2><MapStatus view={view} live={live} /><button className="ws-icon" onClick={toggleMap} title="Hide the map to give the evidence more room" aria-label="Hide the agent map"><PanelLeftClose size={14} /></button></div>
+        <div className="ws-heading"><h2>Review progress</h2><MapStatus view={view} live={live} /><button className="ws-icon" onClick={toggleMap} title="Hide the map to give the evidence more room" aria-label="Hide the review progress"><PanelLeftClose size={14} /></button></div>
         <AgentMap view={view} selected={worker} highlight={highlight} fit onSelect={id => { setWorker(w => w === id ? null : id); setPanel('activity') }} />
-        <div className="ws-legend"><span><i className="lg-waiting" />Waiting</span><span><i className="lg-running" />Working</span><span><i className="lg-done" />Done</span><span><i className="lg-attention" />Raised findings</span><span className="ws-legend-hint">Select a worker to see what it did</span></div>
+        <div className="ws-legend"><span><i className="lg-waiting" />Waiting</span><span><i className="lg-running" />Working</span><span><i className="lg-done" />Done</span><span><i className="lg-attention" />Raised findings</span><span className="ws-legend-hint">Select a step to see what it did</span></div>
       </section>}
       <aside className="ws-panel">
         <div className="ws-tabs" role="tablist">
@@ -120,7 +127,7 @@ export default function AssessmentWorkspace({ company, view, events, live, conne
             location={focus && 'evidence' in focus ? focus : null} follow={follow} live={live}
             onFollow={() => { setFollow(true); setShownAt(0) }} onClose={() => setFocus(null)} onStep={d => { const i = ranked.findIndex(f => f.id === focusedId); const n = ranked[i + d]; if (n) open({ finding: n.id }) }}
             onWorker={id => { setWorker(id); setPanel('activity') }} onTop={() => ranked[0] && open({ finding: ranked[0].id })} onLocate={(evidence, title) => open({ evidence, title, back: focusedId ?? undefined })} onBack={id => open({ finding: id })}
-            onAsk={id => { setAskAbout(id); setPanel('ask') }} ranked={ranked} onSelect={id => open({ finding: id })} onRunNew={onRunNew} />}
+            onAsk={id => { setAskAbout(id); setPanel('ask') }} ranked={ranked} onSelect={id => open({ finding: id })} onRunNew={onRunNew} routing={routing} />}
           <div hidden={panel !== 'ask'} className="ws-ask-wrap"><AskPanel view={view} onOpen={openAnswer} about={askAbout ? view.findings.find(f => f.id === askAbout) ?? null : null} aboutRank={askAbout ? rankOf(askAbout) : 0} onClearAbout={() => setAskAbout(null)} /></div>
           {panel === 'activity' && <ActivityPanel view={view} events={events} worker={worker} onClear={() => setWorker(null)} connection={connection} />}
           {panel === 'sources' && <div className="ws-sources">{view.notes.length ? view.notes.map(n => <NoteCard key={n.seq} note={n} view={view} />) : <Empty icon={<ShieldCheck size={20} />} title="No sources yet">Identity research and legal review post what they consulted here.</Empty>}</div>}
@@ -129,7 +136,7 @@ export default function AssessmentWorkspace({ company, view, events, live, conne
     </div>
 
     <CheckStrip view={view} live={live} />
-    <ProblemList view={view} ranked={ranked} focused={focusedId} live={live} onOpen={id => open({ finding: id }, true)} />
+    <ProblemList view={view} ranked={ranked} focused={focusedId} live={live} onOpen={id => open({ finding: id }, true)} routing={routing} onRunNew={onRunNew} />
     <ReportView company={company} view={view} live={live} ranked={ranked} onOpen={id => open({ finding: id }, true)} />
   </div>
 }
@@ -138,25 +145,28 @@ function MapStatus({ view, live }: { view: RunView; live: boolean }) {
   const ws = Object.values(view.workers)
   const working = ws.filter(w => w.state === 'running').length
   const done = ws.filter(w => w.state === 'done' || w.state === 'attention').length
-  return <span className="ws-map-status">{live && view.status === 'running' ? <><LoaderCircle size={11} className="spin" />{working} working · {done} of {ws.length} done</> : done + ' of ' + ws.length + ' workers completed'}</span>
+  return <span className="ws-map-status">{live && view.status === 'running' ? <><LoaderCircle size={11} className="spin" />{working} working · {done} of {ws.length} done</> : done + ' of ' + ws.length + ' steps done'}</span>
 }
 
 function Empty({ icon, title, children }: { icon: ReactNode; title: string; children: ReactNode }) {
   return <div className="ws-empty">{icon}<strong>{title}</strong><p>{children}</p></div>
 }
 
-function EvidencePanel({ company, view, finding, rank, total, location, follow, live, onFollow, onClose, onStep, onWorker, onTop, onLocate, onBack, onAsk, ranked, onSelect, onRunNew }: {
+interface Routing { company: Company; runId: string; completed: boolean; caseFor: (f: FindingView) => Case | null; onSent: (c: Case) => void; onOpenCase: (c: Case) => void }
+
+function EvidencePanel({ company, view, finding, rank, total, location, follow, live, onFollow, onClose, onStep, onWorker, onTop, onLocate, onBack, onAsk, ranked, onSelect, onRunNew, routing }: {
   company: Company; view: RunView; finding: FindingView | null; rank: number; total: number; location: { evidence: EvidenceRef[]; title: string; back?: string } | null
   follow: boolean; live: boolean; onFollow: () => void; onClose: () => void; onStep: (d: number) => void; onWorker: (id: AgentId) => void; onTop: () => void
   onLocate: (evidence: EvidenceRef[], title: string) => void; onBack: (findingId: string) => void
-  onAsk: (findingId: string) => void; ranked: FindingView[]; onSelect: (findingId: string) => void; onRunNew?: () => void
+  onAsk: (findingId: string) => void; ranked: FindingView[]; onSelect: (findingId: string) => void; onRunNew?: () => void; routing: Routing
 }) {
   const missing = finding && !finding.evidence.length ? finding.missingDocument ?? (finding.ruleIds.includes('DATA-01') ? REQUIRED_DOCUMENTS.find(k => finding.title.endsWith(docNames[k])) : undefined) : undefined
   if (finding) return <div className="ws-evidence">
     <div className="ws-evidence-bar">
       <span className="ws-rank">#{rank}<small>of {total}</small></span>
-      <span>{rank === 1 ? 'Most important problem' : 'Problem ' + rank + ' by importance'}</span>
+      <span className="ws-rank-label">{rank === 1 ? 'Top problem' : 'Problem ' + rank}</span>
       <button className="ask-about" onClick={() => onAsk(finding.id)} title="Ask the assistant about this problem"><MessageSquareText size={12} />Ask about this</button>
+      {routing.completed && <SendToDepartment small companyId={company.id} runId={routing.runId} finding={finding} existing={routing.caseFor(finding)} onSent={routing.onSent} onOpen={routing.onOpenCase} />}
       {live && view.status === 'running' && <button className={'follow-toggle' + (follow ? ' on' : '')} onClick={onFollow}>{follow ? 'Following' : 'Follow new'}</button>}
       <button className="ws-icon" onClick={() => onStep(-1)} disabled={rank <= 1} aria-label="Previous problem">‹</button>
       <button className="ws-icon" onClick={() => onStep(1)} disabled={rank >= total} aria-label="Next problem">›</button>
@@ -175,7 +185,7 @@ function EvidencePanel({ company, view, finding, rank, total, location, follow, 
   return <Empty icon={<FileSearch size={20} />} title={total ? 'Select a problem' : view.status === 'completed' ? 'No problems found' : 'No problems found yet'}>
     {total ? <>Pick a problem from the ranked list below, or <button className="text-button" onClick={onTop}>open the most important one<ArrowRight size={12} /></button></> :
       view.status === 'completed' ? 'Every document reconciled and every policy check passed. Ask a question or read the report below.' :
-        'When a worker finds an issue, its original page opens here with the figures outlined.'}
+        'When a check finds a problem, its original page opens here with the figures outlined.'}
   </Empty>
 }
 
@@ -208,13 +218,13 @@ function MissingDocument({ company, view, kind, onLocate, onRunNew }: { company:
   }
   return <div className="missing-doc">
     <div className="missing-doc-head"><span><FileX2 size={18} /></span><div><strong>{docNames[kind] ?? kind} is not in the dossier</strong><p>There is no page to open. The case coordinator checked the dossier against the required list and found no file for it.</p></div></div>
+    <div className="missing-doc-next"><ArrowRight size={13} /><div>Ask the client for the {(docNames[kind] ?? kind).toLowerCase()}, upload it here, then run a new assessment.
+      <AddDocumentButton company={company} kind={kind} label={'Upload the ' + (docNames[kind] ?? kind).toLowerCase()} onRunNew={onRunNew} /></div></div>
     <h5>Dossier checklist · {REQUIRED_DOCUMENTS.filter(k => present.has(k)).length} of {REQUIRED_DOCUMENTS.length} present</h5>
     <ul className="doc-checklist">{REQUIRED_DOCUMENTS.map(k => present.has(k)
       ? <li key={k}><button onClick={() => openDoc(k)} title="Open this document"><Check size={12} />{docNames[k] ?? k}<small>{added.has(k) ? 'added · ' : ''}{present.get(k)!.pagini} p.</small></button></li>
       : <li key={k} className={'doc-missing' + (k === kind ? ' doc-this' : '')}><span><X size={12} />{docNames[k] ?? k}<small>missing</small></span></li>)}</ul>
     {blocked.length > 0 && <><h5>Checks that cannot run without it</h5><ul className="doc-blocked">{blocked.map(r => <li key={r!.id}><code>{r!.id}</code><div><strong>{r!.title}</strong><span>{r!.explanation}</span></div></li>)}</ul></>}
-    <div className="missing-doc-next"><ArrowRight size={13} /><div>Ask the client for the {(docNames[kind] ?? kind).toLowerCase()}, add it to the dossier here, then run a new assessment.
-      <AddDocumentButton company={company} kind={kind} label={'Add the ' + (docNames[kind] ?? kind).toLowerCase()} onRunNew={onRunNew} /></div></div>
   </div>
 }
 
@@ -246,7 +256,7 @@ function AskPanel({ view, onOpen, about, aboutRank, onClearAbout }: { view: RunV
   const submit = (e: FormEvent) => { e.preventDefault(); ask(text) }
   return <div className="ask">
     <div className="ask-list" ref={list}>
-      {!items.length && !pending && <div className="ask-intro"><Sparkles size={18} /><strong>Ask about this assessment</strong><p>{model ? model + ' answers' : 'Answers come'} from this run's findings, checks and original documents. When an answer points somewhere, the page opens with the place outlined.</p></div>}
+      {!items.length && !pending && <div className="ask-intro"><MessageSquareText size={18} /><strong>Ask about this assessment</strong><p>{model ? model + ' answers' : 'Answers come'} from this run's findings, checks and original documents. When an answer points somewhere, the page opens with the place outlined.</p></div>}
       {items.map(a => <div key={a.id} className="ask-turn">
         <div className="ask-q">{a.question}</div>
         <div className={'ask-a' + (a.ok ? '' : ' ask-error')}>
@@ -310,13 +320,13 @@ function CheckStrip({ view, live }: { view: RunView; live: boolean }) {
   const total = checks.size
   const passing = [...checks.values()].filter(c => c.state === 'pass' || c.state === 'info').length
   return <section className="ws-section">
-    <div className="ws-section-head"><ListChecks size={16} /><h2>Policy checks</h2><span>{total ? passing + ' of ' + total + ' met' : live ? 'Checks appear as workers finish' : 'No checks recorded'}{view.policy ? ' · ' + view.policy.politica_id : ''}</span></div>
+    <div className="ws-section-head"><ListChecks size={16} /><h2>Policy checks</h2><span>{total ? passing + ' of ' + total + ' met' : live ? 'Checks appear as the review steps finish' : 'No checks recorded'}{view.policy ? ' · ' + view.policy.politica_id : ''}</span></div>
     <div className="check-tiles">{TILES.map(t => {
       const c = checks.get(t.id)
       return <div key={t.id} className={'check-tile ' + (c ? 'tile-' + c.state : 'tile-pending')} title={c ? c.title + ': ' + c.observed : ''}>
         <span className="tile-label">{t.label}</span>
         <strong className="tile-value">{c ? c.observed.replace(/ · .*/, '') : '—'}</strong>
-        <span className="tile-req">{c ? c.expected : 'Waiting for ' + (owner(t.id)?.role.name ?? 'worker')}</span>
+        <span className="tile-req">{c ? c.expected : 'Waiting for ' + (owner(t.id)?.role.name ?? 'its review step')}</span>
         {c && <span className="tile-state">{STATE_LABEL[c.state]}</span>}
       </div>
     })}
@@ -327,30 +337,37 @@ function CheckStrip({ view, live }: { view: RunView; live: boolean }) {
       return <div key={g.prefix} className={'check-tile tile-' + state} title={list.map(c => c.id + ' ' + c.title + ': ' + c.observed).join('\n')}>
         <span className="tile-label">{g.label}</span>
         <strong className="tile-value">{list.length ? (list.length - bad.length) + ' / ' + list.length : '—'}</strong>
-        <span className="tile-req">{!list.length ? 'Waiting for ' + (owner(g.prefix)?.role.name ?? 'worker') : bad.length ? bad.map(c => c.title).join(', ') : 'All met'}</span>
+        <span className="tile-req">{!list.length ? 'Waiting for ' + (owner(g.prefix)?.role.name ?? 'its review step') : bad.length ? bad.map(c => c.title).join(', ') : 'All met'}</span>
         {list.length > 0 && <span className="tile-state">{state === 'pass' ? 'Meets policy' : STATE_LABEL[state as CheckResult['state']]}</span>}
       </div>
     })}</div>
   </section>
 }
 
-function ProblemList({ view, ranked, focused, live, onOpen }: { view: RunView; ranked: FindingView[]; focused: string | null; live: boolean; onOpen: (id: string) => void }) {
+function ProblemList({ view, ranked, focused, live, onOpen, routing, onRunNew }: { view: RunView; ranked: FindingView[]; focused: string | null; live: boolean; onOpen: (id: string) => void; routing: Routing; onRunNew?: () => void }) {
   return <section className="ws-section">
     <div className="ws-section-head"><CircleAlert size={16} /><h2>Problems, most important first</h2><span>{ranked.length ? ranked.length + (ranked.length === 1 ? ' problem' : ' problems') + ' · blocks decision → fails policy → condition → advisory' : ''}</span></div>
     {!ranked.length ? <div className="problems-none">{view.status === 'completed' ? <><Check size={18} /><div><strong>No problems found</strong><span>All documents reconciled with the recorded data and every policy check was met.</span></div></>
-      : <><LoaderCircle size={16} className={live ? 'spin' : ''} /><div><strong>{live ? 'No problems found so far' : 'No problems recorded'}</strong><span>{live ? 'Workers are still reviewing the dossier.' : 'This run did not record findings.'}</span></div></>}</div> :
+      : <><LoaderCircle size={16} className={live ? 'spin' : ''} /><div><strong>{live ? 'No problems found so far' : 'No problems recorded'}</strong><span>{live ? 'The review is still running.' : 'This run did not record findings.'}</span></div></>}</div> :
     <ol className="problems">{ranked.map((f, i) => {
       const Icon = workerIcons[f.worker]
       const where = f.evidence[0]
-      return <li key={f.id}><button className={'problem impact-row-' + f.impact + (focused === f.id ? ' active' : '')} onClick={() => onOpen(f.id)}>
-        <span className="problem-rank">{i + 1}</span>
-        <div className="problem-body">
-          <div className="problem-top"><ImpactTag impact={f.impact} /><strong>{f.title}</strong></div>
-          <p>{emphasize(f.observed)}</p>
-          <div className="problem-meta"><span><Icon size={11} />{view.workers[f.worker]?.role.name}</span>{where ? <span><FileSearch size={11} />{docNames[where.kind] ?? where.kind} · page {where.page}</span> : <span><FileSearch size={11} />No document</span>}{f.ruleIds.length > 0 && <span>{f.ruleIds.join(', ')}</span>}</div>
+      const missing = f.missingDocument ?? (f.ruleIds.includes('DATA-01') && !f.evidence.length ? REQUIRED_DOCUMENTS.find(k => f.title.endsWith(docNames[k])) : undefined)
+      return <li key={f.id} className={'problem impact-row-' + f.impact + (focused === f.id ? ' active' : '')}>
+        <button className="problem-main" onClick={() => onOpen(f.id)}>
+          <span className="problem-rank">{i + 1}</span>
+          <div className="problem-body">
+            <div className="problem-top"><ImpactTag impact={f.impact} /><strong>{f.title}</strong></div>
+            <p>{emphasize(f.observed)}</p>
+            <div className="problem-meta"><span><Icon size={11} />{view.workers[f.worker]?.role.name}</span>{where ? <span><FileSearch size={11} />{docNames[where.kind] ?? where.kind} · page {where.page}</span> : <span><FileSearch size={11} />No document</span>}{f.ruleIds.length > 0 && <span>{f.ruleIds.join(', ')}</span>}</div>
+          </div>
+        </button>
+        <div className="problem-actions">
+          {missing && <AddDocumentButton company={routing.company} kind={missing} label="Upload document" compact onRunNew={onRunNew} />}
+          {routing.completed && <SendToDepartment small companyId={routing.company.id} runId={routing.runId} finding={f} existing={routing.caseFor(f)} onSent={routing.onSent} onOpen={routing.onOpenCase} />}
+          <button className="problem-open" onClick={() => onOpen(f.id)}>Open<ArrowRight size={13} /></button>
         </div>
-        <span className="problem-open">Open<ArrowRight size={13} /></span>
-      </button></li>
+      </li>
     })}</ol>}
   </section>
 }
@@ -365,11 +382,11 @@ function ReportView({ company, view, live, ranked, onOpen }: { company: Company;
   const handoff = view.workers.handoff
   if (!view.report) {
     if (live && handoff && handoff.state !== 'done' && handoff.state !== 'attention') return <section className="ws-section report report-pending">
-      <div className="ws-section-head"><Sparkles size={16} /><h2>Assessment report</h2><span>{handoff.state === 'running' ? 'Being written' : 'Written when the decision is reached'}</span></div>
-      <div className="report-skeleton">{handoff.llm?.running ? <><LoaderCircle size={14} className="spin" />The analyst handoff worker is writing the report with {handoff.llm.model}…</> : 'The analyst handoff worker writes this report after the policy evaluation.'}<i /><i /><i /></div>
+      <div className="ws-section-head"><FileText size={16} /><h2>Assessment report</h2><span>{handoff.state === 'running' ? 'Being written' : 'Written when the decision is reached'}</span></div>
+      <div className="report-skeleton">{handoff.llm?.running ? <><LoaderCircle size={14} className="spin" />The analyst handoff worker is writing the report with {handoff.llm.model}…</> : 'The report is written after the policy evaluation.'}<i /><i /><i /></div>
     </section>
     const memo = view.notes.find(n => n.worker === 'handoff')
-    return memo ? <section className="ws-section"><div className="ws-section-head"><Sparkles size={16} /><h2>Analyst memo</h2><span>This run predates full reports</span></div><NoteCard note={memo} view={view} /></section> : null
+    return memo ? <section className="ws-section"><div className="ws-section-head"><FileText size={16} /><h2>Analyst memo</h2><span>This run predates full reports</span></div><NoteCard note={memo} view={view} /></section> : null
   }
   const { report, author, verified, unsupported } = view.report
   const rank = (id: string) => ranked.findIndex(f => f.id === id) + 1
@@ -384,7 +401,7 @@ function ReportView({ company, view, live, ranked, onOpen }: { company: Company;
     { label: 'Own contribution', value: m.contribution.toFixed(1) + '%', need: 'min ' + p.aport_min_procente + '%', ok: m.contribution + .001 >= p.aport_min_procente },
   ] : []
   return <section className="ws-section report">
-    <div className="ws-section-head"><Sparkles size={16} /><h2>Assessment report</h2><span>{author}</span>
+    <div className="ws-section-head"><FileText size={16} /><h2>Assessment report</h2><span>{author}</span>
       {verified ? <span className="note-verified"><ShieldCheck size={11} />Every figure checked against the run</span> : <span className="note-flag"><CircleAlert size={11} />Unverified figures: {unsupported.join(', ')}</span>}
       <div className="report-actions">
         <button onClick={() => navigator.clipboard?.writeText(reportMarkdown(view, company))} title="Copy as Markdown"><ClipboardCopy size={13} />Copy</button>

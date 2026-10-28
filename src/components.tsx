@@ -42,7 +42,7 @@ export function Dialog({ title, description, children, onClose, wide = false }: 
 }
 export function DocumentViewer({ company, document: doc, onClose, toast }: { company: Company; document: Row; onClose: () => void; toast: (s: string) => void }) {
   return <Dialog wide title={doc.tip_document.replaceAll('_', ' ')} description={company.name + ' · ' + doc.document_id} onClose={onClose}>
-    <div className="document-meta"><span><FileText size={15} />{doc.pagini} {doc.pagini === 1 ? 'page' : 'pages'} · PDF</span><span className="meta-demo">Synthetic source</span>
+    <div className="document-meta"><span><FileText size={15} />{doc.pagini} {doc.pagini === 1 ? 'page' : 'pages'} · PDF</span>
       <a className="button button-secondary button-small" href={documentUrl(company, doc)} download><ArrowDownToLine size={14} />Download</a>
       <a className="icon-button" href={documentUrl(company, doc)} target="_blank" rel="noreferrer" aria-label="Open PDF in new tab"><ArrowUpRight size={17} /></a></div>
     <iframe className="pdf-frame" src={documentUrl(company, doc) + '#toolbar=1'} title={doc.tip_document} />

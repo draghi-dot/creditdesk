@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { ArrowRight, Check, ChevronLeft, ChevronRight, CircleAlert, LoaderCircle, Radio, Sparkles, Square, X } from 'lucide-react'
+import { ArrowRight, Check, ChevronLeft, ChevronRight, CircleAlert, LoaderCircle, Radio, Square, X } from 'lucide-react'
 import type { Company } from './types'
 import { decisionLabels } from './analysis'
 import { Badge, Button } from './components'
@@ -37,11 +37,11 @@ export default function AssessmentRun({ company, runId, onBack, onOpenAssessment
       <div className="run-title">
         <span className={'run-live run-live-' + view.status}>{running ? <Radio size={13} /> : view.status === 'completed' ? <Check size={13} /> : <X size={13} />}</span>
         <div><h1>{running ? 'Assessment in progress' : view.status === 'completed' ? 'Assessment completed' : view.status === 'cancelled' ? 'Assessment cancelled' : 'Assessment failed'}</h1>
-          <p>{company.name}<i />started {clock(view.createdAt!).slice(0, 8)}<i />{duration(view.createdAt, view.endedAt)}<i />{finished} of {workers.length} workers done<i />{view.findings.length} {view.findings.length === 1 ? 'problem' : 'problems'}</p></div>
+          <p>{company.name}<i />started {clock(view.createdAt!).slice(0, 8)}<i />{duration(view.createdAt, view.endedAt)}<i />{finished} of {workers.length} steps done<i />{view.findings.length} {view.findings.length === 1 ? 'problem' : 'problems'}</p></div>
       </div>
       {view.decision && <div className={'run-verdict decision-' + view.decision.decision}><Badge decision={view.decision.decision} /><span>{view.decision.reasons.length ? view.decision.reasons.map(r => r.split(':')[0]).join(' · ') : 'Every policy rule is met'}</span></div>}
       <div className="run-header-actions">
-        <span className="run-provider" title="Model used for the legal reading, the report and questions">{view.provider?.id === 'codex' ? <><Sparkles size={12} />Codex {view.provider.model} · {view.provider.effort}</> : 'No model · deterministic workers only'}</span>
+        <span className="run-provider" title="Model used for the legal reading, the report and questions">{view.provider?.id === 'codex' ? <>Codex {view.provider.model} · {view.provider.effort}</> : 'No model: checks only'}</span>
         {running && <Button small onClick={cancel} disabled={cancelling}><Square size={12} />{cancelling ? 'Cancelling…' : 'Cancel run'}</Button>}
         {view.status === 'completed' && <Button small variant="primary" onClick={() => onOpenAssessment(runId)}>Open full assessment<ArrowRight size={14} /></Button>}
       </div>

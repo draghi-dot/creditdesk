@@ -1,7 +1,8 @@
 // The workspace in a real (headless) browser against the real engine: company
 // entry with nothing running, a live run filling the map from the event
 // stream, the first finding opening its original page with outlined figures,
-// Ask, and the completed assessment. Screenshots go to test-results/browser/.
+// Ask, the completed assessment, and the people side: sending a problem to a
+// department, the case page, switching employee. Screenshots go to test-results/browser/.
 //
 //   npm run test:browser          (deterministic: no model, no ANAF call)
 //   CREDITDESK_LLM=codex CREDITDESK_ANAF=on npm run test:browser
@@ -38,7 +39,7 @@ const SAMPLE = `(() => {
 test('opening a company runs nothing and offers the two actions', async () => {
   await page.goto(engine.url + '/#/companies/' + COMPANY)
   await page.waitFor(`[...document.querySelectorAll('.entry-choice h2')].map(h => h.textContent).join('|') === 'View assessment|Run new assessment'`, 'the two actions')
-  assert.ok(await page.eval(`document.body.textContent.includes('No completed assessment')`))
+  assert.ok(await page.eval(`document.body.textContent.includes('Not assessed yet')`))
   assert.equal(await page.eval(`[...document.querySelectorAll('.entry-choice button')].find(b => b.textContent.includes('View assessment')).disabled`), true)
   await page.screenshot(shots + '1-entry.png')
   assert.deepEqual((await engine.get('/companies/' + COMPANY + '/runs')).runs, [], 'nothing ran on open')
@@ -103,4 +104,40 @@ test('View assessment then opens the completed run', async () => {
   await page.waitFor(`document.querySelectorAll('.map-node').length === 10`, 'the recorded map')
   await page.screenshot(shots + '5-assessment.png')
   assert.deepEqual(page.errors, [])
+})
+
+test('a problem is sent to its department from the assessment and opens as a case there', async () => {
+  await page.goto(engine.url + '/#/companies/' + COMPANY + '/assessment/' + runId)
+  await page.waitFor(`document.querySelector('.problems .problem-actions')`, 'the ranked problems')
+  await page.click('.problems .problem-actions button', 'Send to Finance')
+  await page.waitFor(`document.querySelector('dialog[open] .department-choice label.checked')?.textContent.startsWith('Finance')`, 'Finance chosen already')
+  await page.type('dialog[open] textarea', 'Please confirm which amount the client applied for.')
+  await page.click('dialog[open] button[type="submit"]', 'Send to Finance')
+  const chip = await page.waitFor<string>(`document.querySelector('.problems .sent-to')?.textContent`, 'the case chip on the problem')
+  assert.match(chip, /^#\d+ · Finance · Open/)
+  await page.goto(engine.url + '/#/departments/finance')
+  await page.waitFor(`document.querySelectorAll('.case-table tbody tr').length === 1`, 'the case in Finance')
+  await page.click('.case-table tbody tr')
+  await page.waitFor(`document.querySelector('.case-header h1')?.textContent.includes('Requested amount')`, 'the case page')
+  await page.waitFor(`(() => { const img = document.querySelector('.case-evidence .evidence-page img'); return img && img.complete && img.naturalWidth > 0 })()`, 'the evidence page on the case')
+  const timeline = await page.eval<{ who: string; note: string }[]>(`[...document.querySelectorAll('.timeline li')].map(li => ({ who: li.querySelector('p').textContent.replace(li.querySelector('time').textContent, ''), note: li.querySelector('blockquote')?.textContent ?? '' }))`)
+  assert.deepEqual(timeline, [{ who: 'Ioana Marinescu sent this problem to Finance', note: 'Please confirm which amount the client applied for.' }])
+  await page.screenshot(shots + '6-case.png')
+  assert.deepEqual(page.errors, [])
+})
+
+test('the employee can be switched from the menu', async () => {
+  await page.click('.sidebar .profile')
+  await page.waitFor(`document.querySelector('.user-menu')`, 'the employee menu')
+  await page.click('.user-menu-group button', 'Andrei Popa')
+  await page.waitFor(`document.querySelector('.sidebar .profile strong')?.textContent === 'Andrei Popa'`, 'Andrei Popa signed in')
+  assert.equal((await engine.get('/me')).user.name, 'Ioana Marinescu', 'the engine default is unchanged; the browser sends its choice per request')
+})
+
+test('a missing required document is the first thing on the company page, with its upload', async () => {
+  await page.goto(engine.url + '/#/companies/TEST-DOS-002')
+  const alert = await page.waitFor<string>(`document.querySelector('.missing-alert')?.textContent`, 'the missing-document alert')
+  assert.ok(alert.includes('Cash-flow history & projection') && alert.includes('Upload PDF'))
+  assert.equal(await page.eval(`document.querySelector('.missing-alert').compareDocumentPosition(document.querySelector('.entry-actions')) & Node.DOCUMENT_POSITION_FOLLOWING`), 4, 'shown above the assessment actions')
+  await page.screenshot(shots + '7-missing-document.png')
 })

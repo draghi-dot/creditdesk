@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import type { ComponentType, ReactNode } from 'react'
 import { createPortal } from 'react-dom'
-import { Bot, Check, ChevronLeft, ChevronRight, CircleAlert, ExternalLink, FileSearch, Fingerprint, Globe2, Hourglass, Landmark, Layers3, ListChecks, LoaderCircle, Maximize2, ScanLine, ShieldCheck, Sparkles, Workflow, X } from 'lucide-react'
+import { Bot, Check, ChevronLeft, ChevronRight, CircleAlert, ExternalLink, FileSearch, Fingerprint, Globe2, Hourglass, Landmark, Layers3, ListChecks, LoaderCircle, Maximize2, ScanLine, ShieldCheck, Workflow, X } from 'lucide-react'
 import type { AgentId, EvidenceRef, FindingImpact, FindingView, NoteView, RunView, WorkerView } from './assessment'
 import { docNames } from './documents'
 import { clock, duration, originalPdfUrl, pageImageUrl } from './runs'
@@ -106,7 +106,7 @@ export function AgentMap({ view, selected, highlight, onSelect, compact = false,
               {stateLabel[w.state]}</span>{w.findings.length > 0 && <span className="map-node-count" title={w.findings.length + ' findings'}>{w.findings.length}</span>}</div>
             <strong>{w.role.name}</strong>
             <span className="map-node-text" title={text}>{text}</span>
-            {w.llm && <span className={'map-node-model' + (w.llm.running ? ' running' : '')}><Sparkles size={9} />{w.llm.running ? 'Model working' : w.llm.ok ? 'Model ' + ((w.llm.durationMs ?? 0) / 1000).toFixed(1) + ' s' : 'Model failed'}</span>}
+            {w.llm && <span className={'map-node-model' + (w.llm.running ? ' running' : '')}>{w.llm.running ? 'Model working' : w.llm.ok ? 'Model ' + ((w.llm.durationMs ?? 0) / 1000).toFixed(1) + ' s' : 'Model failed'}</span>}
           </button>
         })}
       </div>

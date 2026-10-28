@@ -95,7 +95,9 @@ export async function launch(width = 1440, height = 960): Promise<Page> {
   await send('Emulation.setDeviceMetricsOverride', { width, height, deviceScaleFactor: 1, mobile: false })
 
   const evaluate = async (expression: string) => {
-    const result = await send('Runtime.evaluate', { expression, awaitPromise: true, returnByValue: true })
+    // A DOM node cannot be returned by value; finding one counts as true.
+    const wrapped = '(async () => { const v = await (' + expression + '); return v instanceof Node ? true : v })()'
+    const result = await send('Runtime.evaluate', { expression: wrapped, awaitPromise: true, returnByValue: true })
     if (result.exceptionDetails) throw new Error(result.exceptionDetails.exception?.description ?? result.exceptionDetails.text)
     return result.result.value
   }

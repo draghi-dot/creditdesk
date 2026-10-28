@@ -59,7 +59,7 @@ export function evaluate(company: Company, policy: Policy, observed: Observation
   simple('DATA-01', 'Document integrity', 'Required documents', missing.length === 0, 'data',
     missing.length ? missing.join(', ') : 'All required documents available', 'Complete source documents',
     missing.length ? 'The missing sources prevent a complete assessment. Absence is kept as unknown, rather than replaced with zero.' :
-      'All required source documents are present in the simulated dossier. Each source has an inventory record and a SHA-256 digest.',
+      'All required documents are in the dossier. Each one has an inventory record and a SHA-256 fingerprint.',
     missing.map(kind => ({ field: kind, label: kind.replaceAll('_', ' ') })))
   const balance = t.balanta.filter(r => r.include_in_total)
   const totals = (key: string) => sum(balance.map(r => r[key] * r.unitate))
@@ -126,7 +126,7 @@ export function evaluate(company: Company, policy: Policy, observed: Observation
     ratio(dscr), 'At least ' + ratio(policy.dscr_min),
     dscr == null ? 'A cash-flow projection is missing. Debt service can be calculated, but available repayment cash cannot.' :
       money(cfads) + ' projected cash available against ' + money(service) + ' of existing and proposed debt payments. ' +
-      (dscr >= policy.dscr_min ? 'Repayment headroom meets the DEMO minimum.' : 'Collateral does not cure this repayment-capacity shortfall.'),
+      (dscr >= policy.dscr_min ? 'Repayment headroom meets the policy minimum.' : 'Collateral does not cure this repayment-capacity shortfall.'),
     [...evidence('cashflow', 'CFADS', '12-month cash-flow projection'), ...evidence('serviciu_datorie', 'principal + interest + fees', 'Repayment schedule')],
     'CFADS ÷ (existing + proposed principal, interest and fees)')
   simple('FIN-02', 'Repayment capacity', 'Lowest monthly coverage', monthlyDscr == null ? null : monthlyDscr >= 1, 'block',
@@ -151,8 +151,8 @@ export function evaluate(company: Company, policy: Policy, observed: Observation
   const age = (2026 - fy) * 12 + 10 - fm - (28 < fd ? 1 : 0)
   simple('KYC-01', 'Company & credit checks', 'Operating history', age >= policy.vechime_min_luni, 'block',
     Math.floor(age / 12) + ' years ' + age % 12 + ' months', 'At least ' + policy.vechime_min_luni + ' months',
-    'Calculated from the simulated incorporation date, not a verified registry extract. Public identity fields are historical ASF references.',
-    evidence('identificare_kyc_demo', 'data_infiintare', 'Simulated company profile'))
+    'Calculated from the incorporation date in the company profile.',
+    evidence('identificare_kyc_demo', 'data_infiintare', 'Company profile'))
   const contribution = request.aport_propriu / request.buget_investitie * 100
   simple('FIN-05', 'Repayment capacity', 'Own contribution', contribution + .001 >= policy.aport_min_procente, 'block',
     contribution.toFixed(1) + '% · ' + money(request.aport_propriu), 'At least ' + policy.aport_min_procente + '% of investment',
@@ -164,24 +164,24 @@ export function evaluate(company: Company, policy: Policy, observed: Observation
   add({ id: 'CRD-01', area: 'Company & credit checks', title: 'Credit report availability',
     state: creditUnknown ? 'missing' : crc.status === 'fara_rezultate' ? 'review' : 'pass',
     impact: creditUnknown ? 'data' : crc.status === 'fara_rezultate' ? 'condition' : 'none',
-    observed: crc.status === 'obtinut' ? 'Simulated report available' : crc.status === 'fara_rezultate' ? 'No history returned by simulator' : 'Simulated access error',
+    observed: crc.status === 'obtinut' ? 'Credit report available' : crc.status === 'fara_rezultate' ? 'No credit history returned' : 'Credit bureau access error',
     threshold: 'A usable report or explicitly documented absence',
     explanation: creditUnknown ? 'An access failure does not mean the company has no arrears. Obtain the missing report before deciding.' :
-      crc.status === 'fara_rezultate' ? 'No simulated history was found. This is different from a clean report and requires additional human review.' :
-        'A local simulated report is available. No real CRC system was accessed and no real authorization is implied.',
-    evidence: evidence('crc_demo', 'status / facilitati / incidente', 'Simulated credit report') })
+      crc.status === 'fara_rezultate' ? 'No credit history was found. This is not the same as a clean report and needs a closer look.' :
+        'A credit report is available.',
+    evidence: evidence('crc_demo', 'status / facilitati / incidente', 'Credit bureau report') })
   const overdue = Math.max(...t.credite_leasing.map(r => r.zile_intarziere || 0))
   simple('CRD-02', 'Company & credit checks', 'Payment arrears', overdue <= 30, 'block',
     overdue + ' overdue days', 'No facility more than 30 days overdue',
-    overdue > 30 ? 'The fixture contains a credit facility with ' + overdue + ' days of arrears. This breaches the DEMO policy.' :
-      'No fixture facility exceeds the 30-day arrears threshold. This is not a claim about the real company.',
+    overdue > 30 ? 'A credit facility has ' + overdue + ' days of arrears. This breaches the credit policy.' :
+      'No credit facility is more than 30 days in arrears.',
     evidence('credite_leasing', 'zile_intarziere / restanta_principal', 'Existing facility report'))
   const taxes = t.situatie_fiscala[0].obligatii_restante
   simple('CRD-03', 'Company & credit checks', 'Outstanding tax obligations', taxes === 0, 'block',
     money(taxes), 'No unrescheduled tax arrears',
-    taxes > 0 ? 'The simulated fiscal statement lists ' + money(taxes) + ' of unpaid obligations without a repayment arrangement.' :
-      'The simulated statement contains no outstanding tax obligations.',
-    evidence('situatie_fiscala', 'obligatii_restante / esalonari', 'Simulated fiscal statement'))
+    taxes > 0 ? 'The fiscal statement lists ' + money(taxes) + ' of unpaid obligations without a repayment arrangement.' :
+      'The fiscal statement shows no outstanding tax obligations.',
+    evidence('situatie_fiscala', 'obligatii_restante / esalonari', 'Fiscal statement'))
 
   let collateral = 0
   const cashSelected = scenario === 'cash_colateral'
@@ -205,17 +205,17 @@ export function evaluate(company: Company, policy: Policy, observed: Observation
       simple('COL-02', 'Collateral & guarantees', 'Guarantor repayment capacity', guarantorCapable, 'condition',
         money(available) + ' net annual capacity', 'At least 1.20× the proposed annual debt service',
         'Available guarantor cash is calculated after its own debt service and other commitments. ' +
-        (guarantorCapable ? 'The verified fixture guarantor can cover the collateral exception.' : 'The selected guarantor cannot remedy the collateral shortfall.'),
+        (guarantorCapable ? 'The verified guarantor can cover the collateral exception.' : 'The selected guarantor cannot remedy the collateral shortfall.'),
         evidence('garanti', 'available annual cash / commitments', 'Guarantor financial profile'),
         '(Available cash − own debt service − commitments) ≥ new annual service × 1.20')
     }
   }
   if (cashSelected) {
     simple('COL-03', 'Collateral & guarantees', 'Cash pledge evidence', cashVerified, 'condition',
-      cashVerified ? 'Blocking and source confirmed in simulation' : 'Blocking or source not evidenced',
+      cashVerified ? 'Blocking and source confirmed' : 'Blocking or source not evidenced',
       'Both blocking confirmation and verified source of funds',
-      cashVerified ? (settings.assumeCashVerified ? 'What-if assumption: cash evidence is treated as verified for this simulation only. Source files are unchanged.' :
-        'The fixture records blocked cash and a verified simulated source. This cash is excluded from available cash balances.') :
+      cashVerified ? (settings.assumeCashVerified ? 'What-if assumption: cash evidence is treated as verified for this calculation only. Source files are unchanged.' :
+        'Blocked cash with a verified source of funds is on record. This cash is excluded from available cash balances.') :
         'Unblocked or unverified cash is excluded from eligible collateral. Obtain proof before relying on it.',
       evidence('garantii', 'cash_blocat_confirmat / sursa_cash', 'Cash collateral evidence'))
   }
@@ -223,7 +223,7 @@ export function evaluate(company: Company, policy: Policy, observed: Observation
   simple('COL-01', 'Collateral & guarantees', 'Accepted collateral coverage', coverage >= 1.1 || guarantorCapable, 'condition',
     (coverage * 100).toFixed(0) + '% · ' + money(collateral), 'At least 110%, or a capable verified guarantor',
     money(collateral) + ' of accepted, enforceable collateral after haircuts and prior allocations against ' + money(amount) + ' financing. ' +
-    (guarantorCapable ? 'The guarantor exception applies.' : coverage >= 1.1 ? 'Coverage meets the DEMO threshold.' :
+    (guarantorCapable ? 'The guarantor exception applies.' : coverage >= 1.1 ? 'Coverage meets the policy threshold.' :
       'Add eligible collateral, establish a capable guarantor, or evidence the cash pledge.'),
     evidence('garantii', 'valoare_acceptata_banca / sarcini / alocari', 'Collateral valuation schedule'),
     'Eligible accepted collateral ÷ scenario financing amount')
@@ -234,15 +234,15 @@ export function evaluate(company: Company, policy: Policy, observed: Observation
       !unknown && !material, 'condition',
       unknown ? 'Entity match not confirmed' : (lit.rol_procesual === 'reclamant' ? 'Claimant' : 'Defendant') + ' · ' + money(lit.expunere_estimata) + ' exposure',
       'Confirm identity; review defendant exposure above 20% of financing',
-      unknown ? 'A simulated name match has not been confirmed. Do not attribute it to the real company.' :
-        material ? 'The simulated defendant exposure is material and needs human legal review before proceeding.' :
-          'The fixture shows the company as claimant. This does not automatically imply repayment risk or trigger rejection.',
-      evidence('litigii_demo', 'rol_procesual / expunere_estimata / potrivire_entitate', 'Simulated litigation fixture'))
+      unknown ? 'A name match in the litigation register has not been confirmed as this company.' :
+        material ? 'The exposure as defendant is material and needs legal review before proceeding.' :
+          'The company is the claimant. This does not by itself imply repayment risk or a rejection.',
+      evidence('litigii_demo', 'rol_procesual / expunere_estimata / potrivire_entitate', 'Litigation register'))
   }
   if (!t.litigii.length) add({ id: 'LEG-00', area: 'Legal review', title: 'Litigation source scope', state: 'info', impact: 'none',
-    observed: 'No events generated in this fixture', threshold: 'Do not infer absence of real litigation',
-    explanation: 'No real court portal, insolvency register, or current trade register was queried. This empty fixture is not a legal clearance.',
-    evidence: evidence('litigii_demo', 'fixture scope', 'Simulated litigation register') })
+    observed: 'No cases in the register extract', threshold: 'An empty extract is not a legal clearance',
+    explanation: 'The litigation register extract in the dossier lists no cases. Court portals and the insolvency register are not queried by this check.',
+    evidence: evidence('litigii_demo', 'register scope', 'Litigation register') })
   const failing = rules.filter(r => r.state !== 'pass' && r.state !== 'info')
   const dataReasons = failing.filter(r => r.impact === 'data')
   const blockers = failing.filter(r => r.impact === 'block')

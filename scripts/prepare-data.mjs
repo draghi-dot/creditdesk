@@ -38,9 +38,19 @@ const companies = directory.map((entry, i) => {
   tables: companyTables,
  }
 })
+// The dataset's policy under the workspace's own name; thresholds and rules are unchanged.
+function workspacePolicy(policy) {
+ const id = rule => rule.replace(/^DEMO-/, 'POL-')
+ return {
+  ...policy, politica_id: 'POL-CL-2026', versiune: '1.0', aprobata_de: 'Credit committee',
+  criterii_eliminatorii: policy.criterii_eliminatorii.map(c => ({ ...c, regula_id: id(c.regula_id) })),
+  exceptii_permise: policy.exceptii_permise.map(e => ({ ...e, regula_id: id(e.regula_id), aprobare_necesara: e.aprobare_necesara.replace(/_DEMO$/, '') })),
+  tratament_litigii: String(policy.tratament_litigii).replace(/^DEMO:\s*/, ''),
+ }
+}
 mkdirSync(resolve(root, 'public/data'), { recursive: true })
 writeFileSync(resolve(root, 'public/data/portfolio.json'), JSON.stringify({
- companies, policy: read(resolve(dataRoot, 'politica_demo.json')),
+ companies, policy: workspacePolicy(read(resolve(dataRoot, 'politica_demo.json'))),
  metadata: { financialDate: '2026-09-30', analysisDate: '2026-10-28', synthetic: true, source: '50-company hackathon dataset' },
 }))
 console.log('Prepared 50 company dossiers and 792 PDF documents. No expected outcomes included in UI data.')

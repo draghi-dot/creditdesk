@@ -189,10 +189,11 @@ export function workspaceRoutes(ctx: WorkspaceContext) {
       if (is('GET', 'activity', 2)) return reply(200, workspace.activity(url.searchParams.get('company') ?? undefined))
       if (is('POST', 'activity', 2)) {
         const body = await readJson(req)
-        const company = companyOf(body.companyId)
+        // 'workspace' holds changes that are not about one company, such as the credit policy.
+        const companyId = body.companyId === 'workspace' ? 'workspace' : companyOf(body.companyId).id
         const action = String(body.action ?? '').trim()
         if (!action) throw fail(400, 'Missing action')
-        return reply(201, workspace.appendActivity(company.id, action, String(body.detail ?? ''), actorOf(req).name, body.payload))
+        return reply(201, workspace.appendActivity(companyId, action, String(body.detail ?? ''), actorOf(req).name, body.payload))
       }
 
       // ─── Gmail ───────────────────────────────────────────────────────────

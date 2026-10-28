@@ -1,6 +1,6 @@
 # CreditDesk
 
-Internal corporate-banking workspace for reviewing 50 company financing applications. A React + TypeScript + Vite workspace backed by a local **assessment engine** (Node 25, no framework) that runs real review workers over each dossier's original PDFs.
+Internal corporate-lending workspace for reviewing 50 company financing applications, used by employees in four departments (Legal, Finance, Credit, Compliance). A React + TypeScript + Vite workspace backed by a local **assessment engine** (Node 25, no framework) that runs real review workers over each dossier's original PDFs.
 
 ## Run
 
@@ -19,6 +19,7 @@ Requirements: Node 25 (TypeScript runs natively, `node:sqlite` built in), Popple
 | `CREDITDESK_LLM` | `codex` | `none` runs deterministic workers only |
 | `CODEX_MODEL` / `CODEX_EFFORT` | `gpt-6.1-sol` / `medium` | Model for the legal reading and the analyst memo |
 | `CREDITDESK_ANAF` | on | `off` skips the live ANAF lookup (tests use this) |
+| `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` | — | Google OAuth client for Gmail (or save the client JSON as `.data/google-oauth.json`) |
 
 ## How an assessment works
 
@@ -70,11 +71,37 @@ The policy worker records the full analysis of all four financing scenarios in t
 
 The dataset's quality labels (`calitate_date.contradictii`, `documente_lipsa`, `monede_normalizate`) and the documents' `probleme` / `status_extragere` notes are never read by the engine or the workspace. `evaluate()` takes an `Observations` argument: missing documents and printed-vs-recorded discrepancies established by a run. The labels and `tests/fixtures/oracle.json` are used only by tests.
 
+## Employees, departments and cases
+
+The workspace opens as **Ioana Marinescu, Legal counsel**. Click your name (bottom left, or the avatar top right) to switch employee; there are no passwords yet, and the browser sends the chosen employee with every request. Employees are added under **Departments**. Every run, question, case event, contact change and sent email records who did it.
+
+- **Departments** (sidebar): Legal, Finance, Credit, Compliance, each with its cases and people. Filter by status or "assigned to me".
+- **Send a problem to a department**: every problem, on the assessment page and on the company page, has *Send to …* with the department that usually handles it already chosen (legal review → Legal; identity → Compliance; reconciliation, cash flow, credit and collateral → Finance; missing documents → Credit). A problem already open in a department is not opened twice; its case shows instead.
+- **Case page**: the problem with its original page outlined, status (open, in progress, waiting on the company, resolved), assignee, department, and a timeline of comments, changes, drafts, reports and sent emails.
+- **Company page**: missing required documents first, with *Upload PDF* (or drop the file on the row); the two assessment actions; the latest problems with *Suggest next steps* and *Draft request for all*; contacts, cases and requests to the company; the full assessment history (every run is kept).
+- **Contacts**: the dossier lists representatives without a deliverable address, so they show as "no contact on file" until an employee adds the real one.
+- **Assistant** (Codex, same isolation as the review workers): drafts a request to the company's representative (English or Romanian) for a case or for all problems, suggests an internal note and a requirement for each problem, and writes case reports. Figures it writes are checked against the facts it was given; without a model the engine writes plain drafts from the recorded findings. Ask also knows the company's contacts and cases.
+- **Activity log**: notes, reviews, signatures, scenario checks and routing are stored by the engine, chained per company with SHA-256, and verified in the browser.
+- **Run all assessments** (Companies): a new assessment for every company, three at a time with the model (six without). Earlier runs are kept.
+
+## Gmail
+
+Requests to companies are sent from each employee's own Gmail, only when the employee presses **Send**. Setup, once per workspace:
+
+1. In Google Cloud Console, create or pick a project and enable the **Gmail API**.
+2. Configure the **OAuth consent screen** (External is fine) and add the Gmail addresses that will send as test users. Scopes: `gmail.send`, `openid`, `email`.
+3. **Credentials → Create credentials → OAuth client ID → Desktop app**, then download the JSON.
+4. Save it as `banking-workspace/.data/google-oauth.json` (or set `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`) and restart `npm run dev`.
+5. In CreditDesk, click your name → **Connect Gmail**, sign in with Google, and you come back with "Gmail connected".
+
+A Desktop client accepts the `http://127.0.0.1:<port>/api/gmail/callback` redirect on any port. With a *Web application* client instead, register `http://127.0.0.1:5173/api/gmail/callback` (dev) and `http://127.0.0.1:8787/api/gmail/callback` (`npm start`). Refresh tokens stay in the engine database under `.data/` (not in git); *Disconnect* in the same menu revokes them. A sent request is logged on its case and in the company activity log.
+
 ## Verification
 
-    npm test              # 21 tests, ~9 s: engine, HTTP API and run stream; no model, no network
+    npm test              # 32 tests, ~10 s: engine, HTTP API, run stream, departments, cases, requests, Gmail client; no model, no network
     npm run test:live     # real ANAF and Codex calls end to end (~3 min; needs network and `codex login`)
     npm run test:browser  # headless Chromium (Chrome, Chromium, Brave or Edge; or CHROME_PATH) against the built workspace
+    npm run screenshots   # every page, for visual review, into test-results/screens/
     npm run build         # typecheck (src, server, tests) + production bundle
 
 `npm test`:
@@ -92,7 +119,9 @@ The dataset's quality labels (`calitate_date.contradictii`, `documente_lipsa`, `
 - A full CONPET assessment with the model, through the HTTP API and run stream: identity confirmed in ANAF live; the Codex legal reading (≈36 s) and report (≈57 s) are schema-valid, the report cites only real findings and its figures verify; the run takes ≈93 s.
 - Ask: "What is the biggest problem?" returns the top-ranked finding with its evidence (≈41 s); asking to see the printed requested amount returns that line located and outlined on the application page (≈47 s).
 
-`npm run test:browser` (screenshots in `test-results/browser/`): the company page offers the two actions and nothing runs on open; Run new assessment opens the live run and the map fills from the stream (observed part-way); the first finding opens by itself on its original page with the problem outlined in red and the comparison in blue, every outline inside the page image and the producing worker highlighted; Ask answers and shows which model answered; View assessment opens the completed run. `CREDITDESK_LLM=codex CREDITDESK_ANAF=on npm run test:browser` runs the same with the model and the live register.
+- People side (`tests/workspace.test.ts`): the Legal employee is the default and others can act or be added; a problem goes to a department once and its case keeps a timeline; contacts; an engine-drafted request that cannot be sent without Gmail; suggestions and case reports; the company activity chain verifies; Gmail sign-in redirects to Google with PKCE and the send-only scope; Run all assesses all 50 companies a few at a time and keeps every run. `tests/gmail.test.ts` checks the RFC 5322 message, the code exchange and the send call against Google's API shapes.
+
+`npm run test:browser` (screenshots in `test-results/browser/`): the company page offers the two actions and nothing runs on open; Run new assessment opens the live run and the map fills from the stream (observed part-way); the first finding opens by itself on its original page with the problem outlined in red and the comparison in blue, every outline inside the page image and the producing worker highlighted; Ask answers and shows which model answered; View assessment opens the completed run; a problem sent to Finance from the assessment appears in Departments and opens as a case with its evidence; the employee can be switched; a missing document is the first thing on the company page. `CREDITDESK_LLM=codex CREDITDESK_ANAF=on npm run test:browser` runs the same with the model and the live register.
 
 Also checked by hand in the browser: run log verified in the browser and by the engine, directory with "Not assessed" states, engine restart marking an interrupted run as failed.
 
@@ -116,9 +145,16 @@ Also checked by hand in the browser: run log verified in the browser and by the 
 | `src/CompanyDetail.tsx` | Completed assessment: findings, overview, financials, documents, scenarios, audit, contract |
 | `src/analysis.ts` | Policy rules and scenario calculations |
 | `src/Portfolio.tsx`, `src/App.tsx` | Directory, overview, policy, workspace audit; routing |
+| `server/workspace.ts`, `server/workspace-api.ts` | Employees, cases and their timelines, contacts, requests, Gmail connections, company activity log; their HTTP routes |
+| `server/engine/agent.ts` | The assistant's request drafts, per-problem suggestions and case reports |
+| `server/engine/batch.ts` | Run all assessments, a few at a time |
+| `server/gmail.ts` | Google OAuth (PKCE) and sending through the Gmail API |
+| `src/workspace.ts`, `src/people.ts` | Shared contract for departments, cases, contacts and requests; browser client and session |
+| `src/Departments.tsx`, `src/Requests.tsx` | Departments, case page, send-to-department; contacts, request drafts and sending |
+| `src/DossierDocuments.tsx` | Missing-document alert, document list, uploads |
 | `tests/*.test.ts` | Deterministic suite: engine over all 50 dossiers, HTTP API and run stream, ANAF client |
 | `tests/live/`, `tests/browser/` | Live ANAF + Codex end to end; headless browser over the DevTools protocol (no extra dependency) |
 
 ## Scope
 
-Company names and CUIs are public identity references; all financial, legal and banking data is fabricated, and the policy is a demonstration policy. Analyst notes and the signing simulation remain local to the browser. The engine is a single local process without authentication.
+Company names and CUIs are public identity references; the financial, legal and banking data in the dataset is fabricated, and the credit policy (`POL-CL-2026`) carries the dataset's thresholds. Notes, reviews, recorded signatures, cases and requests are stored by the engine. Employees are chosen in the browser without passwords: the engine is a single local process without authentication, for a trusted local network.
