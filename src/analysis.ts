@@ -230,7 +230,7 @@ export function evaluate(company: Company, policy: Policy, observed: Observation
   for (const [index, lit] of t.litigii.entries()) {
     const unknown = lit.potrivire_entitate !== 'confirmata'
     const material = lit.rol_procesual === 'parat' && lit.expunere_estimata > amount * .2
-    simple('LEG-' + (index + 1), 'Legal review', unknown ? 'Litigation identity matching' : 'Litigation exposure review',
+    simple('LEG-' + (index + 1), 'Legal review', unknown ? 'Litigation identity match' : 'Litigation exposure',
       !unknown && !material, 'condition',
       unknown ? 'Entity match not confirmed' : (lit.rol_procesual === 'reclamant' ? 'Claimant' : 'Defendant') + ' · ' + money(lit.expunere_estimata) + ' exposure',
       'Confirm identity; review defendant exposure above 20% of financing',
