@@ -26,6 +26,7 @@ interface RunRow {
   policy: string
   observations: string | null
   digest: string | null
+  started_by: string | null
 }
 
 export class Store {
@@ -83,11 +84,12 @@ export class Store {
     `)
     const columns = (this.db.prepare('PRAGMA table_info(runs)').all() as { name: string }[]).map(c => c.name)
     if (!columns.includes('digest')) this.db.exec('ALTER TABLE runs ADD COLUMN digest TEXT')
+    if (!columns.includes('started_by')) this.db.exec('ALTER TABLE runs ADD COLUMN started_by TEXT')
   }
 
-  createRun(id: string, companyId: string, provider: ProviderInfo, policy: Policy): void {
-    this.db.prepare('INSERT INTO runs (id, company_id, status, created_at, provider, policy) VALUES (?, ?, ?, ?, ?, ?)')
-      .run(id, companyId, 'created', new Date().toISOString(), JSON.stringify(provider), JSON.stringify(policy))
+  createRun(id: string, companyId: string, provider: ProviderInfo, policy: Policy, startedBy: string | null = null): void {
+    this.db.prepare('INSERT INTO runs (id, company_id, status, created_at, provider, policy, started_by) VALUES (?, ?, ?, ?, ?, ?, ?)')
+      .run(id, companyId, 'created', new Date().toISOString(), JSON.stringify(provider), JSON.stringify(policy), startedBy)
   }
 
   /** Append the next event of a run and fold it into the run summary. */
@@ -187,6 +189,6 @@ function summary(row: RunRow): AssessmentSummary {
     runId: row.id, companyId: row.company_id, status: row.status, decision: row.decision as AssessmentSummary['decision'],
     findings: row.findings, createdAt: row.created_at, endedAt: row.ended_at,
     provider: JSON.parse(row.provider), policy: JSON.parse(row.policy), observations: row.observations ? JSON.parse(row.observations) : null,
-    digest: row.digest ? JSON.parse(row.digest) : null,
+    digest: row.digest ? JSON.parse(row.digest) : null, startedBy: row.started_by ?? null,
   }
 }

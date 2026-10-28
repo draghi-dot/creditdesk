@@ -134,6 +134,8 @@ export interface AskAnswer {
   answer: string
   /** The finding the analyst asked about, if the question was asked from it. */
   about?: string | null
+  /** The employee who asked. */
+  askedBy?: string
   /** The finding the answer is about, if any. */
   findingId: string | null
   /** Where the answer points in the original documents (located by the engine). */
@@ -169,7 +171,7 @@ export interface ProviderInfo {
 }
 
 export interface EventPayloads {
-  run_created: { companyId: string; companyName: string; policy: Policy; provider: ProviderInfo; roles: RoleDef[]; uploads?: DossierUpload[] }
+  run_created: { companyId: string; companyName: string; policy: Policy; provider: ProviderInfo; roles: RoleDef[]; uploads?: DossierUpload[]; startedBy?: string }
   run_started: Record<string, never>
   worker_waiting: { waitingFor: AgentId[] }
   worker_dispatched: { inputs: string }
@@ -384,4 +386,6 @@ export interface AssessmentSummary {
   policy: Policy
   observations: Observations | null
   digest: AssessmentDigest | null
+  /** The employee who started the run. */
+  startedBy: string | null
 }

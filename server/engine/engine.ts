@@ -65,20 +65,20 @@ export class Engine {
   }
 
   /** `company` is the dossier as the run will review it; `uploads` are the analyst's documents in it. */
-  start(company: Company, policy: Policy, uploads: DossierUpload[] = []): string {
+  start(company: Company, policy: Policy, uploads: DossierUpload[] = [], startedBy: string | null = null): string {
     const existing = this.activeRun(company.id)
     if (existing) throw Object.assign(new Error('An assessment is already running for this company.'), { status: 409, runId: existing })
     const runId = randomUUID()
     const controller = new AbortController()
     const provider = this.provider
-    this.store.createRun(runId, company.id, provider, policy)
+    this.store.createRun(runId, company.id, provider, policy, startedBy)
     this.active.set(runId, { companyId: company.id, controller })
     const emit = <T extends EventType>(type: T, worker: AgentId | null, payload: EventPayloads[T]): RunEvent<T> => {
       const event = this.store.append(runId, type, worker, payload)
       for (const listener of this.listeners.get(runId) ?? []) listener(event)
       return event
     }
-    emit('run_created', null, { companyId: company.id, companyName: company.name, policy, provider, roles: ROLES, uploads })
+    emit('run_created', null, { companyId: company.id, companyName: company.name, policy, provider, roles: ROLES, uploads, ...(startedBy ? { startedBy } : {}) })
     const env: RunEnv = { runId, company, policy, documentsDir: this.documentsDir, provider, codex: this.codex, emit, signal: controller.signal }
     const board: Blackboard = { documents: new Map(), missing: [], extracted: new Map(), mismatches: [], ledger: [], observations: null, legalSummary: null, identity: [], findings: [], checks: [] }
     void (async () => {

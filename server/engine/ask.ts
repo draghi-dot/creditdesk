@@ -13,6 +13,8 @@ import { foldAll, rankFindings } from '../../src/assessment.ts'
 import { decisionLabels, money, ratio } from '../../src/analysis.ts'
 import { docNames } from '../../src/documents.ts'
 import type { Company } from '../../src/types.ts'
+import type { Case, Contact } from '../../src/workspace.ts'
+import { caseStatusLabels, departmentName } from '../../src/workspace.ts'
 import type { CodexConfig } from './codex.ts'
 import { askCodex } from './codex.ts'
 import { findQuote, pageText, readPdf } from './pdf.ts'
@@ -62,10 +64,14 @@ const INTENTS: [RegExp, Part[]][] = [
  * finding (or of the run) the question asks for, leaving out what earlier
  * answers already said. It never goes beyond what the run recorded.
  */
-export function engineAnswer(question: string, view: RunView, ranked: FindingView[], about: FindingView | null, history: AskAnswer[]): { text: string; finding: FindingView | null } {
+export function engineAnswer(question: string, view: RunView, ranked: FindingView[], about: FindingView | null, history: AskAnswer[], contacts: Contact[] = []): { text: string; finding: FindingView | null } {
   const q = question.toLowerCase()
   const said = history.map(h => h.answer).join('\n')
   const fresh = (lines: string[]) => lines.filter(l => l && !said.includes(l))
+  if (/contact|representative|e-?mail|phone|reach/.test(q)) {
+    const known = contacts.filter(c => !c.placeholder)
+    return { text: known.length ? known.map(c => c.name + ' (' + c.role + ')' + (c.email ? ', ' + c.email : '') + (c.phone ? ', ' + c.phone : '')).join('; ') + '.' : 'No contact with an email address is on file for this company. Add the representative under Contacts on the company page.', finding: null }
+  }
   if (!about) {
     if (/identity|anaf|register|cui|kyc/.test(q)) {
       const note = view.notes.find(n => n.title === 'ANAF public register')
@@ -99,6 +105,7 @@ export function engineAnswer(question: string, view: RunView, ranked: FindingVie
 export async function answerQuestion(opts: {
   company: Company; runId: string; events: RunEvent[]; documentsDir: string; codex: CodexConfig | null
   question: string; history: AskAnswer[]; signal: AbortSignal; about?: string | null
+  contacts?: Contact[]; cases?: Case[]; askedBy?: string
 }): Promise<AskAnswer> {
   const { company, runId, events, documentsDir, codex, question, history } = opts
   const view = foldAll(runId, events)
@@ -108,11 +115,11 @@ export async function answerQuestion(opts: {
   const about = opts.about ? view.findings.find(f => f.id === opts.about) ?? null : null
   const reply = (fields: Partial<AskAnswer>): AskAnswer => ({
     id: randomUUID(), runId, ts: new Date().toISOString(), question, about: about?.id ?? null, ok: true, answer: '', findingId: null, evidence: [],
-    author: 'engine', durationMs: Date.now() - started, unsupported: [], ...fields,
+    author: 'engine', durationMs: Date.now() - started, unsupported: [], ...(opts.askedBy ? { askedBy: opts.askedBy } : {}), ...fields,
   })
 
   if (!codex) {
-    const { text, finding } = engineAnswer(question, view, ranked, about, history)
+    const { text, finding } = engineAnswer(question, view, ranked, about, history, opts.contacts)
     return reply({ answer: text, findingId: finding?.id ?? null, evidence: finding?.evidence ?? [], author: 'engine · no model' })
   }
 
@@ -132,6 +139,8 @@ export async function answerQuestion(opts: {
     scenarios: view.decision ? Object.fromEntries(Object.entries(view.decision.scenarios).map(([k, a]) => [k, decisionLabels[a.decision]])) : null,
     notes: view.notes.map(n => ({ title: n.title, by: n.author, text: n.text, fields: n.fields, points: n.points })),
     report_headline: view.report?.report.headline ?? null,
+    company_contacts: (opts.contacts ?? []).map(c => ({ name: c.name, role: c.role, email: c.placeholder ? 'no email on file' : c.email, phone: c.phone || 'no phone on file', added_by: c.addedBy })),
+    cases: (opts.cases ?? []).map(c => ({ ref: c.ref, department: departmentName(c.department), status: caseStatusLabels[c.status], title: c.title, assignee: c.assignee, opened_by: c.createdBy })),
     workers: Object.values(view.workers).filter(w => w.state !== 'hidden').map(w => ({ name: w.role.name, state: w.state, summary: w.summary })),
   }
   const pages = new Map<string, Set<number>>()

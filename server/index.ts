@@ -19,6 +19,10 @@ import { REQUIRED_DOCUMENTS } from '../src/assessment.ts'
 import type { DossierUpload, EventPayloads } from '../src/assessment.ts'
 import type { Company } from '../src/types.ts'
 import { readPdf, renderPage } from './engine/pdf.ts'
+import { readJson, send } from './http.ts'
+import { Batch } from './engine/batch.ts'
+import { DEFAULT_USER, Workspace } from './workspace.ts'
+import { workspaceRoutes } from './workspace-api.ts'
 import { Store } from './store.ts'
 
 const root = resolve(fileURLToPath(new URL('..', import.meta.url)))
@@ -42,6 +46,8 @@ const codexConfig: CodexConfig = {
 let providerDetail = 'model calls disabled (CREDITDESK_LLM=none)'
 let providerChecked = false
 const engine = new Engine(store, documentsDir, null)
+const workspace = new Workspace(store.db)
+const actorOf = (req: IncomingMessage) => workspace.user(String(req.headers['x-user'] ?? '')) ?? workspace.user(DEFAULT_USER)!
 
 async function refreshProvider(): Promise<void> {
   if (llm !== 'codex') { engine.codex = null; return }
@@ -54,19 +60,6 @@ async function refreshProvider(): Promise<void> {
   providerDetail = status.available ? status.detail : 'Codex unavailable: ' + status.detail
 }
 
-const send = (res: ServerResponse, status: number, body: unknown) => {
-  res.writeHead(status, { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' })
-  res.end(JSON.stringify(body))
-}
-
-async function readJson(req: IncomingMessage): Promise<any> {
-  let raw = ''
-  for await (const chunk of req) {
-    raw += chunk
-    if (raw.length > 64 * 1024) throw Object.assign(new Error('request too large'), { status: 413 })
-  }
-  return raw ? JSON.parse(raw) : {}
-}
 
 const POLICY_NUMBERS = ['dscr_min', 'lichiditate_min', 'datorie_ebitda_max', 'vechime_min_luni', 'aport_min_procente'] as const
 function policyFrom(body: any): Policy {
@@ -126,6 +119,12 @@ function dossierFile(companyId: string, file: string): { path: string; pages: nu
 
 const publicUpload = ({ path: _path, ...u }: StoredUpload): DossierUpload => u
 
+const batch = new Batch(engine, async companyId => {
+  const uploads = store.uploads(companyId)
+  return { company: await effectiveCompany(companies.get(companyId)!, uploads), uploads: uploads.map(publicUpload) }
+})
+const workspaceRoute = workspaceRoutes({ workspace, store, engine, batch, companies, dataDir, policyFrom, refreshProvider })
+
 async function addDocument(req: IncomingMessage, res: ServerResponse, companyId: string, kind: string, originalName: string) {
   const company = await currentCompany(companyId)
   if (!REQUIRED_DOCUMENTS.includes(kind)) return send(res, 400, { error: 'Unknown document type' })
@@ -180,6 +179,7 @@ async function handle(req: IncomingMessage, res: ServerResponse) {
   const url = new URL(req.url ?? '/', 'http://localhost')
   const parts = url.pathname.split('/').filter(Boolean)
   if (parts[0] !== 'api') return serveStatic(req, res, url.pathname)
+  if (await workspaceRoute(req, res, url, parts)) return
   if (parts[1] === 'companies' && companies.has(parts[2]) && parts[3] === 'documents') {
     const companyId = parts[2]
     if (req.method === 'GET' && parts.length === 4) {
@@ -216,7 +216,7 @@ async function handle(req: IncomingMessage, res: ServerResponse) {
       await refreshProvider()
       try {
         const uploads = store.uploads(company!)
-        return send(res, 201, { runId: engine.start(await effectiveCompany(companies.get(company!)!, uploads), policyFrom(body), uploads.map(publicUpload)) })
+        return send(res, 201, { runId: engine.start(await effectiveCompany(companies.get(company!)!, uploads), policyFrom(body), uploads.map(publicUpload), actorOf(req).name) })
       } catch (err: any) {
         return send(res, err.status ?? 500, { error: err.message, runId: err.runId })
       }
@@ -250,7 +250,9 @@ async function handle(req: IncomingMessage, res: ServerResponse) {
       await refreshProvider()
       const controller = new AbortController()
       res.on('close', () => { if (!res.writableEnded) controller.abort(new Error('analyst left')) })
-      const answer = await answerQuestion({ company: await runCompany(run.runId), runId: run.runId, events: store.events(run.runId), documentsDir, codex: engine.codex, question, history: store.questions(run.runId), signal: controller.signal, about: typeof body.findingId === 'string' ? body.findingId : null })
+      const asked = await runCompany(run.runId)
+      const answer = await answerQuestion({ company: asked, runId: run.runId, events: store.events(run.runId), documentsDir, codex: engine.codex, question, history: store.questions(run.runId), signal: controller.signal, about: typeof body.findingId === 'string' ? body.findingId : null,
+        contacts: workspace.contacts(asked), cases: workspace.cases({ companyId: asked.id }), askedBy: actorOf(req).name })
       if (!controller.signal.aborted) store.saveQuestion(answer)
       return send(res, 200, answer)
     }
