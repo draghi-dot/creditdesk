@@ -1,0 +1,769 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Count 12 /Kids [5 0 R 7 0 R 9 0 R 11 0 R 13 0 R 15 0 R 17 0 R 19 0 R 21 0 R 23 0 R 25 0 R 27 0 R] >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 6 0 R >>
+endobj
+6 0 obj
+<< /Length 2159 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-015 | COMELF S.A. | CUI 568656) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(SIMULAT / HACKATHON - fara valoare juridica; nu este document bancar sau raport real.) Tj T*
+() Tj T*
+(Dosar: TEST-DOS-015 | Document: TEST-DOC-015-CASHFLOW) Tj T*
+(Identitate publica de referinta: COMELF S.A.) Tj T*
+(CUI public: 568656) Tj T*
+(Toate datele bancare de mai jos sunt inventate; nu descriu firma reala.) Tj T*
+(Emitent: simulator HACKATHON, fara acces la sistemele bancii.) Tj T*
+(Data referinta: 2026-09-30 | Moneda RON | Unitate 1 RON) Tj T*
+() Tj T*
+(CASHFLOW) Tj T*
+() Tj T*
+(--- Pozitia 1 ---) Tj T*
+(luna: 2025-10) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 1481297.14) Tj T*
+(plati_operare_fara_dobanzi_impozite: 1018389.21) Tj T*
+(impozite_platite: 20738.16) Tj T*
+(capex_mentenanta: 17775.57) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 6890000.0) Tj T*
+(principal_existent: 71770.83) Tj T*
+(dobanzi_existente: 16148.44) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 2 ---) Tj T*
+(luna: 2025-11) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 1587983.08) Tj T*
+(plati_operare_fara_dobanzi_impozite: 1091735.61) Tj T*
+(impozite_platite: 22231.76) Tj T*
+(capex_mentenanta: 19055.8) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 7226474.93) Tj T*
+(principal_existent: 71770.83) Tj T*
+(dobanzi_existente: 15699.87) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 1/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 8 0 R >>
+endobj
+8 0 obj
+<< /Length 2129 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-015 | COMELF S.A. | CUI 568656) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 3 ---) Tj T*
+(luna: 2025-12) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 1206614.43) Tj T*
+(plati_operare_fara_dobanzi_impozite: 829545.33) Tj T*
+(impozite_platite: 16892.6) Tj T*
+(capex_mentenanta: 14479.37) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 7593964.14) Tj T*
+(principal_existent: 71770.83) Tj T*
+(dobanzi_existente: 15251.3) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 4 ---) Tj T*
+(luna: 2026-01) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 1353218.96) Tj T*
+(plati_operare_fara_dobanzi_impozite: 930335.68) Tj T*
+(impozite_platite: 18945.07) Tj T*
+(capex_mentenanta: 16238.63) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 7852639.14) Tj T*
+(principal_existent: 71770.83) Tj T*
+(dobanzi_existente: 14802.73) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 2/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 10 0 R >>
+endobj
+10 0 obj
+<< /Length 2118 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-015 | COMELF S.A. | CUI 568656) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 5 ---) Tj T*
+(luna: 2026-02) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 1458149.0) Tj T*
+(plati_operare_fara_dobanzi_impozite: 1002474.9) Tj T*
+(impozite_platite: 20414.09) Tj T*
+(capex_mentenanta: 17497.79) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 8153765.16) Tj T*
+(principal_existent: 71770.83) Tj T*
+(dobanzi_existente: 14354.17) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 6 ---) Tj T*
+(luna: 2026-03) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 1555325.93) Tj T*
+(plati_operare_fara_dobanzi_impozite: 1069283.88) Tj T*
+(impozite_platite: 21774.56) Tj T*
+(capex_mentenanta: 18663.91) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 8485402.38) Tj T*
+(principal_existent: 71770.83) Tj T*
+(dobanzi_existente: 13905.6) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 7 ---) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 3/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+11 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 12 0 R >>
+endobj
+12 0 obj
+<< /Length 2071 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-015 | COMELF S.A. | CUI 568656) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(luna: 2026-04) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 1209731.51) Tj T*
+(plati_operare_fara_dobanzi_impozite: 831688.31) Tj T*
+(impozite_platite: 16936.24) Tj T*
+(capex_mentenanta: 14516.78) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 8845329.53) Tj T*
+(principal_existent: 71770.83) Tj T*
+(dobanzi_existente: 13457.03) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 8 ---) Tj T*
+(luna: 2026-05) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 1337826.62) Tj T*
+(plati_operare_fara_dobanzi_impozite: 919753.48) Tj T*
+(impozite_platite: 18729.57) Tj T*
+(capex_mentenanta: 16053.92) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 9106691.85) Tj T*
+(principal_existent: 71770.83) Tj T*
+(dobanzi_existente: 13008.46) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 9 ---) Tj T*
+(luna: 2026-06) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 4/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+13 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 14 0 R >>
+endobj
+14 0 obj
+<< /Length 2126 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-015 | COMELF S.A. | CUI 568656) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(incasari_operare: 1398151.36) Tj T*
+(plati_operare_fara_dobanzi_impozite: 961226.63) Tj T*
+(impozite_platite: 19574.12) Tj T*
+(capex_mentenanta: 16777.82) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 9405202.21) Tj T*
+(principal_existent: 71770.83) Tj T*
+(dobanzi_existente: 12559.9) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 10 ---) Tj T*
+(luna: 2026-07) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 1599695.22) Tj T*
+(plati_operare_fara_dobanzi_impozite: 1099787.69) Tj T*
+(impozite_platite: 22395.73) Tj T*
+(capex_mentenanta: 19196.34) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 9721444.27) Tj T*
+(principal_existent: 71770.83) Tj T*
+(dobanzi_existente: 12111.33) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 11 ---) Tj T*
+(luna: 2026-08) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 1239219.8) Tj T*
+(plati_operare_fara_dobanzi_impozite: 851961.45) Tj T*
+(impozite_platite: 17349.08) Tj T*
+(capex_mentenanta: 14870.64) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 5/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+15 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 16 0 R >>
+endobj
+16 0 obj
+<< /Length 2115 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-015 | COMELF S.A. | CUI 568656) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 10095877.57) Tj T*
+(principal_existent: 71770.83) Tj T*
+(dobanzi_existente: 11662.76) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 12 ---) Tj T*
+(luna: 2026-09) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 1278474.13) Tj T*
+(plati_operare_fara_dobanzi_impozite: 878948.74) Tj T*
+(impozite_platite: 17898.64) Tj T*
+(capex_mentenanta: 15341.69) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 10367482.61) Tj T*
+(principal_existent: 71770.87) Tj T*
+(dobanzi_existente: 11214.19) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 13 ---) Tj T*
+(luna: 2026-10) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 1508251.25) Tj T*
+(plati_operare_fara_dobanzi_impozite: 1061379.54) Tj T*
+(impozite_platite: 21115.52) Tj T*
+(capex_mentenanta: 18099.02) Tj T*
+(capex_extindere: 3533333.33) Tj T*
+(aport_capital: 883333.33) Tj T*
+(alte_finantari: 2650000.0) Tj T*
+(sold_initial_numerar: 10650782.61) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 6/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+17 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 18 0 R >>
+endobj
+18 0 obj
+<< /Length 2136 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-015 | COMELF S.A. | CUI 568656) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(principal_existent: 71770.83) Tj T*
+(dobanzi_existente: 10765.63) Tj T*
+(principal_nou: 73611.11) Tj T*
+(dobanzi_noi: 23187.5) Tj T*
+(comisioane: 13250.0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 14 ---) Tj T*
+(luna: 2026-11) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 1663722.72) Tj T*
+(plati_operare_fara_dobanzi_impozite: 1170787.2) Tj T*
+(impozite_platite: 23292.12) Tj T*
+(capex_mentenanta: 19964.67) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 10865854.71) Tj T*
+(principal_existent: 71770.83) Tj T*
+(dobanzi_existente: 10317.06) Tj T*
+(principal_nou: 73611.11) Tj T*
+(dobanzi_noi: 22543.4) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 15 ---) Tj T*
+(luna: 2026-12) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 1293278.65) Tj T*
+(plati_operare_fara_dobanzi_impozite: 910100.03) Tj T*
+(impozite_platite: 18105.9) Tj T*
+(capex_mentenanta: 15519.34) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 11137291.04) Tj T*
+(principal_existent: 71770.83) Tj T*
+(dobanzi_existente: 9868.49) Tj T*
+(principal_nou: 73611.11) Tj T*
+(dobanzi_noi: 21899.31) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 7/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+19 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 20 0 R >>
+endobj
+20 0 obj
+<< /Length 2238 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-015 | COMELF S.A. | CUI 568656) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 16 ---) Tj T*
+(luna: 2027-01) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 1439483.34) Tj T*
+(plati_operare_fara_dobanzi_impozite: 1012986.51) Tj T*
+(impozite_platite: 20152.77) Tj T*
+(capex_mentenanta: 17273.8) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 11309694.68) Tj T*
+(principal_existent: 71770.83) Tj T*
+(dobanzi_existente: 9419.92) Tj T*
+(principal_nou: 73611.11) Tj T*
+(dobanzi_noi: 21255.21) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 17 ---) Tj T*
+(luna: 2027-02) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 1522290.23) Tj T*
+(plati_operare_fara_dobanzi_impozite: 1071259.0) Tj T*
+(impozite_platite: 21312.06) Tj T*
+(capex_mentenanta: 18267.48) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 11522707.87) Tj T*
+(principal_existent: 71770.83) Tj T*
+(dobanzi_existente: 8971.35) Tj T*
+(principal_nou: 73611.11) Tj T*
+(dobanzi_noi: 20611.11) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 8/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+21 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 22 0 R >>
+endobj
+22 0 obj
+<< /Length 2101 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-015 | COMELF S.A. | CUI 568656) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+() Tj T*
+(--- Pozitia 18 ---) Tj T*
+(luna: 2027-03) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 1703699.01) Tj T*
+(plati_operare_fara_dobanzi_impozite: 1198919.13) Tj T*
+(impozite_platite: 23851.79) Tj T*
+(capex_mentenanta: 20444.39) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 11759195.16) Tj T*
+(principal_existent: 71770.83) Tj T*
+(dobanzi_existente: 8522.79) Tj T*
+(principal_nou: 73611.11) Tj T*
+(dobanzi_noi: 19967.01) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 19 ---) Tj T*
+(luna: 2027-04) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 1255494.18) Tj T*
+(plati_operare_fara_dobanzi_impozite: 883510.52) Tj T*
+(impozite_platite: 17576.92) Tj T*
+(capex_mentenanta: 15065.93) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 12045807.12) Tj T*
+(principal_existent: 71770.83) Tj T*
+(dobanzi_existente: 8074.22) Tj T*
+(principal_nou: 73611.11) Tj T*
+(dobanzi_noi: 19322.92) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 20 ---) Tj T*
+(luna: 2027-05) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 9/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+23 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 24 0 R >>
+endobj
+24 0 obj
+<< /Length 2134 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-015 | COMELF S.A. | CUI 568656) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 1410029.92) Tj T*
+(plati_operare_fara_dobanzi_impozite: 992259.69) Tj T*
+(impozite_platite: 19740.42) Tj T*
+(capex_mentenanta: 16920.36) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 12212368.85) Tj T*
+(principal_existent: 71770.83) Tj T*
+(dobanzi_existente: 7625.65) Tj T*
+(principal_nou: 73611.11) Tj T*
+(dobanzi_noi: 18678.82) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 21 ---) Tj T*
+(luna: 2027-06) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 1577337.78) Tj T*
+(plati_operare_fara_dobanzi_impozite: 1109996.8) Tj T*
+(impozite_platite: 22082.73) Tj T*
+(capex_mentenanta: 18928.05) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 12421791.89) Tj T*
+(principal_existent: 71770.83) Tj T*
+(dobanzi_existente: 7177.08) Tj T*
+(principal_nou: 73611.11) Tj T*
+(dobanzi_noi: 18034.72) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 22 ---) Tj T*
+(luna: 2027-07) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 1676455.06) Tj T*
+(plati_operare_fara_dobanzi_impozite: 1179747.15) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 10/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+25 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 26 0 R >>
+endobj
+26 0 obj
+<< /Length 2120 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-015 | COMELF S.A. | CUI 568656) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(impozite_platite: 23470.37) Tj T*
+(capex_mentenanta: 20117.46) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 12677528.35) Tj T*
+(principal_existent: 71770.83) Tj T*
+(dobanzi_existente: 6728.52) Tj T*
+(principal_nou: 73611.11) Tj T*
+(dobanzi_noi: 17390.63) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 23 ---) Tj T*
+(luna: 2027-08) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 1230315.25) Tj T*
+(plati_operare_fara_dobanzi_impozite: 865791.73) Tj T*
+(impozite_platite: 17224.41) Tj T*
+(capex_mentenanta: 14763.78) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 12961147.34) Tj T*
+(principal_existent: 71770.83) Tj T*
+(dobanzi_existente: 6279.95) Tj T*
+(principal_nou: 73611.11) Tj T*
+(dobanzi_noi: 16746.53) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 24 ---) Tj T*
+(luna: 2027-09) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 1401110.11) Tj T*
+(plati_operare_fara_dobanzi_impozite: 985982.68) Tj T*
+(impozite_platite: 19615.54) Tj T*
+(capex_mentenanta: 16813.32) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 11/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+27 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 28 0 R >>
+endobj
+28 0 obj
+<< /Length 844 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-015 | COMELF S.A. | CUI 568656) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 13125274.25) Tj T*
+(principal_existent: 71770.83) Tj T*
+(dobanzi_existente: 5831.38) Tj T*
+(principal_nou: 73611.11) Tj T*
+(dobanzi_noi: 16102.43) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 12/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+xref
+0 29
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000197 00000 n 
+0000000267 00000 n 
+0000000342 00000 n 
+0000000478 00000 n 
+0000002689 00000 n 
+0000002825 00000 n 
+0000005006 00000 n 
+0000005143 00000 n 
+0000007314 00000 n 
+0000007452 00000 n 
+0000009576 00000 n 
+0000009714 00000 n 
+0000011893 00000 n 
+0000012031 00000 n 
+0000014199 00000 n 
+0000014337 00000 n 
+0000016526 00000 n 
+0000016664 00000 n 
+0000018955 00000 n 
+0000019093 00000 n 
+0000021247 00000 n 
+0000021385 00000 n 
+0000023572 00000 n 
+0000023710 00000 n 
+0000025883 00000 n 
+0000026021 00000 n 
+trailer
+<< /Size 29 /Root 1 0 R >>
+startxref
+26917
+%%EOF

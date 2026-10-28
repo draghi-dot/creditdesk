@@ -1,0 +1,72 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Count 1 /Kids [5 0 R] >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 6 0 R >>
+endobj
+6 0 obj
+<< /Length 1902 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (IDENTIFICARE KYC DEMO / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-011 | BITTNET SYSTEMS S.A. BUCURESTI | CUI 21181848) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(SIMULAT / HACKATHON - fara valoare juridica; nu este document bancar sau raport real.) Tj T*
+() Tj T*
+(Dosar: TEST-DOS-011 | Document: TEST-DOC-011-IDENTIFICARE_KYC_DEMO) Tj T*
+(Identitate publica de referinta: BITTNET SYSTEMS S.A. BUCURESTI) Tj T*
+(CUI public: 21181848) Tj T*
+(Toate datele bancare de mai jos sunt inventate; nu descriu firma reala.) Tj T*
+(Emitent: simulator HACKATHON, fara acces la sistemele bancii.) Tj T*
+(Data referinta: 2026-09-30 | Moneda RON | Unitate 1 RON) Tj T*
+() Tj T*
+(PROFIL KYC SIMULAT - NU ESTE EXTRAS ONRC) Tj T*
+() Tj T*
+(cui: 21181848) Tj T*
+(denumire: BITTNET SYSTEMS S.A. BUCURESTI) Tj T*
+(denumiri_anterioare: []) Tj T*
+(nr_registru: TEST-RC-011) Tj T*
+(data_infiintare: 2016-03-12) Tj T*
+(forma_juridica: SA) Tj T*
+(tara: RO) Tj T*
+(sediu: SIMULAT: Strada Demonstratiei 11, Bucuresti) Tj T*
+(caen: 6202) Tj T*
+(versiune_caen: Rev.2 - IPOTEZA DEMO, neverificat) Tj T*
+(status_juridic: activa) Tj T*
+(administratori: [{"persoana_id":"TEST-PERS-011","nume":"Reprezentant DEMO 011","rol":"administrator_f) Tj T*
+(ictiv","mandat_pana_la":"2028-12-31","email":"companie011@example.invalid","sintetic":true}]) Tj T*
+(asociati: [{"persoana_id":"TEST-HOLD-011","nume_sau_denumire":"Actionar fictiv DEMO) Tj T*
+(011","participatie_procente":100,"sintetic":true}]) Tj T*
+(beneficiari_reali: [{"persoana_id":"TEST-UBO-011","nume":"Beneficiar fictiv DEMO) Tj T*
+(011","participatie_procente":100,"sintetic":true}]) Tj T*
+(grup_companii: []) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 1/1 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+xref
+0 7
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000121 00000 n 
+0000000191 00000 n 
+0000000266 00000 n 
+0000000402 00000 n 
+trailer
+<< /Size 7 /Root 1 0 R >>
+startxref
+2356
+%%EOF

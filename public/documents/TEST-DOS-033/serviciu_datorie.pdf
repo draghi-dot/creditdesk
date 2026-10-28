@@ -1,0 +1,923 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Count 14 /Kids [5 0 R 7 0 R 9 0 R 11 0 R 13 0 R 15 0 R 17 0 R 19 0 R 21 0 R 23 0 R 25 0 R 27 0 R 29 0 R 31 0 R] >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 6 0 R >>
+endobj
+6 0 obj
+<< /Length 1992 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-033 | PROMATERIS S.A. | CUI 108) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(SIMULAT / HACKATHON - fara valoare juridica; nu este document bancar sau raport real.) Tj T*
+() Tj T*
+(Dosar: TEST-DOS-033 | Document: TEST-DOC-033-SERVICIU_DATORIE) Tj T*
+(Identitate publica de referinta: PROMATERIS S.A.) Tj T*
+(CUI public: 108) Tj T*
+(Toate datele bancare de mai jos sunt inventate; nu descriu firma reala.) Tj T*
+(Emitent: simulator HACKATHON, fara acces la sistemele bancii.) Tj T*
+(Data referinta: 2026-09-30 | Moneda RON | Unitate 1 RON) Tj T*
+() Tj T*
+(SERVICIU DATORIE) Tj T*
+() Tj T*
+(--- Pozitia 1 ---) Tj T*
+(facilitate_id: TEST-FAC-033-EXISTENT) Tj T*
+(luna: 2025-10) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 140833.33) Tj T*
+(dobanda_scadenta: 31687.5) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 2 ---) Tj T*
+(facilitate_id: TEST-FAC-033-EXISTENT) Tj T*
+(luna: 2025-11) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 140833.33) Tj T*
+(dobanda_scadenta: 30807.29) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 3 ---) Tj T*
+(facilitate_id: TEST-FAC-033-EXISTENT) Tj T*
+(luna: 2025-12) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 140833.33) Tj T*
+(dobanda_scadenta: 29927.08) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 4 ---) Tj T*
+(facilitate_id: TEST-FAC-033-EXISTENT) Tj T*
+(luna: 2026-01) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 140833.33) Tj T*
+(dobanda_scadenta: 29046.88) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 5 ---) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 1/14 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 8 0 R >>
+endobj
+8 0 obj
+<< /Length 1808 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-033 | PROMATERIS S.A. | CUI 108) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(facilitate_id: TEST-FAC-033-EXISTENT) Tj T*
+(luna: 2026-02) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 140833.33) Tj T*
+(dobanda_scadenta: 28166.67) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 6 ---) Tj T*
+(facilitate_id: TEST-FAC-033-EXISTENT) Tj T*
+(luna: 2026-03) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 140833.33) Tj T*
+(dobanda_scadenta: 27286.46) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 7 ---) Tj T*
+(facilitate_id: TEST-FAC-033-EXISTENT) Tj T*
+(luna: 2026-04) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 140833.33) Tj T*
+(dobanda_scadenta: 26406.25) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 8 ---) Tj T*
+(facilitate_id: TEST-FAC-033-EXISTENT) Tj T*
+(luna: 2026-05) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 140833.33) Tj T*
+(dobanda_scadenta: 25526.04) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 9 ---) Tj T*
+(facilitate_id: TEST-FAC-033-EXISTENT) Tj T*
+(luna: 2026-06) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 140833.33) Tj T*
+(dobanda_scadenta: 24645.83) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 10 ---) Tj T*
+(facilitate_id: TEST-FAC-033-EXISTENT) Tj T*
+(luna: 2026-07) Tj T*
+(moneda: RON) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 2/14 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 10 0 R >>
+endobj
+10 0 obj
+<< /Length 1827 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-033 | PROMATERIS S.A. | CUI 108) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(principal_scadent: 140833.33) Tj T*
+(dobanda_scadenta: 23765.63) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 11 ---) Tj T*
+(facilitate_id: TEST-FAC-033-EXISTENT) Tj T*
+(luna: 2026-08) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 140833.33) Tj T*
+(dobanda_scadenta: 22885.42) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 12 ---) Tj T*
+(facilitate_id: TEST-FAC-033-EXISTENT) Tj T*
+(luna: 2026-09) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 140833.37) Tj T*
+(dobanda_scadenta: 22005.21) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 13 ---) Tj T*
+(facilitate_id: TEST-FAC-033-EXISTENT) Tj T*
+(luna: 2026-10) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 140833.33) Tj T*
+(dobanda_scadenta: 21125.0) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 14 ---) Tj T*
+(facilitate_id: TEST-FAC-033-EXISTENT) Tj T*
+(luna: 2026-11) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 140833.33) Tj T*
+(dobanda_scadenta: 20244.79) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 15 ---) Tj T*
+(facilitate_id: TEST-FAC-033-EXISTENT) Tj T*
+(luna: 2026-12) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 140833.33) Tj T*
+(dobanda_scadenta: 19364.58) Tj T*
+(comisioane_scadente: 0) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 3/14 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+11 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 12 0 R >>
+endobj
+12 0 obj
+<< /Length 1800 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-033 | PROMATERIS S.A. | CUI 108) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 16 ---) Tj T*
+(facilitate_id: TEST-FAC-033-EXISTENT) Tj T*
+(luna: 2027-01) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 140833.33) Tj T*
+(dobanda_scadenta: 18484.38) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 17 ---) Tj T*
+(facilitate_id: TEST-FAC-033-EXISTENT) Tj T*
+(luna: 2027-02) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 140833.33) Tj T*
+(dobanda_scadenta: 17604.17) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 18 ---) Tj T*
+(facilitate_id: TEST-FAC-033-EXISTENT) Tj T*
+(luna: 2027-03) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 140833.33) Tj T*
+(dobanda_scadenta: 16723.96) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 19 ---) Tj T*
+(facilitate_id: TEST-FAC-033-EXISTENT) Tj T*
+(luna: 2027-04) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 140833.33) Tj T*
+(dobanda_scadenta: 15843.75) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 20 ---) Tj T*
+(facilitate_id: TEST-FAC-033-EXISTENT) Tj T*
+(luna: 2027-05) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 140833.33) Tj T*
+(dobanda_scadenta: 14963.54) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 21 ---) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 4/14 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+13 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 14 0 R >>
+endobj
+14 0 obj
+<< /Length 1811 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-033 | PROMATERIS S.A. | CUI 108) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(facilitate_id: TEST-FAC-033-EXISTENT) Tj T*
+(luna: 2027-06) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 140833.33) Tj T*
+(dobanda_scadenta: 14083.33) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 22 ---) Tj T*
+(facilitate_id: TEST-FAC-033-EXISTENT) Tj T*
+(luna: 2027-07) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 140833.33) Tj T*
+(dobanda_scadenta: 13203.13) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 23 ---) Tj T*
+(facilitate_id: TEST-FAC-033-EXISTENT) Tj T*
+(luna: 2027-08) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 140833.33) Tj T*
+(dobanda_scadenta: 12322.92) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 24 ---) Tj T*
+(facilitate_id: TEST-FAC-033-EXISTENT) Tj T*
+(luna: 2027-09) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 140833.33) Tj T*
+(dobanda_scadenta: 11442.71) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 25 ---) Tj T*
+(facilitate_id: TEST-FAC-033-EXISTENT) Tj T*
+(luna: 2027-10) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 140833.33) Tj T*
+(dobanda_scadenta: 10562.5) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 26 ---) Tj T*
+(facilitate_id: TEST-FAC-033-EXISTENT) Tj T*
+(luna: 2027-11) Tj T*
+(moneda: RON) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 5/14 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+15 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 16 0 R >>
+endobj
+16 0 obj
+<< /Length 1822 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-033 | PROMATERIS S.A. | CUI 108) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(principal_scadent: 140833.33) Tj T*
+(dobanda_scadenta: 9682.29) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 27 ---) Tj T*
+(facilitate_id: TEST-FAC-033-EXISTENT) Tj T*
+(luna: 2027-12) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 140833.33) Tj T*
+(dobanda_scadenta: 8802.08) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 28 ---) Tj T*
+(facilitate_id: TEST-FAC-033-EXISTENT) Tj T*
+(luna: 2028-01) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 140833.33) Tj T*
+(dobanda_scadenta: 7921.88) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 29 ---) Tj T*
+(facilitate_id: TEST-FAC-033-EXISTENT) Tj T*
+(luna: 2028-02) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 140833.33) Tj T*
+(dobanda_scadenta: 7041.67) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 30 ---) Tj T*
+(facilitate_id: TEST-FAC-033-EXISTENT) Tj T*
+(luna: 2028-03) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 140833.33) Tj T*
+(dobanda_scadenta: 6161.46) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 31 ---) Tj T*
+(facilitate_id: TEST-FAC-033-EXISTENT) Tj T*
+(luna: 2028-04) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 140833.33) Tj T*
+(dobanda_scadenta: 5281.25) Tj T*
+(comisioane_scadente: 0) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 6/14 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+17 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 18 0 R >>
+endobj
+18 0 obj
+<< /Length 1794 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-033 | PROMATERIS S.A. | CUI 108) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 32 ---) Tj T*
+(facilitate_id: TEST-FAC-033-EXISTENT) Tj T*
+(luna: 2028-05) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 140833.33) Tj T*
+(dobanda_scadenta: 4401.04) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 33 ---) Tj T*
+(facilitate_id: TEST-FAC-033-EXISTENT) Tj T*
+(luna: 2028-06) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 140833.33) Tj T*
+(dobanda_scadenta: 3520.83) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 34 ---) Tj T*
+(facilitate_id: TEST-FAC-033-EXISTENT) Tj T*
+(luna: 2028-07) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 140833.33) Tj T*
+(dobanda_scadenta: 2640.63) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 35 ---) Tj T*
+(facilitate_id: TEST-FAC-033-EXISTENT) Tj T*
+(luna: 2028-08) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 140833.33) Tj T*
+(dobanda_scadenta: 1760.42) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 36 ---) Tj T*
+(facilitate_id: TEST-FAC-033-EXISTENT) Tj T*
+(luna: 2028-09) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 140833.41) Tj T*
+(dobanda_scadenta: 880.21) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 37 ---) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 7/14 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+19 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 20 0 R >>
+endobj
+20 0 obj
+<< /Length 1763 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-033 | PROMATERIS S.A. | CUI 108) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(facilitate_id: TEST-FAC-033-NOU) Tj T*
+(luna: 2026-10) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 144444.44) Tj T*
+(dobanda_scadenta: 36833.33) Tj T*
+(comisioane_scadente: 26000.0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 38 ---) Tj T*
+(facilitate_id: TEST-FAC-033-NOU) Tj T*
+(luna: 2026-11) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 144444.44) Tj T*
+(dobanda_scadenta: 35810.19) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 39 ---) Tj T*
+(facilitate_id: TEST-FAC-033-NOU) Tj T*
+(luna: 2026-12) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 144444.44) Tj T*
+(dobanda_scadenta: 34787.04) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 40 ---) Tj T*
+(facilitate_id: TEST-FAC-033-NOU) Tj T*
+(luna: 2027-01) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 144444.44) Tj T*
+(dobanda_scadenta: 33763.89) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 41 ---) Tj T*
+(facilitate_id: TEST-FAC-033-NOU) Tj T*
+(luna: 2027-02) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 144444.44) Tj T*
+(dobanda_scadenta: 32740.74) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 42 ---) Tj T*
+(facilitate_id: TEST-FAC-033-NOU) Tj T*
+(luna: 2027-03) Tj T*
+(moneda: RON) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 8/14 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+21 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 22 0 R >>
+endobj
+22 0 obj
+<< /Length 1776 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-033 | PROMATERIS S.A. | CUI 108) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(principal_scadent: 144444.44) Tj T*
+(dobanda_scadenta: 31717.59) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 43 ---) Tj T*
+(facilitate_id: TEST-FAC-033-NOU) Tj T*
+(luna: 2027-04) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 144444.44) Tj T*
+(dobanda_scadenta: 30694.44) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 44 ---) Tj T*
+(facilitate_id: TEST-FAC-033-NOU) Tj T*
+(luna: 2027-05) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 144444.44) Tj T*
+(dobanda_scadenta: 29671.3) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 45 ---) Tj T*
+(facilitate_id: TEST-FAC-033-NOU) Tj T*
+(luna: 2027-06) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 144444.44) Tj T*
+(dobanda_scadenta: 28648.15) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 46 ---) Tj T*
+(facilitate_id: TEST-FAC-033-NOU) Tj T*
+(luna: 2027-07) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 144444.44) Tj T*
+(dobanda_scadenta: 27625.0) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 47 ---) Tj T*
+(facilitate_id: TEST-FAC-033-NOU) Tj T*
+(luna: 2027-08) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 144444.44) Tj T*
+(dobanda_scadenta: 26601.85) Tj T*
+(comisioane_scadente: 0) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 9/14 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+23 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 24 0 R >>
+endobj
+24 0 obj
+<< /Length 1745 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-033 | PROMATERIS S.A. | CUI 108) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 48 ---) Tj T*
+(facilitate_id: TEST-FAC-033-NOU) Tj T*
+(luna: 2027-09) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 144444.44) Tj T*
+(dobanda_scadenta: 25578.7) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 49 ---) Tj T*
+(facilitate_id: TEST-FAC-033-NOU) Tj T*
+(luna: 2027-10) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 144444.44) Tj T*
+(dobanda_scadenta: 24555.56) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 50 ---) Tj T*
+(facilitate_id: TEST-FAC-033-NOU) Tj T*
+(luna: 2027-11) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 144444.44) Tj T*
+(dobanda_scadenta: 23532.41) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 51 ---) Tj T*
+(facilitate_id: TEST-FAC-033-NOU) Tj T*
+(luna: 2027-12) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 144444.44) Tj T*
+(dobanda_scadenta: 22509.26) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 52 ---) Tj T*
+(facilitate_id: TEST-FAC-033-NOU) Tj T*
+(luna: 2028-01) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 144444.44) Tj T*
+(dobanda_scadenta: 21486.11) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 53 ---) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 10/14 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+25 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 26 0 R >>
+endobj
+26 0 obj
+<< /Length 1758 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-033 | PROMATERIS S.A. | CUI 108) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(facilitate_id: TEST-FAC-033-NOU) Tj T*
+(luna: 2028-02) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 144444.44) Tj T*
+(dobanda_scadenta: 20462.96) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 54 ---) Tj T*
+(facilitate_id: TEST-FAC-033-NOU) Tj T*
+(luna: 2028-03) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 144444.44) Tj T*
+(dobanda_scadenta: 19439.82) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 55 ---) Tj T*
+(facilitate_id: TEST-FAC-033-NOU) Tj T*
+(luna: 2028-04) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 144444.44) Tj T*
+(dobanda_scadenta: 18416.67) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 56 ---) Tj T*
+(facilitate_id: TEST-FAC-033-NOU) Tj T*
+(luna: 2028-05) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 144444.44) Tj T*
+(dobanda_scadenta: 17393.52) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 57 ---) Tj T*
+(facilitate_id: TEST-FAC-033-NOU) Tj T*
+(luna: 2028-06) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 144444.44) Tj T*
+(dobanda_scadenta: 16370.37) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 58 ---) Tj T*
+(facilitate_id: TEST-FAC-033-NOU) Tj T*
+(luna: 2028-07) Tj T*
+(moneda: RON) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 11/14 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+27 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 28 0 R >>
+endobj
+28 0 obj
+<< /Length 1779 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-033 | PROMATERIS S.A. | CUI 108) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(principal_scadent: 144444.44) Tj T*
+(dobanda_scadenta: 15347.22) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 59 ---) Tj T*
+(facilitate_id: TEST-FAC-033-NOU) Tj T*
+(luna: 2028-08) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 144444.44) Tj T*
+(dobanda_scadenta: 14324.07) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 60 ---) Tj T*
+(facilitate_id: TEST-FAC-033-NOU) Tj T*
+(luna: 2028-09) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 144444.44) Tj T*
+(dobanda_scadenta: 13300.93) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 61 ---) Tj T*
+(facilitate_id: TEST-FAC-033-NOU) Tj T*
+(luna: 2028-10) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 144444.44) Tj T*
+(dobanda_scadenta: 12277.78) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 62 ---) Tj T*
+(facilitate_id: TEST-FAC-033-NOU) Tj T*
+(luna: 2028-11) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 144444.44) Tj T*
+(dobanda_scadenta: 11254.63) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 63 ---) Tj T*
+(facilitate_id: TEST-FAC-033-NOU) Tj T*
+(luna: 2028-12) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 144444.44) Tj T*
+(dobanda_scadenta: 10231.48) Tj T*
+(comisioane_scadente: 0) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 12/14 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+29 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 30 0 R >>
+endobj
+30 0 obj
+<< /Length 1741 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-033 | PROMATERIS S.A. | CUI 108) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 64 ---) Tj T*
+(facilitate_id: TEST-FAC-033-NOU) Tj T*
+(luna: 2029-01) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 144444.44) Tj T*
+(dobanda_scadenta: 9208.33) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 65 ---) Tj T*
+(facilitate_id: TEST-FAC-033-NOU) Tj T*
+(luna: 2029-02) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 144444.44) Tj T*
+(dobanda_scadenta: 8185.19) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 66 ---) Tj T*
+(facilitate_id: TEST-FAC-033-NOU) Tj T*
+(luna: 2029-03) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 144444.44) Tj T*
+(dobanda_scadenta: 7162.04) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 67 ---) Tj T*
+(facilitate_id: TEST-FAC-033-NOU) Tj T*
+(luna: 2029-04) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 144444.44) Tj T*
+(dobanda_scadenta: 6138.89) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 68 ---) Tj T*
+(facilitate_id: TEST-FAC-033-NOU) Tj T*
+(luna: 2029-05) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 144444.44) Tj T*
+(dobanda_scadenta: 5115.74) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 69 ---) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 13/14 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+31 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 32 0 R >>
+endobj
+32 0 obj
+<< /Length 1388 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-033 | PROMATERIS S.A. | CUI 108) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(facilitate_id: TEST-FAC-033-NOU) Tj T*
+(luna: 2029-06) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 144444.44) Tj T*
+(dobanda_scadenta: 4092.59) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 70 ---) Tj T*
+(facilitate_id: TEST-FAC-033-NOU) Tj T*
+(luna: 2029-07) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 144444.44) Tj T*
+(dobanda_scadenta: 3069.45) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 71 ---) Tj T*
+(facilitate_id: TEST-FAC-033-NOU) Tj T*
+(luna: 2029-08) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 144444.44) Tj T*
+(dobanda_scadenta: 2046.3) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 72 ---) Tj T*
+(facilitate_id: TEST-FAC-033-NOU) Tj T*
+(luna: 2029-09) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 144444.6) Tj T*
+(dobanda_scadenta: 1023.15) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 14/14 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+xref
+0 33
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000211 00000 n 
+0000000281 00000 n 
+0000000356 00000 n 
+0000000492 00000 n 
+0000002536 00000 n 
+0000002672 00000 n 
+0000004532 00000 n 
+0000004669 00000 n 
+0000006549 00000 n 
+0000006687 00000 n 
+0000008540 00000 n 
+0000008678 00000 n 
+0000010542 00000 n 
+0000010680 00000 n 
+0000012555 00000 n 
+0000012693 00000 n 
+0000014540 00000 n 
+0000014678 00000 n 
+0000016494 00000 n 
+0000016632 00000 n 
+0000018461 00000 n 
+0000018599 00000 n 
+0000020397 00000 n 
+0000020535 00000 n 
+0000022346 00000 n 
+0000022484 00000 n 
+0000024316 00000 n 
+0000024454 00000 n 
+0000026248 00000 n 
+0000026386 00000 n 
+trailer
+<< /Size 33 /Root 1 0 R >>
+startxref
+27827
+%%EOF

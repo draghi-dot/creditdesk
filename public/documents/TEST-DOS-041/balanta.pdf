@@ -1,0 +1,377 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Count 6 /Kids [5 0 R 7 0 R 9 0 R 11 0 R 13 0 R 15 0 R] >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 6 0 R >>
+endobj
+6 0 obj
+<< /Length 2020 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (BALANTA / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-041 | S.P.E.E.H. HIDROELECTRICA S.A. | CUI 13267213) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(SIMULAT / HACKATHON - fara valoare juridica; nu este document bancar sau raport real.) Tj T*
+() Tj T*
+(Dosar: TEST-DOS-041 | Document: TEST-DOC-041-BALANTA) Tj T*
+(Identitate publica de referinta: S.P.E.E.H. HIDROELECTRICA S.A.) Tj T*
+(CUI public: 13267213) Tj T*
+(Toate datele bancare de mai jos sunt inventate; nu descriu firma reala.) Tj T*
+(Emitent: simulator HACKATHON, fara acces la sistemele bancii.) Tj T*
+(Data referinta: 2026-09-30 | Moneda RON | Unitate 1 RON) Tj T*
+() Tj T*
+(BALANTA) Tj T*
+() Tj T*
+(--- Pozitia 1 ---) Tj T*
+(perioada_start: 2026-09-01) Tj T*
+(perioada_end: 2026-09-30) Tj T*
+(moneda: RON) Tj T*
+(unitate: 1) Tj T*
+(cod_cont: 212) Tj T*
+(cont_parinte: NECUNOSCUT / neaplicabil) Tj T*
+(nivel: 1) Tj T*
+(include_in_total: da) Tj T*
+(denumire_cont: Constructii) Tj T*
+(sold_initial_debit: 5714100.0) Tj T*
+(sold_initial_credit: 0) Tj T*
+(rulaj_perioada_debit: 0.0) Tj T*
+(rulaj_perioada_credit: 0.0) Tj T*
+(sold_final_debit: 5714100.0) Tj T*
+(sold_final_credit: 0) Tj T*
+() Tj T*
+(--- Pozitia 2 ---) Tj T*
+(perioada_start: 2026-09-01) Tj T*
+(perioada_end: 2026-09-30) Tj T*
+(moneda: RON) Tj T*
+(unitate: 1) Tj T*
+(cod_cont: 2131) Tj T*
+(cont_parinte: NECUNOSCUT / neaplicabil) Tj T*
+(nivel: 1) Tj T*
+(include_in_total: da) Tj T*
+(denumire_cont: Echipamente tehnologice) Tj T*
+(sold_initial_debit: 6983900.0) Tj T*
+(sold_initial_credit: 0) Tj T*
+(rulaj_perioada_debit: 0.0) Tj T*
+(rulaj_perioada_credit: 0.0) Tj T*
+(sold_final_debit: 6983900.0) Tj T*
+(sold_final_credit: 0) Tj T*
+() Tj T*
+(--- Pozitia 3 ---) Tj T*
+(perioada_start: 2026-09-01) Tj T*
+(perioada_end: 2026-09-30) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 1/6 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 8 0 R >>
+endobj
+8 0 obj
+<< /Length 1840 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (BALANTA / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-041 | S.P.E.E.H. HIDROELECTRICA S.A. | CUI 13267213) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(moneda: RON) Tj T*
+(unitate: 1) Tj T*
+(cod_cont: 281) Tj T*
+(cont_parinte: NECUNOSCUT / neaplicabil) Tj T*
+(nivel: 1) Tj T*
+(include_in_total: da) Tj T*
+(denumire_cont: Amortizari cumulate) Tj T*
+(sold_initial_debit: 0) Tj T*
+(sold_initial_credit: 2857050.0) Tj T*
+(rulaj_perioada_debit: 0.0) Tj T*
+(rulaj_perioada_credit: 0.0) Tj T*
+(sold_final_debit: 0) Tj T*
+(sold_final_credit: 2857050.0) Tj T*
+() Tj T*
+(--- Pozitia 4 ---) Tj T*
+(perioada_start: 2026-09-01) Tj T*
+(perioada_end: 2026-09-30) Tj T*
+(moneda: RON) Tj T*
+(unitate: 1) Tj T*
+(cod_cont: 301) Tj T*
+(cont_parinte: NECUNOSCUT / neaplicabil) Tj T*
+(nivel: 1) Tj T*
+(include_in_total: da) Tj T*
+(denumire_cont: Materii prime si marfuri) Tj T*
+(sold_initial_debit: 2799909.0) Tj T*
+(sold_initial_credit: 0) Tj T*
+(rulaj_perioada_debit: 152376.0) Tj T*
+(rulaj_perioada_credit: 95235.0) Tj T*
+(sold_final_debit: 2857050.0) Tj T*
+(sold_final_credit: 0) Tj T*
+() Tj T*
+(--- Pozitia 5 ---) Tj T*
+(perioada_start: 2026-09-01) Tj T*
+(perioada_end: 2026-09-30) Tj T*
+(moneda: RON) Tj T*
+(unitate: 1) Tj T*
+(cod_cont: 4111) Tj T*
+(cont_parinte: NECUNOSCUT / neaplicabil) Tj T*
+(nivel: 1) Tj T*
+(include_in_total: da) Tj T*
+(denumire_cont: Clienti) Tj T*
+(sold_initial_debit: 4926824.0) Tj T*
+(sold_initial_credit: 0) Tj T*
+(rulaj_perioada_debit: 7136276.0) Tj T*
+(rulaj_perioada_credit: 6983900.0) Tj T*
+(sold_final_debit: 5079200.0) Tj T*
+(sold_final_credit: 0) Tj T*
+() Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 2/6 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 10 0 R >>
+endobj
+10 0 obj
+<< /Length 1859 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (BALANTA / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-041 | S.P.E.E.H. HIDROELECTRICA S.A. | CUI 13267213) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(--- Pozitia 6 ---) Tj T*
+(perioada_start: 2026-09-01) Tj T*
+(perioada_end: 2026-09-30) Tj T*
+(moneda: RON) Tj T*
+(unitate: 1) Tj T*
+(cod_cont: 5121) Tj T*
+(cont_parinte: NECUNOSCUT / neaplicabil) Tj T*
+(nivel: 1) Tj T*
+(include_in_total: da) Tj T*
+(denumire_cont: Numerar disponibil RON) Tj T*
+(sold_initial_debit: 22736796.7) Tj T*
+(sold_initial_credit: 0) Tj T*
+(rulaj_perioada_debit: 7530828.45) Tj T*
+(rulaj_perioada_credit: 6983900.0) Tj T*
+(sold_final_debit: 23283725.15) Tj T*
+(sold_final_credit: 0) Tj T*
+() Tj T*
+(--- Pozitia 7 ---) Tj T*
+(perioada_start: 2026-09-01) Tj T*
+(perioada_end: 2026-09-30) Tj T*
+(moneda: RON) Tj T*
+(unitate: 1) Tj T*
+(cod_cont: 5124) Tj T*
+(cont_parinte: NECUNOSCUT / neaplicabil) Tj T*
+(nivel: 1) Tj T*
+(include_in_total: da) Tj T*
+(denumire_cont: Numerar restrictionat DEMO) Tj T*
+(sold_initial_debit: 0) Tj T*
+(sold_initial_credit: 0) Tj T*
+(rulaj_perioada_debit: 0.0) Tj T*
+(rulaj_perioada_credit: 0.0) Tj T*
+(sold_final_debit: 0) Tj T*
+(sold_final_credit: 0) Tj T*
+() Tj T*
+(--- Pozitia 8 ---) Tj T*
+(perioada_start: 2026-09-01) Tj T*
+(perioada_end: 2026-09-30) Tj T*
+(moneda: RON) Tj T*
+(unitate: 1) Tj T*
+(cod_cont: 401) Tj T*
+(cont_parinte: NECUNOSCUT / neaplicabil) Tj T*
+(nivel: 1) Tj T*
+(include_in_total: da) Tj T*
+(denumire_cont: Furnizori) Tj T*
+(sold_initial_debit: 0) Tj T*
+(sold_initial_credit: 3352272.0) Tj T*
+(rulaj_perioada_debit: 6983900.0) Tj T*
+(rulaj_perioada_credit: 7123578.0) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 3/6 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+11 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 12 0 R >>
+endobj
+12 0 obj
+<< /Length 1837 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (BALANTA / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-041 | S.P.E.E.H. HIDROELECTRICA S.A. | CUI 13267213) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(sold_final_debit: 0) Tj T*
+(sold_final_credit: 3491950.0) Tj T*
+() Tj T*
+(--- Pozitia 9 ---) Tj T*
+(perioada_start: 2026-09-01) Tj T*
+(perioada_end: 2026-09-30) Tj T*
+(moneda: RON) Tj T*
+(unitate: 1) Tj T*
+(cod_cont: 441) Tj T*
+(cont_parinte: NECUNOSCUT / neaplicabil) Tj T*
+(nivel: 1) Tj T*
+(include_in_total: da) Tj T*
+(denumire_cont: Impozit pe profit) Tj T*
+(sold_initial_debit: 0) Tj T*
+(sold_initial_credit: 180946.5) Tj T*
+(rulaj_perioada_debit: 95235.0) Tj T*
+(rulaj_perioada_credit: 104758.5) Tj T*
+(sold_final_debit: 0) Tj T*
+(sold_final_credit: 190470.0) Tj T*
+() Tj T*
+(--- Pozitia 10 ---) Tj T*
+(perioada_start: 2026-09-01) Tj T*
+(perioada_end: 2026-09-30) Tj T*
+(moneda: RON) Tj T*
+(unitate: 1) Tj T*
+(cod_cont: 1621) Tj T*
+(cont_parinte: NECUNOSCUT / neaplicabil) Tj T*
+(nivel: 1) Tj T*
+(include_in_total: da) Tj T*
+(denumire_cont: Credite pe termen lung) Tj T*
+(sold_initial_debit: 0) Tj T*
+(sold_initial_credit: 2149401.06) Tj T*
+(rulaj_perioada_debit: 85976.06) Tj T*
+(rulaj_perioada_credit: 0.0) Tj T*
+(sold_final_debit: 0) Tj T*
+(sold_final_credit: 2063425.0) Tj T*
+() Tj T*
+(--- Pozitia 11 ---) Tj T*
+(perioada_start: 2026-09-01) Tj T*
+(perioada_end: 2026-09-30) Tj T*
+(moneda: RON) Tj T*
+(unitate: 1) Tj T*
+(cod_cont: 5191) Tj T*
+(cont_parinte: NECUNOSCUT / neaplicabil) Tj T*
+(nivel: 1) Tj T*
+(include_in_total: da) Tj T*
+(denumire_cont: Partea curenta a creditelor) Tj T*
+(sold_initial_debit: 0) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 4/6 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+13 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 14 0 R >>
+endobj
+14 0 obj
+<< /Length 1839 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (BALANTA / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-041 | S.P.E.E.H. HIDROELECTRICA S.A. | CUI 13267213) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(sold_initial_credit: 2149401.06) Tj T*
+(rulaj_perioada_debit: 85976.06) Tj T*
+(rulaj_perioada_credit: 0.0) Tj T*
+(sold_final_debit: 0) Tj T*
+(sold_final_credit: 2063425.0) Tj T*
+() Tj T*
+(--- Pozitia 12 ---) Tj T*
+(perioada_start: 2026-09-01) Tj T*
+(perioada_end: 2026-09-30) Tj T*
+(moneda: RON) Tj T*
+(unitate: 1) Tj T*
+(cod_cont: 1012) Tj T*
+(cont_parinte: NECUNOSCUT / neaplicabil) Tj T*
+(nivel: 1) Tj T*
+(include_in_total: da) Tj T*
+(denumire_cont: Capital social varsat) Tj T*
+(sold_initial_debit: 0) Tj T*
+(sold_initial_credit: 6349000.0) Tj T*
+(rulaj_perioada_debit: 0.0) Tj T*
+(rulaj_perioada_credit: 0.0) Tj T*
+(sold_final_debit: 0) Tj T*
+(sold_final_credit: 6349000.0) Tj T*
+() Tj T*
+(--- Pozitia 13 ---) Tj T*
+(perioada_start: 2026-09-01) Tj T*
+(perioada_end: 2026-09-30) Tj T*
+(moneda: RON) Tj T*
+(unitate: 1) Tj T*
+(cod_cont: 121) Tj T*
+(cont_parinte: NECUNOSCUT / neaplicabil) Tj T*
+(nivel: 1) Tj T*
+(include_in_total: da) Tj T*
+(denumire_cont: Rezultatul perioadei) Tj T*
+(sold_initial_debit: 0) Tj T*
+(sold_initial_credit: 5163941.96) Tj T*
+(rulaj_perioada_debit: 0.0) Tj T*
+(rulaj_perioada_credit: 626428.39) Tj T*
+(sold_final_debit: 0) Tj T*
+(sold_final_credit: 5790370.35) Tj T*
+() Tj T*
+(--- Pozitia 14 ---) Tj T*
+(perioada_start: 2026-09-01) Tj T*
+(perioada_end: 2026-09-30) Tj T*
+(moneda: RON) Tj T*
+(unitate: 1) Tj T*
+(cod_cont: 1171) Tj T*
+(cont_parinte: NECUNOSCUT / neaplicabil) Tj T*
+(nivel: 1) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 5/6 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+15 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 16 0 R >>
+endobj
+16 0 obj
+<< /Length 701 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (BALANTA / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-041 | S.P.E.E.H. HIDROELECTRICA S.A. | CUI 13267213) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(include_in_total: da) Tj T*
+(denumire_cont: Rezultat reportat) Tj T*
+(sold_initial_debit: 0) Tj T*
+(sold_initial_credit: 20959517.12) Tj T*
+(rulaj_perioada_debit: 0.0) Tj T*
+(rulaj_perioada_credit: 152767.68) Tj T*
+(sold_final_debit: 0) Tj T*
+(sold_final_credit: 21112284.8) Tj T*
+() Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 6/6 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+xref
+0 17
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000154 00000 n 
+0000000224 00000 n 
+0000000299 00000 n 
+0000000435 00000 n 
+0000002507 00000 n 
+0000002643 00000 n 
+0000004535 00000 n 
+0000004672 00000 n 
+0000006584 00000 n 
+0000006722 00000 n 
+0000008612 00000 n 
+0000008750 00000 n 
+0000010642 00000 n 
+0000010780 00000 n 
+trailer
+<< /Size 17 /Root 1 0 R >>
+startxref
+11533
+%%EOF

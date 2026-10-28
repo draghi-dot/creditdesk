@@ -1,0 +1,923 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Count 14 /Kids [5 0 R 7 0 R 9 0 R 11 0 R 13 0 R 15 0 R 17 0 R 19 0 R 21 0 R 23 0 R 25 0 R 27 0 R 29 0 R 31 0 R] >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 6 0 R >>
+endobj
+6 0 obj
+<< /Length 2014 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-030 | ONE UNITED PROPERTIES | CUI 22767862) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(SIMULAT / HACKATHON - fara valoare juridica; nu este document bancar sau raport real.) Tj T*
+() Tj T*
+(Dosar: TEST-DOS-030 | Document: TEST-DOC-030-SERVICIU_DATORIE) Tj T*
+(Identitate publica de referinta: ONE UNITED PROPERTIES) Tj T*
+(CUI public: 22767862) Tj T*
+(Toate datele bancare de mai jos sunt inventate; nu descriu firma reala.) Tj T*
+(Emitent: simulator HACKATHON, fara acces la sistemele bancii.) Tj T*
+(Data referinta: 2026-09-30 | Moneda RON | Unitate 1 RON) Tj T*
+() Tj T*
+(SERVICIU DATORIE) Tj T*
+() Tj T*
+(--- Pozitia 1 ---) Tj T*
+(facilitate_id: TEST-FAC-030-EXISTENT) Tj T*
+(luna: 2025-10) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 128645.83) Tj T*
+(dobanda_scadenta: 28945.31) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 2 ---) Tj T*
+(facilitate_id: TEST-FAC-030-EXISTENT) Tj T*
+(luna: 2025-11) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 128645.83) Tj T*
+(dobanda_scadenta: 28141.28) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 3 ---) Tj T*
+(facilitate_id: TEST-FAC-030-EXISTENT) Tj T*
+(luna: 2025-12) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 128645.83) Tj T*
+(dobanda_scadenta: 27337.24) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 4 ---) Tj T*
+(facilitate_id: TEST-FAC-030-EXISTENT) Tj T*
+(luna: 2026-01) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 128645.83) Tj T*
+(dobanda_scadenta: 26533.2) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 5 ---) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 1/14 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 8 0 R >>
+endobj
+8 0 obj
+<< /Length 1819 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-030 | ONE UNITED PROPERTIES | CUI 22767862) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(facilitate_id: TEST-FAC-030-EXISTENT) Tj T*
+(luna: 2026-02) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 128645.83) Tj T*
+(dobanda_scadenta: 25729.17) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 6 ---) Tj T*
+(facilitate_id: TEST-FAC-030-EXISTENT) Tj T*
+(luna: 2026-03) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 128645.83) Tj T*
+(dobanda_scadenta: 24925.13) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 7 ---) Tj T*
+(facilitate_id: TEST-FAC-030-EXISTENT) Tj T*
+(luna: 2026-04) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 128645.83) Tj T*
+(dobanda_scadenta: 24121.09) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 8 ---) Tj T*
+(facilitate_id: TEST-FAC-030-EXISTENT) Tj T*
+(luna: 2026-05) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 128645.83) Tj T*
+(dobanda_scadenta: 23317.06) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 9 ---) Tj T*
+(facilitate_id: TEST-FAC-030-EXISTENT) Tj T*
+(luna: 2026-06) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 128645.83) Tj T*
+(dobanda_scadenta: 22513.02) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 10 ---) Tj T*
+(facilitate_id: TEST-FAC-030-EXISTENT) Tj T*
+(luna: 2026-07) Tj T*
+(moneda: RON) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 2/14 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 10 0 R >>
+endobj
+10 0 obj
+<< /Length 1838 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-030 | ONE UNITED PROPERTIES | CUI 22767862) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(principal_scadent: 128645.83) Tj T*
+(dobanda_scadenta: 21708.98) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 11 ---) Tj T*
+(facilitate_id: TEST-FAC-030-EXISTENT) Tj T*
+(luna: 2026-08) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 128645.83) Tj T*
+(dobanda_scadenta: 20904.95) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 12 ---) Tj T*
+(facilitate_id: TEST-FAC-030-EXISTENT) Tj T*
+(luna: 2026-09) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 128645.87) Tj T*
+(dobanda_scadenta: 20100.91) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 13 ---) Tj T*
+(facilitate_id: TEST-FAC-030-EXISTENT) Tj T*
+(luna: 2026-10) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 128645.83) Tj T*
+(dobanda_scadenta: 19296.88) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 14 ---) Tj T*
+(facilitate_id: TEST-FAC-030-EXISTENT) Tj T*
+(luna: 2026-11) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 128645.83) Tj T*
+(dobanda_scadenta: 18492.84) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 15 ---) Tj T*
+(facilitate_id: TEST-FAC-030-EXISTENT) Tj T*
+(luna: 2026-12) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 128645.83) Tj T*
+(dobanda_scadenta: 17688.8) Tj T*
+(comisioane_scadente: 0) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 3/14 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+11 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 12 0 R >>
+endobj
+12 0 obj
+<< /Length 1811 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-030 | ONE UNITED PROPERTIES | CUI 22767862) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 16 ---) Tj T*
+(facilitate_id: TEST-FAC-030-EXISTENT) Tj T*
+(luna: 2027-01) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 128645.83) Tj T*
+(dobanda_scadenta: 16884.77) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 17 ---) Tj T*
+(facilitate_id: TEST-FAC-030-EXISTENT) Tj T*
+(luna: 2027-02) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 128645.83) Tj T*
+(dobanda_scadenta: 16080.73) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 18 ---) Tj T*
+(facilitate_id: TEST-FAC-030-EXISTENT) Tj T*
+(luna: 2027-03) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 128645.83) Tj T*
+(dobanda_scadenta: 15276.69) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 19 ---) Tj T*
+(facilitate_id: TEST-FAC-030-EXISTENT) Tj T*
+(luna: 2027-04) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 128645.83) Tj T*
+(dobanda_scadenta: 14472.66) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 20 ---) Tj T*
+(facilitate_id: TEST-FAC-030-EXISTENT) Tj T*
+(luna: 2027-05) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 128645.83) Tj T*
+(dobanda_scadenta: 13668.62) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 21 ---) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 4/14 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+13 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 14 0 R >>
+endobj
+14 0 obj
+<< /Length 1822 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-030 | ONE UNITED PROPERTIES | CUI 22767862) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(facilitate_id: TEST-FAC-030-EXISTENT) Tj T*
+(luna: 2027-06) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 128645.83) Tj T*
+(dobanda_scadenta: 12864.58) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 22 ---) Tj T*
+(facilitate_id: TEST-FAC-030-EXISTENT) Tj T*
+(luna: 2027-07) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 128645.83) Tj T*
+(dobanda_scadenta: 12060.55) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 23 ---) Tj T*
+(facilitate_id: TEST-FAC-030-EXISTENT) Tj T*
+(luna: 2027-08) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 128645.83) Tj T*
+(dobanda_scadenta: 11256.51) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 24 ---) Tj T*
+(facilitate_id: TEST-FAC-030-EXISTENT) Tj T*
+(luna: 2027-09) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 128645.83) Tj T*
+(dobanda_scadenta: 10452.47) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 25 ---) Tj T*
+(facilitate_id: TEST-FAC-030-EXISTENT) Tj T*
+(luna: 2027-10) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 128645.83) Tj T*
+(dobanda_scadenta: 9648.44) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 26 ---) Tj T*
+(facilitate_id: TEST-FAC-030-EXISTENT) Tj T*
+(luna: 2027-11) Tj T*
+(moneda: RON) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 5/14 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+15 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 16 0 R >>
+endobj
+16 0 obj
+<< /Length 1832 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-030 | ONE UNITED PROPERTIES | CUI 22767862) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(principal_scadent: 128645.83) Tj T*
+(dobanda_scadenta: 8844.4) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 27 ---) Tj T*
+(facilitate_id: TEST-FAC-030-EXISTENT) Tj T*
+(luna: 2027-12) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 128645.83) Tj T*
+(dobanda_scadenta: 8040.36) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 28 ---) Tj T*
+(facilitate_id: TEST-FAC-030-EXISTENT) Tj T*
+(luna: 2028-01) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 128645.83) Tj T*
+(dobanda_scadenta: 7236.33) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 29 ---) Tj T*
+(facilitate_id: TEST-FAC-030-EXISTENT) Tj T*
+(luna: 2028-02) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 128645.83) Tj T*
+(dobanda_scadenta: 6432.29) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 30 ---) Tj T*
+(facilitate_id: TEST-FAC-030-EXISTENT) Tj T*
+(luna: 2028-03) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 128645.83) Tj T*
+(dobanda_scadenta: 5628.26) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 31 ---) Tj T*
+(facilitate_id: TEST-FAC-030-EXISTENT) Tj T*
+(luna: 2028-04) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 128645.83) Tj T*
+(dobanda_scadenta: 4824.22) Tj T*
+(comisioane_scadente: 0) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 6/14 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+17 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 18 0 R >>
+endobj
+18 0 obj
+<< /Length 1805 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-030 | ONE UNITED PROPERTIES | CUI 22767862) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 32 ---) Tj T*
+(facilitate_id: TEST-FAC-030-EXISTENT) Tj T*
+(luna: 2028-05) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 128645.83) Tj T*
+(dobanda_scadenta: 4020.18) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 33 ---) Tj T*
+(facilitate_id: TEST-FAC-030-EXISTENT) Tj T*
+(luna: 2028-06) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 128645.83) Tj T*
+(dobanda_scadenta: 3216.15) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 34 ---) Tj T*
+(facilitate_id: TEST-FAC-030-EXISTENT) Tj T*
+(luna: 2028-07) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 128645.83) Tj T*
+(dobanda_scadenta: 2412.11) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 35 ---) Tj T*
+(facilitate_id: TEST-FAC-030-EXISTENT) Tj T*
+(luna: 2028-08) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 128645.83) Tj T*
+(dobanda_scadenta: 1608.07) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 36 ---) Tj T*
+(facilitate_id: TEST-FAC-030-EXISTENT) Tj T*
+(luna: 2028-09) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 128645.91) Tj T*
+(dobanda_scadenta: 804.04) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 37 ---) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 7/14 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+19 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 20 0 R >>
+endobj
+20 0 obj
+<< /Length 1773 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-030 | ONE UNITED PROPERTIES | CUI 22767862) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(facilitate_id: TEST-FAC-030-NOU) Tj T*
+(luna: 2026-10) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 131944.44) Tj T*
+(dobanda_scadenta: 36614.58) Tj T*
+(comisioane_scadente: 23750.0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 38 ---) Tj T*
+(facilitate_id: TEST-FAC-030-NOU) Tj T*
+(luna: 2026-11) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 131944.44) Tj T*
+(dobanda_scadenta: 35597.51) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 39 ---) Tj T*
+(facilitate_id: TEST-FAC-030-NOU) Tj T*
+(luna: 2026-12) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 131944.44) Tj T*
+(dobanda_scadenta: 34580.44) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 40 ---) Tj T*
+(facilitate_id: TEST-FAC-030-NOU) Tj T*
+(luna: 2027-01) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 131944.44) Tj T*
+(dobanda_scadenta: 33563.37) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 41 ---) Tj T*
+(facilitate_id: TEST-FAC-030-NOU) Tj T*
+(luna: 2027-02) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 131944.44) Tj T*
+(dobanda_scadenta: 32546.3) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 42 ---) Tj T*
+(facilitate_id: TEST-FAC-030-NOU) Tj T*
+(luna: 2027-03) Tj T*
+(moneda: RON) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 8/14 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+21 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 22 0 R >>
+endobj
+22 0 obj
+<< /Length 1789 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-030 | ONE UNITED PROPERTIES | CUI 22767862) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(principal_scadent: 131944.44) Tj T*
+(dobanda_scadenta: 31529.22) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 43 ---) Tj T*
+(facilitate_id: TEST-FAC-030-NOU) Tj T*
+(luna: 2027-04) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 131944.44) Tj T*
+(dobanda_scadenta: 30512.15) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 44 ---) Tj T*
+(facilitate_id: TEST-FAC-030-NOU) Tj T*
+(luna: 2027-05) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 131944.44) Tj T*
+(dobanda_scadenta: 29495.08) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 45 ---) Tj T*
+(facilitate_id: TEST-FAC-030-NOU) Tj T*
+(luna: 2027-06) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 131944.44) Tj T*
+(dobanda_scadenta: 28478.01) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 46 ---) Tj T*
+(facilitate_id: TEST-FAC-030-NOU) Tj T*
+(luna: 2027-07) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 131944.44) Tj T*
+(dobanda_scadenta: 27460.94) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 47 ---) Tj T*
+(facilitate_id: TEST-FAC-030-NOU) Tj T*
+(luna: 2027-08) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 131944.44) Tj T*
+(dobanda_scadenta: 26443.87) Tj T*
+(comisioane_scadente: 0) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 9/14 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+23 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 24 0 R >>
+endobj
+24 0 obj
+<< /Length 1757 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-030 | ONE UNITED PROPERTIES | CUI 22767862) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 48 ---) Tj T*
+(facilitate_id: TEST-FAC-030-NOU) Tj T*
+(luna: 2027-09) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 131944.44) Tj T*
+(dobanda_scadenta: 25426.79) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 49 ---) Tj T*
+(facilitate_id: TEST-FAC-030-NOU) Tj T*
+(luna: 2027-10) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 131944.44) Tj T*
+(dobanda_scadenta: 24409.72) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 50 ---) Tj T*
+(facilitate_id: TEST-FAC-030-NOU) Tj T*
+(luna: 2027-11) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 131944.44) Tj T*
+(dobanda_scadenta: 23392.65) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 51 ---) Tj T*
+(facilitate_id: TEST-FAC-030-NOU) Tj T*
+(luna: 2027-12) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 131944.44) Tj T*
+(dobanda_scadenta: 22375.58) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 52 ---) Tj T*
+(facilitate_id: TEST-FAC-030-NOU) Tj T*
+(luna: 2028-01) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 131944.44) Tj T*
+(dobanda_scadenta: 21358.51) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 53 ---) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 10/14 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+25 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 26 0 R >>
+endobj
+26 0 obj
+<< /Length 1769 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-030 | ONE UNITED PROPERTIES | CUI 22767862) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(facilitate_id: TEST-FAC-030-NOU) Tj T*
+(luna: 2028-02) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 131944.44) Tj T*
+(dobanda_scadenta: 20341.44) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 54 ---) Tj T*
+(facilitate_id: TEST-FAC-030-NOU) Tj T*
+(luna: 2028-03) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 131944.44) Tj T*
+(dobanda_scadenta: 19324.36) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 55 ---) Tj T*
+(facilitate_id: TEST-FAC-030-NOU) Tj T*
+(luna: 2028-04) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 131944.44) Tj T*
+(dobanda_scadenta: 18307.29) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 56 ---) Tj T*
+(facilitate_id: TEST-FAC-030-NOU) Tj T*
+(luna: 2028-05) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 131944.44) Tj T*
+(dobanda_scadenta: 17290.22) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 57 ---) Tj T*
+(facilitate_id: TEST-FAC-030-NOU) Tj T*
+(luna: 2028-06) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 131944.44) Tj T*
+(dobanda_scadenta: 16273.15) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 58 ---) Tj T*
+(facilitate_id: TEST-FAC-030-NOU) Tj T*
+(luna: 2028-07) Tj T*
+(moneda: RON) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 11/14 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+27 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 28 0 R >>
+endobj
+28 0 obj
+<< /Length 1790 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-030 | ONE UNITED PROPERTIES | CUI 22767862) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(principal_scadent: 131944.44) Tj T*
+(dobanda_scadenta: 15256.08) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 59 ---) Tj T*
+(facilitate_id: TEST-FAC-030-NOU) Tj T*
+(luna: 2028-08) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 131944.44) Tj T*
+(dobanda_scadenta: 14239.01) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 60 ---) Tj T*
+(facilitate_id: TEST-FAC-030-NOU) Tj T*
+(luna: 2028-09) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 131944.44) Tj T*
+(dobanda_scadenta: 13221.93) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 61 ---) Tj T*
+(facilitate_id: TEST-FAC-030-NOU) Tj T*
+(luna: 2028-10) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 131944.44) Tj T*
+(dobanda_scadenta: 12204.86) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 62 ---) Tj T*
+(facilitate_id: TEST-FAC-030-NOU) Tj T*
+(luna: 2028-11) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 131944.44) Tj T*
+(dobanda_scadenta: 11187.79) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 63 ---) Tj T*
+(facilitate_id: TEST-FAC-030-NOU) Tj T*
+(luna: 2028-12) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 131944.44) Tj T*
+(dobanda_scadenta: 10170.72) Tj T*
+(comisioane_scadente: 0) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 12/14 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+29 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 30 0 R >>
+endobj
+30 0 obj
+<< /Length 1751 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-030 | ONE UNITED PROPERTIES | CUI 22767862) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 64 ---) Tj T*
+(facilitate_id: TEST-FAC-030-NOU) Tj T*
+(luna: 2029-01) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 131944.44) Tj T*
+(dobanda_scadenta: 9153.65) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 65 ---) Tj T*
+(facilitate_id: TEST-FAC-030-NOU) Tj T*
+(luna: 2029-02) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 131944.44) Tj T*
+(dobanda_scadenta: 8136.58) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 66 ---) Tj T*
+(facilitate_id: TEST-FAC-030-NOU) Tj T*
+(luna: 2029-03) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 131944.44) Tj T*
+(dobanda_scadenta: 7119.5) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 67 ---) Tj T*
+(facilitate_id: TEST-FAC-030-NOU) Tj T*
+(luna: 2029-04) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 131944.44) Tj T*
+(dobanda_scadenta: 6102.43) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 68 ---) Tj T*
+(facilitate_id: TEST-FAC-030-NOU) Tj T*
+(luna: 2029-05) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 131944.44) Tj T*
+(dobanda_scadenta: 5085.36) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 69 ---) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 13/14 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+31 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 32 0 R >>
+endobj
+32 0 obj
+<< /Length 1400 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-030 | ONE UNITED PROPERTIES | CUI 22767862) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(facilitate_id: TEST-FAC-030-NOU) Tj T*
+(luna: 2029-06) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 131944.44) Tj T*
+(dobanda_scadenta: 4068.29) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 70 ---) Tj T*
+(facilitate_id: TEST-FAC-030-NOU) Tj T*
+(luna: 2029-07) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 131944.44) Tj T*
+(dobanda_scadenta: 3051.22) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 71 ---) Tj T*
+(facilitate_id: TEST-FAC-030-NOU) Tj T*
+(luna: 2029-08) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 131944.44) Tj T*
+(dobanda_scadenta: 2034.14) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 72 ---) Tj T*
+(facilitate_id: TEST-FAC-030-NOU) Tj T*
+(luna: 2029-09) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 131944.6) Tj T*
+(dobanda_scadenta: 1017.07) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 14/14 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+xref
+0 33
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000211 00000 n 
+0000000281 00000 n 
+0000000356 00000 n 
+0000000492 00000 n 
+0000002558 00000 n 
+0000002694 00000 n 
+0000004565 00000 n 
+0000004702 00000 n 
+0000006593 00000 n 
+0000006731 00000 n 
+0000008595 00000 n 
+0000008733 00000 n 
+0000010608 00000 n 
+0000010746 00000 n 
+0000012631 00000 n 
+0000012769 00000 n 
+0000014627 00000 n 
+0000014765 00000 n 
+0000016591 00000 n 
+0000016729 00000 n 
+0000018571 00000 n 
+0000018709 00000 n 
+0000020519 00000 n 
+0000020657 00000 n 
+0000022479 00000 n 
+0000022617 00000 n 
+0000024460 00000 n 
+0000024598 00000 n 
+0000026402 00000 n 
+0000026540 00000 n 
+trailer
+<< /Size 33 /Root 1 0 R >>
+startxref
+27993
+%%EOF

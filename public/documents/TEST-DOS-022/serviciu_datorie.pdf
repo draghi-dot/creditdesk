@@ -1,0 +1,1065 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Count 16 /Kids [5 0 R 7 0 R 9 0 R 11 0 R 13 0 R 15 0 R 17 0 R 19 0 R 21 0 R 23 0 R 25 0 R 27 0 R 29 0 R 31 0 R 33 0 R 35 0 R] >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 6 0 R >>
+endobj
+6 0 obj
+<< /Length 2012 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-022 | FARMACEUTICA REMEDIA S.A. | CUI 2115198) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(SIMULAT / HACKATHON - fara valoare juridica; nu este document bancar sau raport real.) Tj T*
+() Tj T*
+(Dosar: TEST-DOS-022 | Document: TEST-DOC-022-SERVICIU_DATORIE) Tj T*
+(Identitate publica de referinta: FARMACEUTICA REMEDIA S.A.) Tj T*
+(CUI public: 2115198) Tj T*
+(Toate datele bancare de mai jos sunt inventate; nu descriu firma reala.) Tj T*
+(Emitent: simulator HACKATHON, fara acces la sistemele bancii.) Tj T*
+(Data referinta: 2026-09-30 | Moneda RON | Unitate 1 RON) Tj T*
+() Tj T*
+(SERVICIU DATORIE) Tj T*
+() Tj T*
+(--- Pozitia 1 ---) Tj T*
+(facilitate_id: TEST-FAC-022-EXISTENT) Tj T*
+(luna: 2025-10) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 97500.0) Tj T*
+(dobanda_scadenta: 21937.5) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 2 ---) Tj T*
+(facilitate_id: TEST-FAC-022-EXISTENT) Tj T*
+(luna: 2025-11) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 97500.0) Tj T*
+(dobanda_scadenta: 21328.13) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 3 ---) Tj T*
+(facilitate_id: TEST-FAC-022-EXISTENT) Tj T*
+(luna: 2025-12) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 97500.0) Tj T*
+(dobanda_scadenta: 20718.75) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 4 ---) Tj T*
+(facilitate_id: TEST-FAC-022-EXISTENT) Tj T*
+(luna: 2026-01) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 97500.0) Tj T*
+(dobanda_scadenta: 20109.38) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 5 ---) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 1/16 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 8 0 R >>
+endobj
+8 0 obj
+<< /Length 1810 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-022 | FARMACEUTICA REMEDIA S.A. | CUI 2115198) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(facilitate_id: TEST-FAC-022-EXISTENT) Tj T*
+(luna: 2026-02) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 97500.0) Tj T*
+(dobanda_scadenta: 19500.0) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 6 ---) Tj T*
+(facilitate_id: TEST-FAC-022-EXISTENT) Tj T*
+(luna: 2026-03) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 97500.0) Tj T*
+(dobanda_scadenta: 18890.63) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 7 ---) Tj T*
+(facilitate_id: TEST-FAC-022-EXISTENT) Tj T*
+(luna: 2026-04) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 97500.0) Tj T*
+(dobanda_scadenta: 18281.25) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 8 ---) Tj T*
+(facilitate_id: TEST-FAC-022-EXISTENT) Tj T*
+(luna: 2026-05) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 97500.0) Tj T*
+(dobanda_scadenta: 17671.88) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 9 ---) Tj T*
+(facilitate_id: TEST-FAC-022-EXISTENT) Tj T*
+(luna: 2026-06) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 97500.0) Tj T*
+(dobanda_scadenta: 17062.5) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 10 ---) Tj T*
+(facilitate_id: TEST-FAC-022-EXISTENT) Tj T*
+(luna: 2026-07) Tj T*
+(moneda: RON) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 2/16 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 10 0 R >>
+endobj
+10 0 obj
+<< /Length 1829 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-022 | FARMACEUTICA REMEDIA S.A. | CUI 2115198) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(principal_scadent: 97500.0) Tj T*
+(dobanda_scadenta: 16453.13) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 11 ---) Tj T*
+(facilitate_id: TEST-FAC-022-EXISTENT) Tj T*
+(luna: 2026-08) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 97500.0) Tj T*
+(dobanda_scadenta: 15843.75) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 12 ---) Tj T*
+(facilitate_id: TEST-FAC-022-EXISTENT) Tj T*
+(luna: 2026-09) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 97500.0) Tj T*
+(dobanda_scadenta: 15234.38) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 13 ---) Tj T*
+(facilitate_id: TEST-FAC-022-EXISTENT) Tj T*
+(luna: 2026-10) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 97500.0) Tj T*
+(dobanda_scadenta: 14625.0) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 14 ---) Tj T*
+(facilitate_id: TEST-FAC-022-EXISTENT) Tj T*
+(luna: 2026-11) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 97500.0) Tj T*
+(dobanda_scadenta: 14015.63) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 15 ---) Tj T*
+(facilitate_id: TEST-FAC-022-EXISTENT) Tj T*
+(luna: 2026-12) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 97500.0) Tj T*
+(dobanda_scadenta: 13406.25) Tj T*
+(comisioane_scadente: 0) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 3/16 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+11 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 12 0 R >>
+endobj
+12 0 obj
+<< /Length 1803 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-022 | FARMACEUTICA REMEDIA S.A. | CUI 2115198) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 16 ---) Tj T*
+(facilitate_id: TEST-FAC-022-EXISTENT) Tj T*
+(luna: 2027-01) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 97500.0) Tj T*
+(dobanda_scadenta: 12796.88) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 17 ---) Tj T*
+(facilitate_id: TEST-FAC-022-EXISTENT) Tj T*
+(luna: 2027-02) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 97500.0) Tj T*
+(dobanda_scadenta: 12187.5) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 18 ---) Tj T*
+(facilitate_id: TEST-FAC-022-EXISTENT) Tj T*
+(luna: 2027-03) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 97500.0) Tj T*
+(dobanda_scadenta: 11578.13) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 19 ---) Tj T*
+(facilitate_id: TEST-FAC-022-EXISTENT) Tj T*
+(luna: 2027-04) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 97500.0) Tj T*
+(dobanda_scadenta: 10968.75) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 20 ---) Tj T*
+(facilitate_id: TEST-FAC-022-EXISTENT) Tj T*
+(luna: 2027-05) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 97500.0) Tj T*
+(dobanda_scadenta: 10359.38) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 21 ---) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 4/16 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+13 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 14 0 R >>
+endobj
+14 0 obj
+<< /Length 1809 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-022 | FARMACEUTICA REMEDIA S.A. | CUI 2115198) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(facilitate_id: TEST-FAC-022-EXISTENT) Tj T*
+(luna: 2027-06) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 97500.0) Tj T*
+(dobanda_scadenta: 9750.0) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 22 ---) Tj T*
+(facilitate_id: TEST-FAC-022-EXISTENT) Tj T*
+(luna: 2027-07) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 97500.0) Tj T*
+(dobanda_scadenta: 9140.63) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 23 ---) Tj T*
+(facilitate_id: TEST-FAC-022-EXISTENT) Tj T*
+(luna: 2027-08) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 97500.0) Tj T*
+(dobanda_scadenta: 8531.25) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 24 ---) Tj T*
+(facilitate_id: TEST-FAC-022-EXISTENT) Tj T*
+(luna: 2027-09) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 97500.0) Tj T*
+(dobanda_scadenta: 7921.88) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 25 ---) Tj T*
+(facilitate_id: TEST-FAC-022-EXISTENT) Tj T*
+(luna: 2027-10) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 97500.0) Tj T*
+(dobanda_scadenta: 7312.5) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 26 ---) Tj T*
+(facilitate_id: TEST-FAC-022-EXISTENT) Tj T*
+(luna: 2027-11) Tj T*
+(moneda: RON) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 5/16 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+15 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 16 0 R >>
+endobj
+16 0 obj
+<< /Length 1823 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-022 | FARMACEUTICA REMEDIA S.A. | CUI 2115198) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(principal_scadent: 97500.0) Tj T*
+(dobanda_scadenta: 6703.13) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 27 ---) Tj T*
+(facilitate_id: TEST-FAC-022-EXISTENT) Tj T*
+(luna: 2027-12) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 97500.0) Tj T*
+(dobanda_scadenta: 6093.75) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 28 ---) Tj T*
+(facilitate_id: TEST-FAC-022-EXISTENT) Tj T*
+(luna: 2028-01) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 97500.0) Tj T*
+(dobanda_scadenta: 5484.38) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 29 ---) Tj T*
+(facilitate_id: TEST-FAC-022-EXISTENT) Tj T*
+(luna: 2028-02) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 97500.0) Tj T*
+(dobanda_scadenta: 4875.0) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 30 ---) Tj T*
+(facilitate_id: TEST-FAC-022-EXISTENT) Tj T*
+(luna: 2028-03) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 97500.0) Tj T*
+(dobanda_scadenta: 4265.63) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 31 ---) Tj T*
+(facilitate_id: TEST-FAC-022-EXISTENT) Tj T*
+(luna: 2028-04) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 97500.0) Tj T*
+(dobanda_scadenta: 3656.25) Tj T*
+(comisioane_scadente: 0) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 6/16 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+17 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 18 0 R >>
+endobj
+18 0 obj
+<< /Length 1797 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-022 | FARMACEUTICA REMEDIA S.A. | CUI 2115198) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 32 ---) Tj T*
+(facilitate_id: TEST-FAC-022-EXISTENT) Tj T*
+(luna: 2028-05) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 97500.0) Tj T*
+(dobanda_scadenta: 3046.88) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 33 ---) Tj T*
+(facilitate_id: TEST-FAC-022-EXISTENT) Tj T*
+(luna: 2028-06) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 97500.0) Tj T*
+(dobanda_scadenta: 2437.5) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 34 ---) Tj T*
+(facilitate_id: TEST-FAC-022-EXISTENT) Tj T*
+(luna: 2028-07) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 97500.0) Tj T*
+(dobanda_scadenta: 1828.13) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 35 ---) Tj T*
+(facilitate_id: TEST-FAC-022-EXISTENT) Tj T*
+(luna: 2028-08) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 97500.0) Tj T*
+(dobanda_scadenta: 1218.75) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 36 ---) Tj T*
+(facilitate_id: TEST-FAC-022-EXISTENT) Tj T*
+(luna: 2028-09) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 97500.0) Tj T*
+(dobanda_scadenta: 609.38) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 37 ---) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 7/16 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+19 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 20 0 R >>
+endobj
+20 0 obj
+<< /Length 1765 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-022 | FARMACEUTICA REMEDIA S.A. | CUI 2115198) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(facilitate_id: TEST-FAC-022-NOU) Tj T*
+(luna: 2026-10) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 75000.0) Tj T*
+(dobanda_scadenta: 27750.0) Tj T*
+(comisioane_scadente: 18000.0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 38 ---) Tj T*
+(facilitate_id: TEST-FAC-022-NOU) Tj T*
+(luna: 2026-11) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 75000.0) Tj T*
+(dobanda_scadenta: 27171.88) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 39 ---) Tj T*
+(facilitate_id: TEST-FAC-022-NOU) Tj T*
+(luna: 2026-12) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 75000.0) Tj T*
+(dobanda_scadenta: 26593.75) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 40 ---) Tj T*
+(facilitate_id: TEST-FAC-022-NOU) Tj T*
+(luna: 2027-01) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 75000.0) Tj T*
+(dobanda_scadenta: 26015.63) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 41 ---) Tj T*
+(facilitate_id: TEST-FAC-022-NOU) Tj T*
+(luna: 2027-02) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 75000.0) Tj T*
+(dobanda_scadenta: 25437.5) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 42 ---) Tj T*
+(facilitate_id: TEST-FAC-022-NOU) Tj T*
+(luna: 2027-03) Tj T*
+(moneda: RON) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 8/16 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+21 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 22 0 R >>
+endobj
+22 0 obj
+<< /Length 1779 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-022 | FARMACEUTICA REMEDIA S.A. | CUI 2115198) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(principal_scadent: 75000.0) Tj T*
+(dobanda_scadenta: 24859.38) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 43 ---) Tj T*
+(facilitate_id: TEST-FAC-022-NOU) Tj T*
+(luna: 2027-04) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 75000.0) Tj T*
+(dobanda_scadenta: 24281.25) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 44 ---) Tj T*
+(facilitate_id: TEST-FAC-022-NOU) Tj T*
+(luna: 2027-05) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 75000.0) Tj T*
+(dobanda_scadenta: 23703.13) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 45 ---) Tj T*
+(facilitate_id: TEST-FAC-022-NOU) Tj T*
+(luna: 2027-06) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 75000.0) Tj T*
+(dobanda_scadenta: 23125.0) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 46 ---) Tj T*
+(facilitate_id: TEST-FAC-022-NOU) Tj T*
+(luna: 2027-07) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 75000.0) Tj T*
+(dobanda_scadenta: 22546.88) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 47 ---) Tj T*
+(facilitate_id: TEST-FAC-022-NOU) Tj T*
+(luna: 2027-08) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 75000.0) Tj T*
+(dobanda_scadenta: 21968.75) Tj T*
+(comisioane_scadente: 0) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 9/16 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+23 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 24 0 R >>
+endobj
+24 0 obj
+<< /Length 1749 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-022 | FARMACEUTICA REMEDIA S.A. | CUI 2115198) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 48 ---) Tj T*
+(facilitate_id: TEST-FAC-022-NOU) Tj T*
+(luna: 2027-09) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 75000.0) Tj T*
+(dobanda_scadenta: 21390.63) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 49 ---) Tj T*
+(facilitate_id: TEST-FAC-022-NOU) Tj T*
+(luna: 2027-10) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 75000.0) Tj T*
+(dobanda_scadenta: 20812.5) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 50 ---) Tj T*
+(facilitate_id: TEST-FAC-022-NOU) Tj T*
+(luna: 2027-11) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 75000.0) Tj T*
+(dobanda_scadenta: 20234.38) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 51 ---) Tj T*
+(facilitate_id: TEST-FAC-022-NOU) Tj T*
+(luna: 2027-12) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 75000.0) Tj T*
+(dobanda_scadenta: 19656.25) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 52 ---) Tj T*
+(facilitate_id: TEST-FAC-022-NOU) Tj T*
+(luna: 2028-01) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 75000.0) Tj T*
+(dobanda_scadenta: 19078.13) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 53 ---) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 10/16 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+25 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 26 0 R >>
+endobj
+26 0 obj
+<< /Length 1760 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-022 | FARMACEUTICA REMEDIA S.A. | CUI 2115198) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(facilitate_id: TEST-FAC-022-NOU) Tj T*
+(luna: 2028-02) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 75000.0) Tj T*
+(dobanda_scadenta: 18500.0) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 54 ---) Tj T*
+(facilitate_id: TEST-FAC-022-NOU) Tj T*
+(luna: 2028-03) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 75000.0) Tj T*
+(dobanda_scadenta: 17921.88) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 55 ---) Tj T*
+(facilitate_id: TEST-FAC-022-NOU) Tj T*
+(luna: 2028-04) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 75000.0) Tj T*
+(dobanda_scadenta: 17343.75) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 56 ---) Tj T*
+(facilitate_id: TEST-FAC-022-NOU) Tj T*
+(luna: 2028-05) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 75000.0) Tj T*
+(dobanda_scadenta: 16765.63) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 57 ---) Tj T*
+(facilitate_id: TEST-FAC-022-NOU) Tj T*
+(luna: 2028-06) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 75000.0) Tj T*
+(dobanda_scadenta: 16187.5) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 58 ---) Tj T*
+(facilitate_id: TEST-FAC-022-NOU) Tj T*
+(luna: 2028-07) Tj T*
+(moneda: RON) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 11/16 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+27 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 28 0 R >>
+endobj
+28 0 obj
+<< /Length 1780 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-022 | FARMACEUTICA REMEDIA S.A. | CUI 2115198) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(principal_scadent: 75000.0) Tj T*
+(dobanda_scadenta: 15609.38) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 59 ---) Tj T*
+(facilitate_id: TEST-FAC-022-NOU) Tj T*
+(luna: 2028-08) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 75000.0) Tj T*
+(dobanda_scadenta: 15031.25) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 60 ---) Tj T*
+(facilitate_id: TEST-FAC-022-NOU) Tj T*
+(luna: 2028-09) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 75000.0) Tj T*
+(dobanda_scadenta: 14453.13) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 61 ---) Tj T*
+(facilitate_id: TEST-FAC-022-NOU) Tj T*
+(luna: 2028-10) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 75000.0) Tj T*
+(dobanda_scadenta: 13875.0) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 62 ---) Tj T*
+(facilitate_id: TEST-FAC-022-NOU) Tj T*
+(luna: 2028-11) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 75000.0) Tj T*
+(dobanda_scadenta: 13296.88) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 63 ---) Tj T*
+(facilitate_id: TEST-FAC-022-NOU) Tj T*
+(luna: 2028-12) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 75000.0) Tj T*
+(dobanda_scadenta: 12718.75) Tj T*
+(comisioane_scadente: 0) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 12/16 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+29 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 30 0 R >>
+endobj
+30 0 obj
+<< /Length 1748 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-022 | FARMACEUTICA REMEDIA S.A. | CUI 2115198) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 64 ---) Tj T*
+(facilitate_id: TEST-FAC-022-NOU) Tj T*
+(luna: 2029-01) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 75000.0) Tj T*
+(dobanda_scadenta: 12140.63) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 65 ---) Tj T*
+(facilitate_id: TEST-FAC-022-NOU) Tj T*
+(luna: 2029-02) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 75000.0) Tj T*
+(dobanda_scadenta: 11562.5) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 66 ---) Tj T*
+(facilitate_id: TEST-FAC-022-NOU) Tj T*
+(luna: 2029-03) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 75000.0) Tj T*
+(dobanda_scadenta: 10984.38) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 67 ---) Tj T*
+(facilitate_id: TEST-FAC-022-NOU) Tj T*
+(luna: 2029-04) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 75000.0) Tj T*
+(dobanda_scadenta: 10406.25) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 68 ---) Tj T*
+(facilitate_id: TEST-FAC-022-NOU) Tj T*
+(luna: 2029-05) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 75000.0) Tj T*
+(dobanda_scadenta: 9828.13) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 69 ---) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 13/16 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+31 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 32 0 R >>
+endobj
+32 0 obj
+<< /Length 1755 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-022 | FARMACEUTICA REMEDIA S.A. | CUI 2115198) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(facilitate_id: TEST-FAC-022-NOU) Tj T*
+(luna: 2029-06) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 75000.0) Tj T*
+(dobanda_scadenta: 9250.0) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 70 ---) Tj T*
+(facilitate_id: TEST-FAC-022-NOU) Tj T*
+(luna: 2029-07) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 75000.0) Tj T*
+(dobanda_scadenta: 8671.88) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 71 ---) Tj T*
+(facilitate_id: TEST-FAC-022-NOU) Tj T*
+(luna: 2029-08) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 75000.0) Tj T*
+(dobanda_scadenta: 8093.75) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 72 ---) Tj T*
+(facilitate_id: TEST-FAC-022-NOU) Tj T*
+(luna: 2029-09) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 75000.0) Tj T*
+(dobanda_scadenta: 7515.63) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 73 ---) Tj T*
+(facilitate_id: TEST-FAC-022-NOU) Tj T*
+(luna: 2029-10) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 75000.0) Tj T*
+(dobanda_scadenta: 6937.5) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 74 ---) Tj T*
+(facilitate_id: TEST-FAC-022-NOU) Tj T*
+(luna: 2029-11) Tj T*
+(moneda: RON) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 14/16 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+33 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 34 0 R >>
+endobj
+34 0 obj
+<< /Length 1774 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-022 | FARMACEUTICA REMEDIA S.A. | CUI 2115198) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(principal_scadent: 75000.0) Tj T*
+(dobanda_scadenta: 6359.38) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 75 ---) Tj T*
+(facilitate_id: TEST-FAC-022-NOU) Tj T*
+(luna: 2029-12) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 75000.0) Tj T*
+(dobanda_scadenta: 5781.25) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 76 ---) Tj T*
+(facilitate_id: TEST-FAC-022-NOU) Tj T*
+(luna: 2030-01) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 75000.0) Tj T*
+(dobanda_scadenta: 5203.13) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 77 ---) Tj T*
+(facilitate_id: TEST-FAC-022-NOU) Tj T*
+(luna: 2030-02) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 75000.0) Tj T*
+(dobanda_scadenta: 4625.0) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 78 ---) Tj T*
+(facilitate_id: TEST-FAC-022-NOU) Tj T*
+(luna: 2030-03) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 75000.0) Tj T*
+(dobanda_scadenta: 4046.88) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 79 ---) Tj T*
+(facilitate_id: TEST-FAC-022-NOU) Tj T*
+(luna: 2030-04) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 75000.0) Tj T*
+(dobanda_scadenta: 3468.75) Tj T*
+(comisioane_scadente: 0) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 15/16 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+35 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 36 0 R >>
+endobj
+36 0 obj
+<< /Length 1716 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-022 | FARMACEUTICA REMEDIA S.A. | CUI 2115198) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 80 ---) Tj T*
+(facilitate_id: TEST-FAC-022-NOU) Tj T*
+(luna: 2030-05) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 75000.0) Tj T*
+(dobanda_scadenta: 2890.63) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 81 ---) Tj T*
+(facilitate_id: TEST-FAC-022-NOU) Tj T*
+(luna: 2030-06) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 75000.0) Tj T*
+(dobanda_scadenta: 2312.5) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 82 ---) Tj T*
+(facilitate_id: TEST-FAC-022-NOU) Tj T*
+(luna: 2030-07) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 75000.0) Tj T*
+(dobanda_scadenta: 1734.38) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 83 ---) Tj T*
+(facilitate_id: TEST-FAC-022-NOU) Tj T*
+(luna: 2030-08) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 75000.0) Tj T*
+(dobanda_scadenta: 1156.25) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 84 ---) Tj T*
+(facilitate_id: TEST-FAC-022-NOU) Tj T*
+(luna: 2030-09) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 75000.0) Tj T*
+(dobanda_scadenta: 578.13) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 16/16 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+xref
+0 37
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000225 00000 n 
+0000000295 00000 n 
+0000000370 00000 n 
+0000000506 00000 n 
+0000002570 00000 n 
+0000002706 00000 n 
+0000004568 00000 n 
+0000004705 00000 n 
+0000006587 00000 n 
+0000006725 00000 n 
+0000008581 00000 n 
+0000008719 00000 n 
+0000010581 00000 n 
+0000010719 00000 n 
+0000012595 00000 n 
+0000012733 00000 n 
+0000014583 00000 n 
+0000014721 00000 n 
+0000016539 00000 n 
+0000016677 00000 n 
+0000018509 00000 n 
+0000018647 00000 n 
+0000020449 00000 n 
+0000020587 00000 n 
+0000022400 00000 n 
+0000022538 00000 n 
+0000024371 00000 n 
+0000024509 00000 n 
+0000026310 00000 n 
+0000026448 00000 n 
+0000028256 00000 n 
+0000028394 00000 n 
+0000030221 00000 n 
+0000030359 00000 n 
+trailer
+<< /Size 37 /Root 1 0 R >>
+startxref
+32128
+%%EOF

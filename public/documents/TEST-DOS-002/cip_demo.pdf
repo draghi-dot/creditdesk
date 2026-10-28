@@ -1,0 +1,67 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Count 1 /Kids [5 0 R] >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 6 0 R >>
+endobj
+6 0 obj
+<< /Length 1377 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CIP DEMO / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-002 | AEROSTAR S.A. | CUI 950531) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(SIMULAT / HACKATHON - fara valoare juridica; nu este document bancar sau raport real.) Tj T*
+() Tj T*
+(Dosar: TEST-DOS-002 | Document: TEST-DOC-002-CIP_DEMO) Tj T*
+(Identitate publica de referinta: AEROSTAR S.A.) Tj T*
+(CUI public: 950531) Tj T*
+(Toate datele bancare de mai jos sunt inventate; nu descriu firma reala.) Tj T*
+(Emitent: simulator HACKATHON, fara acces la sistemele bancii.) Tj T*
+(Data referinta: 2026-09-30 | Moneda RON | Unitate 1 RON) Tj T*
+() Tj T*
+(CIP DEMO) Tj T*
+() Tj T*
+(--- Pozitia 1 ---) Tj T*
+(tip_raport: incidente_plata) Tj T*
+(status: obtinut) Tj T*
+(data_raport: 2026-10-20) Tj T*
+(perioada_acoperita: SIMULAT: 2025-10-01 / 2026-09-30) Tj T*
+(limite_acoperire: SIMULAT: fixture local, fara acces real CRC/CIP. Obtinut inseamna exclusiv) Tj T*
+(disponibil in simulator.) Tj T*
+(furnizor: SIMULATOR LOCAL HACKATHON, nu BNR) Tj T*
+(acces_autorizat: nu) Tj T*
+(referinta_mandat: TEST-MANDAT-002) Tj T*
+(facilitati: []) Tj T*
+(incidente: []) Tj T*
+() Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 1/1 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+xref
+0 7
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000121 00000 n 
+0000000191 00000 n 
+0000000266 00000 n 
+0000000402 00000 n 
+trailer
+<< /Size 7 /Root 1 0 R >>
+startxref
+1831
+%%EOF
