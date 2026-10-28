@@ -10,7 +10,9 @@
     "build": "tsc -b && vite build",
     "start": "node server/index.ts",
     "test": "node --test tests/*.test.ts",
-    "typecheck": "tsc -b"
+    "typecheck": "tsc -b",
+    "test:live": "node --test --test-concurrency=1 --test-timeout=600000 tests/live/*.test.ts",
+    "test:browser": "vite build --logLevel warn && node --test --test-concurrency=1 --test-timeout=400000 tests/browser/*.test.ts"
   },
   "dependencies": {
     "lucide-react": "1.62.0",

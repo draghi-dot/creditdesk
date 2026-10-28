@@ -40,11 +40,16 @@ const codexConfig: CodexConfig = {
   timeoutMs: Number(process.env.CODEX_TIMEOUT_MS ?? 180_000),
 }
 let providerDetail = 'model calls disabled (CREDITDESK_LLM=none)'
+let providerChecked = false
 const engine = new Engine(store, documentsDir, null)
 
 async function refreshProvider(): Promise<void> {
   if (llm !== 'codex') { engine.codex = null; return }
-  const status = await codexStatus(codexConfig.command)
+  let status = await codexStatus(codexConfig.command)
+  // One retry before dropping a model that was working: a single slow or failed status check should not switch Ask to the engine.
+  if (!status.available && engine.codex) status = await codexStatus(codexConfig.command)
+  if (providerChecked && Boolean(engine.codex) !== status.available) console.log('Model provider: ' + (status.available ? 'Codex ' + codexConfig.model + ' available' : 'Codex unavailable') + ' · ' + status.detail)
+  providerChecked = true
   engine.codex = status.available ? codexConfig : null
   providerDetail = status.available ? status.detail : 'Codex unavailable: ' + status.detail
 }

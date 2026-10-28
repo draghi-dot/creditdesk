@@ -14,7 +14,7 @@ import { REQUIRED_DOCUMENTS, rankFindings } from '../../src/assessment.ts'
 import { decisionLabels, evaluate, money, ratio, scenarioLabels } from '../../src/analysis.ts'
 import { docNames } from '../../src/documents.ts'
 import type { Analysis, AuditRule, Row, Scenario } from '../../src/types.ts'
-import { lookupAnaf, normalizeName } from './anaf.ts'
+import { lookupAnaf, sameCompanyName } from './anaf.ts'
 import { askCodex } from './codex.ts'
 import { pageText, readPdf } from './pdf.ts'
 import { SOURCE_TABLES, compareDocument, ledgerIssues } from './reconcile.ts'
@@ -365,7 +365,7 @@ const research: Worker = async ctx => {
   if (anaf.found) {
     const a = anaf.found
     ctx.activity('ANAF answered in ' + anaf.durationMs + ' ms: ' + a.name + ' · ' + a.registrationStatus)
-    const sameName = normalizeName(a.name) === normalizeName(ctx.company.name)
+    const sameName = sameCompanyName(a.name, ctx.company.name)
     const sameCui = String(a.cui) === cui
     const deregistered = /RADIER/i.test(a.registrationStatus)
     lines.push('Name: ' + a.name + (sameName ? ' (matches the dossier)' : ' (dossier: ' + ctx.company.name + ')'),

@@ -8,7 +8,7 @@
 
 import { randomUUID } from 'node:crypto'
 import { basename } from 'node:path'
-import type { AskAnswer, EvidenceRef, RunEvent } from '../../src/assessment.ts'
+import type { AskAnswer, EvidenceRef, FindingView, RunEvent, RunView } from '../../src/assessment.ts'
 import { foldAll, rankFindings } from '../../src/assessment.ts'
 import { decisionLabels, money, ratio } from '../../src/analysis.ts'
 import { docNames } from '../../src/documents.ts'
@@ -48,6 +48,54 @@ export async function locate(company: Company, documentsDir: string, kind: strin
   }]
 }
 
+type Part = 'what' | 'compared' | 'why' | 'effect' | 'where'
+const PARTS: Part[] = ['what', 'compared', 'why', 'effect', 'where']
+const INTENTS: [RegExp, Part[]][] = [
+  [/resolv|fix|solve|remed|do about|next step/, ['effect', 'where', 'compared']],
+  [/figure|number|amount|value|cause|calculat/, ['what', 'compared', 'where']],
+  [/decision|outcome|change|affect|approv/, ['effect', 'what']],
+  [/plain|explain|mean|why|understand/, ['why', 'what', 'compared']],
+]
+
+/**
+ * The engine's answer when no model is available: the recorded parts of the
+ * finding (or of the run) the question asks for, leaving out what earlier
+ * answers already said. It never goes beyond what the run recorded.
+ */
+export function engineAnswer(question: string, view: RunView, ranked: FindingView[], about: FindingView | null, history: AskAnswer[]): { text: string; finding: FindingView | null } {
+  const q = question.toLowerCase()
+  const said = history.map(h => h.answer).join('\n')
+  const fresh = (lines: string[]) => lines.filter(l => l && !said.includes(l))
+  if (!about) {
+    if (/identity|anaf|register|cui|kyc/.test(q)) {
+      const note = view.notes.find(n => n.title === 'ANAF public register')
+      return { text: note ? note.text : 'The identity research worker has not reported yet.', finding: null }
+    }
+    if (/decision|outcome|why/.test(q) && view.decision) {
+      const reasons = view.decision.reasons
+      return { text: 'The run reached ' + decisionLabels[view.decision.decision] + (view.policy ? ' under ' + view.policy.politica_id + ' ' + view.policy.versiune : '') + '. ' + (reasons.length ? 'Decisive: ' + reasons.join('; ') + '.' : 'Every policy rule is met.'), finding: null }
+    }
+    if (/document|correct|missing/.test(q)) {
+      const docs = ranked.filter(f => f.missingDocument || f.evidence.length)
+      if (!docs.length) return { text: 'No finding points at a document: nothing has to be corrected or added.', finding: null }
+      return { text: docs.map(f => f.missingDocument ? 'Missing: ' + (docNames[f.missingDocument] ?? f.missingDocument) + '.' : f.title + ' (' + f.evidence.map(e => (docNames[e.kind] ?? e.kind) + ' page ' + e.page).join(', ') + ').').join(' '), finding: docs[0] }
+    }
+  }
+  const finding = about ?? ranked[0] ?? null
+  if (!finding) return { text: 'This run raised no findings' + (view.status === 'completed' ? ': every document reconciled and every check passed.' : ' so far.'), finding: null }
+  const text: Record<Part, string> = {
+    what: finding.title + ': ' + finding.observed,
+    compared: 'Compared against: ' + finding.comparedAgainst,
+    why: 'Why it matters: ' + finding.whyItMatters,
+    effect: 'Effect: ' + finding.effect,
+    where: finding.missingDocument ? 'Add the ' + (docNames[finding.missingDocument] ?? finding.missingDocument).toLowerCase() + ' to the dossier and run a new assessment.'
+      : finding.evidence.length ? 'Located in the ' + finding.evidence.map(e => (docNames[e.kind] ?? e.kind).toLowerCase() + ', page ' + e.page).join(' and the ') + '.' : '',
+  }
+  const order = INTENTS.find(([pattern]) => pattern.test(q))?.[1] ?? []
+  const lines = fresh([...new Set([...order, ...PARTS])].map(p => text[p])).slice(0, 2)
+  return { text: lines.length ? lines.join(' ') : 'That is everything this run recorded about ' + finding.title.toLowerCase() + '. Anything beyond it needs a model.', finding }
+}
+
 export async function answerQuestion(opts: {
   company: Company; runId: string; events: RunEvent[]; documentsDir: string; codex: CodexConfig | null
   question: string; history: AskAnswer[]; signal: AbortSignal; about?: string | null
@@ -64,12 +112,8 @@ export async function answerQuestion(opts: {
   })
 
   if (!codex) {
-    const top = about ?? ranked[0]
-    return reply({
-      answer: top ? 'No model is configured, so the engine can only restate the finding. ' + top.title + ': ' + top.observed + ' Compared against: ' + top.comparedAgainst
-        : 'No model is configured. This run raised no findings.',
-      findingId: top?.id ?? null, evidence: top?.evidence ?? [],
-    })
+    const { text, finding } = engineAnswer(question, view, ranked, about, history)
+    return reply({ answer: text, findingId: finding?.id ?? null, evidence: finding?.evidence ?? [], author: 'engine · no model' })
   }
 
   const request = company.tables.solicitari[0]

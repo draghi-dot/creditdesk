@@ -60,7 +60,7 @@ The live run and the completed assessment share one workspace:
 - **Policy checks** as tiles that fill in as workers report them: value, requirement and status.
 - **Problems, most important first:** blocks decision → fails policy → condition → advisory; within each level, the ones behind the decision come first. Clicking one opens its evidence.
 - **Assessment report:** written at handoff by Codex from the run's facts, with every figure checked against them. Without a model, the engine writes it. It can be copied or downloaded as Markdown.
-- **Ask:** questions about the run (`POST /api/runs/:id/ask`). Codex answers from the run's facts and the relevant page texts and may point at a finding or quote a line. The engine locates the quote on the page, and the workspace opens it outlined. Figures in answers are checked. Questions and answers are stored per run (`GET /api/runs/:id/questions`), outside the sealed run log. Each answer takes about 20 s.
+- **Ask:** questions about the run (`POST /api/runs/:id/ask`). Codex answers from the run's facts and the relevant page texts and may point at a finding or quote a line. The engine locates the quote on the page, and the workspace opens it outlined. Figures in answers are checked. Questions and answers are stored per run (`GET /api/runs/:id/questions`), outside the sealed run log. Each answer takes about 40 s. Without a model the panel says so (and why), and the engine answers from the recorded finding: the part the question asks for (why it matters, what would resolve it, which figures, the effect on the decision), never repeating an earlier answer.
 
 ### The browser only displays engine results
 
@@ -72,16 +72,29 @@ The dataset's quality labels (`calitate_date.contradictii`, `documente_lipsa`, `
 
 ## Verification
 
-    npm test         # 12 tests, ~8 s
-    npm run build    # typecheck (src, server, tests) + production bundle
+    npm test              # 21 tests, ~9 s: engine, HTTP API and run stream; no model, no network
+    npm run test:live     # real ANAF and Codex calls end to end (~3 min; needs network and `codex login`)
+    npm run test:browser  # headless Chromium (Chrome, Chromium, Brave or Edge; or CHROME_PATH) against the built workspace
+    npm run build         # typecheck (src, server, tests) + production bundle
+
+`npm test`:
 
 - All 50 dossiers run through the real engine. Every run completes and every hash chain verifies.
 - The scenario outcomes the engine records reproduce **all 200 oracle scenario decisions** and the DSCR, liquidity and leverage metrics.
 - Findings match the documented anomalies and are located on the original pages: CONPET's application prints 3,327,500.00 against 3,025,000.00 recorded; COMELF's account 5121 is RON 500.00 off; duplicate account 4111; mixed units. A healthy dossier raises nothing.
 - Detection was checked over all 792 PDFs (88,948 printed fields compared): exactly the 8 labelled conflicts, no false positives.
 - Memo-figure verification and cancellation are covered.
+- Over HTTP (`tests/server.test.ts`, the real engine process): nothing runs when a company is opened; the run stream delivers events as the engine produces them, each exactly once and in order; every worker is shown waiting before it is dispatched and is dispatched only after its dependencies complete; evidence pages render through `pdftoppm` at the proportions the outlined boxes refer to; without a model, Ask restates the recorded finding part by part and does not repeat itself.
+- ANAF client: an unknown CUI (v9 answers HTTP 404 with it in `notFound`) is reported as not found, not as an error. Register and dossier names that differ only in legal form or abbreviation ("S.N.G.N. ROMGAZ S.A." / "SOCIETATEA NATIONALA DE GAZE NATURALE ROMGAZ SA") are the same company: checked against the names ANAF returned live for all 50 CUIs, every company matches its own and none matches another's.
 
-Checked in Chrome: entry page empty state, live run (progressive map, finding → page with outlined figures), completed assessment, run log verified in the browser and by the engine, directory with "Not assessed" states, engine restart marking an interrupted run as failed.
+`npm run test:live` (last run 28 Oct 2026, `gpt-6.1-sol` medium; details in `test-results/live-summary.json`):
+- ANAF v9 lookup of CONPET SA (CUI 1350020): name, registration status and trade register live; an unknown CUI comes back as not found.
+- A full CONPET assessment with the model, through the HTTP API and run stream: identity confirmed in ANAF live; the Codex legal reading (≈36 s) and report (≈57 s) are schema-valid, the report cites only real findings and its figures verify; the run takes ≈93 s.
+- Ask: "What is the biggest problem?" returns the top-ranked finding with its evidence (≈41 s); asking to see the printed requested amount returns that line located and outlined on the application page (≈47 s).
+
+`npm run test:browser` (screenshots in `test-results/browser/`): the company page offers the two actions and nothing runs on open; Run new assessment opens the live run and the map fills from the stream (observed part-way); the first finding opens by itself on its original page with the problem outlined in red and the comparison in blue, every outline inside the page image and the producing worker highlighted; Ask answers and shows which model answered; View assessment opens the completed run. `CREDITDESK_LLM=codex CREDITDESK_ANAF=on npm run test:browser` runs the same with the model and the live register.
+
+Also checked by hand in the browser: run log verified in the browser and by the engine, directory with "Not assessed" states, engine restart marking an interrupted run as failed.
 
 ## Source layout
 
@@ -103,6 +116,8 @@ Checked in Chrome: entry page empty state, live run (progressive map, finding �
 | `src/CompanyDetail.tsx` | Completed assessment: findings, overview, financials, documents, scenarios, audit, contract |
 | `src/analysis.ts` | Policy rules and scenario calculations |
 | `src/Portfolio.tsx`, `src/App.tsx` | Directory, overview, policy, workspace audit; routing |
+| `tests/*.test.ts` | Deterministic suite: engine over all 50 dossiers, HTTP API and run stream, ANAF client |
+| `tests/live/`, `tests/browser/` | Live ANAF + Codex end to end; headless browser over the DevTools protocol (no extra dependency) |
 
 ## Scope
 

@@ -7,7 +7,8 @@ import type { Company } from './types'
 import { decisionLabels, ratio } from './analysis'
 import { docNames } from './documents'
 import { AgentMap, EvidenceViewer, FindingDetail, ImpactTag, NoteCard, emphasize, workerIcons } from './AssessmentUI'
-import { askQuestion, clock, duration, listQuestions } from './runs'
+import type { EngineHealth } from './runs'
+import { askQuestion, clock, duration, getHealth, listQuestions } from './runs'
 import { AddDocumentButton } from './DossierDocuments'
 import { downloadFile } from './storage'
 
@@ -222,8 +223,11 @@ function AskPanel({ view, onOpen, about, aboutRank, onClearAbout }: { view: RunV
   const [text, setText] = useState('')
   const [pending, setPending] = useState<{ question: string; since: number } | null>(null)
   const [, tick] = useState(0)
+  const [health, setHealth] = useState<EngineHealth | null>(null)
   const list = useRef<HTMLDivElement>(null)
   useEffect(() => { listQuestions(view.runId).then(setItems).catch(() => {}) }, [view.runId])
+  useEffect(() => { getHealth().then(setHealth).catch(() => {}) }, [items.length])
+  const model = health?.provider.id === 'codex' ? 'Codex ' + health.provider.model + ' · ' + health.provider.effort : null
   useEffect(() => { list.current?.scrollTo({ top: list.current.scrollHeight, behavior: 'smooth' }) }, [items.length, pending])
   useEffect(() => { if (!pending) return; const id = window.setInterval(() => tick(n => n + 1), 500); return () => window.clearInterval(id) }, [pending])
   const ask = async (question: string) => {
@@ -242,7 +246,7 @@ function AskPanel({ view, onOpen, about, aboutRank, onClearAbout }: { view: RunV
   const submit = (e: FormEvent) => { e.preventDefault(); ask(text) }
   return <div className="ask">
     <div className="ask-list" ref={list}>
-      {!items.length && !pending && <div className="ask-intro"><Sparkles size={18} /><strong>Ask about this assessment</strong><p>Answers come from this run's findings, checks and original documents. When an answer points somewhere, the page opens with the place outlined.</p></div>}
+      {!items.length && !pending && <div className="ask-intro"><Sparkles size={18} /><strong>Ask about this assessment</strong><p>{model ? model + ' answers' : 'Answers come'} from this run's findings, checks and original documents. When an answer points somewhere, the page opens with the place outlined.</p></div>}
       {items.map(a => <div key={a.id} className="ask-turn">
         <div className="ask-q">{a.question}</div>
         <div className={'ask-a' + (a.ok ? '' : ' ask-error')}>
@@ -257,6 +261,7 @@ function AskPanel({ view, onOpen, about, aboutRank, onClearAbout }: { view: RunV
       </div>)}
       {pending && <div className="ask-turn"><div className="ask-q">{pending.question}</div><div className="ask-a ask-pending"><LoaderCircle size={13} className="spin" />Reading the run and its documents · {((Date.now() - pending.since) / 1000).toFixed(0)} s</div></div>}
     </div>
+    {health && !model && <div className="ask-model-off"><CircleAlert size={12} /><span><strong>No model connected</strong> · {health.providerDetail}. Answers restate what this run recorded.</span></div>}
     {about && <div className="ask-context"><MessageSquareText size={12} /><span>Asking about <strong>#{aboutRank} {about.title}</strong></span><button className="ws-icon" onClick={onClearAbout} aria-label="Ask about the whole assessment instead"><X size={12} /></button></div>}
     <div className="ask-suggest">{(about ? ABOUT_SUGGESTIONS : SUGGESTIONS).map(s => <button key={s} onClick={() => ask(s)} disabled={!!pending}>{s}</button>)}</div>
     <form className="ask-form" onSubmit={submit}>

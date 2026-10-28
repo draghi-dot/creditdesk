@@ -33,8 +33,9 @@ export async function lookupAnaf(cui: string, date: string, signal: AbortSignal,
       body: JSON.stringify([{ cui: Number(cui), data: date }]),
       signal: AbortSignal.any([signal, timeout]),
     })
-    if (!res.ok) return { found: null, error: 'ANAF answered HTTP ' + res.status, durationMs: Date.now() - started }
-    const body = await res.json() as { found?: any[]; notFound?: unknown[] }
+    const body = await res.json().catch(() => null) as { found?: any[]; notFound?: unknown[] } | null
+    // When none of the requested CUIs is registered, ANAF answers 404 and lists them in notFound.
+    if (!body || (!res.ok && !(res.status === 404 && body.notFound?.length))) return { found: null, error: 'ANAF answered HTTP ' + res.status + (body ? '' : ' without a readable answer'), durationMs: Date.now() - started }
     const hit = body.found?.[0]
     if (!hit) return { found: null, error: null, durationMs: Date.now() - started }
     const general = hit.date_generale ?? {}
@@ -54,5 +55,22 @@ export async function lookupAnaf(cui: string, date: string, signal: AbortSignal,
   }
 }
 
-/** Company names compared without punctuation, spacing or legal-form dots. */
-export const normalizeName = (name: string) => name.toUpperCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^A-Z0-9]/g, '')
+/** Words of the legal form, which the register and dossiers add, drop or spell out differently. */
+const LEGAL_FORM = new Set(['SA', 'SRL', 'SCA', 'SNC', 'SCS', 'SOCIETATEA', 'NATIONALA', 'COMERCIALA'])
+
+/** The distinctive words of a company name: no diacritics, punctuation, legal form or dotted abbreviations (S.A., S.N.G.N.). */
+export function nameWords(name: string): Set<string> {
+  const tokens = name.toUpperCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^A-Z0-9.]+/g, ' ').trim().split(/\s+/)
+  return new Set(tokens.filter(t => !/^([A-Z]\.)+[A-Z]?$/.test(t)).map(t => t.replace(/\./g, '')).filter(t => t && !LEGAL_FORM.has(t)))
+}
+
+/**
+ * Whether the register's name and the dossier's name are the same company:
+ * one name's distinctive words all occur in the other, or they spell the same
+ * without spaces. "IAR S.A. Brasov" is "IAR SA"; "MEDLIFE S.A." is "MED LIFE SA";
+ * "S.N.G.N. ROMGAZ S.A." is "SOCIETATEA NATIONALA DE GAZE NATURALE ROMGAZ SA".
+ */
+export function sameCompanyName(a: string, b: string): boolean {
+  const [small, large] = [nameWords(a), nameWords(b)].sort((x, y) => x.size - y.size)
+  return small.size > 0 && ([...small].every(w => large.has(w)) || [...small].join('') === [...large].join(''))
+}
