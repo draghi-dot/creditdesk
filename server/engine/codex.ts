@@ -41,6 +41,8 @@ type Frame = Record<string, any>
 const toml = (value: string) => JSON.stringify(value)
 
 const INSTRUCTIONS = 'You are a component of CreditDesk, a bank credit-assessment workspace. You read only the text you are given and answer in the JSON schema you are given. You have no tools and you do not run commands.\n'
+/** For research calls: the model may search the public web, and only reports what it found on a page. */
+const RESEARCH_INSTRUCTIONS = 'You are a research component of CreditDesk, a bank credit-assessment workspace. Use the web search tool to look things up on the public web. Report only what you found printed on a page, with its URL, and answer in the JSON schema you are given. You do not run commands.\n'
 
 /** `webSearch` lets the model search the public web (contact research, monitoring); review workers never get it. */
 export function codexArgs(config: CodexConfig, scratch: string, schemaFile: string, instructionsFile: string, webSearch = false): string[] {
@@ -74,7 +76,7 @@ export function askCodex<T>(config: CodexConfig, prompt: string, schema: object,
   const schemaFile = join(scratch, 'schema.json')
   const instructionsFile = join(scratch, 'instructions.md')
   writeFileSync(schemaFile, JSON.stringify(schema))
-  writeFileSync(instructionsFile, INSTRUCTIONS)
+  writeFileSync(instructionsFile, options.webSearch ? RESEARCH_INSTRUCTIONS : INSTRUCTIONS)
   return new Promise(resolve => {
     let settled = false
     let stderr = ''
