@@ -30,7 +30,8 @@ export async function startEngine(env: Record<string, string>): Promise<EnginePr
   const data = mkdtempSync(join(tmpdir(), 'creditdesk-engine-'))
   const child = spawn(process.execPath, ['server/index.ts'], {
     cwd: new URL('../..', import.meta.url).pathname,
-    env: { ...process.env, PORT: String(port), CREDITDESK_DATA: data, ...env },
+    // Monitoring reaches the public web on a schedule; a test turns it on explicitly.
+    env: { ...process.env, PORT: String(port), CREDITDESK_DATA: data, CREDITDESK_MONITOR: 'off', ...env },
     stdio: ['ignore', 'pipe', 'pipe'],
   })
   let output = ''

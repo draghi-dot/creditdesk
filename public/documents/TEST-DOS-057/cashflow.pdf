@@ -1,0 +1,769 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Count 12 /Kids [5 0 R 7 0 R 9 0 R 11 0 R 13 0 R 15 0 R 17 0 R 19 0 R 21 0 R 23 0 R 25 0 R 27 0 R] >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 6 0 R >>
+endobj
+6 0 obj
+<< /Length 2167 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-057 | ROMAERO S.A. | CUI 1576401) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(SIMULAT / HACKATHON - fara valoare juridica; nu este document bancar sau raport real.) Tj T*
+() Tj T*
+(Dosar: TEST-DOS-057 | Document: TEST-DOC-057-CASHFLOW) Tj T*
+(Identitate publica de referinta: ROMAERO S.A.) Tj T*
+(CUI public: 1576401) Tj T*
+(Toate datele bancare de mai jos sunt inventate; nu descriu firma reala.) Tj T*
+(Emitent: simulator HACKATHON, fara acces la sistemele bancii.) Tj T*
+(Data referinta: 2026-09-30 | Moneda RON | Unitate 1 RON) Tj T*
+() Tj T*
+(CASHFLOW) Tj T*
+() Tj T*
+(--- Pozitia 1 ---) Tj T*
+(luna: 2025-10) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4628346.6) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3212390.87) Tj T*
+(impozite_platite: 64796.85) Tj T*
+(capex_mentenanta: 55540.16) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 22536800.0) Tj T*
+(principal_existent: 234758.33) Tj T*
+(dobanzi_existente: 52820.63) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 2 ---) Tj T*
+(luna: 2025-11) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 5215768.55) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3620102.11) Tj T*
+(impozite_platite: 73020.76) Tj T*
+(capex_mentenanta: 62589.22) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 23544839.76) Tj T*
+(principal_existent: 234758.33) Tj T*
+(dobanzi_existente: 51353.39) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 1/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 8 0 R >>
+endobj
+8 0 obj
+<< /Length 2135 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-057 | ROMAERO S.A. | CUI 1576401) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 3 ---) Tj T*
+(luna: 2025-12) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 3888400.15) Tj T*
+(plati_operare_fara_dobanzi_impozite: 2698817.15) Tj T*
+(impozite_platite: 54437.6) Tj T*
+(capex_mentenanta: 46660.8) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 24718784.5) Tj T*
+(principal_existent: 234758.33) Tj T*
+(dobanzi_existente: 49886.15) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 4 ---) Tj T*
+(luna: 2026-01) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4280932.6) Tj T*
+(plati_operare_fara_dobanzi_impozite: 2971261.66) Tj T*
+(impozite_platite: 59933.06) Tj T*
+(capex_mentenanta: 51371.19) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 25522624.62) Tj T*
+(principal_existent: 234758.33) Tj T*
+(dobanzi_existente: 48418.91) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 2/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 10 0 R >>
+endobj
+10 0 obj
+<< /Length 2125 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-057 | ROMAERO S.A. | CUI 1576401) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 5 ---) Tj T*
+(luna: 2026-02) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4626778.22) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3211302.3) Tj T*
+(impozite_platite: 64774.9) Tj T*
+(capex_mentenanta: 55521.34) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 26437814.07) Tj T*
+(principal_existent: 234758.33) Tj T*
+(dobanzi_existente: 46951.67) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 6 ---) Tj T*
+(luna: 2026-03) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 5248995.69) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3643164.03) Tj T*
+(impozite_platite: 73485.94) Tj T*
+(capex_mentenanta: 62987.95) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 27451283.75) Tj T*
+(principal_existent: 234758.33) Tj T*
+(dobanzi_existente: 45484.43) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 7 ---) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 3/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+11 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 12 0 R >>
+endobj
+12 0 obj
+<< /Length 2078 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-057 | ROMAERO S.A. | CUI 1576401) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(luna: 2026-04) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4034127.59) Tj T*
+(plati_operare_fara_dobanzi_impozite: 2799962.01) Tj T*
+(impozite_platite: 56477.79) Tj T*
+(capex_mentenanta: 48409.53) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 28640398.76) Tj T*
+(principal_existent: 234758.33) Tj T*
+(dobanzi_existente: 44017.19) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 8 ---) Tj T*
+(luna: 2026-05) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4262224.02) Tj T*
+(plati_operare_fara_dobanzi_impozite: 2958276.61) Tj T*
+(impozite_platite: 59671.14) Tj T*
+(capex_mentenanta: 51146.69) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 29490901.5) Tj T*
+(principal_existent: 234758.33) Tj T*
+(dobanzi_existente: 42549.95) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 9 ---) Tj T*
+(luna: 2026-06) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 4/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+13 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 14 0 R >>
+endobj
+14 0 obj
+<< /Length 2134 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-057 | ROMAERO S.A. | CUI 1576401) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(incasari_operare: 4763893.63) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3306469.84) Tj T*
+(impozite_platite: 66694.51) Tj T*
+(capex_mentenanta: 57166.72) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 30406722.8) Tj T*
+(principal_existent: 234758.33) Tj T*
+(dobanzi_existente: 41082.71) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 10 ---) Tj T*
+(luna: 2026-07) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 5152507.83) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3576194.82) Tj T*
+(impozite_platite: 72135.11) Tj T*
+(capex_mentenanta: 61830.09) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 31464444.32) Tj T*
+(principal_existent: 234758.33) Tj T*
+(dobanzi_existente: 39615.47) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 11 ---) Tj T*
+(luna: 2026-08) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4031751.73) Tj T*
+(plati_operare_fara_dobanzi_impozite: 2798313.0) Tj T*
+(impozite_platite: 56444.52) Tj T*
+(capex_mentenanta: 48381.02) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 5/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+15 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 16 0 R >>
+endobj
+16 0 obj
+<< /Length 2120 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-057 | ROMAERO S.A. | CUI 1576401) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 32632418.33) Tj T*
+(principal_existent: 234758.33) Tj T*
+(dobanzi_existente: 38148.23) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 12 ---) Tj T*
+(luna: 2026-09) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4325149.81) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3001951.44) Tj T*
+(impozite_platite: 60552.1) Tj T*
+(capex_mentenanta: 51901.8) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 33488124.96) Tj T*
+(principal_existent: 234758.37) Tj T*
+(dobanzi_existente: 36680.99) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 13 ---) Tj T*
+(luna: 2026-10) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 5059111.56) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3591533.83) Tj T*
+(impozite_platite: 70827.56) Tj T*
+(capex_mentenanta: 60709.34) Tj T*
+(capex_extindere: 11557333.33) Tj T*
+(aport_capital: 2889333.33) Tj T*
+(alte_finantari: 8668000.0) Tj T*
+(sold_initial_numerar: 34427430.07) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 6/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+17 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 18 0 R >>
+endobj
+18 0 obj
+<< /Length 2149 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-057 | ROMAERO S.A. | CUI 1576401) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(principal_existent: 234758.33) Tj T*
+(dobanzi_existente: 35213.75) Tj T*
+(principal_nou: 240777.78) Tj T*
+(dobanzi_noi: 61398.33) Tj T*
+(comisioane: 43340.0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 14 ---) Tj T*
+(luna: 2026-11) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 5487114.81) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3895379.3) Tj T*
+(impozite_platite: 76819.61) Tj T*
+(capex_mentenanta: 65845.38) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 35147982.71) Tj T*
+(principal_existent: 234758.33) Tj T*
+(dobanzi_existente: 33746.51) Tj T*
+(principal_nou: 240777.78) Tj T*
+(dobanzi_noi: 59692.82) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 15 ---) Tj T*
+(luna: 2026-12) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4057411.71) Tj T*
+(plati_operare_fara_dobanzi_impozite: 2880413.15) Tj T*
+(impozite_platite: 56803.76) Tj T*
+(capex_mentenanta: 48688.94) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 36028077.79) Tj T*
+(principal_existent: 234758.33) Tj T*
+(dobanzi_existente: 32279.27) Tj T*
+(principal_nou: 240777.78) Tj T*
+(dobanzi_noi: 57987.31) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 7/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+19 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 20 0 R >>
+endobj
+20 0 obj
+<< /Length 2244 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-057 | ROMAERO S.A. | CUI 1576401) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 16 ---) Tj T*
+(luna: 2027-01) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4604705.02) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3268944.3) Tj T*
+(impozite_platite: 64465.87) Tj T*
+(capex_mentenanta: 55256.46) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 36533780.96) Tj T*
+(principal_existent: 234758.33) Tj T*
+(dobanzi_existente: 30812.03) Tj T*
+(principal_nou: 240777.78) Tj T*
+(dobanzi_noi: 56281.81) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 17 ---) Tj T*
+(luna: 2027-02) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4828911.3) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3428111.45) Tj T*
+(impozite_platite: 67604.76) Tj T*
+(capex_mentenanta: 57946.94) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 37187189.4) Tj T*
+(principal_existent: 234758.33) Tj T*
+(dobanzi_existente: 29344.79) Tj T*
+(principal_nou: 240777.78) Tj T*
+(dobanzi_noi: 54576.3) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 8/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+21 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 22 0 R >>
+endobj
+22 0 obj
+<< /Length 2109 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-057 | ROMAERO S.A. | CUI 1576401) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+() Tj T*
+(--- Pozitia 18 ---) Tj T*
+(luna: 2027-03) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 5438922.21) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3861166.7) Tj T*
+(impozite_platite: 76144.91) Tj T*
+(capex_mentenanta: 65267.07) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 37902980.35) Tj T*
+(principal_existent: 234758.33) Tj T*
+(dobanzi_existente: 27877.55) Tj T*
+(principal_nou: 240777.78) Tj T*
+(dobanzi_noi: 52870.79) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 19 ---) Tj T*
+(luna: 2027-04) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4283976.69) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3041254.78) Tj T*
+(impozite_platite: 59975.67) Tj T*
+(capex_mentenanta: 51407.72) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 38783039.43) Tj T*
+(principal_existent: 234758.33) Tj T*
+(dobanzi_existente: 26410.31) Tj T*
+(principal_nou: 240777.78) Tj T*
+(dobanzi_noi: 51165.28) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 20 ---) Tj T*
+(luna: 2027-05) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 9/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+23 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 24 0 R >>
+endobj
+24 0 obj
+<< /Length 2143 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-057 | ROMAERO S.A. | CUI 1576401) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4398181.27) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3122330.2) Tj T*
+(impozite_platite: 61574.54) Tj T*
+(capex_mentenanta: 52778.18) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 39361266.25) Tj T*
+(principal_existent: 234758.33) Tj T*
+(dobanzi_existente: 24943.07) Tj T*
+(principal_nou: 240777.78) Tj T*
+(dobanzi_noi: 49459.77) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 21 ---) Tj T*
+(luna: 2027-06) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4923804.25) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3495477.29) Tj T*
+(impozite_platite: 68933.26) Tj T*
+(capex_mentenanta: 59085.65) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 39972825.65) Tj T*
+(principal_existent: 234758.33) Tj T*
+(dobanzi_existente: 23475.83) Tj T*
+(principal_nou: 240777.78) Tj T*
+(dobanzi_noi: 47754.26) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 22 ---) Tj T*
+(luna: 2027-07) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 5554832.12) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3943452.76) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 10/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+25 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 26 0 R >>
+endobj
+26 0 obj
+<< /Length 2128 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-057 | ROMAERO S.A. | CUI 1576401) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(impozite_platite: 77767.65) Tj T*
+(capex_mentenanta: 66657.99) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 40726367.5) Tj T*
+(principal_existent: 234758.33) Tj T*
+(dobanzi_existente: 22008.59) Tj T*
+(principal_nou: 240777.78) Tj T*
+(dobanzi_noi: 46048.75) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 23 ---) Tj T*
+(luna: 2027-08) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4039425.05) Tj T*
+(plati_operare_fara_dobanzi_impozite: 2867644.16) Tj T*
+(impozite_platite: 56551.95) Tj T*
+(capex_mentenanta: 48473.1) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 41649727.77) Tj T*
+(principal_existent: 234758.33) Tj T*
+(dobanzi_existente: 20541.35) Tj T*
+(principal_nou: 240777.78) Tj T*
+(dobanzi_noi: 44343.24) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 24 ---) Tj T*
+(luna: 2027-09) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4578639.04) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3250439.68) Tj T*
+(impozite_platite: 64100.95) Tj T*
+(capex_mentenanta: 54943.67) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 11/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+27 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 28 0 R >>
+endobj
+28 0 obj
+<< /Length 849 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-057 | ROMAERO S.A. | CUI 1576401) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 42176062.91) Tj T*
+(principal_existent: 234758.33) Tj T*
+(dobanzi_existente: 19074.11) Tj T*
+(principal_nou: 240777.78) Tj T*
+(dobanzi_noi: 42637.73) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 12/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+xref
+0 29
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000197 00000 n 
+0000000267 00000 n 
+0000000342 00000 n 
+0000000478 00000 n 
+0000002697 00000 n 
+0000002833 00000 n 
+0000005020 00000 n 
+0000005157 00000 n 
+0000007335 00000 n 
+0000007473 00000 n 
+0000009604 00000 n 
+0000009742 00000 n 
+0000011929 00000 n 
+0000012067 00000 n 
+0000014240 00000 n 
+0000014378 00000 n 
+0000016580 00000 n 
+0000016718 00000 n 
+0000019015 00000 n 
+0000019153 00000 n 
+0000021315 00000 n 
+0000021453 00000 n 
+0000023649 00000 n 
+0000023787 00000 n 
+0000025968 00000 n 
+0000026106 00000 n 
+trailer
+<< /Size 29 /Root 1 0 R >>
+startxref
+27007
+%%EOF

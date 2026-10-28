@@ -102,8 +102,9 @@ const eventText = (e: CaseEvent): string => {
     case 'status': return 'changed the status to ' + caseStatusLabels[e.data.to as CaseStatus]
     case 'assigned': return e.data.to ? 'assigned the case to ' + e.data.to : 'removed the assignee'
     case 'moved': return 'moved the case from ' + departmentName(e.data.from) + ' to ' + departmentName(e.data.to)
-    case 'request': return 'drafted a request to the company' + (String(e.data?.author ?? '').startsWith('Codex') ? ' with the assistant' : '')
-    case 'email': return 'sent the request to ' + (e.data?.to?.name || e.data?.to?.email)
+    case 'contact': return 'looked up the company contact'
+    case 'request': return e.author === 'Assistant' ? 'suggested an email to the company' : 'drafted a request to the company' + (String(e.data?.author ?? '').startsWith('Codex') ? ' with the assistant' : '')
+    case 'email': return e.data?.test ? 'sent a test copy of the request to ' + e.data.deliveredTo : 'sent the request to ' + (e.data?.to?.name || e.data?.to?.email)
     case 'report': return 'wrote a case report' + (String(e.data?.author ?? '').startsWith('Codex') ? ' with the assistant' : '')
     default: return 'commented'
   }
@@ -113,13 +114,15 @@ const eventText = (e: CaseEvent): string => {
 export function CasePage({ caseId, companies, session, onCompany, onDepartment, toast, onChange }: {
   caseId: string; companies: Company[]; session: Session | null; onCompany: (id: string) => void; onDepartment: (d: DepartmentId) => void; toast: (s: string) => void; onChange: () => void
 }) {
-  const [data, setData] = useState<{ case: Case; events: CaseEvent[]; requests: CompanyRequest[] } | null>(null)
+  const [data, setData] = useState<{ case: Case; events: CaseEvent[]; requests: CompanyRequest[]; assistant: string | null } | null>(null)
   const [error, setError] = useState('')
   const [comment, setComment] = useState('')
   const [busy, setBusy] = useState<string | null>(null)
   const [contacts, setContacts] = useState<Contact[]>([])
   const load = () => getCase(caseId).then(setData).catch(e => setError(e.message))
   useEffect(() => { load() }, [caseId])
+  // While the assistant finds the contact and writes the email, follow it.
+  useEffect(() => { if (!data?.assistant) return; const id = window.setInterval(load, 2500); return () => window.clearInterval(id) }, [data?.assistant])
   const company = useMemo(() => companies.find(c => c.id === data?.case.companyId), [data?.case.companyId, companies])
   if (error) return <div className="empty-state"><h2>Case not found</h2><p>{error}</p></div>
   if (!data || !company) return <div className="run-loading"><LoaderCircle size={20} className="spin" />Loading the case…</div>
@@ -159,10 +162,11 @@ export function CasePage({ caseId, companies, session, onCompany, onDepartment, 
         </section>
       </div>
       <aside className="case-side">
-        <ContactsCard company={company} onChange={setContacts} />
+        <ContactsCard company={company} onChange={setContacts} reloadKey={data.events.filter(e => e.kind === 'contact').length} />
         <section className="panel side-card">
-          <div className="side-card-head"><h2>Requests to the company</h2><DraftRequestButton small label="Draft request" contacts={contacts} draft={o => draftCaseRequest(c.id, o)} onDrafted={() => { load(); onChange() }} /></div>
-          <SendChecklist contacts={contacts} gmail={session?.gmail ?? null} requests={data.requests} />
+          <div className="side-card-head"><h2>Requests to the company</h2><DraftRequestButton small label={data.requests.length ? 'Write another' : 'Draft request'} contacts={contacts} draft={o => draftCaseRequest(c.id, o)} onDrafted={() => { load(); onChange() }} /></div>
+          {data.assistant && <p className="assistant-working"><LoaderCircle size={13} className="spin" />{data.assistant}…</p>}
+          <SendChecklist contacts={contacts} gmail={session?.gmail ?? null} requests={data.requests} assistant={data.assistant} />
           <RequestList key={data.requests.map(r => r.id + r.status).join()} requests={data.requests} gmail={session?.gmail ?? null} onChange={() => load()} toast={toast} />
         </section>
       </aside>

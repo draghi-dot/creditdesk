@@ -42,13 +42,14 @@ const toml = (value: string) => JSON.stringify(value)
 
 const INSTRUCTIONS = 'You are a component of CreditDesk, a bank credit-assessment workspace. You read only the text you are given and answer in the JSON schema you are given. You have no tools and you do not run commands.\n'
 
-export function codexArgs(config: CodexConfig, scratch: string, schemaFile: string, instructionsFile: string): string[] {
+/** `webSearch` lets the model search the public web (contact research, monitoring); review workers never get it. */
+export function codexArgs(config: CodexConfig, scratch: string, schemaFile: string, instructionsFile: string, webSearch = false): string[] {
   return [
     'exec', '--json', '--ephemeral', '--skip-git-repo-check', '--ignore-user-config', '--ignore-rules',
     '--sandbox', 'read-only', '--color', 'never', '-C', scratch,
     '-c', 'approval_policy="never"',
     '-c', 'features.shell_tool=false',
-    '-c', 'web_search="disabled"',
+    '-c', 'web_search=' + toml(webSearch ? 'live' : 'disabled'),
     '-c', 'project_doc_max_bytes=0',
     '-c', 'model_instructions_file=' + toml(instructionsFile),
     '-c', 'model_reasoning_effort=' + toml(config.effort),
@@ -67,7 +68,7 @@ function stop(child: ReturnType<typeof spawn>) {
   setTimeout(() => kill('SIGKILL'), 2000).unref()
 }
 
-export function askCodex<T>(config: CodexConfig, prompt: string, schema: object, signal: AbortSignal): Promise<ModelAnswer<T>> {
+export function askCodex<T>(config: CodexConfig, prompt: string, schema: object, signal: AbortSignal, options: { webSearch?: boolean } = {}): Promise<ModelAnswer<T>> {
   const started = Date.now()
   const scratch = mkdtempSync(join(tmpdir(), 'creditdesk-codex-'))
   const schemaFile = join(scratch, 'schema.json')
@@ -80,7 +81,7 @@ export function askCodex<T>(config: CodexConfig, prompt: string, schema: object,
     let lastMessage: string | null = null
     let lastError: string | null = null
     let completed: Frame | null = null
-    const child = spawn(config.command, codexArgs(config, scratch, schemaFile, instructionsFile), { cwd: scratch, stdio: ['pipe', 'pipe', 'pipe'], detached: true })
+    const child = spawn(config.command, codexArgs(config, scratch, schemaFile, instructionsFile, options.webSearch), { cwd: scratch, stdio: ['pipe', 'pipe', 'pipe'], detached: true })
     const timer = setTimeout(() => finish(false, 'timed out after ' + Math.round(config.timeoutMs / 1000) + ' s'), config.timeoutMs)
     const onAbort = () => finish(false, 'cancelled')
     signal.addEventListener('abort', onAbort, { once: true })

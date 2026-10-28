@@ -14,8 +14,11 @@ import type { Company, Policy } from '../src/types.ts'
 import type { CompanyRequest, GmailState, User } from '../src/workspace.ts'
 import { DEPARTMENTS, undeliverable } from '../src/workspace.ts'
 import { type Language, caseReport, draftRequest, suggest } from './engine/agent.ts'
+import { ANAF_ENDPOINT, lookupAnaf } from './engine/anaf.ts'
+import { findContact } from './engine/contacts.ts'
 import type { Batch } from './engine/batch.ts'
 import type { Engine } from './engine/engine.ts'
+import type { Monitor } from './engine/monitor.ts'
 import * as gmail from './gmail.ts'
 import { readJson, send } from './http.ts'
 import type { Store } from './store.ts'
@@ -27,6 +30,9 @@ export interface WorkspaceContext {
   engine: Engine
   batch: Batch
   companies: Map<string, Company>
+  /** The applications (Run all assesses these); the rest of `companies` are credit clients. */
+  applications: string[]
+  monitor: Monitor
   dataDir: string
   policyFrom: (body: any) => Policy
   refreshProvider: () => Promise<void>
@@ -48,6 +54,71 @@ export function workspaceRoutes(ctx: WorkspaceContext) {
   const contactFor = (company: Company, contactId: unknown) => {
     const contacts = workspace.contacts(company)
     return contacts.find(c => c.id === contactId) ?? contacts.find(c => !c.placeholder) ?? null
+  }
+
+  /** What the assistant is doing per case or company, for the page to show while it works. */
+  const busy = new Map<string, string>()
+  const researching = new Map<string, Promise<string>>()
+  /**
+   * Public contact research for a company: the ANAF register's official phone,
+   * then a web search for the published email, checked on its page. One at a
+   * time per company; returns what was found, in words.
+   */
+  const researchContact = (company: Company): Promise<string> => {
+    const running = researching.get(company.id)
+    if (running) return running
+    const job = (async () => {
+      const notes: string[] = []
+      const anaf = await lookupAnaf(company.cui, new Date().toISOString().slice(0, 10), new AbortController().signal, 20_000)
+      if (anaf.found?.phone) {
+        workspace.savePublicContact(company.id, { name: 'Registered office', role: 'Registered office (ANAF register)', email: '', phone: anaf.found.phone, sourceUrl: ANAF_ENDPOINT, verified: true }, 'ANAF register')
+        notes.push('phone ' + anaf.found.phone + ' from the ANAF register')
+      }
+      await ctx.refreshProvider()
+      const found = await findContact(company, engine.codex, new AbortController().signal)
+      if (found?.email) {
+        workspace.savePublicContact(company.id, { name: company.name + ' office', role: 'Company office (public)', email: found.email, phone: found.phone, sourceUrl: found.sourceUrl, verified: found.verified }, found.author)
+        notes.push(found.email + (found.verified ? ', found printed on ' : ', not found printed on ') + found.sourceUrl)
+      } else notes.push(found ? 'no published email found (' + found.reason + ')' : 'no model available to search the web')
+      workspace.appendActivity(company.id, 'Company contact researched', notes.join('; '), found?.author ?? 'engine')
+      return notes.join('; ')
+    })().finally(() => researching.delete(company.id))
+    researching.set(company.id, job)
+    return job
+  }
+
+  /** When a case is opened: find the company contact if none is on file, then write the suggested email. */
+  const assist = async (caseId: string, by: User) => {
+    const opened = workspace.case(caseId)
+    if (!opened) return
+    const company = companies.get(opened.companyId)!
+    try {
+      if (!contactFor(company, null)) {
+        busy.set(caseId, 'Finding the company contact')
+        const found = await researchContact(company)
+        workspace.addEvent(caseId, 'contact', found, 'Assistant')
+      }
+      busy.set(caseId, 'Writing the suggested email')
+      await ctx.refreshProvider()
+      const contact = contactFor(company, null)
+      const written = await draftRequest({ company, findings: opened.finding ? [opened.finding] : [], contact, from: by, language: 'en', caseRef: opened.ref, codex: engine.codex, signal: new AbortController().signal })
+      const request = newRequest(company, caseId, contact, written.value, written.author)
+      workspace.addEvent(caseId, 'request', request.subject, 'Assistant', { requestId: request.id, author: written.author, unsupported: written.unsupported })
+    } catch (err) {
+      workspace.addEvent(caseId, 'comment', 'The assistant could not finish: ' + (err instanceof Error ? err.message : String(err)), 'Assistant')
+    } finally { busy.delete(caseId) }
+  }
+
+  /** Contact research for every company that has no reachable contact yet, one company at a time. */
+  const findAll = { queue: [] as string[], done: [] as { companyId: string; result: string }[], current: null as string | null, total: 0 }
+  const pumpFindAll = async () => {
+    if (findAll.current) return
+    const next = findAll.queue.shift()
+    if (!next) return
+    findAll.current = next
+    try { findAll.done.push({ companyId: next, result: await researchContact(companies.get(next)!) }) }
+    catch (err) { findAll.done.push({ companyId: next, result: 'failed: ' + (err instanceof Error ? err.message : String(err)) }) }
+    finally { findAll.current = null; void pumpFindAll() }
   }
   const newRequest = (company: Company, caseId: string | null, contact: ReturnType<typeof contactFor>, draft: Pick<CompanyRequest, 'subject' | 'body' | 'requirements'>, draftedBy: string): CompanyRequest => workspace.saveRequest({
     id: randomUUID(), companyId: company.id, caseId, to: { name: contact && !contact.placeholder ? contact.name : '', email: contact?.email ?? '' },
@@ -81,13 +152,14 @@ export function workspaceRoutes(ctx: WorkspaceContext) {
         const finding = typeof body.findingId === 'string' ? findingsOf(runId).find(f => f.id === body.findingId) ?? null : null
         if (body.findingId && !finding) throw fail(400, 'That problem is not in the assessment')
         const opened = workspace.openCase({ company, runId, finding, department: body.department, title: body.title, note: body.note }, actorOf(req))
+        if (opened.created) void assist(opened.case.id, actorOf(req))
         return reply(opened.created ? 201 : 200, opened)
       }
       if (area === 'cases' && id) {
         const found = workspace.case(id)
         if (!found) throw fail(404, 'No such case')
         const actor = actorOf(req)
-        if (method === 'GET' && parts.length === 3) return reply(200, { case: found, events: workspace.events(id), requests: workspace.requests({ caseId: id }) })
+        if (method === 'GET' && parts.length === 3) return reply(200, { case: found, events: workspace.events(id), requests: workspace.requests({ caseId: id }), assistant: busy.get(id) ?? null })
         if (method === 'POST' && parts.length === 3) return reply(200, workspace.updateCase(id, await readJson(req), actor))
         if (method === 'POST' && sub === 'comments') {
           const text = String((await readJson(req)).text ?? '').trim().slice(0, 4000)
@@ -124,6 +196,11 @@ export function workspaceRoutes(ctx: WorkspaceContext) {
             workspace.appendActivity(company.id, 'Contact saved', workspace.contacts(company).find(c => c.id === contactId)!.name, actor.name)
             return reply(201, workspace.contacts(company))
           }
+          if (method === 'POST' && subId === 'find') {
+            const result = await researchContact(company)
+            return reply(200, { result, contacts: workspace.contacts(company) })
+          }
+          if (method === 'GET' && subId === 'find') return reply(200, { searching: researching.has(company.id) })
           if (method === 'DELETE' && parts.length === 5) return reply(workspace.removeContact(company.id, subId!) ? 200 : 404, workspace.contacts(company))
         }
         if (sub === 'requests') {
@@ -171,11 +248,17 @@ export function workspaceRoutes(ctx: WorkspaceContext) {
           if (!client) throw fail(400, 'Gmail is not set up for this workspace yet')
           const mailbox = workspace.gmail(actor.id)
           if (!mailbox) throw fail(400, 'Connect your Gmail account first (your name, top right)')
+          // Test delivery sends the message to the sender's own mailbox, saying where it would have gone.
+          const test = workspace.settings().delivery === 'test'
+          const recipient = (request.to.name ? request.to.name + ' ' : '') + '<' + request.to.email + '>'
           try {
-            const sent = await gmail.send(client, mailbox.refreshToken, gmail.message({ fromName: actor.name, from: mailbox.email, toName: request.to.name, to: request.to.email, subject: request.subject, body: request.body }))
-            const done = workspace.saveRequest({ ...request, status: 'sent', sentBy: actor.name, sentAt: new Date().toISOString(), sentFrom: mailbox.email, error: null })
-            if (request.caseId) workspace.addEvent(request.caseId, 'email', request.subject, actor, { requestId: request.id, to: request.to, from: mailbox.email, gmailId: sent.id })
-            workspace.appendActivity(request.companyId, 'Request sent to the company', request.subject + ' → ' + (request.to.name ? request.to.name + ' ' : '') + '<' + request.to.email + '>', actor.name, { requestId: request.id, gmailId: sent.id })
+            const sent = await gmail.send(client, mailbox.refreshToken, gmail.message({
+              fromName: actor.name, from: mailbox.email, toName: test ? actor.name : request.to.name, to: test ? mailbox.email : request.to.email,
+              subject: (test ? '[Test] ' : '') + request.subject, body: (test ? 'Test delivery from CreditDesk. With live delivery this message goes to ' + recipient + '.\n\n' : '') + request.body,
+            }))
+            const done = workspace.saveRequest({ ...request, status: 'sent', sentBy: actor.name, sentAt: new Date().toISOString(), sentFrom: mailbox.email, error: null, deliveredTo: test ? mailbox.email : request.to.email, testDelivery: test })
+            if (request.caseId) workspace.addEvent(request.caseId, 'email', request.subject, actor, { requestId: request.id, to: request.to, from: mailbox.email, gmailId: sent.id, test, deliveredTo: done.deliveredTo })
+            workspace.appendActivity(request.companyId, test ? 'Request sent as a test to the sender\'s mailbox' : 'Request sent to the company', request.subject + ' → ' + (test ? mailbox.email + ' (would go to ' + recipient + ')' : recipient), actor.name, { requestId: request.id, gmailId: sent.id, test })
             return reply(200, done)
           } catch (err) {
             const message = err instanceof Error ? err.message : String(err)
@@ -194,6 +277,52 @@ export function workspaceRoutes(ctx: WorkspaceContext) {
         const action = String(body.action ?? '').trim()
         if (!action) throw fail(400, 'Missing action')
         return reply(201, workspace.appendActivity(companyId, action, String(body.detail ?? ''), actorOf(req).name, body.payload))
+      }
+
+      // ─── Live monitoring of credit clients ───────────────────────────────
+      if (is('GET', 'monitoring', 2)) return reply(200, { clients: ctx.monitor.status(), events: ctx.monitor.events({ limit: 300 }), intervalMinutes: ctx.monitor.intervalMinutes })
+      if (is('GET', 'monitoring', 3) && id === 'stream') {
+        res.writeHead(200, { 'content-type': 'text/event-stream; charset=utf-8', 'cache-control': 'no-cache, no-transform', connection: 'keep-alive', 'x-accel-buffering': 'no' })
+        const unsubscribe = ctx.monitor.subscribe(e => res.write('event: monitor\ndata: ' + JSON.stringify(e) + '\n\n'))
+        const heartbeat = setInterval(() => res.write(': keep-alive\n\n'), 15_000)
+        req.on('close', () => { clearInterval(heartbeat); unsubscribe() })
+        return true
+      }
+      if (is('POST', 'monitoring', 3) && id === 'check') {
+        const body = await readJson(req)
+        const ids = typeof body.companyId === 'string' ? [companyOf(body.companyId).id] : ctx.monitor.status().map(s => s.companyId)
+        for (const companyId of ids) ctx.monitor.enqueue(companyId)
+        return reply(202, ctx.monitor.status())
+      }
+      if (is('POST', 'monitoring', 3) && id === 'research') {
+        const company = companyOf((await readJson(req)).companyId)
+        if (!company.creditLine) throw fail(400, 'Only credit clients are monitored')
+        await ctx.refreshProvider()
+        return reply(200, { result: await ctx.monitor.research(company, engine.codex) })
+      }
+      if (method === 'POST' && area === 'monitoring' && id === 'events' && parts[4] === 'review') {
+        const event = ctx.monitor.review(sub!, actorOf(req).name)
+        if (!event) throw fail(404, 'No such event')
+        workspace.appendActivity(event.companyId, 'Monitoring event reviewed', event.title, actorOf(req).name, { eventId: event.id })
+        return reply(200, event)
+      }
+
+      // ─── Settings and contact research for every company ─────────────────
+      if (is('GET', 'settings', 2)) return reply(200, workspace.settings())
+      if (is('POST', 'settings', 2)) {
+        const body = await readJson(req)
+        const next = workspace.setDelivery(body.delivery)
+        workspace.appendActivity('workspace', 'Request delivery set to ' + next.delivery, next.delivery === 'live' ? 'Sent requests go to the company contacts.' : 'Sent requests go to the sender\'s own mailbox.', actorOf(req).name)
+        return reply(200, next)
+      }
+      if (method === 'GET' && area === 'contacts' && id === 'find-all') return reply(200, { active: !!findAll.current || findAll.queue.length > 0, total: findAll.total, done: findAll.done.length, current: findAll.current, results: findAll.done })
+      if (method === 'POST' && area === 'contacts' && id === 'find-all') {
+        if (findAll.current || findAll.queue.length) throw fail(409, 'Contact research is already running')
+        findAll.queue = [...companies.values()].filter(c => !contactFor(c, null)).map(c => c.id)
+        findAll.done = []
+        findAll.total = findAll.queue.length
+        void pumpFindAll()
+        return reply(202, { active: findAll.total > 0, total: findAll.total, done: 0, current: findAll.current, results: [] })
       }
 
       // ─── Gmail ───────────────────────────────────────────────────────────
@@ -236,7 +365,7 @@ export function workspaceRoutes(ctx: WorkspaceContext) {
       if (method === 'POST' && area === 'runs' && id === 'all' && parts.length === 3) {
         const body = await readJson(req)
         await ctx.refreshProvider()
-        return reply(202, ctx.batch.start([...companies.keys()], ctx.policyFrom(body), Number(process.env.CREDITDESK_BATCH_CONCURRENCY) || (engine.codex ? 2 : 6), actorOf(req).name))
+        return reply(202, ctx.batch.start(ctx.applications, ctx.policyFrom(body), Number(process.env.CREDITDESK_BATCH_CONCURRENCY) || (engine.codex ? 2 : 6), actorOf(req).name))
       }
       if (method === 'POST' && area === 'runs' && id === 'all' && sub === 'stop') return reply(200, ctx.batch.stop())
     } catch (err: any) {

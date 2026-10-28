@@ -46,6 +46,7 @@ export class Engine {
   private readonly documentsDir: string
   private readonly active = new Map<string, { companyId: string; controller: AbortController }>()
   private readonly listeners = new Map<string, Set<Listener>>()
+  private readonly settled = new Set<(runId: string, companyId: string) => void>()
   codex: CodexConfig | null
 
   constructor(store: Store, documentsDir: string, codex: CodexConfig | null) {
@@ -92,6 +93,7 @@ export class Engine {
         else emit('run_failed', null, { reason: err instanceof Error ? err.message : String(err) })
       } finally {
         this.active.delete(runId)
+        for (const listener of this.settled) listener(runId, company.id)
       }
     })()
     return runId
@@ -109,6 +111,11 @@ export class Engine {
     if (!set) this.listeners.set(runId, set = new Set())
     set.add(listener)
     return () => { set!.delete(listener); if (!set!.size) this.listeners.delete(runId) }
+  }
+
+  /** Called after every run ends, however it ended. */
+  onSettled(listener: (runId: string, companyId: string) => void): void {
+    this.settled.add(listener)
   }
 
   isActive(runId: string): boolean {

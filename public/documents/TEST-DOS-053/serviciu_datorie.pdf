@@ -1,0 +1,1224 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Count 19 /Kids [5 0 R 7 0 R 9 0 R 11 0 R 13 0 R 15 0 R 17 0 R 19 0 R 21 0 R 23 0 R 25 0 R 27 0 R 29 0 R 31 0 R 33 0 R 35 0 R 37 0 R 39 0 R 41 0 R] >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 6 0 R >>
+endobj
+6 0 obj
+<< /Length 1993 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-053 | CEMACON S.A. | CUI 677858) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(SIMULAT / HACKATHON - fara valoare juridica; nu este document bancar sau raport real.) Tj T*
+() Tj T*
+(Dosar: TEST-DOS-053 | Document: TEST-DOC-053-SERVICIU_DATORIE) Tj T*
+(Identitate publica de referinta: CEMACON S.A.) Tj T*
+(CUI public: 677858) Tj T*
+(Toate datele bancare de mai jos sunt inventate; nu descriu firma reala.) Tj T*
+(Emitent: simulator HACKATHON, fara acces la sistemele bancii.) Tj T*
+(Data referinta: 2026-09-30 | Moneda RON | Unitate 1 RON) Tj T*
+() Tj T*
+(SERVICIU DATORIE) Tj T*
+() Tj T*
+(--- Pozitia 1 ---) Tj T*
+(facilitate_id: TEST-FAC-053-EXISTENT) Tj T*
+(luna: 2025-10) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 220620.83) Tj T*
+(dobanda_scadenta: 49639.69) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 2 ---) Tj T*
+(facilitate_id: TEST-FAC-053-EXISTENT) Tj T*
+(luna: 2025-11) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 220620.83) Tj T*
+(dobanda_scadenta: 48260.81) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 3 ---) Tj T*
+(facilitate_id: TEST-FAC-053-EXISTENT) Tj T*
+(luna: 2025-12) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 220620.83) Tj T*
+(dobanda_scadenta: 46881.93) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 4 ---) Tj T*
+(facilitate_id: TEST-FAC-053-EXISTENT) Tj T*
+(luna: 2026-01) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 220620.83) Tj T*
+(dobanda_scadenta: 45503.05) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 5 ---) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 1/19 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 8 0 R >>
+endobj
+8 0 obj
+<< /Length 1808 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-053 | CEMACON S.A. | CUI 677858) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(facilitate_id: TEST-FAC-053-EXISTENT) Tj T*
+(luna: 2026-02) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 220620.83) Tj T*
+(dobanda_scadenta: 44124.17) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 6 ---) Tj T*
+(facilitate_id: TEST-FAC-053-EXISTENT) Tj T*
+(luna: 2026-03) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 220620.83) Tj T*
+(dobanda_scadenta: 42745.29) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 7 ---) Tj T*
+(facilitate_id: TEST-FAC-053-EXISTENT) Tj T*
+(luna: 2026-04) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 220620.83) Tj T*
+(dobanda_scadenta: 41366.41) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 8 ---) Tj T*
+(facilitate_id: TEST-FAC-053-EXISTENT) Tj T*
+(luna: 2026-05) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 220620.83) Tj T*
+(dobanda_scadenta: 39987.53) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 9 ---) Tj T*
+(facilitate_id: TEST-FAC-053-EXISTENT) Tj T*
+(luna: 2026-06) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 220620.83) Tj T*
+(dobanda_scadenta: 38608.65) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 10 ---) Tj T*
+(facilitate_id: TEST-FAC-053-EXISTENT) Tj T*
+(luna: 2026-07) Tj T*
+(moneda: RON) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 2/19 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 10 0 R >>
+endobj
+10 0 obj
+<< /Length 1828 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-053 | CEMACON S.A. | CUI 677858) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(principal_scadent: 220620.83) Tj T*
+(dobanda_scadenta: 37229.77) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 11 ---) Tj T*
+(facilitate_id: TEST-FAC-053-EXISTENT) Tj T*
+(luna: 2026-08) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 220620.83) Tj T*
+(dobanda_scadenta: 35850.89) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 12 ---) Tj T*
+(facilitate_id: TEST-FAC-053-EXISTENT) Tj T*
+(luna: 2026-09) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 220620.87) Tj T*
+(dobanda_scadenta: 34472.01) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 13 ---) Tj T*
+(facilitate_id: TEST-FAC-053-EXISTENT) Tj T*
+(luna: 2026-10) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 220620.83) Tj T*
+(dobanda_scadenta: 33093.13) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 14 ---) Tj T*
+(facilitate_id: TEST-FAC-053-EXISTENT) Tj T*
+(luna: 2026-11) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 220620.83) Tj T*
+(dobanda_scadenta: 31714.24) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 15 ---) Tj T*
+(facilitate_id: TEST-FAC-053-EXISTENT) Tj T*
+(luna: 2026-12) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 220620.83) Tj T*
+(dobanda_scadenta: 30335.36) Tj T*
+(comisioane_scadente: 0) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 3/19 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+11 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 12 0 R >>
+endobj
+12 0 obj
+<< /Length 1799 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-053 | CEMACON S.A. | CUI 677858) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 16 ---) Tj T*
+(facilitate_id: TEST-FAC-053-EXISTENT) Tj T*
+(luna: 2027-01) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 220620.83) Tj T*
+(dobanda_scadenta: 28956.48) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 17 ---) Tj T*
+(facilitate_id: TEST-FAC-053-EXISTENT) Tj T*
+(luna: 2027-02) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 220620.83) Tj T*
+(dobanda_scadenta: 27577.6) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 18 ---) Tj T*
+(facilitate_id: TEST-FAC-053-EXISTENT) Tj T*
+(luna: 2027-03) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 220620.83) Tj T*
+(dobanda_scadenta: 26198.72) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 19 ---) Tj T*
+(facilitate_id: TEST-FAC-053-EXISTENT) Tj T*
+(luna: 2027-04) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 220620.83) Tj T*
+(dobanda_scadenta: 24819.84) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 20 ---) Tj T*
+(facilitate_id: TEST-FAC-053-EXISTENT) Tj T*
+(luna: 2027-05) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 220620.83) Tj T*
+(dobanda_scadenta: 23440.96) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 21 ---) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 4/19 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+13 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 14 0 R >>
+endobj
+14 0 obj
+<< /Length 1811 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-053 | CEMACON S.A. | CUI 677858) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(facilitate_id: TEST-FAC-053-EXISTENT) Tj T*
+(luna: 2027-06) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 220620.83) Tj T*
+(dobanda_scadenta: 22062.08) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 22 ---) Tj T*
+(facilitate_id: TEST-FAC-053-EXISTENT) Tj T*
+(luna: 2027-07) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 220620.83) Tj T*
+(dobanda_scadenta: 20683.2) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 23 ---) Tj T*
+(facilitate_id: TEST-FAC-053-EXISTENT) Tj T*
+(luna: 2027-08) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 220620.83) Tj T*
+(dobanda_scadenta: 19304.32) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 24 ---) Tj T*
+(facilitate_id: TEST-FAC-053-EXISTENT) Tj T*
+(luna: 2027-09) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 220620.83) Tj T*
+(dobanda_scadenta: 17925.44) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 25 ---) Tj T*
+(facilitate_id: TEST-FAC-053-EXISTENT) Tj T*
+(luna: 2027-10) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 220620.83) Tj T*
+(dobanda_scadenta: 16546.56) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 26 ---) Tj T*
+(facilitate_id: TEST-FAC-053-EXISTENT) Tj T*
+(luna: 2027-11) Tj T*
+(moneda: RON) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 5/19 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+15 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 16 0 R >>
+endobj
+16 0 obj
+<< /Length 1825 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-053 | CEMACON S.A. | CUI 677858) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(principal_scadent: 220620.83) Tj T*
+(dobanda_scadenta: 15167.68) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 27 ---) Tj T*
+(facilitate_id: TEST-FAC-053-EXISTENT) Tj T*
+(luna: 2027-12) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 220620.83) Tj T*
+(dobanda_scadenta: 13788.8) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 28 ---) Tj T*
+(facilitate_id: TEST-FAC-053-EXISTENT) Tj T*
+(luna: 2028-01) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 220620.83) Tj T*
+(dobanda_scadenta: 12409.92) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 29 ---) Tj T*
+(facilitate_id: TEST-FAC-053-EXISTENT) Tj T*
+(luna: 2028-02) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 220620.83) Tj T*
+(dobanda_scadenta: 11031.04) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 30 ---) Tj T*
+(facilitate_id: TEST-FAC-053-EXISTENT) Tj T*
+(luna: 2028-03) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 220620.83) Tj T*
+(dobanda_scadenta: 9652.16) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 31 ---) Tj T*
+(facilitate_id: TEST-FAC-053-EXISTENT) Tj T*
+(luna: 2028-04) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 220620.83) Tj T*
+(dobanda_scadenta: 8273.28) Tj T*
+(comisioane_scadente: 0) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 6/19 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+17 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 18 0 R >>
+endobj
+18 0 obj
+<< /Length 1794 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-053 | CEMACON S.A. | CUI 677858) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 32 ---) Tj T*
+(facilitate_id: TEST-FAC-053-EXISTENT) Tj T*
+(luna: 2028-05) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 220620.83) Tj T*
+(dobanda_scadenta: 6894.4) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 33 ---) Tj T*
+(facilitate_id: TEST-FAC-053-EXISTENT) Tj T*
+(luna: 2028-06) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 220620.83) Tj T*
+(dobanda_scadenta: 5515.52) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 34 ---) Tj T*
+(facilitate_id: TEST-FAC-053-EXISTENT) Tj T*
+(luna: 2028-07) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 220620.83) Tj T*
+(dobanda_scadenta: 4136.64) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 35 ---) Tj T*
+(facilitate_id: TEST-FAC-053-EXISTENT) Tj T*
+(luna: 2028-08) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 220620.83) Tj T*
+(dobanda_scadenta: 2757.76) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 36 ---) Tj T*
+(facilitate_id: TEST-FAC-053-EXISTENT) Tj T*
+(luna: 2028-09) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 220620.91) Tj T*
+(dobanda_scadenta: 1378.88) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 37 ---) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 7/19 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+19 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 20 0 R >>
+endobj
+20 0 obj
+<< /Length 1763 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-053 | CEMACON S.A. | CUI 677858) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2026-10) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 57700.83) Tj T*
+(comisioane_scadente: 40730.0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 38 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2026-11) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 56739.15) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 39 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2026-12) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 55777.47) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 40 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2027-01) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 54815.79) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 41 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2027-02) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 53854.11) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 42 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2027-03) Tj T*
+(moneda: RON) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 8/19 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+21 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 22 0 R >>
+endobj
+22 0 obj
+<< /Length 1778 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-053 | CEMACON S.A. | CUI 677858) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 52892.43) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 43 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2027-04) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 51930.75) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 44 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2027-05) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 50969.07) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 45 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2027-06) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 50007.39) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 46 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2027-07) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 49045.71) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 47 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2027-08) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 48084.03) Tj T*
+(comisioane_scadente: 0) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 9/19 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+23 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 24 0 R >>
+endobj
+24 0 obj
+<< /Length 1746 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-053 | CEMACON S.A. | CUI 677858) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 48 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2027-09) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 47122.35) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 49 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2027-10) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 46160.67) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 50 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2027-11) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 45198.99) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 51 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2027-12) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 44237.31) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 52 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2028-01) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 43275.62) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 53 ---) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 10/19 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+25 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 26 0 R >>
+endobj
+26 0 obj
+<< /Length 1757 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-053 | CEMACON S.A. | CUI 677858) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2028-02) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 42313.94) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 54 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2028-03) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 41352.26) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 55 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2028-04) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 40390.58) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 56 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2028-05) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 39428.9) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 57 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2028-06) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 38467.22) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 58 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2028-07) Tj T*
+(moneda: RON) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 11/19 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+27 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 28 0 R >>
+endobj
+28 0 obj
+<< /Length 1778 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-053 | CEMACON S.A. | CUI 677858) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 37505.54) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 59 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2028-08) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 36543.86) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 60 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2028-09) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 35582.18) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 61 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2028-10) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 34620.5) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 62 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2028-11) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 33658.82) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 63 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2028-12) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 32697.14) Tj T*
+(comisioane_scadente: 0) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 12/19 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+29 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 30 0 R >>
+endobj
+30 0 obj
+<< /Length 1745 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-053 | CEMACON S.A. | CUI 677858) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 64 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2029-01) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 31735.46) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 65 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2029-02) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 30773.78) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 66 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2029-03) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 29812.1) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 67 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2029-04) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 28850.42) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 68 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2029-05) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 27888.74) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 69 ---) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 13/19 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+31 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 32 0 R >>
+endobj
+32 0 obj
+<< /Length 1758 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-053 | CEMACON S.A. | CUI 677858) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2029-06) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 26927.05) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 70 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2029-07) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 25965.37) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 71 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2029-08) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 25003.69) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 72 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2029-09) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 24042.01) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 73 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2029-10) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 23080.33) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 74 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2029-11) Tj T*
+(moneda: RON) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 14/19 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+33 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 34 0 R >>
+endobj
+34 0 obj
+<< /Length 1779 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-053 | CEMACON S.A. | CUI 677858) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 22118.65) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 75 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2029-12) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 21156.97) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 76 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2030-01) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 20195.29) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 77 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2030-02) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 19233.61) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 78 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2030-03) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 18271.93) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 79 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2030-04) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 17310.25) Tj T*
+(comisioane_scadente: 0) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 15/19 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+35 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 36 0 R >>
+endobj
+36 0 obj
+<< /Length 1746 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-053 | CEMACON S.A. | CUI 677858) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 80 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2030-05) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 16348.57) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 81 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2030-06) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 15386.89) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 82 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2030-07) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 14425.21) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 83 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2030-08) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 13463.53) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 84 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2030-09) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 12501.85) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 85 ---) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 16/19 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+37 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 38 0 R >>
+endobj
+38 0 obj
+<< /Length 1754 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-053 | CEMACON S.A. | CUI 677858) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2030-10) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 11540.17) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 86 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2030-11) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 10578.48) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 87 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2030-12) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 9616.8) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 88 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2031-01) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 8655.12) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 89 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2031-02) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 7693.44) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 90 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2031-03) Tj T*
+(moneda: RON) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 17/19 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+39 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 40 0 R >>
+endobj
+40 0 obj
+<< /Length 1772 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-053 | CEMACON S.A. | CUI 677858) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 6731.76) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 91 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2031-04) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 5770.08) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 92 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2031-05) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 4808.4) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 93 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2031-06) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 3846.72) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 94 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2031-07) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 2885.04) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 95 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2031-08) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.67) Tj T*
+(dobanda_scadenta: 1923.36) Tj T*
+(comisioane_scadente: 0) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 18/19 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+41 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 42 0 R >>
+endobj
+42 0 obj
+<< /Length 697 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-053 | CEMACON S.A. | CUI 677858) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 96 ---) Tj T*
+(facilitate_id: TEST-FAC-053-NOU) Tj T*
+(luna: 2031-09) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 135766.47) Tj T*
+(dobanda_scadenta: 961.68) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 19/19 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+xref
+0 43
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000246 00000 n 
+0000000316 00000 n 
+0000000391 00000 n 
+0000000527 00000 n 
+0000002572 00000 n 
+0000002708 00000 n 
+0000004568 00000 n 
+0000004705 00000 n 
+0000006586 00000 n 
+0000006724 00000 n 
+0000008576 00000 n 
+0000008714 00000 n 
+0000010578 00000 n 
+0000010716 00000 n 
+0000012594 00000 n 
+0000012732 00000 n 
+0000014579 00000 n 
+0000014717 00000 n 
+0000016533 00000 n 
+0000016671 00000 n 
+0000018502 00000 n 
+0000018640 00000 n 
+0000020439 00000 n 
+0000020577 00000 n 
+0000022387 00000 n 
+0000022525 00000 n 
+0000024356 00000 n 
+0000024494 00000 n 
+0000026292 00000 n 
+0000026430 00000 n 
+0000028241 00000 n 
+0000028379 00000 n 
+0000030211 00000 n 
+0000030349 00000 n 
+0000032148 00000 n 
+0000032286 00000 n 
+0000034093 00000 n 
+0000034231 00000 n 
+0000036056 00000 n 
+0000036194 00000 n 
+trailer
+<< /Size 43 /Root 1 0 R >>
+startxref
+36943
+%%EOF

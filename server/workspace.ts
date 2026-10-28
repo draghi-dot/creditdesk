@@ -9,7 +9,7 @@ import { createHash, randomUUID } from 'node:crypto'
 import type { DatabaseSync } from 'node:sqlite'
 import type { Finding } from '../src/assessment.ts'
 import type { Company } from '../src/types.ts'
-import type { ActivityEvent, Case, CaseEvent, CaseEventKind, CaseStatus, CompanyRequest, Contact, DepartmentId, SuggestionSet, User } from '../src/workspace.ts'
+import type { ActivityEvent, Case, CaseEvent, CaseEventKind, CaseStatus, CompanyRequest, Contact, DepartmentId, SuggestionSet, User, WorkspaceSettings } from '../src/workspace.ts'
 import { DEPARTMENTS, undeliverable } from '../src/workspace.ts'
 
 /** The employees a new workspace starts with. The first is signed in by default. */
@@ -54,7 +54,10 @@ export class Workspace {
       CREATE TABLE IF NOT EXISTS gmail (user_id TEXT PRIMARY KEY, email TEXT NOT NULL, refresh_token TEXT NOT NULL, connected_at TEXT NOT NULL);
       CREATE TABLE IF NOT EXISTS activity (id TEXT PRIMARY KEY, company_id TEXT NOT NULL, time TEXT NOT NULL, payload TEXT NOT NULL);
       CREATE INDEX IF NOT EXISTS activity_company ON activity (company_id, time);
+      CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY, value TEXT NOT NULL);
     `)
+    const columns = (db.prepare('PRAGMA table_info(contacts)').all() as { name: string }[]).map(c => c.name)
+    if (!columns.includes('source')) db.exec("ALTER TABLE contacts ADD COLUMN source TEXT NOT NULL DEFAULT 'added'; ALTER TABLE contacts ADD COLUMN source_url TEXT; ALTER TABLE contacts ADD COLUMN verified INTEGER")
     if (!(db.prepare('SELECT count(*) n FROM users').get() as { n: number }).n) {
       const insert = db.prepare('INSERT INTO users (id, name, title, department, created_at) VALUES (?, ?, ?, ?, ?)')
       for (const u of STAFF) insert.run(u.id, u.name, u.title, u.department, now())
@@ -92,12 +95,35 @@ export class Workspace {
         id: company.id + '-dossier-' + i, companyId: company.id, source: 'dossier', placeholder, addedBy: null, addedAt: null,
         // Without a deliverable address the dossier has no real contact on file, only a role.
         name: placeholder ? 'Representative (no contact on file)' : String(a.nume), role: String(a.rol ?? 'administrator').replace(/_fictiv$/, '').replaceAll('_', ' '),
-        email: placeholder ? '' : String(a.email), phone: '',
+        email: placeholder ? '' : String(a.email), phone: '', sourceUrl: null, verified: null,
       }
     })
-    const added = (this.db.prepare('SELECT * FROM contacts WHERE company_id = ? AND removed_at IS NULL ORDER BY added_at').all(company.id) as Record<string, string>[])
-      .map(r => ({ id: r.id, companyId: r.company_id, name: r.name, role: r.role, email: r.email, phone: r.phone, source: 'added' as const, placeholder: undeliverable(r.email), addedBy: r.added_by, addedAt: r.added_at }))
+    const added = (this.db.prepare("SELECT * FROM contacts WHERE company_id = ? AND removed_at IS NULL ORDER BY source = 'public', added_at").all(company.id) as Record<string, any>[])
+      .map(r => ({
+        id: r.id, companyId: r.company_id, name: r.name, role: r.role, email: r.email, phone: r.phone, source: r.source, placeholder: !r.email || undeliverable(r.email),
+        addedBy: r.added_by, addedAt: r.added_at, sourceUrl: r.source_url ?? null, verified: r.verified === null || r.verified === undefined ? null : Boolean(r.verified),
+      } as Contact))
     return [...added, ...dossier]
+  }
+
+  /** A contact the assistant found in public sources; replaces its earlier find from the same source. */
+  savePublicContact(companyId: string, contact: { name: string; role: string; email: string; phone: string; sourceUrl: string; verified: boolean }, foundBy: string): void {
+    this.db.prepare("UPDATE contacts SET removed_at = ? WHERE company_id = ? AND source = 'public' AND role = ? AND removed_at IS NULL").run(now(), companyId, contact.role)
+    this.db.prepare("INSERT INTO contacts (id, company_id, name, role, email, phone, added_by, added_at, source, source_url, verified) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'public', ?, ?)")
+      .run(randomUUID(), companyId, contact.name.slice(0, 120), contact.role.slice(0, 80), contact.email.slice(0, 200), contact.phone.slice(0, 40), foundBy, now(), contact.sourceUrl.slice(0, 500), contact.verified ? 1 : 0)
+  }
+
+  // ─── Settings ──────────────────────────────────────────────────────────────
+
+  settings(): WorkspaceSettings {
+    const row = this.db.prepare("SELECT value FROM settings WHERE key = 'delivery'").get() as { value: string } | undefined
+    return { delivery: row?.value === 'live' ? 'live' : 'test' }
+  }
+
+  setDelivery(delivery: unknown): WorkspaceSettings {
+    if (delivery !== 'test' && delivery !== 'live') throw Object.assign(new Error('Delivery is test or live'), { status: 400 })
+    this.db.prepare("INSERT INTO settings (key, value) VALUES ('delivery', ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value").run(delivery)
+    return this.settings()
   }
 
   saveContact(companyId: string, input: { id?: unknown; name?: unknown; role?: unknown; email?: unknown; phone?: unknown }, by: User): Contact['id'] {

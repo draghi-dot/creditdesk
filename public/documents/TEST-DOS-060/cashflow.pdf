@@ -1,0 +1,769 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Count 12 /Kids [5 0 R 7 0 R 9 0 R 11 0 R 13 0 R 15 0 R 17 0 R 19 0 R 21 0 R 23 0 R 25 0 R 27 0 R] >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 6 0 R >>
+endobj
+6 0 obj
+<< /Length 2187 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-060 | HOLDE AGRI INVEST S.A. | CUI 39549730) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(SIMULAT / HACKATHON - fara valoare juridica; nu este document bancar sau raport real.) Tj T*
+() Tj T*
+(Dosar: TEST-DOS-060 | Document: TEST-DOC-060-CASHFLOW) Tj T*
+(Identitate publica de referinta: HOLDE AGRI INVEST S.A.) Tj T*
+(CUI public: 39549730) Tj T*
+(Toate datele bancare de mai jos sunt inventate; nu descriu firma reala.) Tj T*
+(Emitent: simulator HACKATHON, fara acces la sistemele bancii.) Tj T*
+(Data referinta: 2026-09-30 | Moneda RON | Unitate 1 RON) Tj T*
+() Tj T*
+(CASHFLOW) Tj T*
+() Tj T*
+(--- Pozitia 1 ---) Tj T*
+(luna: 2025-10) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4865210.53) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3386380.8) Tj T*
+(impozite_platite: 68112.95) Tj T*
+(capex_mentenanta: 58382.53) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 23855000.0) Tj T*
+(principal_existent: 248489.58) Tj T*
+(dobanzi_existente: 55910.16) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 2 ---) Tj T*
+(luna: 2025-11) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 5468558.21) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3806334.89) Tj T*
+(impozite_platite: 76559.81) Tj T*
+(capex_mentenanta: 65622.7) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 24902934.51) Tj T*
+(principal_existent: 248489.58) Tj T*
+(dobanzi_existente: 54357.1) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 1/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 8 0 R >>
+endobj
+8 0 obj
+<< /Length 2150 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-060 | HOLDE AGRI INVEST S.A. | CUI 39549730) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 3 ---) Tj T*
+(luna: 2025-12) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4042923.35) Tj T*
+(plati_operare_fara_dobanzi_impozite: 2814036.09) Tj T*
+(impozite_platite: 56600.93) Tj T*
+(capex_mentenanta: 48515.08) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 26120128.64) Tj T*
+(principal_existent: 248489.58) Tj T*
+(dobanzi_existente: 52804.04) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 4 ---) Tj T*
+(luna: 2026-01) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4495401.75) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3128979.14) Tj T*
+(impozite_platite: 62935.62) Tj T*
+(capex_mentenanta: 53944.82) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 26942606.27) Tj T*
+(principal_existent: 248489.58) Tj T*
+(dobanzi_existente: 51250.98) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 2/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 10 0 R >>
+endobj
+10 0 obj
+<< /Length 2137 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-060 | HOLDE AGRI INVEST S.A. | CUI 39549730) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 5 ---) Tj T*
+(luna: 2026-02) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4885129.95) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3400245.52) Tj T*
+(impozite_platite: 68391.82) Tj T*
+(capex_mentenanta: 58621.56) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 27892407.88) Tj T*
+(principal_existent: 248489.58) Tj T*
+(dobanzi_existente: 49697.92) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 6 ---) Tj T*
+(luna: 2026-03) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 5262385.46) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3662830.41) Tj T*
+(impozite_platite: 73673.4) Tj T*
+(capex_mentenanta: 63148.63) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 28952091.43) Tj T*
+(principal_existent: 248489.58) Tj T*
+(dobanzi_existente: 48144.86) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 7 ---) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 3/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+11 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 12 0 R >>
+endobj
+12 0 obj
+<< /Length 2088 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-060 | HOLDE AGRI INVEST S.A. | CUI 39549730) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(luna: 2026-04) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4146172.7) Tj T*
+(plati_operare_fara_dobanzi_impozite: 2885901.77) Tj T*
+(impozite_platite: 58046.42) Tj T*
+(capex_mentenanta: 49754.07) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 30118190.01) Tj T*
+(principal_existent: 248489.58) Tj T*
+(dobanzi_existente: 46591.8) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 8 ---) Tj T*
+(luna: 2026-05) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4548387.49) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3165859.33) Tj T*
+(impozite_platite: 63677.42) Tj T*
+(capex_mentenanta: 54580.65) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 30975579.07) Tj T*
+(principal_existent: 248489.58) Tj T*
+(dobanzi_existente: 45038.74) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 9 ---) Tj T*
+(luna: 2026-06) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 4/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+13 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 14 0 R >>
+endobj
+14 0 obj
+<< /Length 2147 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-060 | HOLDE AGRI INVEST S.A. | CUI 39549730) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(incasari_operare: 4938540.83) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3437421.63) Tj T*
+(impozite_platite: 69139.57) Tj T*
+(capex_mentenanta: 59262.49) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 31946320.84) Tj T*
+(principal_existent: 248489.58) Tj T*
+(dobanzi_existente: 43485.68) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 10 ---) Tj T*
+(luna: 2026-07) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 5383162.11) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3746895.79) Tj T*
+(impozite_platite: 75364.27) Tj T*
+(capex_mentenanta: 64597.95) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 33027062.72) Tj T*
+(principal_existent: 248489.58) Tj T*
+(dobanzi_existente: 41932.62) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 11 ---) Tj T*
+(luna: 2026-08) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4283654.56) Tj T*
+(plati_operare_fara_dobanzi_impozite: 2981594.64) Tj T*
+(impozite_platite: 59971.16) Tj T*
+(capex_mentenanta: 51403.85) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 5/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+15 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 16 0 R >>
+endobj
+16 0 obj
+<< /Length 2128 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-060 | HOLDE AGRI INVEST S.A. | CUI 39549730) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 34232944.62) Tj T*
+(principal_existent: 248489.58) Tj T*
+(dobanzi_existente: 40379.56) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 12 ---) Tj T*
+(luna: 2026-09) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4507617.38) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3137481.7) Tj T*
+(impozite_platite: 63106.64) Tj T*
+(capex_mentenanta: 54091.41) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 35134760.39) Tj T*
+(principal_existent: 248489.62) Tj T*
+(dobanzi_existente: 38826.5) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 13 ---) Tj T*
+(luna: 2026-10) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 5192516.56) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3695895.8) Tj T*
+(impozite_platite: 72695.23) Tj T*
+(capex_mentenanta: 62310.2) Tj T*
+(capex_extindere: 12233333.33) Tj T*
+(aport_capital: 3058333.33) Tj T*
+(alte_finantari: 9175000.0) Tj T*
+(sold_initial_numerar: 36100381.9) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 6/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+17 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 18 0 R >>
+endobj
+18 0 obj
+<< /Length 2161 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-060 | HOLDE AGRI INVEST S.A. | CUI 39549730) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(principal_existent: 248489.58) Tj T*
+(dobanzi_existente: 37273.44) Tj T*
+(principal_nou: 254861.11) Tj T*
+(dobanzi_noi: 60402.08) Tj T*
+(comisioane: 45875.0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 14 ---) Tj T*
+(luna: 2026-11) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 5657954.12) Tj T*
+(plati_operare_fara_dobanzi_impozite: 4027181.93) Tj T*
+(impozite_platite: 79211.36) Tj T*
+(capex_mentenanta: 67895.45) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 36815096.02) Tj T*
+(principal_existent: 248489.58) Tj T*
+(dobanzi_existente: 35720.38) Tj T*
+(principal_nou: 254861.11) Tj T*
+(dobanzi_noi: 58724.25) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 15 ---) Tj T*
+(luna: 2026-12) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4422853.89) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3148070.29) Tj T*
+(impozite_platite: 61919.95) Tj T*
+(capex_mentenanta: 53074.25) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 37700966.08) Tj T*
+(principal_existent: 248489.58) Tj T*
+(dobanzi_existente: 34167.32) Tj T*
+(principal_nou: 254861.11) Tj T*
+(dobanzi_noi: 57046.41) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 7/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+19 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 20 0 R >>
+endobj
+20 0 obj
+<< /Length 2255 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-060 | HOLDE AGRI INVEST S.A. | CUI 39549730) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 16 ---) Tj T*
+(luna: 2027-01) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4686821.8) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3335955.66) Tj T*
+(impozite_platite: 65615.51) Tj T*
+(capex_mentenanta: 56241.86) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 38266191.06) Tj T*
+(principal_existent: 248489.58) Tj T*
+(dobanzi_existente: 32614.26) Tj T*
+(principal_nou: 254861.11) Tj T*
+(dobanzi_noi: 55368.58) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 17 ---) Tj T*
+(luna: 2027-02) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 5350519.4) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3808358.04) Tj T*
+(impozite_platite: 74907.27) Tj T*
+(capex_mentenanta: 64206.23) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 38903866.3) Tj T*
+(principal_existent: 248489.58) Tj T*
+(dobanzi_existente: 31061.2) Tj T*
+(principal_nou: 254861.11) Tj T*
+(dobanzi_noi: 53690.74) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 8/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+21 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 22 0 R >>
+endobj
+22 0 obj
+<< /Length 2120 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-060 | HOLDE AGRI INVEST S.A. | CUI 39549730) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+() Tj T*
+(--- Pozitia 18 ---) Tj T*
+(luna: 2027-03) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 5655427.05) Tj T*
+(plati_operare_fara_dobanzi_impozite: 4025383.23) Tj T*
+(impozite_platite: 79175.98) Tj T*
+(capex_mentenanta: 67865.12) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 39718811.53) Tj T*
+(principal_existent: 248489.58) Tj T*
+(dobanzi_existente: 29508.14) Tj T*
+(principal_nou: 254861.11) Tj T*
+(dobanzi_noi: 52012.91) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 19 ---) Tj T*
+(luna: 2027-04) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4204316.82) Tj T*
+(plati_operare_fara_dobanzi_impozite: 2992521.39) Tj T*
+(impozite_platite: 58860.44) Tj T*
+(capex_mentenanta: 50451.8) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 40616942.51) Tj T*
+(principal_existent: 248489.58) Tj T*
+(dobanzi_existente: 27955.08) Tj T*
+(principal_nou: 254861.11) Tj T*
+(dobanzi_noi: 50335.07) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 20 ---) Tj T*
+(luna: 2027-05) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 9/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+23 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 24 0 R >>
+endobj
+24 0 obj
+<< /Length 2154 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-060 | HOLDE AGRI INVEST S.A. | CUI 39549730) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4807056.63) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3421535.63) Tj T*
+(impozite_platite: 67298.79) Tj T*
+(capex_mentenanta: 57684.68) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 41137784.86) Tj T*
+(principal_existent: 248489.58) Tj T*
+(dobanzi_existente: 26402.02) Tj T*
+(principal_nou: 254861.11) Tj T*
+(dobanzi_noi: 48657.23) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 21 ---) Tj T*
+(luna: 2027-06) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 5192631.32) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3695977.48) Tj T*
+(impozite_platite: 72696.84) Tj T*
+(capex_mentenanta: 62311.58) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 41819912.45) Tj T*
+(principal_existent: 248489.58) Tj T*
+(dobanzi_existente: 24848.96) Tj T*
+(principal_nou: 254861.11) Tj T*
+(dobanzi_noi: 46979.4) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 22 ---) Tj T*
+(luna: 2027-07) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 5581997.18) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3973117.79) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 10/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+25 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 26 0 R >>
+endobj
+26 0 obj
+<< /Length 2140 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-060 | HOLDE AGRI INVEST S.A. | CUI 39549730) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(impozite_platite: 78147.96) Tj T*
+(capex_mentenanta: 66983.97) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 42606378.82) Tj T*
+(principal_existent: 248489.58) Tj T*
+(dobanzi_existente: 23295.9) Tj T*
+(principal_nou: 254861.11) Tj T*
+(dobanzi_noi: 45301.56) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 23 ---) Tj T*
+(luna: 2027-08) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4246301.23) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3022404.78) Tj T*
+(impozite_platite: 59448.22) Tj T*
+(capex_mentenanta: 50955.61) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 43498178.13) Tj T*
+(principal_existent: 248489.58) Tj T*
+(dobanzi_existente: 21742.84) Tj T*
+(principal_nou: 254861.11) Tj T*
+(dobanzi_noi: 43623.73) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 24 ---) Tj T*
+(luna: 2027-09) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4797211.87) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3414528.38) Tj T*
+(impozite_platite: 67160.97) Tj T*
+(capex_mentenanta: 57566.54) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 11/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+27 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 28 0 R >>
+endobj
+28 0 obj
+<< /Length 860 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-060 | HOLDE AGRI INVEST S.A. | CUI 39549730) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 44042953.49) Tj T*
+(principal_existent: 248489.58) Tj T*
+(dobanzi_existente: 20189.78) Tj T*
+(principal_nou: 254861.11) Tj T*
+(dobanzi_noi: 41945.89) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 12/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+xref
+0 29
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000197 00000 n 
+0000000267 00000 n 
+0000000342 00000 n 
+0000000478 00000 n 
+0000002717 00000 n 
+0000002853 00000 n 
+0000005055 00000 n 
+0000005192 00000 n 
+0000007382 00000 n 
+0000007520 00000 n 
+0000009661 00000 n 
+0000009799 00000 n 
+0000011999 00000 n 
+0000012137 00000 n 
+0000014318 00000 n 
+0000014456 00000 n 
+0000016670 00000 n 
+0000016808 00000 n 
+0000019116 00000 n 
+0000019254 00000 n 
+0000021427 00000 n 
+0000021565 00000 n 
+0000023772 00000 n 
+0000023910 00000 n 
+0000026103 00000 n 
+0000026241 00000 n 
+trailer
+<< /Size 29 /Root 1 0 R >>
+startxref
+27153
+%%EOF

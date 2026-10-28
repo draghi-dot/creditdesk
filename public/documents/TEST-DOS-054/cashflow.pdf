@@ -1,0 +1,769 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Count 12 /Kids [5 0 R 7 0 R 9 0 R 11 0 R 13 0 R 15 0 R 17 0 R 19 0 R 21 0 R 23 0 R 25 0 R 27 0 R] >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 6 0 R >>
+endobj
+6 0 obj
+<< /Length 2165 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-054 | ZENTIVA S.A. | CUI 336206) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(SIMULAT / HACKATHON - fara valoare juridica; nu este document bancar sau raport real.) Tj T*
+() Tj T*
+(Dosar: TEST-DOS-054 | Document: TEST-DOC-054-CASHFLOW) Tj T*
+(Identitate publica de referinta: ZENTIVA S.A.) Tj T*
+(CUI public: 336206) Tj T*
+(Toate datele bancare de mai jos sunt inventate; nu descriu firma reala.) Tj T*
+(Emitent: simulator HACKATHON, fara acces la sistemele bancii.) Tj T*
+(Data referinta: 2026-09-30 | Moneda RON | Unitate 1 RON) Tj T*
+() Tj T*
+(CASHFLOW) Tj T*
+() Tj T*
+(--- Pozitia 1 ---) Tj T*
+(luna: 2025-10) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4456808.95) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3082350.6) Tj T*
+(impozite_platite: 62395.33) Tj T*
+(capex_mentenanta: 53481.71) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 21431800.0) Tj T*
+(principal_existent: 223247.92) Tj T*
+(dobanzi_existente: 50230.78) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 2 ---) Tj T*
+(luna: 2025-11) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4833170.01) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3342643.74) Tj T*
+(impozite_platite: 67664.38) Tj T*
+(capex_mentenanta: 57998.04) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 22416902.61) Tj T*
+(principal_existent: 223247.92) Tj T*
+(dobanzi_existente: 48835.48) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 1/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 8 0 R >>
+endobj
+8 0 obj
+<< /Length 2137 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-054 | ZENTIVA S.A. | CUI 336206) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 3 ---) Tj T*
+(luna: 2025-12) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 3798315.32) Tj T*
+(plati_operare_fara_dobanzi_impozite: 2626933.24) Tj T*
+(impozite_platite: 53176.41) Tj T*
+(capex_mentenanta: 45579.78) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 23509683.06) Tj T*
+(principal_existent: 223247.92) Tj T*
+(dobanzi_existente: 47440.18) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 4 ---) Tj T*
+(luna: 2026-01) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4089487.03) Tj T*
+(plati_operare_fara_dobanzi_impozite: 2828309.0) Tj T*
+(impozite_platite: 57252.82) Tj T*
+(capex_mentenanta: 49073.84) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 24311620.85) Tj T*
+(principal_existent: 223247.92) Tj T*
+(dobanzi_existente: 46044.88) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 2/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 10 0 R >>
+endobj
+10 0 obj
+<< /Length 2125 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-054 | ZENTIVA S.A. | CUI 336206) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 5 ---) Tj T*
+(luna: 2026-02) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4369138.09) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3021717.02) Tj T*
+(impozite_platite: 61167.93) Tj T*
+(capex_mentenanta: 52429.66) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 25197179.42) Tj T*
+(principal_existent: 223247.92) Tj T*
+(dobanzi_existente: 44649.58) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 6 ---) Tj T*
+(luna: 2026-03) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4996590.96) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3455666.46) Tj T*
+(impozite_platite: 69952.27) Tj T*
+(capex_mentenanta: 59959.09) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 26163105.4) Tj T*
+(principal_existent: 223247.92) Tj T*
+(dobanzi_existente: 43254.28) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 7 ---) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 3/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+11 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 12 0 R >>
+endobj
+12 0 obj
+<< /Length 2077 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-054 | ZENTIVA S.A. | CUI 336206) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(luna: 2026-04) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 3588344.42) Tj T*
+(plati_operare_fara_dobanzi_impozite: 2481716.35) Tj T*
+(impozite_platite: 50236.82) Tj T*
+(capex_mentenanta: 43060.13) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 27307616.34) Tj T*
+(principal_existent: 223247.92) Tj T*
+(dobanzi_existente: 41858.98) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 8 ---) Tj T*
+(luna: 2026-05) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4109314.33) Tj T*
+(plati_operare_fara_dobanzi_impozite: 2842021.66) Tj T*
+(impozite_platite: 57530.4) Tj T*
+(capex_mentenanta: 49311.77) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 28055840.56) Tj T*
+(principal_existent: 223247.92) Tj T*
+(dobanzi_existente: 40463.68) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 9 ---) Tj T*
+(luna: 2026-06) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 4/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+13 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 14 0 R >>
+endobj
+14 0 obj
+<< /Length 2135 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-054 | ZENTIVA S.A. | CUI 336206) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(incasari_operare: 4535243.35) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3136596.22) Tj T*
+(impozite_platite: 63493.41) Tj T*
+(capex_mentenanta: 54422.92) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 28952579.46) Tj T*
+(principal_existent: 223247.92) Tj T*
+(dobanzi_existente: 39068.39) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 10 ---) Tj T*
+(luna: 2026-07) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4902167.12) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3390362.47) Tj T*
+(impozite_platite: 68630.34) Tj T*
+(capex_mentenanta: 58826.01) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 29970993.95) Tj T*
+(principal_existent: 223247.92) Tj T*
+(dobanzi_existente: 37673.09) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 11 ---) Tj T*
+(luna: 2026-08) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 3633697.53) Tj T*
+(plati_operare_fara_dobanzi_impozite: 2513082.77) Tj T*
+(impozite_platite: 50871.77) Tj T*
+(capex_mentenanta: 43604.37) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 5/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+15 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 16 0 R >>
+endobj
+16 0 obj
+<< /Length 2121 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-054 | ZENTIVA S.A. | CUI 336206) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 31094421.24) Tj T*
+(principal_existent: 223247.92) Tj T*
+(dobanzi_existente: 36277.79) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 12 ---) Tj T*
+(luna: 2026-09) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4070400.54) Tj T*
+(plati_operare_fara_dobanzi_impozite: 2815108.68) Tj T*
+(impozite_platite: 56985.61) Tj T*
+(capex_mentenanta: 48844.81) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 31861034.15) Tj T*
+(principal_existent: 223247.88) Tj T*
+(dobanzi_existente: 34882.49) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 13 ---) Tj T*
+(luna: 2026-10) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4675059.35) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3308022.75) Tj T*
+(impozite_platite: 65450.83) Tj T*
+(capex_mentenanta: 56100.71) Tj T*
+(capex_extindere: 10990666.67) Tj T*
+(aport_capital: 2747666.67) Tj T*
+(alte_finantari: 8243000.0) Tj T*
+(sold_initial_numerar: 32752365.22) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 6/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+17 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 18 0 R >>
+endobj
+18 0 obj
+<< /Length 2147 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-054 | ZENTIVA S.A. | CUI 336206) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(principal_existent: 223247.92) Tj T*
+(dobanzi_existente: 33487.19) Tj T*
+(principal_nou: 228972.22) Tj T*
+(dobanzi_noi: 63539.79) Tj T*
+(comisioane: 41215.0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 14 ---) Tj T*
+(luna: 2026-11) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 5009336.23) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3544553.55) Tj T*
+(impozite_platite: 70130.71) Tj T*
+(capex_mentenanta: 60112.03) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 33407388.16) Tj T*
+(principal_existent: 223247.92) Tj T*
+(dobanzi_existente: 32091.89) Tj T*
+(principal_nou: 228972.22) Tj T*
+(dobanzi_noi: 61774.8) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 15 ---) Tj T*
+(luna: 2026-12) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 3829098.02) Tj T*
+(plati_operare_fara_dobanzi_impozite: 2709429.42) Tj T*
+(impozite_platite: 53607.37) Tj T*
+(capex_mentenanta: 45949.18) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 34195841.27) Tj T*
+(principal_existent: 223247.92) Tj T*
+(dobanzi_existente: 30696.59) Tj T*
+(principal_nou: 228972.22) Tj T*
+(dobanzi_noi: 60009.8) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 7/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+19 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 20 0 R >>
+endobj
+20 0 obj
+<< /Length 2247 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-054 | ZENTIVA S.A. | CUI 336206) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 16 ---) Tj T*
+(luna: 2027-01) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4253818.76) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3009957.34) Tj T*
+(impozite_platite: 59553.46) Tj T*
+(capex_mentenanta: 51045.83) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 34673026.79) Tj T*
+(principal_existent: 223247.92) Tj T*
+(dobanzi_existente: 29301.29) Tj T*
+(principal_nou: 228972.22) Tj T*
+(dobanzi_noi: 58244.81) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 17 ---) Tj T*
+(luna: 2027-02) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4740152.48) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3354081.97) Tj T*
+(impozite_platite: 66362.13) Tj T*
+(capex_mentenanta: 56881.83) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 35266522.68) Tj T*
+(principal_existent: 223247.92) Tj T*
+(dobanzi_existente: 27905.99) Tj T*
+(principal_nou: 228972.22) Tj T*
+(dobanzi_noi: 56479.81) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 8/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+21 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 22 0 R >>
+endobj
+22 0 obj
+<< /Length 2106 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-054 | ZENTIVA S.A. | CUI 336206) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+() Tj T*
+(--- Pozitia 18 ---) Tj T*
+(luna: 2027-03) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 5161650.11) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3652329.24) Tj T*
+(impozite_platite: 72263.1) Tj T*
+(capex_mentenanta: 61939.8) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 35992743.29) Tj T*
+(principal_existent: 223247.92) Tj T*
+(dobanzi_existente: 26510.69) Tj T*
+(principal_nou: 228972.22) Tj T*
+(dobanzi_noi: 54714.82) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 19 ---) Tj T*
+(luna: 2027-04) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4014005.3) Tj T*
+(plati_operare_fara_dobanzi_impozite: 2840267.87) Tj T*
+(impozite_platite: 56196.07) Tj T*
+(capex_mentenanta: 48168.06) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 36834415.61) Tj T*
+(principal_existent: 223247.92) Tj T*
+(dobanzi_existente: 25115.39) Tj T*
+(principal_nou: 228972.22) Tj T*
+(dobanzi_noi: 52949.83) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 20 ---) Tj T*
+(luna: 2027-05) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 9/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+23 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 24 0 R >>
+endobj
+24 0 obj
+<< /Length 2143 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-054 | ZENTIVA S.A. | CUI 336206) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4370014.83) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3092176.45) Tj T*
+(impozite_platite: 61180.21) Tj T*
+(capex_mentenanta: 52440.18) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 37373503.55) Tj T*
+(principal_existent: 223247.92) Tj T*
+(dobanzi_existente: 23720.09) Tj T*
+(principal_nou: 228972.22) Tj T*
+(dobanzi_noi: 51184.83) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 21 ---) Tj T*
+(luna: 2027-06) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4621110.11) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3269848.84) Tj T*
+(impozite_platite: 64695.54) Tj T*
+(capex_mentenanta: 55453.32) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 38010596.48) Tj T*
+(principal_existent: 223247.92) Tj T*
+(dobanzi_existente: 22324.79) Tj T*
+(principal_nou: 228972.22) Tj T*
+(dobanzi_noi: 49419.84) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 22 ---) Tj T*
+(luna: 2027-07) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 5213574.53) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3689070.42) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 10/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+25 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 26 0 R >>
+endobj
+26 0 obj
+<< /Length 2129 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-054 | ZENTIVA S.A. | CUI 336206) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(impozite_platite: 72990.04) Tj T*
+(capex_mentenanta: 62562.89) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 38717744.12) Tj T*
+(principal_existent: 223247.92) Tj T*
+(dobanzi_existente: 20929.49) Tj T*
+(principal_nou: 228972.22) Tj T*
+(dobanzi_noi: 47654.84) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 23 ---) Tj T*
+(luna: 2027-08) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 3865139.32) Tj T*
+(plati_operare_fara_dobanzi_impozite: 2734931.87) Tj T*
+(impozite_platite: 54111.95) Tj T*
+(capex_mentenanta: 46381.67) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 39585890.83) Tj T*
+(principal_existent: 223247.92) Tj T*
+(dobanzi_existente: 19534.19) Tj T*
+(principal_nou: 228972.22) Tj T*
+(dobanzi_noi: 45889.85) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 24 ---) Tj T*
+(luna: 2027-09) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4400893.87) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3114026.14) Tj T*
+(impozite_platite: 61612.51) Tj T*
+(capex_mentenanta: 52810.73) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 11/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+27 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 28 0 R >>
+endobj
+28 0 obj
+<< /Length 848 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-054 | ZENTIVA S.A. | CUI 336206) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 40097960.48) Tj T*
+(principal_existent: 223247.92) Tj T*
+(dobanzi_existente: 18138.89) Tj T*
+(principal_nou: 228972.22) Tj T*
+(dobanzi_noi: 44124.86) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 12/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+xref
+0 29
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000197 00000 n 
+0000000267 00000 n 
+0000000342 00000 n 
+0000000478 00000 n 
+0000002695 00000 n 
+0000002831 00000 n 
+0000005020 00000 n 
+0000005157 00000 n 
+0000007335 00000 n 
+0000007473 00000 n 
+0000009603 00000 n 
+0000009741 00000 n 
+0000011929 00000 n 
+0000012067 00000 n 
+0000014241 00000 n 
+0000014379 00000 n 
+0000016579 00000 n 
+0000016717 00000 n 
+0000019017 00000 n 
+0000019155 00000 n 
+0000021314 00000 n 
+0000021452 00000 n 
+0000023648 00000 n 
+0000023786 00000 n 
+0000025968 00000 n 
+0000026106 00000 n 
+trailer
+<< /Size 29 /Root 1 0 R >>
+startxref
+27006
+%%EOF

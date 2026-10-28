@@ -54,7 +54,7 @@ export interface Case {
   updatedAt: string
 }
 
-export type CaseEventKind = 'opened' | 'comment' | 'status' | 'assigned' | 'moved' | 'request' | 'email' | 'report' | 'suggestion'
+export type CaseEventKind = 'opened' | 'comment' | 'status' | 'assigned' | 'moved' | 'contact' | 'request' | 'email' | 'report' | 'suggestion'
 
 export interface CaseEvent {
   id: string
@@ -73,13 +73,20 @@ export interface Contact {
   role: string
   email: string
   phone: string
-  /** From the dossier as submitted, or added by an employee. */
-  source: 'dossier' | 'added'
-  /** True when the address cannot receive mail (the dossier has none on file). */
+  /** From the dossier as submitted, added by an employee, or found in public sources by the assistant. */
+  source: 'dossier' | 'added' | 'public'
+  /** True when there is no address that can receive mail. */
   placeholder: boolean
   addedBy: string | null
   addedAt: string | null
+  /** Public contacts: the page the address was found on, and whether the engine found it printed there. */
+  sourceUrl: string | null
+  verified: boolean | null
 }
+
+/** How Send delivers: a copy to the sender's own mailbox (test) or to the company (live). */
+export type Delivery = 'test' | 'live'
+export interface WorkspaceSettings { delivery: Delivery }
 
 export type RequestStatus = 'draft' | 'sent' | 'failed'
 
@@ -99,6 +106,9 @@ export interface CompanyRequest {
   sentAt: string | null
   sentFrom: string | null
   error: string | null
+  /** Where the message actually went; differs from `to` for a test delivery. */
+  deliveredTo?: string | null
+  testDelivery?: boolean
 }
 
 /** What the assistant suggests for one problem: an internal comment and what to ask of the company. */

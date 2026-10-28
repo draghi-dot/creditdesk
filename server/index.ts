@@ -23,6 +23,7 @@ import { readJson, send } from './http.ts'
 import { Batch } from './engine/batch.ts'
 import { DEFAULT_USER, Workspace } from './workspace.ts'
 import { workspaceRoutes } from './workspace-api.ts'
+import { Monitor } from './engine/monitor.ts'
 import { Store } from './store.ts'
 
 const root = resolve(fileURLToPath(new URL('..', import.meta.url)))
@@ -33,7 +34,10 @@ const distDir = join(root, 'dist')
 const documentsDir = join(publicDir, 'documents')
 
 const portfolio: Portfolio = JSON.parse(readFileSync(join(publicDir, 'data/portfolio.json'), 'utf8'))
-const companies = new Map(portfolio.companies.map(c => [c.id, c]))
+// Credit clients: companies whose financing was approved (scripts/generate-clients.py). They can be assessed again and are monitored.
+const clientsFile = join(publicDir, 'data/clients.json')
+const clients: Company[] = existsSync(clientsFile) ? JSON.parse(readFileSync(clientsFile, 'utf8')).clients : []
+const companies = new Map([...portfolio.companies, ...clients].map(c => [c.id, c]))
 const store = new Store(join(dataDir, 'creditdesk.sqlite'))
 
 const llm = (process.env.CREDITDESK_LLM ?? 'codex').toLowerCase()
@@ -123,7 +127,10 @@ const batch = new Batch(engine, async companyId => {
   const uploads = store.uploads(companyId)
   return { company: await effectiveCompany(companies.get(companyId)!, uploads), uploads: uploads.map(publicUpload) }
 })
-const workspaceRoute = workspaceRoutes({ workspace, store, engine, batch, companies, dataDir, policyFrom, refreshProvider })
+const monitor = new Monitor(store.db, clients, id => store.runs(id).find(r => r.status === 'completed') ?? null, Number(process.env.CREDITDESK_MONITOR_MINUTES) || 60)
+// A client's new assessment is checked against its covenants straight away.
+engine.onSettled((_runId, companyId) => { if (clients.some(c => c.id === companyId)) monitor.enqueue(companyId) })
+const workspaceRoute = workspaceRoutes({ workspace, store, engine, batch, companies, applications: portfolio.companies.map(c => c.id), monitor, dataDir, policyFrom, refreshProvider })
 
 async function addDocument(req: IncomingMessage, res: ServerResponse, companyId: string, kind: string, originalName: string) {
   const company = await currentCompany(companyId)
@@ -272,6 +279,7 @@ const server = createServer((req, res) => {
 })
 
 await refreshProvider()
+if (process.env.CREDITDESK_MONITOR !== 'off') monitor.start()
 server.listen(port, '127.0.0.1', () => {
   console.log('CreditDesk engine on http://127.0.0.1:' + port + ' · data ' + dataDir)
   console.log('Model provider: ' + (engine.codex ? 'Codex ' + engine.codex.model + ' (' + engine.codex.effort + ')' : 'none') + ' · ' + providerDetail)

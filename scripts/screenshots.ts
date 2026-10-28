@@ -25,9 +25,15 @@ try {
   await engine.post('/companies/TEST-DOS-018/contacts', { name: 'Maria Enache', role: 'Chief financial officer', email: 'maria.enache@conpet.example.ro', phone: '+40 244 401 360' })
   await engine.post('/cases/' + opened.case.id + '/request', { language: 'en' })
   await engine.post('/companies/TEST-DOS-018/suggestions')
+  // A credit client, assessed and checked by monitoring.
+  const client = (await engine.post('/companies/TEST-DOS-053/runs')).runId
+  await readStream(engine.url + '/api/runs/' + client + '/stream?after=0')
+  await engine.post('/monitoring/check', { companyId: 'TEST-DOS-053' })
+  await new Promise(r => setTimeout(r, 1500))
   const shots: [string, string, string?][] = [
     ['overview', '/overview'], ['directory', '/companies'], ['queue', '/queue'], ['audit', '/audit'], ['policy', '/policy'],
     ['departments', '/departments/finance'], ['case', '/cases/' + opened.case.id],
+    ['clients', '/clients'], ['monitoring', '/monitoring'], ['client', '/companies/TEST-DOS-053'],
     ['entry-assessed', '/companies/TEST-DOS-018'], ['entry-new', '/companies/TEST-DOS-001'], ['entry-missing', '/companies/TEST-DOS-002'],
     ['run', '/companies/TEST-DOS-018/run/' + runs['TEST-DOS-018']],
     ['assessment', '/companies/TEST-DOS-018/assessment/' + runs['TEST-DOS-018']],

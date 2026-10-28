@@ -14,6 +14,7 @@ import { DossierDocuments, MissingDocuments, useDossier } from './DossierDocumen
 import { draftCompanyRequest, getSuggestions, listRequests, makeSuggestions, useCases } from './people'
 import { ContactsCard, DraftRequestButton, RequestList, SendChecklist } from './Requests'
 import { SendToDepartment, StatusChip } from './Departments'
+import { ClientPanel } from './LiveMonitoring'
 import './assessment.css'
 
 const statusLabel: Record<AssessmentSummary['status'], string> = { created: 'Starting', running: 'In progress', completed: 'Completed', failed: 'Failed', cancelled: 'Cancelled' }
@@ -59,6 +60,7 @@ export default function CompanyEntry({ company, runs, health, offline, starting,
 
     {offline && <div className="entry-offline"><CircleAlert size={16} /><div><strong>The assessment engine is not running.</strong><span>Start the workspace with <code>npm run dev</code> (or <code>npm start</code> after a build) to view or run assessments.</span></div></div>}
     {!offline && dossier.state && <MissingDocuments company={company} state={dossier.state} onAdded={dossier.reload} onRunNew={onRun} />}
+    {company.creditLine && <ClientPanel company={company} latest={latest} toast={toast} />}
 
     <div className="entry-actions">
       <section className={'entry-choice' + (latest ? '' : ' entry-choice-empty')}>

@@ -1,0 +1,1065 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Count 16 /Kids [5 0 R 7 0 R 9 0 R 11 0 R 13 0 R 15 0 R 17 0 R 19 0 R 21 0 R 23 0 R 25 0 R 27 0 R 29 0 R 31 0 R 33 0 R 35 0 R] >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 6 0 R >>
+endobj
+6 0 obj
+<< /Length 2007 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-055 | TURBOMECANICA S.A. | CUI 3156315) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(SIMULAT / HACKATHON - fara valoare juridica; nu este document bancar sau raport real.) Tj T*
+() Tj T*
+(Dosar: TEST-DOS-055 | Document: TEST-DOC-055-SERVICIU_DATORIE) Tj T*
+(Identitate publica de referinta: TURBOMECANICA S.A.) Tj T*
+(CUI public: 3156315) Tj T*
+(Toate datele bancare de mai jos sunt inventate; nu descriu firma reala.) Tj T*
+(Emitent: simulator HACKATHON, fara acces la sistemele bancii.) Tj T*
+(Data referinta: 2026-09-30 | Moneda RON | Unitate 1 RON) Tj T*
+() Tj T*
+(SERVICIU DATORIE) Tj T*
+() Tj T*
+(--- Pozitia 1 ---) Tj T*
+(facilitate_id: TEST-FAC-055-EXISTENT) Tj T*
+(luna: 2025-10) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 228095.83) Tj T*
+(dobanda_scadenta: 51321.56) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 2 ---) Tj T*
+(facilitate_id: TEST-FAC-055-EXISTENT) Tj T*
+(luna: 2025-11) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 228095.83) Tj T*
+(dobanda_scadenta: 49895.96) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 3 ---) Tj T*
+(facilitate_id: TEST-FAC-055-EXISTENT) Tj T*
+(luna: 2025-12) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 228095.83) Tj T*
+(dobanda_scadenta: 48470.36) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 4 ---) Tj T*
+(facilitate_id: TEST-FAC-055-EXISTENT) Tj T*
+(luna: 2026-01) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 228095.83) Tj T*
+(dobanda_scadenta: 47044.77) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 5 ---) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 1/16 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 8 0 R >>
+endobj
+8 0 obj
+<< /Length 1815 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-055 | TURBOMECANICA S.A. | CUI 3156315) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(facilitate_id: TEST-FAC-055-EXISTENT) Tj T*
+(luna: 2026-02) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 228095.83) Tj T*
+(dobanda_scadenta: 45619.17) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 6 ---) Tj T*
+(facilitate_id: TEST-FAC-055-EXISTENT) Tj T*
+(luna: 2026-03) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 228095.83) Tj T*
+(dobanda_scadenta: 44193.57) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 7 ---) Tj T*
+(facilitate_id: TEST-FAC-055-EXISTENT) Tj T*
+(luna: 2026-04) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 228095.83) Tj T*
+(dobanda_scadenta: 42767.97) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 8 ---) Tj T*
+(facilitate_id: TEST-FAC-055-EXISTENT) Tj T*
+(luna: 2026-05) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 228095.83) Tj T*
+(dobanda_scadenta: 41342.37) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 9 ---) Tj T*
+(facilitate_id: TEST-FAC-055-EXISTENT) Tj T*
+(luna: 2026-06) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 228095.83) Tj T*
+(dobanda_scadenta: 39916.77) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 10 ---) Tj T*
+(facilitate_id: TEST-FAC-055-EXISTENT) Tj T*
+(luna: 2026-07) Tj T*
+(moneda: RON) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 2/16 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 10 0 R >>
+endobj
+10 0 obj
+<< /Length 1835 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-055 | TURBOMECANICA S.A. | CUI 3156315) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(principal_scadent: 228095.83) Tj T*
+(dobanda_scadenta: 38491.17) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 11 ---) Tj T*
+(facilitate_id: TEST-FAC-055-EXISTENT) Tj T*
+(luna: 2026-08) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 228095.83) Tj T*
+(dobanda_scadenta: 37065.57) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 12 ---) Tj T*
+(facilitate_id: TEST-FAC-055-EXISTENT) Tj T*
+(luna: 2026-09) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 228095.87) Tj T*
+(dobanda_scadenta: 35639.97) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 13 ---) Tj T*
+(facilitate_id: TEST-FAC-055-EXISTENT) Tj T*
+(luna: 2026-10) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 228095.83) Tj T*
+(dobanda_scadenta: 34214.38) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 14 ---) Tj T*
+(facilitate_id: TEST-FAC-055-EXISTENT) Tj T*
+(luna: 2026-11) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 228095.83) Tj T*
+(dobanda_scadenta: 32788.78) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 15 ---) Tj T*
+(facilitate_id: TEST-FAC-055-EXISTENT) Tj T*
+(luna: 2026-12) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 228095.83) Tj T*
+(dobanda_scadenta: 31363.18) Tj T*
+(comisioane_scadente: 0) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 3/16 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+11 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 12 0 R >>
+endobj
+12 0 obj
+<< /Length 1807 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-055 | TURBOMECANICA S.A. | CUI 3156315) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 16 ---) Tj T*
+(facilitate_id: TEST-FAC-055-EXISTENT) Tj T*
+(luna: 2027-01) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 228095.83) Tj T*
+(dobanda_scadenta: 29937.58) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 17 ---) Tj T*
+(facilitate_id: TEST-FAC-055-EXISTENT) Tj T*
+(luna: 2027-02) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 228095.83) Tj T*
+(dobanda_scadenta: 28511.98) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 18 ---) Tj T*
+(facilitate_id: TEST-FAC-055-EXISTENT) Tj T*
+(luna: 2027-03) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 228095.83) Tj T*
+(dobanda_scadenta: 27086.38) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 19 ---) Tj T*
+(facilitate_id: TEST-FAC-055-EXISTENT) Tj T*
+(luna: 2027-04) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 228095.83) Tj T*
+(dobanda_scadenta: 25660.78) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 20 ---) Tj T*
+(facilitate_id: TEST-FAC-055-EXISTENT) Tj T*
+(luna: 2027-05) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 228095.83) Tj T*
+(dobanda_scadenta: 24235.18) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 21 ---) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 4/16 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+13 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 14 0 R >>
+endobj
+14 0 obj
+<< /Length 1819 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-055 | TURBOMECANICA S.A. | CUI 3156315) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(facilitate_id: TEST-FAC-055-EXISTENT) Tj T*
+(luna: 2027-06) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 228095.83) Tj T*
+(dobanda_scadenta: 22809.58) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 22 ---) Tj T*
+(facilitate_id: TEST-FAC-055-EXISTENT) Tj T*
+(luna: 2027-07) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 228095.83) Tj T*
+(dobanda_scadenta: 21383.98) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 23 ---) Tj T*
+(facilitate_id: TEST-FAC-055-EXISTENT) Tj T*
+(luna: 2027-08) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 228095.83) Tj T*
+(dobanda_scadenta: 19958.39) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 24 ---) Tj T*
+(facilitate_id: TEST-FAC-055-EXISTENT) Tj T*
+(luna: 2027-09) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 228095.83) Tj T*
+(dobanda_scadenta: 18532.79) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 25 ---) Tj T*
+(facilitate_id: TEST-FAC-055-EXISTENT) Tj T*
+(luna: 2027-10) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 228095.83) Tj T*
+(dobanda_scadenta: 17107.19) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 26 ---) Tj T*
+(facilitate_id: TEST-FAC-055-EXISTENT) Tj T*
+(luna: 2027-11) Tj T*
+(moneda: RON) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 5/16 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+15 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 16 0 R >>
+endobj
+16 0 obj
+<< /Length 1833 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-055 | TURBOMECANICA S.A. | CUI 3156315) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(principal_scadent: 228095.83) Tj T*
+(dobanda_scadenta: 15681.59) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 27 ---) Tj T*
+(facilitate_id: TEST-FAC-055-EXISTENT) Tj T*
+(luna: 2027-12) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 228095.83) Tj T*
+(dobanda_scadenta: 14255.99) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 28 ---) Tj T*
+(facilitate_id: TEST-FAC-055-EXISTENT) Tj T*
+(luna: 2028-01) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 228095.83) Tj T*
+(dobanda_scadenta: 12830.39) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 29 ---) Tj T*
+(facilitate_id: TEST-FAC-055-EXISTENT) Tj T*
+(luna: 2028-02) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 228095.83) Tj T*
+(dobanda_scadenta: 11404.79) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 30 ---) Tj T*
+(facilitate_id: TEST-FAC-055-EXISTENT) Tj T*
+(luna: 2028-03) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 228095.83) Tj T*
+(dobanda_scadenta: 9979.19) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 31 ---) Tj T*
+(facilitate_id: TEST-FAC-055-EXISTENT) Tj T*
+(luna: 2028-04) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 228095.83) Tj T*
+(dobanda_scadenta: 8553.59) Tj T*
+(comisioane_scadente: 0) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 6/16 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+17 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 18 0 R >>
+endobj
+18 0 obj
+<< /Length 1797 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-055 | TURBOMECANICA S.A. | CUI 3156315) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 32 ---) Tj T*
+(facilitate_id: TEST-FAC-055-EXISTENT) Tj T*
+(luna: 2028-05) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 228095.83) Tj T*
+(dobanda_scadenta: 7128.0) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 33 ---) Tj T*
+(facilitate_id: TEST-FAC-055-EXISTENT) Tj T*
+(luna: 2028-06) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 228095.83) Tj T*
+(dobanda_scadenta: 5702.4) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 34 ---) Tj T*
+(facilitate_id: TEST-FAC-055-EXISTENT) Tj T*
+(luna: 2028-07) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 228095.83) Tj T*
+(dobanda_scadenta: 4276.8) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 35 ---) Tj T*
+(facilitate_id: TEST-FAC-055-EXISTENT) Tj T*
+(luna: 2028-08) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 228095.83) Tj T*
+(dobanda_scadenta: 2851.2) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 36 ---) Tj T*
+(facilitate_id: TEST-FAC-055-EXISTENT) Tj T*
+(luna: 2028-09) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 228095.91) Tj T*
+(dobanda_scadenta: 1425.6) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: existent) Tj T*
+() Tj T*
+(--- Pozitia 37 ---) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 7/16 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+19 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 20 0 R >>
+endobj
+20 0 obj
+<< /Length 1769 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-055 | TURBOMECANICA S.A. | CUI 3156315) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(facilitate_id: TEST-FAC-055-NOU) Tj T*
+(luna: 2026-10) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 175458.33) Tj T*
+(dobanda_scadenta: 73692.5) Tj T*
+(comisioane_scadente: 42110.0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 38 ---) Tj T*
+(facilitate_id: TEST-FAC-055-NOU) Tj T*
+(luna: 2026-11) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 175458.33) Tj T*
+(dobanda_scadenta: 72157.24) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 39 ---) Tj T*
+(facilitate_id: TEST-FAC-055-NOU) Tj T*
+(luna: 2026-12) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 175458.33) Tj T*
+(dobanda_scadenta: 70621.98) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 40 ---) Tj T*
+(facilitate_id: TEST-FAC-055-NOU) Tj T*
+(luna: 2027-01) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 175458.33) Tj T*
+(dobanda_scadenta: 69086.72) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 41 ---) Tj T*
+(facilitate_id: TEST-FAC-055-NOU) Tj T*
+(luna: 2027-02) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 175458.33) Tj T*
+(dobanda_scadenta: 67551.46) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 42 ---) Tj T*
+(facilitate_id: TEST-FAC-055-NOU) Tj T*
+(luna: 2027-03) Tj T*
+(moneda: RON) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 8/16 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+21 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 22 0 R >>
+endobj
+22 0 obj
+<< /Length 1783 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-055 | TURBOMECANICA S.A. | CUI 3156315) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(principal_scadent: 175458.33) Tj T*
+(dobanda_scadenta: 66016.2) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 43 ---) Tj T*
+(facilitate_id: TEST-FAC-055-NOU) Tj T*
+(luna: 2027-04) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 175458.33) Tj T*
+(dobanda_scadenta: 64480.94) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 44 ---) Tj T*
+(facilitate_id: TEST-FAC-055-NOU) Tj T*
+(luna: 2027-05) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 175458.33) Tj T*
+(dobanda_scadenta: 62945.68) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 45 ---) Tj T*
+(facilitate_id: TEST-FAC-055-NOU) Tj T*
+(luna: 2027-06) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 175458.33) Tj T*
+(dobanda_scadenta: 61410.42) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 46 ---) Tj T*
+(facilitate_id: TEST-FAC-055-NOU) Tj T*
+(luna: 2027-07) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 175458.33) Tj T*
+(dobanda_scadenta: 59875.16) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 47 ---) Tj T*
+(facilitate_id: TEST-FAC-055-NOU) Tj T*
+(luna: 2027-08) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 175458.33) Tj T*
+(dobanda_scadenta: 58339.9) Tj T*
+(comisioane_scadente: 0) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 9/16 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+23 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 24 0 R >>
+endobj
+24 0 obj
+<< /Length 1753 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-055 | TURBOMECANICA S.A. | CUI 3156315) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 48 ---) Tj T*
+(facilitate_id: TEST-FAC-055-NOU) Tj T*
+(luna: 2027-09) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 175458.33) Tj T*
+(dobanda_scadenta: 56804.64) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 49 ---) Tj T*
+(facilitate_id: TEST-FAC-055-NOU) Tj T*
+(luna: 2027-10) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 175458.33) Tj T*
+(dobanda_scadenta: 55269.38) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 50 ---) Tj T*
+(facilitate_id: TEST-FAC-055-NOU) Tj T*
+(luna: 2027-11) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 175458.33) Tj T*
+(dobanda_scadenta: 53734.11) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 51 ---) Tj T*
+(facilitate_id: TEST-FAC-055-NOU) Tj T*
+(luna: 2027-12) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 175458.33) Tj T*
+(dobanda_scadenta: 52198.85) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 52 ---) Tj T*
+(facilitate_id: TEST-FAC-055-NOU) Tj T*
+(luna: 2028-01) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 175458.33) Tj T*
+(dobanda_scadenta: 50663.59) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 53 ---) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 10/16 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+25 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 26 0 R >>
+endobj
+26 0 obj
+<< /Length 1765 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-055 | TURBOMECANICA S.A. | CUI 3156315) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(facilitate_id: TEST-FAC-055-NOU) Tj T*
+(luna: 2028-02) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 175458.33) Tj T*
+(dobanda_scadenta: 49128.33) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 54 ---) Tj T*
+(facilitate_id: TEST-FAC-055-NOU) Tj T*
+(luna: 2028-03) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 175458.33) Tj T*
+(dobanda_scadenta: 47593.07) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 55 ---) Tj T*
+(facilitate_id: TEST-FAC-055-NOU) Tj T*
+(luna: 2028-04) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 175458.33) Tj T*
+(dobanda_scadenta: 46057.81) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 56 ---) Tj T*
+(facilitate_id: TEST-FAC-055-NOU) Tj T*
+(luna: 2028-05) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 175458.33) Tj T*
+(dobanda_scadenta: 44522.55) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 57 ---) Tj T*
+(facilitate_id: TEST-FAC-055-NOU) Tj T*
+(luna: 2028-06) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 175458.33) Tj T*
+(dobanda_scadenta: 42987.29) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 58 ---) Tj T*
+(facilitate_id: TEST-FAC-055-NOU) Tj T*
+(luna: 2028-07) Tj T*
+(moneda: RON) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 11/16 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+27 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 28 0 R >>
+endobj
+28 0 obj
+<< /Length 1786 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-055 | TURBOMECANICA S.A. | CUI 3156315) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(principal_scadent: 175458.33) Tj T*
+(dobanda_scadenta: 41452.03) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 59 ---) Tj T*
+(facilitate_id: TEST-FAC-055-NOU) Tj T*
+(luna: 2028-08) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 175458.33) Tj T*
+(dobanda_scadenta: 39916.77) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 60 ---) Tj T*
+(facilitate_id: TEST-FAC-055-NOU) Tj T*
+(luna: 2028-09) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 175458.33) Tj T*
+(dobanda_scadenta: 38381.51) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 61 ---) Tj T*
+(facilitate_id: TEST-FAC-055-NOU) Tj T*
+(luna: 2028-10) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 175458.33) Tj T*
+(dobanda_scadenta: 36846.25) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 62 ---) Tj T*
+(facilitate_id: TEST-FAC-055-NOU) Tj T*
+(luna: 2028-11) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 175458.33) Tj T*
+(dobanda_scadenta: 35310.99) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 63 ---) Tj T*
+(facilitate_id: TEST-FAC-055-NOU) Tj T*
+(luna: 2028-12) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 175458.33) Tj T*
+(dobanda_scadenta: 33775.73) Tj T*
+(comisioane_scadente: 0) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 12/16 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+29 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 30 0 R >>
+endobj
+30 0 obj
+<< /Length 1753 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-055 | TURBOMECANICA S.A. | CUI 3156315) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 64 ---) Tj T*
+(facilitate_id: TEST-FAC-055-NOU) Tj T*
+(luna: 2029-01) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 175458.33) Tj T*
+(dobanda_scadenta: 32240.47) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 65 ---) Tj T*
+(facilitate_id: TEST-FAC-055-NOU) Tj T*
+(luna: 2029-02) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 175458.33) Tj T*
+(dobanda_scadenta: 30705.21) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 66 ---) Tj T*
+(facilitate_id: TEST-FAC-055-NOU) Tj T*
+(luna: 2029-03) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 175458.33) Tj T*
+(dobanda_scadenta: 29169.95) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 67 ---) Tj T*
+(facilitate_id: TEST-FAC-055-NOU) Tj T*
+(luna: 2029-04) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 175458.33) Tj T*
+(dobanda_scadenta: 27634.69) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 68 ---) Tj T*
+(facilitate_id: TEST-FAC-055-NOU) Tj T*
+(luna: 2029-05) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 175458.33) Tj T*
+(dobanda_scadenta: 26099.43) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 69 ---) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 13/16 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+31 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 32 0 R >>
+endobj
+32 0 obj
+<< /Length 1765 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-055 | TURBOMECANICA S.A. | CUI 3156315) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(facilitate_id: TEST-FAC-055-NOU) Tj T*
+(luna: 2029-06) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 175458.33) Tj T*
+(dobanda_scadenta: 24564.17) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 70 ---) Tj T*
+(facilitate_id: TEST-FAC-055-NOU) Tj T*
+(luna: 2029-07) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 175458.33) Tj T*
+(dobanda_scadenta: 23028.91) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 71 ---) Tj T*
+(facilitate_id: TEST-FAC-055-NOU) Tj T*
+(luna: 2029-08) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 175458.33) Tj T*
+(dobanda_scadenta: 21493.65) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 72 ---) Tj T*
+(facilitate_id: TEST-FAC-055-NOU) Tj T*
+(luna: 2029-09) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 175458.33) Tj T*
+(dobanda_scadenta: 19958.39) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 73 ---) Tj T*
+(facilitate_id: TEST-FAC-055-NOU) Tj T*
+(luna: 2029-10) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 175458.33) Tj T*
+(dobanda_scadenta: 18423.13) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 74 ---) Tj T*
+(facilitate_id: TEST-FAC-055-NOU) Tj T*
+(luna: 2029-11) Tj T*
+(moneda: RON) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 14/16 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+33 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 34 0 R >>
+endobj
+34 0 obj
+<< /Length 1785 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-055 | TURBOMECANICA S.A. | CUI 3156315) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(principal_scadent: 175458.33) Tj T*
+(dobanda_scadenta: 16887.87) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 75 ---) Tj T*
+(facilitate_id: TEST-FAC-055-NOU) Tj T*
+(luna: 2029-12) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 175458.33) Tj T*
+(dobanda_scadenta: 15352.61) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 76 ---) Tj T*
+(facilitate_id: TEST-FAC-055-NOU) Tj T*
+(luna: 2030-01) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 175458.33) Tj T*
+(dobanda_scadenta: 13817.34) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 77 ---) Tj T*
+(facilitate_id: TEST-FAC-055-NOU) Tj T*
+(luna: 2030-02) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 175458.33) Tj T*
+(dobanda_scadenta: 12282.08) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 78 ---) Tj T*
+(facilitate_id: TEST-FAC-055-NOU) Tj T*
+(luna: 2030-03) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 175458.33) Tj T*
+(dobanda_scadenta: 10746.82) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 79 ---) Tj T*
+(facilitate_id: TEST-FAC-055-NOU) Tj T*
+(luna: 2030-04) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 175458.33) Tj T*
+(dobanda_scadenta: 9211.56) Tj T*
+(comisioane_scadente: 0) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 15/16 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+35 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 36 0 R >>
+endobj
+36 0 obj
+<< /Length 1720 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SERVICIU DATORIE / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-055 | TURBOMECANICA S.A. | CUI 3156315) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 80 ---) Tj T*
+(facilitate_id: TEST-FAC-055-NOU) Tj T*
+(luna: 2030-05) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 175458.33) Tj T*
+(dobanda_scadenta: 7676.3) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 81 ---) Tj T*
+(facilitate_id: TEST-FAC-055-NOU) Tj T*
+(luna: 2030-06) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 175458.33) Tj T*
+(dobanda_scadenta: 6141.04) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 82 ---) Tj T*
+(facilitate_id: TEST-FAC-055-NOU) Tj T*
+(luna: 2030-07) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 175458.33) Tj T*
+(dobanda_scadenta: 4605.78) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 83 ---) Tj T*
+(facilitate_id: TEST-FAC-055-NOU) Tj T*
+(luna: 2030-08) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 175458.33) Tj T*
+(dobanda_scadenta: 3070.52) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+(--- Pozitia 84 ---) Tj T*
+(facilitate_id: TEST-FAC-055-NOU) Tj T*
+(luna: 2030-09) Tj T*
+(moneda: RON) Tj T*
+(principal_scadent: 175458.49) Tj T*
+(dobanda_scadenta: 1535.26) Tj T*
+(comisioane_scadente: 0) Tj T*
+(tip_existent_sau_nou: nou) Tj T*
+() Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 16/16 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+xref
+0 37
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000225 00000 n 
+0000000295 00000 n 
+0000000370 00000 n 
+0000000506 00000 n 
+0000002565 00000 n 
+0000002701 00000 n 
+0000004568 00000 n 
+0000004705 00000 n 
+0000006593 00000 n 
+0000006731 00000 n 
+0000008591 00000 n 
+0000008729 00000 n 
+0000010601 00000 n 
+0000010739 00000 n 
+0000012625 00000 n 
+0000012763 00000 n 
+0000014613 00000 n 
+0000014751 00000 n 
+0000016573 00000 n 
+0000016711 00000 n 
+0000018547 00000 n 
+0000018685 00000 n 
+0000020491 00000 n 
+0000020629 00000 n 
+0000022447 00000 n 
+0000022585 00000 n 
+0000024424 00000 n 
+0000024562 00000 n 
+0000026368 00000 n 
+0000026506 00000 n 
+0000028324 00000 n 
+0000028462 00000 n 
+0000030300 00000 n 
+0000030438 00000 n 
+trailer
+<< /Size 37 /Root 1 0 R >>
+startxref
+32211
+%%EOF

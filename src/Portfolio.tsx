@@ -8,7 +8,8 @@ import { Badge, Button, CompanyMark, Dialog, Empty, NotAssessed, SectionHeading 
 import { downloadFile } from './storage'
 import { DEPARTMENTS } from './workspace'
 import type { BatchStatus } from './people'
-import { batchStatus, runAll, stopAll, useCases } from './people'
+import { batchStatus, findAllContacts, findAllStatus, runAll, stopAll, useCases } from './people'
+import type { FindAllStatus } from './people'
 
 /** The engine's recorded result of the latest completed run, for companies that have one. */
 type Assessments = Map<string, AssessmentDigest>
@@ -73,7 +74,7 @@ export function Directory({ companies, assessments, latest, queue, initialStatus
     toast(rows.length + ' company dossiers exported')
   }
   return <div className="page-enter">
-    <div className="page-heading"><div><h1>{queue ? 'Review queue' : 'Companies'}<span className="heading-count">{available.length}</span></h1><p>{queue ? 'Assessed companies with conditions or missing evidence.' : 'Every application, its latest assessment and its documents.'}</p></div><div className="page-actions">{!queue && <RunAll policy={policy} total={companies.length} onChange={onRunsChanged} toast={toast} />}<Button onClick={() => exportCsv()}><ArrowDownToLine size={16} />Export list</Button></div></div>
+    <div className="page-heading"><div><h1>{queue ? 'Review queue' : 'Companies'}<span className="heading-count">{available.length}</span></h1><p>{queue ? 'Assessed companies with conditions or missing evidence.' : 'Every application, its latest assessment and its documents.'}</p></div><div className="page-actions">{!queue && <FindContacts toast={toast} />}{!queue && <RunAll policy={policy} total={companies.length} onChange={onRunsChanged} toast={toast} />}<Button onClick={() => exportCsv()}><ArrowDownToLine size={16} />Export list</Button></div></div>
     <Stats companies={companies} assessments={assessments} />
     <section className="portfolio-panel">
       <div className="directory-heading"><h2>{queue ? 'Companies requiring attention' : 'All companies'}<span>{available.length} companies</span></h2><div className="view-toggle"><button className={layout === 'table' ? 'selected' : ''} onClick={() => setLayout('table')} aria-label="Table view"><Table2 size={16} /></button><button className={layout === 'grid' ? 'selected' : ''} onClick={() => setLayout('grid')} aria-label="Grid view"><LayoutGrid size={16} /></button></div></div>
@@ -180,4 +181,22 @@ function DepartmentSummary() {
       return <a key={d.id} href={'#/departments/' + d.id}><span className="dept-name">{d.name}</span><span className="dept-meta">{waiting ? waiting + ' waiting on the company' : d.handles}</span><strong>{open.length}</strong><ChevronRight size={15} /></a>
     })}</div>
   </section>
+}
+
+/** The assistant looks up the published contact of every company that has none yet, one company at a time. */
+function FindContacts({ toast }: { toast: (s: string) => void }) {
+  const [status, setStatus] = useState<FindAllStatus | null>(null)
+  useEffect(() => { findAllStatus().then(setStatus).catch(() => {}) }, [])
+  useEffect(() => {
+    if (!status?.active) return
+    const id = window.setInterval(async () => {
+      const next = await findAllStatus().catch(() => null)
+      if (!next) return
+      setStatus(next)
+      if (!next.active) toast('Contact research finished for ' + next.total + ' companies')
+    }, 4000)
+    return () => window.clearInterval(id)
+  }, [status?.active])
+  if (status?.active) return <div className="run-all-progress" role="status"><LoaderCircle className="spin" size={14} /><span>Finding contacts · <strong>{status.done} of {status.total}</strong></span><progress max={status.total} value={status.done} /></div>
+  return <Button onClick={async () => { try { const s = await findAllContacts(); setStatus(s); toast(s.total ? 'Looking up the published contact of ' + s.total + ' companies' : 'Every company already has a contact') } catch (e: any) { toast(e.message) } }}>Find contacts</Button>
 }

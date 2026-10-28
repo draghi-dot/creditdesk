@@ -120,8 +120,12 @@ test('a problem is sent to its department from the assessment and opens as a cas
   await page.click('.case-table tbody tr')
   await page.waitFor(`document.querySelector('.case-header h1')?.textContent.includes('Requested amount')`, 'the case page')
   await page.waitFor(`(() => { const img = document.querySelector('.case-evidence .evidence-page img'); return img && img.complete && img.naturalWidth > 0 })()`, 'the evidence page on the case')
+  // Opening the case started the assistant: it looks up the contact, then suggests the email.
+  await page.waitFor(`document.querySelectorAll('.request-list > li').length === 1 && !document.querySelector('.assistant-working')`, 'the suggested email', 30_000)
   const timeline = await page.eval<{ who: string; note: string }[]>(`[...document.querySelectorAll('.timeline li')].map(li => ({ who: li.querySelector('p').textContent.replace(li.querySelector('time').textContent, ''), note: li.querySelector('blockquote')?.textContent ?? '' }))`)
-  assert.deepEqual(timeline, [{ who: 'Ioana Marinescu sent this problem to Finance', note: 'Please confirm which amount the client applied for.' }])
+  assert.deepEqual(timeline.map(t => t.who), ['Ioana Marinescu sent this problem to Finance', 'Assistant looked up the company contact', 'Assistant suggested an email to the company'])
+  assert.equal(timeline[0].note, 'Please confirm which amount the client applied for.')
+  assert.match(await page.eval(`document.querySelector('.delivery-mode').textContent`), /^Test delivery: Send puts a copy in your own mailbox/)
   await page.screenshot(shots + '6-case.png')
   assert.deepEqual(page.errors, [])
 })

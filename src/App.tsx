@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { ArrowRight, Bell, Building2, Check, ChevronDown, ChevronRight, CircleHelp, Command, FolderClosed, LayoutDashboard, ListFilter, Mail, Menu, PanelLeftClose, PanelLeftOpen, Search, ShieldCheck, SlidersHorizontal, Users } from 'lucide-react'
+import { Activity, ArrowRight, Bell, Building2, Check, ChevronDown, ChevronRight, CircleHelp, Command, FolderClosed, LayoutDashboard, ListFilter, Mail, Menu, PanelLeftClose, PanelLeftOpen, Search, ShieldCheck, SlidersHorizontal, Users } from 'lucide-react'
 import type { Company, Policy, Portfolio } from './types'
 import type { AssessmentDigest, AssessmentSummary } from './assessment'
 import type { ActivityEvent } from './workspace'
@@ -10,9 +10,10 @@ import CompanyDetail from './CompanyDetail'
 import CompanyEntry from './CompanyEntry'
 import AssessmentRun from './AssessmentRun'
 import Departments, { CasePage } from './Departments'
+import Monitoring, { ClientsTable } from './LiveMonitoring'
 import type { EngineHealth } from './runs'
 import { getHealth, startRun, useRunIndex } from './runs'
-import { disconnectGmail, gmailConnectUrl, listActivity, recordActivity, useCases, useSession } from './people'
+import { disconnectGmail, gmailConnectUrl, listActivity, recordActivity, useCases, useMonitoring, useSession } from './people'
 
 function useRoute() {
   const [route, setRoute] = useState(() => window.location.hash.slice(1) || '/companies')
@@ -22,6 +23,8 @@ function useRoute() {
 
 export default function App() {
   const [data, setData] = useState<Portfolio | null>(null)
+  /** Companies with an approved credit line; they can be assessed again and are monitored. */
+  const [clients, setClients] = useState<Company[]>([])
   const [error, setError] = useState('')
   const [policy, setPolicy] = useState<Policy | null>(null)
   const [route, navigate] = useRoute()
@@ -49,6 +52,7 @@ export default function App() {
       setData(value)
       try { const saved = JSON.parse(localStorage.getItem('creditdesk.policy.v1') || 'null'); setPolicy(saved && saved.politica_id === value.policy.politica_id ? { ...value.policy, ...saved } : value.policy) } catch { setPolicy(value.policy) }
     }
+    fetch('/data/clients.json', { signal: controller.signal }).then(r => r.ok ? r.json() : { clients: [] }).then(v => setClients(v.clients ?? [])).catch(() => {})
     fetch('/data/portfolio.json', { signal: controller.signal }).then(r => { if (!r.ok) throw new Error('The company data could not be loaded.'); return r.json() }).then(initialize)
       .catch(e => { if (e.name !== 'AbortError') setError(e.message) })
     return () => controller.abort()
@@ -90,7 +94,8 @@ export default function App() {
   const companyId = path.startsWith('/companies/') ? segments[2] : null
   const sub = segments[3] as 'run' | 'assessment' | undefined
   const subRunId = segments[4]
-  const company = data?.companies.find(c => c.id === companyId)
+  const everyone = useMemo(() => [...(data?.companies ?? []), ...clients], [data, clients])
+  const company = everyone.find(c => c.id === companyId)
   const view = companyId ? 'companies' : segments[1] || 'companies'
   const counts = [...assessments.values()].reduce((acc, result) => { acc[result.decision] = (acc[result.decision] || 0) + 1; return acc }, {} as Record<string, number>)
   const runNew = async (target: Company) => {
@@ -106,6 +111,8 @@ export default function App() {
     } finally { setStarting(false) }
   }
   const needsAttention = (counts.CONDITIONAT || 0) + (counts.DATE_INSUFICIENTE || 0)
+  const { state: monitoring } = useMonitoring()
+  const monitoringOpen = (monitoring?.clients ?? []).reduce((n, c) => n + c.open, 0)
   const openMine = (myCases ?? []).filter(c => c.status !== 'resolved')
   const assignedToMe = openMine.filter(c => c.assignee === me?.name)
   const nav = (target: string) => { navigate(target); setSidebar(false); setNotifications(false); setUserMenu(false) }
@@ -114,7 +121,7 @@ export default function App() {
     if (!found) setToast('This document is not in the dossier. Add it from the company page.')
     else setDoc({ company: selected, document: found })
   }
-  const matches = data?.companies.filter(c => [c.name, c.cui, c.symbol, c.id].join(' ').toLowerCase().includes(search.toLowerCase())).slice(0, 7) || []
+  const matches = everyone.filter(c => [c.name, c.cui, c.symbol, c.id].join(' ').toLowerCase().includes(search.toLowerCase())).slice(0, 7) || []
   const onPolicySave = async (next: Policy) => {
     try {
       localStorage.setItem('creditdesk.policy.v1', JSON.stringify(next))
@@ -124,7 +131,7 @@ export default function App() {
     } catch { setToast('The policy could not be saved in this browser.') }
   }
   const choose = async (id: string) => { setUserMenu(false); const s = await switchUser(id); refreshCases(); if (s) setToast('Signed in as ' + s.user.name + ' · ' + departmentName(s.user.department)) }
-  const title = company ? company.name : view === 'overview' ? 'Overview' : view === 'queue' ? 'Review queue' : view === 'audit' ? 'Audit trail' : view === 'policy' ? 'Credit policy' : view === 'departments' || view === 'cases' ? 'Departments' : 'Companies'
+  const title = company ? company.name : view === 'overview' ? 'Overview' : view === 'queue' ? 'Review queue' : view === 'audit' ? 'Audit trail' : view === 'policy' ? 'Credit policy' : view === 'departments' || view === 'cases' ? 'Departments' : view === 'monitoring' ? 'Live monitoring' : view === 'clients' ? 'Credit clients' : 'Companies'
   // On assessment pages the navigation folds to an icon rail unless the employee chose otherwise.
   const assessmentPage = sub === 'run' || sub === 'assessment'
   const collapsed = navPreference ?? assessmentPage
@@ -138,9 +145,10 @@ export default function App() {
       <button className="nav-collapse" onClick={toggleNav} aria-label={collapsed ? 'Expand navigation' : 'Collapse navigation'} title={collapsed ? 'Expand navigation' : 'Collapse navigation'}>{collapsed ? <PanelLeftOpen size={16} /> : <PanelLeftClose size={16} />}</button>
       <nav aria-label="Main navigation">
         {item('/overview', view === 'overview', LayoutDashboard, 'Overview')}
-        {item('/companies', view === 'companies', FolderClosed, 'Companies', data?.companies.length)}
+        {item('/companies', view === 'companies' || view === 'clients', FolderClosed, 'Companies', everyone.length || null)}
         {item('/queue', view === 'queue', ListFilter, 'Review queue', needsAttention)}
         {item('/departments' + (me ? '/' + me.department : ''), view === 'departments' || view === 'cases', Users, 'Departments', openMine.length)}
+        {item('/monitoring', view === 'monitoring', Activity, 'Live monitoring', monitoringOpen || null)}
       </nav>
       <div className="nav-label">Governance</div>
       <nav aria-label="Governance navigation">
@@ -176,8 +184,10 @@ export default function App() {
           view === 'policy' ? <PolicyPage policy={policy} original={data.policy} onSave={onPolicySave} /> :
           view === 'audit' ? <WorkspaceAudit companies={data.companies} events={events} runs={runs ?? []} onOpen={id => nav('/companies/' + id)} /> :
           view === 'cases' && segments[2] ? <CasePage key={segments[2]} caseId={segments[2]} companies={data.companies} session={session} onCompany={id => nav('/companies/' + id)} onDepartment={d => nav('/departments/' + d)} toast={setToast} onChange={refreshCases} /> :
+          view === 'monitoring' ? <Monitoring clients={clients} onOpen={id => nav('/companies/' + id)} toast={setToast} /> :
+          view === 'clients' ? <><CompaniesTabs view="clients" applications={data.companies.length} clients={clients.length} onView={nav} /><div className="page-heading"><div><h1>Credit clients<span className="heading-count">{clients.length}</span></h1><p>Companies whose financing was approved and drawn. They can be assessed again at any time, and Live monitoring checks them continuously.</p></div></div><ClientsTable clients={clients} latest={latest} onOpen={id => nav('/companies/' + id)} /></> :
           view === 'departments' ? <Departments department={DEPARTMENTS.some(d => d.id === segments[2]) ? segments[2] as typeof DEPARTMENTS[number]['id'] : me?.department ?? 'legal'} session={session} onDepartment={d => nav('/departments/' + d)} onCase={id => nav('/cases/' + id)} onSessionChange={refreshSession} toast={setToast} /> :
-          <Directory key={view} companies={data.companies} assessments={assessments} latest={latest} queue={view === 'queue'} initialStatus={new URLSearchParams(route.split('?')[1] || '').get('status') || ''} onOpen={id => nav('/companies/' + id)} onQueue={() => nav('/queue')} toast={setToast} policy={policy} runs={runs ?? []} onRunsChanged={refreshRuns} />}
+          <><CompaniesTabs view="applications" applications={data.companies.length} clients={clients.length} onView={nav} /><Directory key={view} companies={data.companies} assessments={assessments} latest={latest} queue={view === 'queue'} initialStatus={new URLSearchParams(route.split('?')[1] || '').get('status') || ''} onOpen={id => nav('/companies/' + id)} onQueue={() => nav('/queue')} toast={setToast} policy={policy} runs={runs ?? []} onRunsChanged={refreshRuns} /></>}
       </main>
     </div>
     {searchOpen && <Dialog title="Find a company" description="Search by company name, CUI, ticker or dossier number." onClose={() => { setSearchOpen(false); setSearch('') }}>
@@ -207,4 +217,12 @@ function UserMenu({ session, onChoose, onClose, onGmailChange, route, toast }: {
       <div className="user-menu-foot"><Building2 size={13} />Employees and departments are managed under Departments.</div>
     </div>
   </>
+}
+
+/** Applications under review and companies that already have approved credit. */
+function CompaniesTabs({ view, applications, clients, onView }: { view: 'applications' | 'clients'; applications: number; clients: number; onView: (route: string) => void }) {
+  return <div className="companies-tabs" role="tablist" aria-label="Companies">
+    <button role="tab" aria-selected={view === 'applications'} className={view === 'applications' ? 'active' : ''} onClick={() => onView('/companies')}>Applications<span>{applications}</span></button>
+    <button role="tab" aria-selected={view === 'clients'} className={view === 'clients' ? 'active' : ''} onClick={() => onView('/clients')}>Credit clients<span>{clients}</span></button>
+  </div>
 }

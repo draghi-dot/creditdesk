@@ -1,0 +1,312 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Count 5 /Kids [5 0 R 7 0 R 9 0 R 11 0 R 13 0 R] >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 6 0 R >>
+endobj
+6 0 obj
+<< /Length 1859 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SITUATII 2024 / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-059 | NOROFERT S.A. | CUI 12972762) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(SIMULAT / HACKATHON - fara valoare juridica; nu este document bancar sau raport real.) Tj T*
+() Tj T*
+(Dosar: TEST-DOS-059 | Document: TEST-DOC-059-SITUATII_2024) Tj T*
+(Identitate publica de referinta: NOROFERT S.A.) Tj T*
+(CUI public: 12972762) Tj T*
+(Toate datele bancare de mai jos sunt inventate; nu descriu firma reala.) Tj T*
+(Emitent: simulator HACKATHON, fara acces la sistemele bancii.) Tj T*
+(Data referinta: 2026-09-30 | Moneda RON | Unitate 1 RON) Tj T*
+() Tj T*
+(SITUATII 2024) Tj T*
+() Tj T*
+(--- Pozitia 1 ---) Tj T*
+(an: 2024) Tj T*
+(data_inceput: 2024-01-01) Tj T*
+(data_sfarsit: 2024-12-31) Tj T*
+(moneda: RON) Tj T*
+(unitate: 1) Tj T*
+(cod_indicator: CA_NET) Tj T*
+(denumire_indicator: Cifra de afaceri neta) Tj T*
+(valoare: 50723779.07) Tj T*
+() Tj T*
+(--- Pozitia 2 ---) Tj T*
+(an: 2024) Tj T*
+(data_inceput: 2024-01-01) Tj T*
+(data_sfarsit: 2024-12-31) Tj T*
+(moneda: RON) Tj T*
+(unitate: 1) Tj T*
+(cod_indicator: EBITDA) Tj T*
+(denumire_indicator: EBITDA) Tj T*
+(valoare: 6779251.1) Tj T*
+() Tj T*
+(--- Pozitia 3 ---) Tj T*
+(an: 2024) Tj T*
+(data_inceput: 2024-01-01) Tj T*
+(data_sfarsit: 2024-12-31) Tj T*
+(moneda: RON) Tj T*
+(unitate: 1) Tj T*
+(cod_indicator: AMORTIZARE) Tj T*
+(denumire_indicator: Amortizare) Tj T*
+(valoare: 1268094.48) Tj T*
+() Tj T*
+(--- Pozitia 4 ---) Tj T*
+(an: 2024) Tj T*
+(data_inceput: 2024-01-01) Tj T*
+(data_sfarsit: 2024-12-31) Tj T*
+(moneda: RON) Tj T*
+(unitate: 1) Tj T*
+(cod_indicator: DOBANZI) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 1/5 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 8 0 R >>
+endobj
+8 0 obj
+<< /Length 1687 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SITUATII 2024 / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-059 | NOROFERT S.A. | CUI 12972762) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(denumire_indicator: Cheltuieli cu dobanzile) Tj T*
+(valoare: 76466.0) Tj T*
+() Tj T*
+(--- Pozitia 5 ---) Tj T*
+(an: 2024) Tj T*
+(data_inceput: 2024-01-01) Tj T*
+(data_sfarsit: 2024-12-31) Tj T*
+(moneda: RON) Tj T*
+(unitate: 1) Tj T*
+(cod_indicator: IMPOZIT_PROFIT) Tj T*
+(denumire_indicator: Cheltuiala cu impozitul) Tj T*
+(valoare: 869550.5) Tj T*
+() Tj T*
+(--- Pozitia 6 ---) Tj T*
+(an: 2024) Tj T*
+(data_inceput: 2024-01-01) Tj T*
+(data_sfarsit: 2024-12-31) Tj T*
+(moneda: RON) Tj T*
+(unitate: 1) Tj T*
+(cod_indicator: PROFIT_NET) Tj T*
+(denumire_indicator: Profit net) Tj T*
+(valoare: 4565140.12) Tj T*
+() Tj T*
+(--- Pozitia 7 ---) Tj T*
+(an: 2024) Tj T*
+(data_inceput: 2024-01-01) Tj T*
+(data_sfarsit: 2024-12-31) Tj T*
+(moneda: RON) Tj T*
+(unitate: 1) Tj T*
+(cod_indicator: ACTIVE_IMOBILIZATE) Tj T*
+(denumire_indicator: Active imobilizate nete) Tj T*
+(valoare: 13943800.0) Tj T*
+() Tj T*
+(--- Pozitia 8 ---) Tj T*
+(an: 2024) Tj T*
+(data_inceput: 2024-01-01) Tj T*
+(data_sfarsit: 2024-12-31) Tj T*
+(moneda: RON) Tj T*
+(unitate: 1) Tj T*
+(cod_indicator: NUMERAR) Tj T*
+(denumire_indicator: Numerar disponibil) Tj T*
+(valoare: 21590400.0) Tj T*
+() Tj T*
+(--- Pozitia 9 ---) Tj T*
+(an: 2024) Tj T*
+(data_inceput: 2024-01-01) Tj T*
+(data_sfarsit: 2024-12-31) Tj T*
+(moneda: RON) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 2/5 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 10 0 R >>
+endobj
+10 0 obj
+<< /Length 1666 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SITUATII 2024 / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-059 | NOROFERT S.A. | CUI 12972762) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(unitate: 1) Tj T*
+(cod_indicator: NUMERAR_BLOCAT) Tj T*
+(denumire_indicator: Numerar restrictionat) Tj T*
+(valoare: 0) Tj T*
+() Tj T*
+(--- Pozitia 10 ---) Tj T*
+(an: 2024) Tj T*
+(data_inceput: 2024-01-01) Tj T*
+(data_sfarsit: 2024-12-31) Tj T*
+(moneda: RON) Tj T*
+(unitate: 1) Tj T*
+(cod_indicator: CREANTE) Tj T*
+(denumire_indicator: Creante comerciale) Tj T*
+(valoare: 6425714.29) Tj T*
+() Tj T*
+(--- Pozitia 11 ---) Tj T*
+(an: 2024) Tj T*
+(data_inceput: 2024-01-01) Tj T*
+(data_sfarsit: 2024-12-31) Tj T*
+(moneda: RON) Tj T*
+(unitate: 1) Tj T*
+(cod_indicator: STOCURI) Tj T*
+(denumire_indicator: Stocuri) Tj T*
+(valoare: 3614464.29) Tj T*
+() Tj T*
+(--- Pozitia 12 ---) Tj T*
+(an: 2024) Tj T*
+(data_inceput: 2024-01-01) Tj T*
+(data_sfarsit: 2024-12-31) Tj T*
+(moneda: RON) Tj T*
+(unitate: 1) Tj T*
+(cod_indicator: ACTIVE_CIRCULANTE) Tj T*
+(denumire_indicator: Active circulante) Tj T*
+(valoare: 31630578.58) Tj T*
+() Tj T*
+(--- Pozitia 13 ---) Tj T*
+(an: 2024) Tj T*
+(data_inceput: 2024-01-01) Tj T*
+(data_sfarsit: 2024-12-31) Tj T*
+(moneda: RON) Tj T*
+(unitate: 1) Tj T*
+(cod_indicator: ACTIVE_TOTAL) Tj T*
+(denumire_indicator: Total active) Tj T*
+(valoare: 45574378.58) Tj T*
+() Tj T*
+(--- Pozitia 14 ---) Tj T*
+(an: 2024) Tj T*
+(data_inceput: 2024-01-01) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 3/5 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+11 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 12 0 R >>
+endobj
+12 0 obj
+<< /Length 1708 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SITUATII 2024 / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-059 | NOROFERT S.A. | CUI 12972762) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(data_sfarsit: 2024-12-31) Tj T*
+(moneda: RON) Tj T*
+(unitate: 1) Tj T*
+(cod_indicator: DATORII_COMERCIALE) Tj T*
+(denumire_indicator: Datorii comerciale) Tj T*
+(valoare: 4417678.57) Tj T*
+() Tj T*
+(--- Pozitia 15 ---) Tj T*
+(an: 2024) Tj T*
+(data_inceput: 2024-01-01) Tj T*
+(data_sfarsit: 2024-12-31) Tj T*
+(moneda: RON) Tj T*
+(unitate: 1) Tj T*
+(cod_indicator: DATORII_FISCALE) Tj T*
+(denumire_indicator: Datorii fiscale) Tj T*
+(valoare: 240964.29) Tj T*
+() Tj T*
+(--- Pozitia 16 ---) Tj T*
+(an: 2024) Tj T*
+(data_inceput: 2024-01-01) Tj T*
+(data_sfarsit: 2024-12-31) Tj T*
+(moneda: RON) Tj T*
+(unitate: 1) Tj T*
+(cod_indicator: DATORII_FINANCIARE) Tj T*
+(denumire_indicator: Datorii financiare) Tj T*
+(valoare: 0) Tj T*
+() Tj T*
+(--- Pozitia 17 ---) Tj T*
+(an: 2024) Tj T*
+(data_inceput: 2024-01-01) Tj T*
+(data_sfarsit: 2024-12-31) Tj T*
+(moneda: RON) Tj T*
+(unitate: 1) Tj T*
+(cod_indicator: DATORII_CURENTE) Tj T*
+(denumire_indicator: Datorii pe termen scurt) Tj T*
+(valoare: 4658642.86) Tj T*
+() Tj T*
+(--- Pozitia 18 ---) Tj T*
+(an: 2024) Tj T*
+(data_inceput: 2024-01-01) Tj T*
+(data_sfarsit: 2024-12-31) Tj T*
+(moneda: RON) Tj T*
+(unitate: 1) Tj T*
+(cod_indicator: DATORII_TERMEN_LUNG) Tj T*
+(denumire_indicator: Datorii pe termen lung) Tj T*
+(valoare: 0.0) Tj T*
+() Tj T*
+(--- Pozitia 19 ---) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 4/5 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+13 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 14 0 R >>
+endobj
+14 0 obj
+<< /Length 648 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (SITUATII 2024 / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-059 | NOROFERT S.A. | CUI 12972762) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(an: 2024) Tj T*
+(data_inceput: 2024-01-01) Tj T*
+(data_sfarsit: 2024-12-31) Tj T*
+(moneda: RON) Tj T*
+(unitate: 1) Tj T*
+(cod_indicator: CAPITALURI_PROPRII) Tj T*
+(denumire_indicator: Capitaluri proprii) Tj T*
+(valoare: 40915735.72) Tj T*
+() Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 5/5 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+xref
+0 15
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000147 00000 n 
+0000000217 00000 n 
+0000000292 00000 n 
+0000000428 00000 n 
+0000002339 00000 n 
+0000002475 00000 n 
+0000004214 00000 n 
+0000004351 00000 n 
+0000006070 00000 n 
+0000006208 00000 n 
+0000007969 00000 n 
+0000008107 00000 n 
+trailer
+<< /Size 15 /Root 1 0 R >>
+startxref
+8807
+%%EOF

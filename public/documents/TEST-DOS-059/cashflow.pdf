@@ -1,0 +1,769 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Count 12 /Kids [5 0 R 7 0 R 9 0 R 11 0 R 13 0 R 15 0 R 17 0 R 19 0 R 21 0 R 23 0 R 25 0 R 27 0 R] >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 6 0 R >>
+endobj
+6 0 obj
+<< /Length 2171 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-059 | NOROFERT S.A. | CUI 12972762) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(SIMULAT / HACKATHON - fara valoare juridica; nu este document bancar sau raport real.) Tj T*
+() Tj T*
+(Dosar: TEST-DOS-059 | Document: TEST-DOC-059-CASHFLOW) Tj T*
+(Identitate publica de referinta: NOROFERT S.A.) Tj T*
+(CUI public: 12972762) Tj T*
+(Toate datele bancare de mai jos sunt inventate; nu descriu firma reala.) Tj T*
+(Emitent: simulator HACKATHON, fara acces la sistemele bancii.) Tj T*
+(Data referinta: 2026-09-30 | Moneda RON | Unitate 1 RON) Tj T*
+() Tj T*
+(CASHFLOW) Tj T*
+() Tj T*
+(--- Pozitia 1 ---) Tj T*
+(luna: 2025-10) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4791658.29) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3504147.77) Tj T*
+(impozite_platite: 67083.22) Tj T*
+(capex_mentenanta: 57499.9) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 23389600.0) Tj T*
+(principal_existent: 243641.67) Tj T*
+(dobanzi_existente: 54819.38) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 2 ---) Tj T*
+(luna: 2025-11) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 5362236.62) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3921412.67) Tj T*
+(impozite_platite: 75071.31) Tj T*
+(capex_mentenanta: 64346.84) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 24254066.35) Tj T*
+(principal_existent: 243641.67) Tj T*
+(dobanzi_existente: 53296.61) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 1/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 8 0 R >>
+endobj
+8 0 obj
+<< /Length 2141 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-059 | NOROFERT S.A. | CUI 12972762) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 3 ---) Tj T*
+(luna: 2025-12) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4048763.23) Tj T*
+(plati_operare_fara_dobanzi_impozite: 2960867.36) Tj T*
+(impozite_platite: 56682.69) Tj T*
+(capex_mentenanta: 48585.16) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 25258533.87) Tj T*
+(principal_existent: 243641.67) Tj T*
+(dobanzi_existente: 51773.85) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 4 ---) Tj T*
+(luna: 2026-01) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4353078.94) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3183413.95) Tj T*
+(impozite_platite: 60943.11) Tj T*
+(capex_mentenanta: 52236.95) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 25945746.37) Tj T*
+(principal_existent: 243641.67) Tj T*
+(dobanzi_existente: 50251.09) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 2/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 10 0 R >>
+endobj
+10 0 obj
+<< /Length 2128 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-059 | NOROFERT S.A. | CUI 12972762) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 5 ---) Tj T*
+(luna: 2026-02) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4970562.5) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3634980.72) Tj T*
+(impozite_platite: 69587.88) Tj T*
+(capex_mentenanta: 59646.75) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 26708338.54) Tj T*
+(principal_existent: 243641.67) Tj T*
+(dobanzi_existente: 48728.33) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 6 ---) Tj T*
+(luna: 2026-03) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 5243889.44) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3834865.18) Tj T*
+(impozite_platite: 73414.45) Tj T*
+(capex_mentenanta: 62926.67) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 27622315.69) Tj T*
+(principal_existent: 243641.67) Tj T*
+(dobanzi_existente: 47205.57) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 7 ---) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 3/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+11 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 12 0 R >>
+endobj
+12 0 obj
+<< /Length 2081 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-059 | NOROFERT S.A. | CUI 12972762) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(luna: 2026-04) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 3981043.73) Tj T*
+(plati_operare_fara_dobanzi_impozite: 2911343.98) Tj T*
+(impozite_platite: 55734.61) Tj T*
+(capex_mentenanta: 47772.52) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 28604151.59) Tj T*
+(principal_existent: 243641.67) Tj T*
+(dobanzi_existente: 45682.81) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 8 ---) Tj T*
+(luna: 2026-05) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4378227.65) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3201805.25) Tj T*
+(impozite_platite: 61295.19) Tj T*
+(capex_mentenanta: 52538.73) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 29281019.73) Tj T*
+(principal_existent: 243641.67) Tj T*
+(dobanzi_existente: 44160.05) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 9 ---) Tj T*
+(luna: 2026-06) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 4/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+13 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 14 0 R >>
+endobj
+14 0 obj
+<< /Length 2136 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-059 | NOROFERT S.A. | CUI 12972762) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(incasari_operare: 5037164.63) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3683686.97) Tj T*
+(impozite_platite: 70520.3) Tj T*
+(capex_mentenanta: 60445.98) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 30055806.49) Tj T*
+(principal_existent: 243641.67) Tj T*
+(dobanzi_existente: 42637.29) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 10 ---) Tj T*
+(luna: 2026-07) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 5380815.33) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3934999.31) Tj T*
+(impozite_platite: 75331.41) Tj T*
+(capex_mentenanta: 64569.78) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 30992038.91) Tj T*
+(principal_existent: 243641.67) Tj T*
+(dobanzi_existente: 41114.53) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 11 ---) Tj T*
+(luna: 2026-08) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4138633.33) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3026589.51) Tj T*
+(impozite_platite: 57940.87) Tj T*
+(capex_mentenanta: 49663.6) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 5/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+15 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 16 0 R >>
+endobj
+16 0 obj
+<< /Length 2123 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-059 | NOROFERT S.A. | CUI 12972762) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 32013197.54) Tj T*
+(principal_existent: 243641.67) Tj T*
+(dobanzi_existente: 39591.77) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 12 ---) Tj T*
+(luna: 2026-09) Tj T*
+(tip_istoric_sau_proiectie: istoric) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4382270.65) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3204761.9) Tj T*
+(impozite_platite: 61351.79) Tj T*
+(capex_mentenanta: 52587.25) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 32734403.45) Tj T*
+(principal_existent: 243641.63) Tj T*
+(dobanzi_existente: 38069.01) Tj T*
+(principal_nou: 0) Tj T*
+(dobanzi_noi: 0) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 13 ---) Tj T*
+(luna: 2026-10) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 5058998.09) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3769152.51) Tj T*
+(impozite_platite: 70825.97) Tj T*
+(capex_mentenanta: 60707.98) Tj T*
+(capex_extindere: 11994666.67) Tj T*
+(aport_capital: 2998666.67) Tj T*
+(alte_finantari: 8996000.0) Tj T*
+(sold_initial_numerar: 33516262.52) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 6/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+17 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 18 0 R >>
+endobj
+18 0 obj
+<< /Length 2148 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-059 | NOROFERT S.A. | CUI 12972762) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(principal_existent: 243641.67) Tj T*
+(dobanzi_existente: 36546.25) Tj T*
+(principal_nou: 149933.33) Tj T*
+(dobanzi_noi: 78715.0) Tj T*
+(comisioane: 44980.0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 14 ---) Tj T*
+(luna: 2026-11) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 5645628.39) Tj T*
+(plati_operare_fara_dobanzi_impozite: 4206215.15) Tj T*
+(impozite_platite: 79038.8) Tj T*
+(capex_mentenanta: 67747.54) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 34120757.9) Tj T*
+(principal_existent: 243641.67) Tj T*
+(dobanzi_existente: 35023.49) Tj T*
+(principal_nou: 149933.33) Tj T*
+(dobanzi_noi: 77403.08) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 15 ---) Tj T*
+(luna: 2026-12) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4140171.76) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3084590.77) Tj T*
+(impozite_platite: 57962.4) Tj T*
+(capex_mentenanta: 49682.06) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 34907383.23) Tj T*
+(principal_existent: 243641.67) Tj T*
+(dobanzi_existente: 33500.73) Tj T*
+(principal_nou: 149933.33) Tj T*
+(dobanzi_noi: 76091.17) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 7/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+19 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 20 0 R >>
+endobj
+20 0 obj
+<< /Length 2250 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-059 | NOROFERT S.A. | CUI 12972762) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 16 ---) Tj T*
+(luna: 2027-01) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4756375.84) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3543687.04) Tj T*
+(impozite_platite: 66589.26) Tj T*
+(capex_mentenanta: 57076.51) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 35352152.86) Tj T*
+(principal_existent: 243641.67) Tj T*
+(dobanzi_existente: 31977.97) Tj T*
+(principal_nou: 149933.33) Tj T*
+(dobanzi_noi: 74779.25) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 17 ---) Tj T*
+(luna: 2027-02) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 5181412.21) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3860355.84) Tj T*
+(impozite_platite: 72539.77) Tj T*
+(capex_mentenanta: 62176.95) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 35940843.67) Tj T*
+(principal_existent: 243641.67) Tj T*
+(dobanzi_existente: 30455.21) Tj T*
+(principal_nou: 149933.33) Tj T*
+(dobanzi_noi: 73467.33) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 8/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+21 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 22 0 R >>
+endobj
+22 0 obj
+<< /Length 2111 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-059 | NOROFERT S.A. | CUI 12972762) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+() Tj T*
+(--- Pozitia 18 ---) Tj T*
+(luna: 2027-03) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 5457370.52) Tj T*
+(plati_operare_fara_dobanzi_impozite: 4065955.63) Tj T*
+(impozite_platite: 76403.19) Tj T*
+(capex_mentenanta: 65488.45) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 36629685.78) Tj T*
+(principal_existent: 243641.67) Tj T*
+(dobanzi_existente: 28932.45) Tj T*
+(principal_nou: 149933.33) Tj T*
+(dobanzi_noi: 72155.42) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 19 ---) Tj T*
+(luna: 2027-04) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4377481.79) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3261396.07) Tj T*
+(impozite_platite: 61284.75) Tj T*
+(capex_mentenanta: 52529.78) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 37384546.16) Tj T*
+(principal_existent: 243641.67) Tj T*
+(dobanzi_existente: 27409.69) Tj T*
+(principal_nou: 149933.33) Tj T*
+(dobanzi_noi: 70843.5) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 20 ---) Tj T*
+(luna: 2027-05) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 9/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+23 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 24 0 R >>
+endobj
+24 0 obj
+<< /Length 2143 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-059 | NOROFERT S.A. | CUI 12972762) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4686364.41) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3491525.77) Tj T*
+(impozite_platite: 65609.1) Tj T*
+(capex_mentenanta: 56236.37) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 37894989.16) Tj T*
+(principal_existent: 243641.67) Tj T*
+(dobanzi_existente: 25886.93) Tj T*
+(principal_nou: 149933.33) Tj T*
+(dobanzi_noi: 69531.58) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 21 ---) Tj T*
+(luna: 2027-06) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 5327849.67) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3969457.51) Tj T*
+(impozite_platite: 74589.9) Tj T*
+(capex_mentenanta: 63934.2) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 38478988.82) Tj T*
+(principal_existent: 243641.67) Tj T*
+(dobanzi_existente: 24364.17) Tj T*
+(principal_nou: 149933.33) Tj T*
+(dobanzi_noi: 68219.67) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 22 ---) Tj T*
+(luna: 2027-07) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 5687403.24) Tj T*
+(plati_operare_fara_dobanzi_impozite: 4237339.05) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 10/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+25 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 26 0 R >>
+endobj
+26 0 obj
+<< /Length 2130 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-059 | NOROFERT S.A. | CUI 12972762) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(impozite_platite: 79623.65) Tj T*
+(capex_mentenanta: 68248.84) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 39212698.04) Tj T*
+(principal_existent: 243641.67) Tj T*
+(dobanzi_existente: 22841.41) Tj T*
+(principal_nou: 149933.33) Tj T*
+(dobanzi_noi: 66907.75) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 23 ---) Tj T*
+(luna: 2027-08) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4169350.35) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3106329.97) Tj T*
+(impozite_platite: 58370.9) Tj T*
+(capex_mentenanta: 50032.2) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 40031565.58) Tj T*
+(principal_existent: 243641.67) Tj T*
+(dobanzi_existente: 21318.65) Tj T*
+(principal_nou: 149933.33) Tj T*
+(dobanzi_noi: 65595.83) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+(--- Pozitia 24 ---) Tj T*
+(luna: 2027-09) Tj T*
+(tip_istoric_sau_proiectie: proiectie) Tj T*
+(scenariu: baza) Tj T*
+(moneda: RON) Tj T*
+(incasari_operare: 4579218.61) Tj T*
+(plati_operare_fara_dobanzi_impozite: 3411697.94) Tj T*
+(impozite_platite: 64109.06) Tj T*
+(capex_mentenanta: 54950.62) Tj T*
+(capex_extindere: 0) Tj T*
+(aport_capital: 0) Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 11/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+27 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 28 0 R >>
+endobj
+28 0 obj
+<< /Length 851 >>
+stream
+0.98 0.87 0.04 rg 0 790 595 52 re f
+0 0 0 rg BT /F2 14 Tf 36 811 Td (CASHFLOW / DEMO) Tj ET
+BT /F1 8 Tf 36 794 Td (TEST-DOS-059 | NOROFERT S.A. | CUI 12972762) Tj ET
+0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
+0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
+(alte_finantari: 0) Tj T*
+(sold_initial_numerar: 40505693.38) Tj T*
+(principal_existent: 243641.67) Tj T*
+(dobanzi_existente: 19795.89) Tj T*
+(principal_nou: 149933.33) Tj T*
+(dobanzi_noi: 64283.92) Tj T*
+(comisioane: 0) Tj T*
+(ipoteze: SIMULAT: dobanda sold initial x rata/12; principal egal; incasari/plati directe;) Tj T*
+(sezonalitate ipotetica. Fara dubla scadere a capitalului de lucru. Cash colateral propus nu este) Tj T*
+(blocat.) Tj T*
+() Tj T*
+ET
+0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 12/12 | Datele bancare sunt fabricate.) Tj ET
+endstream
+endobj
+xref
+0 29
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000197 00000 n 
+0000000267 00000 n 
+0000000342 00000 n 
+0000000478 00000 n 
+0000002701 00000 n 
+0000002837 00000 n 
+0000005030 00000 n 
+0000005167 00000 n 
+0000007348 00000 n 
+0000007486 00000 n 
+0000009620 00000 n 
+0000009758 00000 n 
+0000011947 00000 n 
+0000012085 00000 n 
+0000014261 00000 n 
+0000014399 00000 n 
+0000016600 00000 n 
+0000016738 00000 n 
+0000019041 00000 n 
+0000019179 00000 n 
+0000021343 00000 n 
+0000021481 00000 n 
+0000023677 00000 n 
+0000023815 00000 n 
+0000025998 00000 n 
+0000026136 00000 n 
+trailer
+<< /Size 29 /Root 1 0 R >>
+startxref
+27039
+%%EOF

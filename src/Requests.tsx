@@ -2,34 +2,47 @@ import { useEffect, useState } from 'react'
 import type { FormEvent, ReactNode } from 'react'
 import { Check, CircleAlert, Mail, PenLine, Plus, Send, Trash2, UserRound, X } from 'lucide-react'
 import type { Company } from './types'
-import type { CompanyRequest, Contact, GmailState } from './workspace'
+import type { CompanyRequest, Contact, GmailState, WorkspaceSettings } from './workspace'
 import { undeliverable } from './workspace'
 import { Button, Dialog } from './components'
 import { actingUser, when } from './runs'
 import type { Drafted } from './people'
-import { gmailConnectUrl, listContacts, removeContact, saveContact, saveRequest, sendRequest } from './people'
+import { findContact, getSettings, gmailConnectUrl, listContacts, removeContact, saveContact, saveRequest, sendRequest, setDelivery } from './people'
 
-/** The company's representatives: who requests go to. */
-export function ContactsCard({ company, onChange }: { company: Company; onChange?: (c: Contact[]) => void }) {
+/** The company's representatives: who requests go to. The assistant can look up the published contact. */
+export function ContactsCard({ company, onChange, reloadKey }: { company: Company; onChange?: (c: Contact[]) => void; reloadKey?: unknown }) {
   const [contacts, setContacts] = useState<Contact[] | null>(null)
   const [editing, setEditing] = useState<Partial<Contact> | null>(null)
   const [error, setError] = useState('')
+  const [searching, setSearching] = useState(false)
+  const [result, setResult] = useState('')
   const update = (c: Contact[]) => { setContacts(c); onChange?.(c) }
-  useEffect(() => { listContacts(company.id).then(update).catch(() => update([])) }, [company.id])
+  useEffect(() => { listContacts(company.id).then(update).catch(() => update([])) }, [company.id, reloadKey])
   const submit = async (e: FormEvent) => {
     e.preventDefault()
     try { update(await saveContact(company.id, { id: editing!.id, name: editing!.name ?? '', role: editing!.role ?? '', email: editing!.email ?? '', phone: editing!.phone ?? '' })); setEditing(null); setError('') }
     catch (err: any) { setError(err.message) }
   }
-  const reachable = (contacts ?? []).filter(c => !c.placeholder)
+  const search = async () => {
+    setSearching(true); setResult('')
+    try { const found = await findContact(company.id); update(found.contacts); setResult(found.result) }
+    catch (err: any) { setResult(err.message) } finally { setSearching(false) }
+  }
+  const shown = (contacts ?? []).filter(c => c.source !== 'dossier' || !c.placeholder)
+  const reachable = shown.filter(c => !c.placeholder)
   return <section className="panel side-card">
-    <div className="side-card-head"><h2>Contacts</h2><button className="text-button" onClick={() => { setEditing({}); setError('') }}><Plus size={14} />Add contact</button></div>
-    {!reachable.length && contacts && <p className="side-card-warn"><CircleAlert size={14} />No representative with an email address is on file. Add one to send requests.</p>}
-    <ul className="contact-list">{(contacts ?? []).filter(c => !c.placeholder).map(c => <li key={c.id}>
+    <div className="side-card-head"><h2>Contacts</h2><button className="text-button" onClick={() => { setEditing({}); setError('') }}><Plus size={14} />Add</button></div>
+    {!reachable.length && contacts && <div className="side-card-warn"><CircleAlert size={14} /><div>No contact with an email address yet.
+      <button className="link-button" onClick={search} disabled={searching}>{searching ? 'Searching public sources…' : 'Find the published contact'}</button></div></div>}
+    {searching && <p className="side-card-note">The assistant searches the company's own pages and stock-exchange reports, then the engine opens the page to check the address is printed there. About 30–90 seconds.</p>}
+    {result && !searching && <p className="side-card-note">{result}</p>}
+    <ul className="contact-list">{shown.map(c => <li key={c.id}>
       <span className="contact-icon"><UserRound size={14} /></span>
-      <div><strong>{c.name}</strong><span>{c.role}{c.email ? ' · ' + c.email : ''}{c.phone ? ' · ' + c.phone : ''}</span></div>
-      {c.source === 'added' && <div className="contact-actions"><button className="ws-icon" onClick={() => setEditing(c)} aria-label={'Edit ' + c.name}><PenLine size={13} /></button><button className="ws-icon" onClick={async () => update(await removeContact(company.id, c.id))} aria-label={'Remove ' + c.name}><Trash2 size={13} /></button></div>}
+      <div><strong>{c.name}</strong><span>{c.role}{c.email ? ' · ' + c.email : ''}{c.phone ? ' · ' + c.phone : ''}</span>
+        {c.source === 'public' && c.sourceUrl && <span className={'contact-source' + (c.verified ? ' verified' : '')}>{c.verified ? <Check size={11} /> : <CircleAlert size={11} />}{c.verified ? 'Printed on ' : 'Not confirmed on '}<a href={c.sourceUrl} target="_blank" rel="noreferrer">{hostOf(c.sourceUrl)}</a></span>}</div>
+      {c.source !== 'dossier' && <div className="contact-actions">{c.source === 'added' && <button className="ws-icon" onClick={() => setEditing(c)} aria-label={'Edit ' + c.name}><PenLine size={13} /></button>}<button className="ws-icon" onClick={async () => update(await removeContact(company.id, c.id))} aria-label={'Remove ' + c.name}><Trash2 size={13} /></button></div>}
     </li>)}</ul>
+    {reachable.length > 0 && <button className="text-button contact-research-again" onClick={search} disabled={searching}>{searching ? 'Searching…' : 'Search public sources again'}</button>}
     {editing && <Dialog title={editing.id ? 'Edit contact' : 'Add a contact'} description={company.name} onClose={() => setEditing(null)}>
       <form onSubmit={submit}><div className="form-content form-grid">
         <label className="field-label">Name<input required minLength={2} value={editing.name ?? ''} onChange={e => setEditing({ ...editing, name: e.target.value })} autoFocus /></label>
@@ -41,6 +54,8 @@ export function ContactsCard({ company, onChange }: { company: Company; onChange
     </Dialog>}
   </section>
 }
+
+const hostOf = (url: string) => { try { return new URL(url).hostname.replace(/^www\./, '') } catch { return url } }
 
 /** Ask the assistant for a draft; the employee reviews it before anything is sent. */
 export function DraftRequestButton({ label = 'Draft a request', draft, onDrafted, contacts, small }: {
@@ -72,18 +87,30 @@ export function DraftRequestButton({ label = 'Draft a request', draft, onDrafted
   </>
 }
 
-/** What still stands between this employee and a sent request, with the way to fix each. Hidden once nothing is missing. */
-export function SendChecklist({ contacts, gmail, requests }: { contacts: Contact[]; gmail: GmailState | null; requests: CompanyRequest[] }) {
+/** What still stands between this employee and a sent request, and where Send delivers. */
+export function SendChecklist({ contacts, gmail, requests, assistant }: { contacts: Contact[]; gmail: GmailState | null; requests: CompanyRequest[]; assistant?: string | null }) {
+  const [settings, setSettings] = useState<WorkspaceSettings | null>(null)
+  const [confirm, setConfirm] = useState(false)
+  useEffect(() => { getSettings().then(setSettings).catch(() => {}) }, [])
   const contact = contacts.find(c => !c.placeholder && c.email)
+  const drafted = requests.some(r => r.status !== 'sent')
   const steps: { done: boolean; label: ReactNode }[] = [
-    { done: !!contact, label: contact ? <>Contact: {contact.name} &lt;{contact.email}&gt;</> : <>Add the representative's email under <strong>Contacts</strong></> },
+    { done: !!contact, label: contact ? <>Contact: {contact.name} &lt;{contact.email}&gt;</> : <>No contact email yet: <strong>Find the published contact</strong> under Contacts, or add one</> },
     { done: !!gmail?.connected, label: gmail?.connected ? <>Gmail: {gmail.connected.email}</>
       : gmail?.configured ? <><a href={gmailConnectUrl(actingUser(), '/#' + window.location.hash.slice(1))}>Connect your Gmail</a> (sends from your own mailbox)</>
       : <>Gmail is not set up for this workspace yet: an OAuth client must be added once (README → Gmail)</> },
-    { done: requests.some(r => r.status !== 'sent'), label: requests.some(r => r.status !== 'sent') ? <>Draft ready to review</> : <>Write a draft with <strong>Draft request</strong></> },
+    { done: drafted, label: drafted ? <>Suggested email ready to review</> : assistant ? <>{assistant}…</> : <>No email yet: <strong>Draft request</strong></> },
   ]
-  if (steps.every(st => st.done)) return null
-  return <div className="send-checklist"><span>Before a request can be sent</span><ul>{steps.map((st, i) => <li key={i} className={st.done ? 'done' : ''}>{st.done ? <Check size={13} /> : <X size={13} />}<span>{st.label}</span></li>)}</ul></div>
+  const live = settings?.delivery === 'live'
+  return <>
+    {!steps.every(st => st.done) && <div className="send-checklist"><span>Before a request can be sent</span><ul>{steps.map((st, i) => <li key={i} className={st.done ? 'done' : ''}>{st.done ? <Check size={13} /> : <X size={13} />}<span>{st.label}</span></li>)}</ul></div>}
+    {settings && <div className={'delivery-mode' + (live ? ' live' : '')}>{live ? <>Live delivery: Send goes to the company contact.</> : <>Test delivery: Send puts a copy in your own mailbox, marked with the address it would go to.</>}
+      <button className="link-button" onClick={() => live ? setDelivery('test').then(setSettings) : setConfirm(true)}>{live ? 'Back to test delivery' : 'Switch to live'}</button></div>}
+    {confirm && <Dialog title="Send requests to the real companies?" description="Live delivery affects every employee in this workspace." onClose={() => setConfirm(false)}>
+      <div className="form-content"><p className="dialog-text">The companies in CreditDesk are real, listed companies, and the contacts the assistant finds are their real public addresses. The applications, figures and staff in this workspace are not real. With live delivery, Send emails the company directly from your Gmail. Only switch if the application and the request are genuine.</p></div>
+      <div className="dialog-actions"><Button onClick={() => setConfirm(false)}>Keep test delivery</Button><Button variant="primary" onClick={async () => { setSettings(await setDelivery('live')); setConfirm(false) }}>Switch to live delivery</Button></div>
+    </Dialog>}
+  </>
 }
 
 const statusText: Record<CompanyRequest['status'], string> = { draft: 'Draft', sent: 'Sent', failed: 'Not sent' }
@@ -95,7 +122,7 @@ export function RequestList({ requests, gmail, onChange, toast }: { requests: Co
   return <ul className="request-list">{requests.map(r => <li key={r.id} className={'request-' + r.status}>
     <button className="request-row" onClick={() => setOpen(o => o === r.id ? null : r.id)} aria-expanded={open === r.id}>
       <span className={'request-status status-' + r.status}>{statusText[r.status]}</span>
-      <div><strong>{r.subject}</strong><span>{r.status === 'sent' ? 'Sent by ' + r.sentBy + ' · ' + when(r.sentAt!) + ' · to ' + (r.to.name || r.to.email) : 'Drafted ' + when(r.createdAt) + (r.draftedBy.startsWith('Codex') ? ' by the assistant' : '')}</span></div>
+      <div><strong>{r.subject}</strong><span>{r.status === 'sent' ? (r.testDelivery ? 'Test copy to ' + r.deliveredTo + ' by ' : 'Sent by ') + r.sentBy + ' · ' + when(r.sentAt!) + (r.testDelivery ? '' : ' · to ' + (r.to.name || r.to.email)) : 'Drafted ' + when(r.createdAt) + (r.draftedBy.startsWith('Codex') ? ' by the assistant' : '')}</span></div>
     </button>
     {open === r.id && <RequestEditor request={r} gmail={gmail} onChange={onChange} toast={toast} />}
   </li>)}</ul>

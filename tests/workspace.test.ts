@@ -49,6 +49,14 @@ test('a problem is sent to a department once, and its case keeps a timeline', as
   const c = opened.body.case
   assert.deepEqual([c.department, c.status, c.title, c.createdBy, c.finding?.id], ['finance', 'open', finding.title, 'Ioana Marinescu', finding.id])
   assert.match(c.ref, /^#\d+$/)
+  // Opening a case starts the assistant: it looks up the company contact, then writes the suggested email.
+  let assisted: { assistant: string | null; events: CaseEvent[]; requests: CompanyRequest[] }
+  for (;;) { assisted = await legal.get('/cases/' + c.id); if (!assisted.assistant && assisted.requests.length) break; await new Promise(r => setTimeout(r, 50)) }
+  assert.deepEqual(assisted.events.map(e => [e.kind, e.author]), [['opened', 'Ioana Marinescu'], ['contact', 'Assistant'], ['request', 'Assistant']])
+  assert.match(assisted.events[1].text, /no model available to search the web/)
+  assert.equal(assisted.requests.length, 1)
+  assert.equal(assisted.requests[0].to.email, '', 'no contact was found, so the draft has no recipient yet')
+  assert.ok(assisted.requests[0].body.includes('Ioana Marinescu'))
   const again = await legal.post<{ case: Case; created: boolean }>('/cases', { companyId: COMPANY, runId, findingId: finding.id, department: 'finance', note: 'Second look.' })
   assert.deepEqual([again.status, again.body.created, again.body.case.id], [200, false, c.id])
   assert.equal((await legal.post('/cases', { companyId: COMPANY, runId, findingId: 'nope', department: 'legal' })).status, 400)
@@ -58,7 +66,7 @@ test('a problem is sent to a department once, and its case keeps a timeline', as
   const detail = await finance.get<{ case: Case; events: CaseEvent[] }>('/cases/' + c.id)
   assert.deepEqual([detail.case.status, detail.case.assignee], ['in_progress', 'Andrei Popa'])
   assert.deepEqual(detail.events.map(e => [e.kind, e.author]), [
-    ['opened', 'Ioana Marinescu'], ['comment', 'Ioana Marinescu'], ['status', 'Andrei Popa'], ['assigned', 'Andrei Popa'], ['comment', 'Andrei Popa'],
+    ['opened', 'Ioana Marinescu'], ['contact', 'Assistant'], ['request', 'Assistant'], ['comment', 'Ioana Marinescu'], ['status', 'Andrei Popa'], ['assigned', 'Andrei Popa'], ['comment', 'Andrei Popa'],
   ])
   assert.deepEqual((await legal.get<Case[]>('/cases?department=finance')).map(x => x.id), [c.id])
   assert.deepEqual(await legal.get<Case[]>('/cases?department=legal'), [])
@@ -89,7 +97,7 @@ test('the assistant drafts a request for a case; sending needs Gmail', async () 
   assert.deepEqual([sent.status, sent.body.error], [400, 'Connect your Gmail account first (your name, top right)'])
   const timeline = await legal.get<{ events: CaseEvent[]; requests: CompanyRequest[] }>('/cases/' + c.id)
   assert.equal(timeline.events.at(-1)!.kind, 'request')
-  assert.equal(timeline.requests.length, 1)
+  assert.equal(timeline.requests.length, 2, 'the assistant suggestion and the employee draft')
 })
 
 test('the assistant suggests a comment and a requirement per problem, and writes a case report', async () => {
@@ -108,13 +116,22 @@ test('the assistant suggests a comment and a requirement per problem, and writes
 test('the company activity log records who did what, chained so it can be verified', async () => {
   assert.equal((await finance.post('/activity', { companyId: COMPANY, action: 'Analyst note added', detail: 'Called the CFO.' })).status, 201)
   const log = await legal.get<ActivityEvent[]>('/activity?company=' + COMPANY)
-  assert.deepEqual(log.map(e => [e.action, e.actor]), [['Problem sent to Finance', 'Ioana Marinescu'], ['Contact saved', 'Ioana Marinescu'], ['Analyst note added', 'Andrei Popa']])
+  assert.deepEqual(log.map(e => [e.action, e.actor]), [['Problem sent to Finance', 'Ioana Marinescu'], ['Company contact researched', 'engine'], ['Contact saved', 'Ioana Marinescu'], ['Analyst note added', 'Andrei Popa']])
   let previous = '0'.repeat(64)
   for (const { hash, ...body } of log) {
     assert.equal(body.previousHash, previous)
     assert.equal(createHash('sha256').update(JSON.stringify(body)).digest('hex'), hash)
     previous = hash
   }
+})
+
+test('requests go to the sender\'s own mailbox until live delivery is switched on', async () => {
+  assert.deepEqual(await legal.get('/settings'), { delivery: 'test' })
+  assert.deepEqual((await legal.post('/settings', { delivery: 'live' })).body, { delivery: 'live' })
+  assert.equal((await legal.post('/settings', { delivery: 'everyone' })).status, 400)
+  assert.deepEqual((await legal.post('/settings', { delivery: 'test' })).body, { delivery: 'test' })
+  const log = await legal.get<ActivityEvent[]>('/activity?company=workspace')
+  assert.deepEqual(log.map(e => e.action), ['Request delivery set to live', 'Request delivery set to test'])
 })
 
 test('Gmail sign-in goes to Google with PKCE and the send-only scope; an unknown sign-in is refused', async () => {

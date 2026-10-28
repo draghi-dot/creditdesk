@@ -1,3 +1,4 @@
+import type { CreditLine } from './monitoring'
 // The source tables have different schemas; their original fields are preserved.
 export type Row = Record<string, any>
 export type Decision = 'ELIGIBIL' | 'CONDITIONAT' | 'NEELIGIBIL' | 'DATE_INSUFICIENTE'
@@ -11,6 +12,10 @@ export interface Company {
   sector: string
   city: string
   tables: Record<string, Row[]>
+  /** Set for credit clients: the approved and drawn financing. */
+  creditLine?: CreditLine
+  /** Names the company goes by in the news, for monitoring. */
+  monitorTerms?: string[]
 }
 export interface Policy {
   politica_id: string

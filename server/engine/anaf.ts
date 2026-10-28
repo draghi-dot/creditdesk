@@ -8,6 +8,7 @@ export interface AnafRecord {
   cui: number
   name: string
   address: string
+  phone: string
   registrationStatus: string
   registeredOn: string
   tradeRegister: string
@@ -41,7 +42,7 @@ export async function lookupAnaf(cui: string, date: string, signal: AbortSignal,
     const general = hit.date_generale ?? {}
     return {
       found: {
-        cui: general.cui, name: general.denumire ?? '', address: general.adresa ?? '',
+        cui: general.cui, name: general.denumire ?? '', address: general.adresa ?? '', phone: general.telefon ?? '',
         registrationStatus: general.stare_inregistrare ?? '', registeredOn: general.data_inregistrare ?? '',
         tradeRegister: general.nrRegCom ?? '', caen: general.cod_CAEN ?? '', legalForm: general.forma_juridica ?? '',
         vatPayer: Boolean(hit.inregistrare_scop_Tva?.scpTVA), inactive: Boolean(hit.stare_inactiv?.statusInactivi),
