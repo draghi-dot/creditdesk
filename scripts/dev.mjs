@@ -25,4 +25,4 @@ const stop = () => { for (const child of children) child.kill('SIGTERM') }
 process.on('SIGINT', stop)
 process.on('SIGTERM', stop)
 for (const child of children) child.on('exit', code => { if (code) { stop(); process.exitCode = code } })
-console.log(`\nCreditDesk workspace: http://127.0.0.1:${vitePort}  (engine API on :${port})\n`)
+console.log(`\nFinra workspace: http://127.0.0.1:${vitePort}  (engine API on :${port})\n`)

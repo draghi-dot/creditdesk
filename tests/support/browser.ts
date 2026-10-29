@@ -30,6 +30,10 @@ export interface Page {
   screenshot(file: string, fullPage?: boolean): Promise<void>
   /** Uncaught exceptions and console errors seen on the page. */
   errors: string[]
+  /** A raw Chrome DevTools Protocol call, for input and recording. */
+  cdp<T = any>(method: string, params?: object): Promise<T>
+  /** DevTools events of one kind, as they arrive. */
+  on(method: string, listener: (params: any) => void): void
   close(): Promise<void>
 }
 
@@ -47,12 +51,12 @@ async function pageTarget(base: string): Promise<string> {
   return created.webSocketDebuggerUrl
 }
 
-export async function launch(width = 1440, height = 960): Promise<Page> {
+export async function launch(width = 1440, height = 960, scale = 1, flags: string[] = []): Promise<Page> {
   const binary = findChrome()
   if (!binary) throw new Error('No Chromium-based browser found; set CHROME_PATH')
   const profile = mkdtempSync(join(tmpdir(), 'creditdesk-browser-'))
   const child = spawn(binary, ['--headless=new', '--remote-debugging-port=0', '--user-data-dir=' + profile, '--no-first-run', '--no-default-browser-check',
-    '--disable-extensions', '--hide-scrollbars', '--window-size=' + width + ',' + height, 'about:blank'], { stdio: ['ignore', 'ignore', 'pipe'] })
+    '--disable-extensions', '--hide-scrollbars', '--window-size=' + width + ',' + height, ...flags, 'about:blank'], { stdio: ['ignore', 'ignore', 'pipe'] })
   const endpoint = await new Promise<string>((resolve, reject) => {
     let output = ''
     const timer = setTimeout(() => reject(new Error('The browser did not start:\n' + output)), 20_000)
@@ -74,8 +78,10 @@ export async function launch(width = 1440, height = 960): Promise<Page> {
   const pending = new Map<number, Pending>()
   const errors: string[] = []
   let loaded: (() => void) | null = null
+  const listeners = new Map<string, ((params: any) => void)[]>()
   ws.onmessage = message => {
     const data = JSON.parse(String(message.data))
+    if (data.method) for (const listener of listeners.get(data.method) ?? []) listener(data.params)
     if (data.id) {
       const call = pending.get(data.id)!
       pending.delete(data.id)
@@ -92,7 +98,7 @@ export async function launch(width = 1440, height = 960): Promise<Page> {
   })
   await send('Page.enable')
   await send('Runtime.enable')
-  await send('Emulation.setDeviceMetricsOverride', { width, height, deviceScaleFactor: 1, mobile: false })
+  await send('Emulation.setDeviceMetricsOverride', { width, height, deviceScaleFactor: scale, mobile: false })
 
   const evaluate = async (expression: string) => {
     // A DOM node cannot be returned by value; finding one counts as true.
@@ -138,6 +144,8 @@ export async function launch(width = 1440, height = 960): Promise<Page> {
       mkdirSync(dirname(file), { recursive: true })
       writeFileSync(file, Buffer.from(shot.data, 'base64'))
     },
+    cdp: (method: string, params: object = {}) => send(method, params),
+    on: (method: string, listener: (params: any) => void) => { (listeners.get(method) ?? listeners.set(method, []).get(method)!).push(listener) },
     async close() {
       ws.close()
       await new Promise<void>(resolve => { if (child.exitCode !== null) resolve(); else { child.once('exit', () => resolve()); child.kill('SIGTERM') } })

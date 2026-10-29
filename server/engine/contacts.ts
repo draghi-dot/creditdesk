@@ -15,7 +15,7 @@ import { undeliverable } from '../../src/workspace.ts'
 import type { CodexConfig } from './codex.ts'
 import { askCodex } from './codex.ts'
 
-export const USER_AGENT = 'CreditDesk/1.0 (corporate lending review; public pages only)'
+export const USER_AGENT = 'Finra/1.0 (corporate lending review; public pages only)'
 
 export interface FoundContact {
   email: string

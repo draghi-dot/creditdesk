@@ -9,7 +9,8 @@ import { createHash, randomUUID } from 'node:crypto'
 import type { DatabaseSync } from 'node:sqlite'
 import type { Finding } from '../src/assessment.ts'
 import type { Company } from '../src/types.ts'
-import type { ActivityEvent, Case, CaseEvent, CaseEventKind, CaseStatus, CompanyRequest, Contact, DepartmentId, SuggestionSet, User, WorkspaceSettings } from '../src/workspace.ts'
+import type { ActivityEvent, Case, CaseEvent, CaseEventKind, CaseStatus, ClientRisk, CompanyRequest, Contact, DepartmentId, SuggestionSet, User, WorkspaceSettings } from '../src/workspace.ts'
+import type { CreditLine } from '../src/monitoring.ts'
 import { DEPARTMENTS, undeliverable } from '../src/workspace.ts'
 
 /** The employees a new workspace starts with. The first is signed in by default. */
@@ -55,6 +56,8 @@ export class Workspace {
       CREATE TABLE IF NOT EXISTS activity (id TEXT PRIMARY KEY, company_id TEXT NOT NULL, time TEXT NOT NULL, payload TEXT NOT NULL);
       CREATE INDEX IF NOT EXISTS activity_company ON activity (company_id, time);
       CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY, value TEXT NOT NULL);
+      CREATE TABLE IF NOT EXISTS client_risk (company_id TEXT PRIMARY KEY, payload TEXT NOT NULL);
+      CREATE TABLE IF NOT EXISTS signed_clients (company_id TEXT PRIMARY KEY, signed_at TEXT NOT NULL, payload TEXT NOT NULL);
     `)
     const columns = (db.prepare('PRAGMA table_info(contacts)').all() as { name: string }[]).map(c => c.name)
     if (!columns.includes('source')) db.exec("ALTER TABLE contacts ADD COLUMN source TEXT NOT NULL DEFAULT 'added'; ALTER TABLE contacts ADD COLUMN source_url TEXT; ALTER TABLE contacts ADD COLUMN verified INTEGER")
@@ -113,15 +116,45 @@ export class Workspace {
       .run(randomUUID(), companyId, contact.name.slice(0, 120), contact.role.slice(0, 80), contact.email.slice(0, 200), contact.phone.slice(0, 40), foundBy, now(), contact.sourceUrl.slice(0, 500), contact.verified ? 1 : 0)
   }
 
+  // ─── Early warning ─────────────────────────────────────────────────────────
+
+  risk(companyId: string): ClientRisk {
+    const row = this.db.prepare('SELECT payload FROM client_risk WHERE company_id = ?').get(companyId) as { payload: string } | undefined
+    return row ? JSON.parse(row.payload) : { companyId, watchlist: null, freeze: null }
+  }
+
+  saveRisk(risk: ClientRisk): ClientRisk {
+    this.db.prepare('INSERT INTO client_risk (company_id, payload) VALUES (?, ?) ON CONFLICT(company_id) DO UPDATE SET payload = excluded.payload').run(risk.companyId, JSON.stringify(risk))
+    return risk
+  }
+
+  allRisk(): ClientRisk[] {
+    return (this.db.prepare('SELECT payload FROM client_risk').all() as { payload: string }[]).map(r => JSON.parse(r.payload))
+  }
+
+  // ─── Signed clients ────────────────────────────────────────────────────────
+
+  /** Applications whose contract was signed, with the credit line made from them. */
+  signedClients(): { companyId: string; signedAt: string; creditLine: CreditLine }[] {
+    return (this.db.prepare('SELECT company_id, signed_at, payload FROM signed_clients ORDER BY signed_at').all() as Record<string, string>[]).map(r => ({ companyId: r.company_id, signedAt: r.signed_at, creditLine: JSON.parse(r.payload) }))
+  }
+
+  saveSignedClient(companyId: string, creditLine: CreditLine): void {
+    this.db.prepare('INSERT INTO signed_clients (company_id, signed_at, payload) VALUES (?, ?, ?) ON CONFLICT(company_id) DO UPDATE SET payload = excluded.payload').run(companyId, new Date().toISOString(), JSON.stringify(creditLine))
+  }
+
   // ─── Settings ──────────────────────────────────────────────────────────────
 
+  /** Sending is simulated unless real email is switched on for the engine (CREDITDESK_REAL_EMAIL=on). */
   settings(): WorkspaceSettings {
+    const realEmail = process.env.CREDITDESK_REAL_EMAIL === 'on'
     const row = this.db.prepare("SELECT value FROM settings WHERE key = 'delivery'").get() as { value: string } | undefined
-    return { delivery: row?.value === 'live' ? 'live' : 'test' }
+    return { delivery: !realEmail ? 'simulated' : row?.value === 'live' ? 'live' : row?.value === 'test' ? 'test' : 'simulated', realEmail }
   }
 
   setDelivery(delivery: unknown): WorkspaceSettings {
-    if (delivery !== 'test' && delivery !== 'live') throw Object.assign(new Error('Delivery is test or live'), { status: 400 })
+    if (delivery !== 'simulated' && delivery !== 'test' && delivery !== 'live') throw Object.assign(new Error('Delivery is simulated, test or live'), { status: 400 })
+    if (delivery !== 'simulated' && process.env.CREDITDESK_REAL_EMAIL !== 'on') throw Object.assign(new Error('Real email is switched off in this workspace: sending is simulated.'), { status: 400 })
     this.db.prepare("INSERT INTO settings (key, value) VALUES ('delivery', ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value").run(delivery)
     return this.settings()
   }
@@ -237,7 +270,8 @@ export class Workspace {
   requests(filter: { companyId?: string; caseId?: string }): CompanyRequest[] {
     const rows = (filter.caseId
       ? this.db.prepare('SELECT payload FROM requests WHERE case_id = ? ORDER BY created_at DESC').all(filter.caseId)
-      : this.db.prepare('SELECT payload FROM requests WHERE company_id = ? ORDER BY created_at DESC').all(filter.companyId ?? '')) as { payload: string }[]
+      : filter.companyId !== undefined ? this.db.prepare('SELECT payload FROM requests WHERE company_id = ? ORDER BY created_at DESC').all(filter.companyId)
+      : this.db.prepare('SELECT payload FROM requests ORDER BY created_at DESC').all()) as { payload: string }[]
     return rows.map(r => JSON.parse(r.payload))
   }
 

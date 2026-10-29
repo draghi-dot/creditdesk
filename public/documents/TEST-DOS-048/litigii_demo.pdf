@@ -16,7 +16,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 6 0 R >>
 endobj
 6 0 obj
-<< /Length 696 >>
+<< /Length 1844 >>
 stream
 0.98 0.87 0.04 rg 0 790 595 52 re f
 0 0 0 rg BT /F2 14 Tf 36 811 Td (LITIGII DEMO / DEMO) Tj ET
@@ -24,9 +24,40 @@ BT /F1 8 Tf 36 794 Td (TEST-DOS-048 | SPHERA FRANCHISE GROUP | CUI 37586457) Tj 
 0.7 0.08 0.08 rg BT /F2 8 Tf 36 770 Td (SIMULAT / HACKATHON - FARA VALOARE JURIDICA) Tj ET
 0 0 0 rg BT /F1 9 Tf 36 746 Td 14 TL
 (SIMULAT / HACKATHON - fara valoare juridica; nu este document bancar sau raport real.) Tj T*
-(Dosar: TEST-DOS-048) Tj T*
-(Registru local SIMULAT: zero litigii generate in fixture.) Tj T*
-(Aceasta absenta nu spune nimic despre procesele reale. Portal.just.ro/BPI/ONRC neinterogate.) Tj T*
+() Tj T*
+(Dosar: TEST-DOS-048 | Document: TEST-DOC-048-LITIGII_DEMO) Tj T*
+(Identitate publica de referinta: SPHERA FRANCHISE GROUP) Tj T*
+(CUI public: 37586457) Tj T*
+(Toate datele bancare de mai jos sunt inventate; nu descriu firma reala.) Tj T*
+(Emitent: simulator HACKATHON, fara acces la sistemele bancii.) Tj T*
+(Data referinta: 2026-09-30 | Moneda RON | Unitate 1 RON) Tj T*
+() Tj T*
+(LITIGII DEMO) Tj T*
+() Tj T*
+(--- Pozitia 1 ---) Tj T*
+(sursa_id: TEST-SRC-048-LOCAL) Tj T*
+(numar_dosar: TEST-LIT-048/DEMO/2026) Tj T*
+(instanta: Instanta fictiva HACKATHON) Tj T*
+(data_inregistrare: 2026-06-15) Tj T*
+(data_ultima_actualizare: 2026-10-20) Tj T*
+(nume_parte: SIMULAT: SPHERA FRANCHISE GROUP) Tj T*
+(rol_procesual: parat) Tj T*
+(obiect: SIMULAT: pretentii fabricate pentru demonstratie) Tj T*
+(stadiu: SIMULAT_fond) Tj T*
+(pretentii_valoare: 2961200.0) Tj T*
+(moneda: RON) Tj T*
+(expunere_estimata: 2591050.0) Tj T*
+(provizion_contabil: 0) Tj T*
+(urmator_termen: 2026-11-20) Tj T*
+(solutie_pe_scurt: NECUNOSCUT / neaplicabil) Tj T*
+(definitiva: nu) Tj T*
+(potrivire_entitate: confirmata) Tj T*
+(dovezi_potrivire: SIMULAT: identitatea are sens numai in fixture; nu afirma existenta unui proces) Tj T*
+(real.) Tj T*
+(url: NECUNOSCUT / neaplicabil) Tj T*
+(colectat_la: 2026-10-28T09:28:00+00:00) Tj T*
+(verificat_uman: nu) Tj T*
+() Tj T*
 ET
 0.35 0.35 0.35 rg BT /F1 8 Tf 36 30 Td (DEMO | pagina 1/1 | Datele bancare sunt fabricate.) Tj ET
 endstream
@@ -43,5 +74,5 @@ xref
 trailer
 << /Size 7 /Root 1 0 R >>
 startxref
-1149
+2298
 %%EOF

@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 import type { FormEvent, ReactNode } from 'react'
-import { Check, CircleAlert, Mail, PenLine, Plus, Send, Trash2, UserRound, X } from 'lucide-react'
+import { Check, CircleAlert, LoaderCircle, Mail, PenLine, Plus, Send, Trash2, UserRound, X } from 'lucide-react'
 import type { Company } from './types'
 import type { CompanyRequest, Contact, GmailState, WorkspaceSettings } from './workspace'
 import { undeliverable } from './workspace'
-import { Button, Dialog } from './components'
+import { Button, Dialog, Select } from './components'
 import { actingUser, when } from './runs'
 import type { Drafted } from './people'
 import { findContact, getSettings, gmailConnectUrl, listContacts, removeContact, saveContact, saveRequest, sendRequest, setDelivery } from './people'
@@ -77,8 +77,8 @@ export function DraftRequestButton({ label = 'Draft a request', draft, onDrafted
     <Button small={small} onClick={() => setOpen(true)}><Mail size={14} />{label}</Button>
     {open && <Dialog title="Draft a request to the company" description="The assistant writes a draft from the problems on file. You review and edit it before sending." onClose={() => !busy && setOpen(false)}>
       <form onSubmit={submit}><div className="form-content">
-        <label className="field-label">To<select value={contactId} onChange={e => setContactId(e.target.value)}>{reachable.length ? reachable.map(c => <option key={c.id} value={c.id}>{c.name} · {c.role}</option>) : <option value="">No contact on file (add one, or fill in the address in the draft)</option>}</select></label>
-        <label className="field-label">Language<select value={language} onChange={e => setLanguage(e.target.value as 'en' | 'ro')}><option value="en">English</option><option value="ro">Romanian</option></select></label>
+        <label className="field-label">To<Select label="To" value={contactId} onChange={setContactId} options={reachable.length ? reachable.map(c => ({ value: c.id, label: c.name + ' · ' + c.role })) : [{ value: '', label: 'No contact on file (add one, or fill in the address in the draft)' }]} /></label>
+        <label className="field-label">Language<Select label="Language" value={language} onChange={v => setLanguage(v as 'en' | 'ro')} options={[{ value: 'en', label: 'English' }, { value: 'ro', label: 'Romanian' }]} /></label>
         <label className="field-label">Anything to add (optional)<textarea rows={3} value={instructions} onChange={e => setInstructions(e.target.value)} placeholder="e.g. ask for the signed version; mention our call on Tuesday" /></label>
         {error && <p className="form-error"><CircleAlert size={14} />{error}</p>}
         {busy && <p className="field-help">The assistant is writing the draft. This usually takes 10–60 seconds; nothing is sent.</p>}
@@ -88,26 +88,35 @@ export function DraftRequestButton({ label = 'Draft a request', draft, onDrafted
 }
 
 /** What still stands between this employee and a sent request, and where Send delivers. */
-export function SendChecklist({ contacts, gmail, requests, assistant }: { contacts: Contact[]; gmail: GmailState | null; requests: CompanyRequest[]; assistant?: string | null }) {
+/** The workspace's delivery setting, read once and shared by every request on the page. */
+let settingsOnce: Promise<WorkspaceSettings> | null = null
+function useSettings(): [WorkspaceSettings | null, (s: WorkspaceSettings) => void] {
   const [settings, setSettings] = useState<WorkspaceSettings | null>(null)
+  useEffect(() => { (settingsOnce ??= getSettings().catch(e => { settingsOnce = null; throw e })).then(setSettings).catch(() => {}) }, [])
+  return [settings, s => { settingsOnce = Promise.resolve(s); setSettings(s) }]
+}
+
+export function SendChecklist({ contacts, gmail, requests, assistant }: { contacts: Contact[]; gmail: GmailState | null; requests: CompanyRequest[]; assistant?: string | null }) {
+  const [settings, setSettings] = useSettings()
   const [confirm, setConfirm] = useState(false)
-  useEffect(() => { getSettings().then(setSettings).catch(() => {}) }, [])
+  const simulated = settings?.delivery === 'simulated'
   const contact = contacts.find(c => !c.placeholder && c.email)
   const drafted = requests.some(r => r.status !== 'sent')
   const steps: { done: boolean; label: ReactNode }[] = [
     { done: !!contact, label: contact ? <>Contact: {contact.name} &lt;{contact.email}&gt;</> : <>No contact email yet: <strong>Find the published contact</strong> under Contacts, or add one</> },
-    { done: !!gmail?.connected, label: gmail?.connected ? <>Gmail: {gmail.connected.email}</>
+    ...(simulated ? [] : [{ done: !!gmail?.connected, label: gmail?.connected ? <>Gmail: {gmail.connected.email}</>
       : gmail?.configured ? <><a href={gmailConnectUrl(actingUser(), '/#' + window.location.hash.slice(1))}>Connect your Gmail</a> (sends from your own mailbox)</>
-      : <>Gmail is not set up for this workspace yet: an OAuth client must be added once (README → Gmail)</> },
+      : <>Gmail is not set up for this workspace yet: an OAuth client must be added once (README → Gmail)</> }]),
     { done: drafted, label: drafted ? <>Suggested email ready to review</> : assistant ? <>{assistant}…</> : <>No email yet: <strong>Draft request</strong></> },
   ]
   const live = settings?.delivery === 'live'
   return <>
     {!steps.every(st => st.done) && <div className="send-checklist"><span>Before a request can be sent</span><ul>{steps.map((st, i) => <li key={i} className={st.done ? 'done' : ''}>{st.done ? <Check size={13} /> : <X size={13} />}<span>{st.label}</span></li>)}</ul></div>}
-    {settings && <div className={'delivery-mode' + (live ? ' live' : '')}>{live ? <>Live delivery: Send goes to the company contact.</> : <>Test delivery: Send puts a copy in your own mailbox, marked with the address it would go to.</>}
-      <button className="link-button" onClick={() => live ? setDelivery('test').then(setSettings) : setConfirm(true)}>{live ? 'Back to test delivery' : 'Switch to live'}</button></div>}
+    {settings && (simulated ? <div className="delivery-mode simulated">Simulated sending: Send records the email as sent, with who, when and to whom. No email leaves Finra.</div>
+      : <div className={'delivery-mode' + (live ? ' live' : '')}>{live ? <>Live delivery: Send goes to the company contact.</> : <>Test delivery: Send puts a copy in your own mailbox, marked with the address it would go to.</>}
+      <button className="link-button" onClick={() => live ? setDelivery('test').then(setSettings) : setConfirm(true)}>{live ? 'Back to test delivery' : 'Switch to live'}</button></div>)}
     {confirm && <Dialog title="Send requests to the real companies?" description="Live delivery affects every employee in this workspace." onClose={() => setConfirm(false)}>
-      <div className="form-content"><p className="dialog-text">The companies in CreditDesk are real, listed companies, and the contacts the assistant finds are their real public addresses. The applications, figures and staff in this workspace are not real. With live delivery, Send emails the company directly from your Gmail. Only switch if the application and the request are genuine.</p></div>
+      <div className="form-content"><p className="dialog-text">The companies in Finra are real, listed companies, and the contacts the assistant finds are their real public addresses. The applications, figures and staff in this workspace are not real. With live delivery, Send emails the company directly from your Gmail. Only switch if the application and the request are genuine.</p></div>
       <div className="dialog-actions"><Button onClick={() => setConfirm(false)}>Keep test delivery</Button><Button variant="primary" onClick={async () => { setSettings(await setDelivery('live')); setConfirm(false) }}>Switch to live delivery</Button></div>
     </Dialog>}
   </>
@@ -117,12 +126,13 @@ const statusText: Record<CompanyRequest['status'], string> = { draft: 'Draft', s
 
 /** Requests to the company: drafts to review and send, and what was sent, by whom and when. */
 export function RequestList({ requests, gmail, onChange, toast }: { requests: CompanyRequest[]; gmail: GmailState | null; onChange: (r: CompanyRequest) => void; toast: (s: string) => void }) {
-  const [open, setOpen] = useState<string | null>(requests.find(r => r.status !== 'sent')?.id ?? null)
+  // A draft to review opens by itself; so does an email sent a moment ago, to show it went.
+  const [open, setOpen] = useState<string | null>(requests.find(r => r.status !== 'sent')?.id ?? requests.find(r => r.status === 'sent' && r.sentAt && Date.now() - Date.parse(r.sentAt) < 60_000)?.id ?? null)
   if (!requests.length) return <p className="side-card-empty">No requests yet.</p>
   return <ul className="request-list">{requests.map(r => <li key={r.id} className={'request-' + r.status}>
     <button className="request-row" onClick={() => setOpen(o => o === r.id ? null : r.id)} aria-expanded={open === r.id}>
       <span className={'request-status status-' + r.status}>{statusText[r.status]}</span>
-      <div><strong>{r.subject}</strong><span>{r.status === 'sent' ? (r.testDelivery ? 'Test copy to ' + r.deliveredTo + ' by ' : 'Sent by ') + r.sentBy + ' · ' + when(r.sentAt!) + (r.testDelivery ? '' : ' · to ' + (r.to.name || r.to.email)) : 'Drafted ' + when(r.createdAt) + (r.draftedBy.startsWith('Codex') ? ' by the assistant' : '')}</span></div>
+      <div><strong>{r.subject}</strong><span>{r.status === 'sent' ? (r.testDelivery ? 'Test copy to ' + r.deliveredTo + ' by ' : 'Sent by ') + r.sentBy + ' · ' + when(r.sentAt!) + (r.testDelivery ? '' : ' · to ' + (r.to.name || r.to.email)) + (r.simulated ? ' · simulated' : '') : 'Drafted ' + when(r.createdAt) + (r.draftedBy.startsWith('Codex') ? ' by the assistant' : '')}</span></div>
     </button>
     {open === r.id && <RequestEditor request={r} gmail={gmail} onChange={onChange} toast={toast} />}
   </li>)}</ul>
@@ -132,20 +142,28 @@ export function RequestEditor({ request, gmail, onChange, toast }: { request: Co
   const [draft, setDraft] = useState(request)
   const [busy, setBusy] = useState<'save' | 'send' | null>(null)
   const [error, setError] = useState(request.error ?? '')
+  const [settings] = useSettings()
+  const simulated = settings?.delivery === 'simulated'
   const sent = request.status === 'sent'
   const changed = JSON.stringify([draft.to, draft.subject, draft.body]) !== JSON.stringify([request.to, request.subject, request.body])
   const blocker = !draft.to.email ? 'Add the recipient\'s email address.' : undeliverable(draft.to.email) ? 'The recipient\'s email address is not valid.'
-    : !gmail?.configured ? 'Gmail is not set up for this workspace yet.' : !gmail.connected ? 'Connect your Gmail (your name, top right) to send.' : ''
+    : !settings ? 'Checking how sending works here…' : simulated ? '' : !gmail?.configured ? 'Gmail is not set up for this workspace yet.' : !gmail.connected ? 'Connect your Gmail (your name, top right) to send.' : ''
   const save = async () => { setBusy('save'); try { onChange(await saveRequest(request.id, { to: draft.to, subject: draft.subject, body: draft.body })); setError('') } catch (e: any) { setError(e.message) } finally { setBusy(null) } }
   const send = async () => {
     setBusy('send')
     try {
       if (changed) await saveRequest(request.id, { to: draft.to, subject: draft.subject, body: draft.body })
       const done = await sendRequest(request.id)
-      onChange(done); setError(''); toast('Request sent to ' + (done.to.name || done.to.email))
-    } catch (e: any) { setError(e.message) } finally { setBusy(null) }
+      onChange(done); setError(''); toast((done.simulated ? 'Email recorded as sent to ' : 'Request sent to ') + (done.to.name || done.to.email) + (done.simulated ? ' (simulated)' : ''))
+    } catch (e: any) {
+      setError(e.message)
+      // The engine forgot a mailbox that cannot send; the session shows Connect Gmail again.
+      if (/Send email on your behalf/.test(e.message)) window.dispatchEvent(new Event('creditdesk:session'))
+    } finally { setBusy(null) }
   }
-  if (sent) return <div className="request-editor request-sent"><dl><div><dt>From</dt><dd>{request.sentBy} &lt;{request.sentFrom}&gt;</dd></div><div><dt>To</dt><dd>{request.to.name} &lt;{request.to.email}&gt;</dd></div></dl><pre>{request.body}</pre></div>
+  if (sent) return <div className="request-editor request-sent">
+    <div className="sent-confirm"><Check size={15} /><div><strong>Sent {when(request.sentAt!)}</strong><span>{request.simulated ? 'Simulated delivery: recorded as sent, no email left Finra.' : request.testDelivery ? 'Test copy delivered to ' + request.deliveredTo + '.' : 'Delivered through Gmail.'}</span></div></div>
+    <dl><div><dt>From</dt><dd>{request.sentBy}{request.sentFrom && !request.sentFrom.startsWith(request.sentBy ?? '') ? <> &lt;{request.sentFrom}&gt;</> : null}</dd></div><div><dt>To</dt><dd>{request.to.name} &lt;{request.to.email}&gt;</dd></div><div><dt>Subject</dt><dd>{request.subject}</dd></div></dl><pre>{request.body}</pre></div>
   return <div className="request-editor">
     <div className="request-to"><label>To<input value={draft.to.name} placeholder="Name" onChange={e => setDraft({ ...draft, to: { ...draft.to, name: e.target.value } })} /></label><label className="request-email"><span className="visually-hidden">Email</span><input type="email" value={draft.to.email} placeholder="name@company.ro" onChange={e => setDraft({ ...draft, to: { ...draft.to, email: e.target.value } })} /></label></div>
     <label className="request-subject">Subject<input value={draft.subject} onChange={e => setDraft({ ...draft, subject: e.target.value })} /></label>
@@ -153,9 +171,9 @@ export function RequestEditor({ request, gmail, onChange, toast }: { request: Co
     {request.requirements.length > 0 && <div className="request-reqs"><span>Asks the company for</span><ul>{request.requirements.map((r, i) => <li key={i}>{r}</li>)}</ul></div>}
     {error && <p className="form-error"><CircleAlert size={14} />{error}</p>}
     <div className="request-actions">
-      <span className="request-hint">{blocker || 'Sends from ' + gmail!.connected!.email + ' when you press Send.'}</span>
+      <span className="request-hint">{blocker || (simulated ? 'Send records the email as sent; nothing leaves Finra.' : 'Sends from ' + gmail!.connected!.email + ' when you press Send.')}</span>
       {changed && <Button small onClick={save} disabled={!!busy}>{busy === 'save' ? 'Saving…' : 'Save draft'}</Button>}
-      <Button small variant="primary" onClick={send} disabled={!!busy || !!blocker}><Send size={13} />{busy === 'send' ? 'Sending…' : 'Send'}</Button>
+      <Button small variant="primary" onClick={send} disabled={!!busy || !!blocker}>{busy === 'send' ? <LoaderCircle size={13} className="spin" /> : <Send size={13} />}{busy === 'send' ? 'Sending…' : 'Send'}</Button>
     </div>
   </div>
 }

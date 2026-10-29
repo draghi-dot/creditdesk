@@ -39,6 +39,22 @@ export interface RunEnv {
   signal: AbortSignal
 }
 
+/**
+ * How long each step stays in view, per worker. The work itself takes
+ * milliseconds; at that speed a run looks finished before anyone can follow
+ * it. CREDITDESK_PACE scales it (1 by default, 0 turns it off; tests run at 0).
+ */
+const STEP_MS: Record<AgentId, number> = { intake: 350, extraction: 1100, research: 900, ledger: 1200, credit: 1100, legal: 900, cashflow: 1400, collateral: 1000, policy: 1200, handoff: 900 }
+export function pause(ms: number, signal: AbortSignal): Promise<void> {
+  const scaled = ms * Number(process.env.CREDITDESK_PACE ?? 1)
+  if (!(scaled > 0) || signal.aborted) return Promise.resolve()
+  return new Promise(resolve => {
+    const timer = setTimeout(done, scaled)
+    function done() { clearTimeout(timer); signal.removeEventListener('abort', done); resolve() }
+    signal.addEventListener('abort', done, { once: true })
+  })
+}
+
 export class WorkerContext {
   readonly id: AgentId
   readonly env: RunEnv
@@ -60,9 +76,12 @@ export class WorkerContext {
     if (this.env.signal.aborted) throw this.env.signal.reason ?? new Error('cancelled')
   }
 
-  activity(text: string, documentId?: string, page?: number): void {
+  /** Records a step, then lets it be seen for a moment before the next one (see `pause`). */
+  async activity(text: string, documentId?: string, page?: number): Promise<void> {
     this.checkpoint()
     this.env.emit('worker_activity', this.id, { text, documentId, page })
+    await pause(STEP_MS[this.id], this.env.signal)
+    this.checkpoint()
   }
 
   check(check: CheckResult): void {
@@ -194,8 +213,9 @@ export async function schedule(env: RunEnv, roles: RoleDef[], workers: Record<Ag
       inflight++
       void (async () => {
         try {
-          // Let sibling dispatch events land before this worker's first step.
+          // Let sibling dispatch events land before this worker's first step, and the dispatch be seen.
           await new Promise(resolve => setImmediate(resolve))
+          await pause(600, env.signal)
           const summary = await workers[role.id](ctx)
           env.emit('worker_completed', role.id, { summary })
           done.add(role.id)

@@ -85,8 +85,9 @@ export interface Contact {
 }
 
 /** How Send delivers: a copy to the sender's own mailbox (test) or to the company (live). */
-export type Delivery = 'test' | 'live'
-export interface WorkspaceSettings { delivery: Delivery }
+/** simulated: Send records the email as sent and nothing leaves Finra; test and live use Gmail and need CREDITDESK_REAL_EMAIL=on. */
+export type Delivery = 'simulated' | 'test' | 'live'
+export interface WorkspaceSettings { delivery: Delivery; realEmail: boolean }
 
 export type RequestStatus = 'draft' | 'sent' | 'failed'
 
@@ -109,6 +110,8 @@ export interface CompanyRequest {
   /** Where the message actually went; differs from `to` for a test delivery. */
   deliveredTo?: string | null
   testDelivery?: boolean
+  /** Recorded as sent without any email leaving Finra. */
+  simulated?: boolean
 }
 
 /** What the assistant suggests for one problem: an internal comment and what to ask of the company. */
@@ -157,3 +160,34 @@ export interface CaseReport {
 
 /** True for addresses that cannot receive mail: reserved test domains used when no contact is on file. */
 export const undeliverable = (email: string) => !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || /\.(invalid|example|test|localhost)$/i.test(email) || /@example\.(com|org|net)$/i.test(email)
+
+// ─── Early warning for credit clients ─────────────────────────────────────────
+
+/** What the bank can do about a serious monitoring signal; the assistant only proposes these. */
+export type RiskAction = 'watchlist' | 'information' | 'freeze' | 'reassess' | 'legal'
+export const riskActionLabels: Record<RiskAction, string> = { watchlist: 'Put on watchlist', information: 'Request information', freeze: 'Freeze drawdowns', reassess: 'Run a new assessment', legal: 'Send to Legal' }
+export type WatchGrade = 'amber' | 'red'
+export interface ClientRisk {
+  companyId: string
+  watchlist: { grade: WatchGrade; owner: string; reviewDate: string; reason: string; since: string; by: string; caseId: string | null } | null
+  /** Further drawdowns stopped: requested by one employee, in force once a second one approves. */
+  freeze: { status: 'requested' | 'active'; reason: string; requestedBy: string; requestedAt: string; approvedBy: string | null; approvedAt: string | null } | null
+}
+export const riskStatus = (r: ClientRisk | null): { label: string; tone: 'ok' | 'amber' | 'red' } =>
+  r?.watchlist ? { label: 'Watchlist · ' + r.watchlist.grade + (r.freeze?.status === 'active' ? ' · drawdowns frozen' : ''), tone: r.watchlist.grade } : r?.freeze?.status === 'active' ? { label: 'Drawdowns frozen', tone: 'red' } : { label: 'Performing', tone: 'ok' }
+
+// ─── From an application to a signed client ───────────────────────────────────
+
+/** The sections an analyst reviews before the decision, in order. */
+export const REVIEW_SECTIONS = ['findings', 'financials', 'documents', 'scenarios', 'audit'] as const
+export type ReviewSection = typeof REVIEW_SECTIONS[number]
+export interface Workflow {
+  runId: string
+  reviewed: Partial<Record<ReviewSection, { by: string; at: string }>>
+  recommendation: { by: string; at: string; value: string } | null
+  approval: { by: string; at: string } | null
+  sent: { by: string; at: string; to: string } | null
+  signed: { by: string; at: string } | null
+  /** Set once the signed application became a credit client. */
+  client: boolean
+}

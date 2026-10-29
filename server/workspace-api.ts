@@ -9,16 +9,19 @@ import { randomUUID } from 'node:crypto'
 import type { IncomingMessage, ServerResponse } from 'node:http'
 import type { Finding } from '../src/assessment.ts'
 import { foldAll } from '../src/assessment.ts'
-import { decisionLabels } from '../src/analysis.ts'
+import { decisionLabels, money } from '../src/analysis.ts'
 import type { Company, Policy } from '../src/types.ts'
 import type { CompanyRequest, GmailState, User } from '../src/workspace.ts'
-import { DEPARTMENTS, undeliverable } from '../src/workspace.ts'
+import { DEPARTMENTS, REVIEW_SECTIONS, type ReviewSection, type Workflow, undeliverable } from '../src/workspace.ts'
 import { type Language, caseReport, draftRequest, suggest } from './engine/agent.ts'
 import { ANAF_ENDPOINT, lookupAnaf } from './engine/anaf.ts'
 import { findContact } from './engine/contacts.ts'
 import type { Batch } from './engine/batch.ts'
 import type { Engine } from './engine/engine.ts'
 import type { Monitor } from './engine/monitor.ts'
+import { SIMULATIONS } from '../src/monitoring.ts'
+import type { CreditLine, MonitorEvent } from '../src/monitoring.ts'
+import { type Signal, discuss, informationRequest, riskNote, signalFacts } from './engine/earlywarning.ts'
 import * as gmail from './gmail.ts'
 import { readJson, send } from './http.ts'
 import type { Store } from './store.ts'
@@ -36,9 +39,13 @@ export interface WorkspaceContext {
   dataDir: string
   policyFrom: (body: any) => Policy
   refreshProvider: () => Promise<void>
+  /** Makes a credit client of a signed application (credit line, monitoring). */
+  makeClient: (app: Company, creditLine: CreditLine) => Company
+  clients: () => Company[]
 }
 
 const fail = (status: number, message: string) => Object.assign(new Error(message), { status })
+const text = (v: unknown, max: number, fallback: string) => typeof v === 'string' ? v.slice(0, max) : fallback
 const language = (v: unknown): Language => v === 'ro' ? 'ro' : 'en'
 
 export function workspaceRoutes(ctx: WorkspaceContext) {
@@ -185,6 +192,71 @@ export function workspaceRoutes(ctx: WorkspaceContext) {
         }
       }
 
+      // ─── From an application to a signed client ──────────────────────────
+      if (area === 'companies' && companies.has(id ?? '') && sub === 'workflow') {
+        const company = companyOf(id)
+        const body = method === 'POST' ? await readJson(req) : {}
+        const runId = method === 'GET' ? url.searchParams.get('run') ?? '' : String(body.runId ?? '')
+        const run = store.run(runId)
+        if (!run || run.companyId !== company.id) throw fail(404, 'No such assessment for this company')
+        const state = (): Workflow => {
+          const log = workspace.activity(company.id).filter(e => e.payload?.runId === runId)
+          const last = (action: string) => [...log].reverse().find(e => e.action === action)
+          const reviewed: Workflow['reviewed'] = {}
+          for (const e of log) if (e.action === 'Section reviewed' && REVIEW_SECTIONS.includes(e.payload.section)) reviewed[e.payload.section as ReviewSection] = { by: e.actor, at: e.time }
+          const rec = last('Review recorded'), ok = last('Credit approval granted'), sent = last('Contract sent for signature'), signed = last('Contract signature recorded')
+          return { runId, reviewed, recommendation: rec ? { by: rec.actor, at: rec.time, value: rec.payload.recommendation } : null, approval: ok ? { by: ok.actor, at: ok.time } : null,
+            sent: sent ? { by: sent.actor, at: sent.time, to: sent.payload.to } : null, signed: signed ? { by: signed.actor, at: signed.time } : null, client: ctx.clients().some(c => c.id === company.id) }
+        }
+        if (method === 'GET') return reply(200, state())
+        const actor = actorOf(req)
+        const now = state()
+        const eligible = run.status === 'completed' && run.decision === 'ELIGIBIL'
+        const contract = company.tables.documente.find(d => d.tip_document === 'contract_demo')
+        if (body.action === 'review') {
+          if (!REVIEW_SECTIONS.includes(body.section)) throw fail(400, 'Unknown section')
+          workspace.appendActivity(company.id, 'Section reviewed', String(body.section), actor.name, { runId, section: body.section })
+          return reply(200, state())
+        }
+        if (body.action === 'approve') {
+          if (!eligible) throw fail(409, 'Only an eligible assessment can be approved')
+          if (REVIEW_SECTIONS.some(sec => !now.reviewed[sec])) throw fail(409, 'Every section has to be reviewed first')
+          if (now.recommendation?.value !== 'approval') throw fail(409, 'An analyst has to record an approval recommendation first')
+          // Four eyes: the analyst who recommended cannot also approve.
+          if (now.recommendation.by === actor.name) throw fail(409, 'A second employee has to approve (switch employee from the menu)')
+          workspace.appendActivity(company.id, 'Credit approval granted', 'Approved as recommended by ' + now.recommendation.by, actor.name, { runId })
+          return reply(200, state())
+        }
+        if (body.action === 'send') {
+          if (!now.approval) throw fail(409, 'The credit has to be approved first')
+          const to = workspace.contacts(company).find(c => !c.placeholder && c.email)
+          await new Promise(r => setTimeout(r, Number(process.env.CREDITDESK_SEND_DELAY_MS ?? 2400)))
+          workspace.appendActivity(company.id, 'Contract sent for signature', (contract?.document_id ?? 'contract') + ' → ' + (to ? to.name + ' <' + to.email + '>' : 'the company\'s representative') + ' · simulated delivery', actor.name, { runId, to: to ? to.name + ' <' + to.email + '>' : 'the company\'s representative', sourceHash: contract?.sha256 })
+          return reply(200, state())
+        }
+        if (body.action === 'sign') {
+          if (!now.sent) throw fail(409, 'The contract has to be sent for signature first')
+          if (now.signed) throw fail(409, 'The signature is already recorded')
+          workspace.appendActivity(company.id, 'Contract signature recorded', 'Both parties signed; recorded against the contract\'s SHA-256 fingerprint.', actor.name, { runId, sourceHash: contract?.sha256 })
+          // The credit line is made from the application as approved.
+          const request = company.tables.solicitari[0]
+          const start = new Date()
+          const add = (months: number) => { const d = new Date(start); d.setMonth(d.getMonth() + months); return d.toISOString().slice(0, 10) }
+          const policy = run.policy
+          const creditLine: CreditLine = {
+            facilityId: 'CL-' + start.getFullYear() + '-' + company.id.slice(-3), product: 'Investment loan', limit: request.suma_solicitata, currency: 'RON', drawn: 0, rate: request.dobanda_anuala_ipoteza,
+            termMonths: request.durata_luni, approvedAt: now.approval!.at.slice(0, 10), approvedBy: now.approval!.by, startDate: start.toISOString().slice(0, 10), maturity: add(request.durata_luni), nextReview: add(12),
+            relationshipManager: now.recommendation!.by, covenants: { dscrMin: policy.dscr_min, leverageMax: policy.datorie_ebitda_max, liquidityMin: policy.lichiditate_min },
+            collateral: (company.tables.garantii ?? []).filter((g: any) => (company.tables.scenarii?.[0]?.garantie_ids ?? []).includes(g.garantie_id)).map((g: any) => ({ type: g.tip, acceptedValue: g.valoare_acceptata_banca })),
+          }
+          workspace.saveSignedClient(company.id, creditLine)
+          ctx.makeClient(company, creditLine)
+          workspace.appendActivity(company.id, 'Became a credit client', creditLine.facilityId + ' · ' + money(creditLine.limit) + ' over ' + creditLine.termMonths + ' months · live monitoring started', actor.name, { runId, facilityId: creditLine.facilityId })
+          return reply(200, state())
+        }
+        throw fail(400, 'Unknown step')
+      }
+
       // ─── Company contacts, requests and suggestions ──────────────────────
       if (area === 'companies' && companies.has(id ?? '') && (sub === 'contacts' || sub === 'requests' || sub === 'suggestions')) {
         const company = companyOf(id)
@@ -227,6 +299,7 @@ export function workspaceRoutes(ctx: WorkspaceContext) {
           }
         }
       }
+      if (is('GET', 'requests', 2)) return reply(200, workspace.requests({}))
       if (area === 'requests' && id) {
         const request = workspace.request(id)
         if (!request) throw fail(404, 'No such request')
@@ -234,7 +307,6 @@ export function workspaceRoutes(ctx: WorkspaceContext) {
         if (method === 'POST' && parts.length === 3) {
           if (request.status === 'sent') throw fail(409, 'This request was already sent')
           const body = await readJson(req)
-          const text = (v: unknown, max: number, fallback: string) => typeof v === 'string' ? v.slice(0, max) : fallback
           return reply(200, workspace.saveRequest({
             ...request, subject: text(body.subject, 300, request.subject), body: text(body.body, 20_000, request.body),
             requirements: Array.isArray(body.requirements) ? body.requirements.map(String).slice(0, 30) : request.requirements,
@@ -244,17 +316,26 @@ export function workspaceRoutes(ctx: WorkspaceContext) {
         if (method === 'POST' && sub === 'send') {
           if (request.status === 'sent') throw fail(409, 'This request was already sent')
           if (!request.to.email || undeliverable(request.to.email)) throw fail(400, 'Add the representative\'s email address before sending')
+          const recipient = (request.to.name ? request.to.name + ' ' : '') + '<' + request.to.email + '>'
+          // Simulated sending: the email is recorded as sent after a short wait, and nothing leaves Finra.
+          if (workspace.settings().delivery === 'simulated') {
+            await new Promise(r => setTimeout(r, Number(process.env.CREDITDESK_SEND_DELAY_MS ?? 2400)))
+            const from = workspace.gmail(actor.id)?.email ?? actor.name + ' (Finra)'
+            const done = workspace.saveRequest({ ...request, status: 'sent', sentBy: actor.name, sentAt: new Date().toISOString(), sentFrom: from, error: null, deliveredTo: request.to.email, testDelivery: false, simulated: true })
+            if (request.caseId) workspace.addEvent(request.caseId, 'email', request.subject, actor, { requestId: request.id, to: request.to, from, simulated: true, deliveredTo: request.to.email })
+            workspace.appendActivity(request.companyId, 'Request sent (simulated)', request.subject + ' → ' + recipient + ' · simulated delivery: no email left Finra', actor.name, { requestId: request.id, simulated: true })
+            return reply(200, done)
+          }
           const client = gmail.loadClient(ctx.dataDir)
           if (!client) throw fail(400, 'Gmail is not set up for this workspace yet')
           const mailbox = workspace.gmail(actor.id)
           if (!mailbox) throw fail(400, 'Connect your Gmail account first (your name, top right)')
           // Test delivery sends the message to the sender's own mailbox, saying where it would have gone.
           const test = workspace.settings().delivery === 'test'
-          const recipient = (request.to.name ? request.to.name + ' ' : '') + '<' + request.to.email + '>'
           try {
             const sent = await gmail.send(client, mailbox.refreshToken, gmail.message({
               fromName: actor.name, from: mailbox.email, toName: test ? actor.name : request.to.name, to: test ? mailbox.email : request.to.email,
-              subject: (test ? '[Test] ' : '') + request.subject, body: (test ? 'Test delivery from CreditDesk. With live delivery this message goes to ' + recipient + '.\n\n' : '') + request.body,
+              subject: (test ? '[Test] ' : '') + request.subject, body: (test ? 'Test delivery from Finra. With live delivery this message goes to ' + recipient + '.\n\n' : '') + request.body,
             }))
             const done = workspace.saveRequest({ ...request, status: 'sent', sentBy: actor.name, sentAt: new Date().toISOString(), sentFrom: mailbox.email, error: null, deliveredTo: test ? mailbox.email : request.to.email, testDelivery: test })
             if (request.caseId) workspace.addEvent(request.caseId, 'email', request.subject, actor, { requestId: request.id, to: request.to, from: mailbox.email, gmailId: sent.id, test, deliveredTo: done.deliveredTo })
@@ -262,8 +343,10 @@ export function workspaceRoutes(ctx: WorkspaceContext) {
             return reply(200, done)
           } catch (err) {
             const message = err instanceof Error ? err.message : String(err)
-            workspace.saveRequest({ ...request, status: 'failed', error: message })
-            throw fail(502, message)
+            // A mailbox connected without the send permission cannot be used: forget it so Connect Gmail shows again.
+            if (err instanceof gmail.MissingSendPermission) { workspace.removeGmail(actor.id); await gmail.revoke(mailbox.refreshToken) }
+            else workspace.saveRequest({ ...request, status: 'failed', error: message })
+            throw fail(err instanceof gmail.MissingSendPermission ? 409 : 502, message)
           }
         }
       }
@@ -300,6 +383,125 @@ export function workspaceRoutes(ctx: WorkspaceContext) {
         if (!company.creditLine) throw fail(400, 'Only credit clients are monitored')
         await ctx.refreshProvider()
         return reply(200, { result: await ctx.monitor.research(company, engine.codex) })
+      }
+      // What the crawler read for a client, one article as read, and the page as it was captured.
+      if (is('GET', 'monitoring', 3) && id === 'crawl') return reply(200, ctx.monitor.crawl(companyOf(url.searchParams.get('company') ?? '').id))
+      if (is('GET', 'monitoring', 3) && id === 'page') {
+        const page = ctx.monitor.crawledPage(companyOf(url.searchParams.get('company') ?? '').id, url.searchParams.get('url') ?? '')
+        if (!page) throw fail(404, 'The crawler has not read this page')
+        return reply(200, page)
+      }
+      if (method === 'GET' && area === 'monitoring' && id === 'snapshot' && sub) {
+        const snap = ctx.monitor.snapshot(sub)
+        if (!snap) throw fail(404, 'No snapshot of this page')
+        // Shown sandboxed: no scripts run, and the page cannot reach Finra; its images and styles load from the site.
+        const head = '<base href="' + snap.url.replace(/"/g, '&quot;') + '" target="_blank">'
+        const html = /<head[^>]*>/i.test(snap.html) ? snap.html.replace(/<head[^>]*>/i, m => m + head) : head + snap.html
+        res.writeHead(200, { 'content-type': 'text/html; charset=utf-8', 'content-security-policy': "sandbox; script-src 'none'; object-src 'none'; frame-src 'none'", 'x-content-type-options': 'nosniff', 'cache-control': 'private, max-age=3600' })
+        res.end(html)
+        return true
+      }
+      // ─── Credit clients: their list, watch status and drawdowns ───────────
+      if (is('GET', 'clients', 2)) return reply(200, { clients: ctx.clients(), risk: workspace.allRisk() })
+      if (area === 'clients' && id && sub && ['risk', 'watchlist', 'freeze'].includes(sub)) {
+        const company = companyOf(id)
+        if (!company.creditLine) throw fail(400, 'Only credit clients have a watch status')
+        const actor = actorOf(req)
+        const risk = workspace.risk(company.id)
+        if (method === 'GET' && sub === 'risk') return reply(200, risk)
+        const body = method === 'POST' ? await readJson(req) : {}
+        if (sub === 'watchlist' && !subId) {
+          const grade = body.grade === 'amber' ? 'amber' : 'red'
+          const reason = text(body.reason, 400, '').trim()
+          if (!reason) throw fail(400, 'Say why the client goes on the watchlist')
+          const reviewDate = /^\d{4}-\d{2}-\d{2}$/.test(String(body.reviewDate)) ? String(body.reviewDate) : new Date(Date.now() + (grade === 'red' ? 7 : 30) * 86_400_000).toISOString().slice(0, 10)
+          // The watch is worked as a case in Credit, so it has an owner, a timeline and the requests sent.
+          const opened = risk.watchlist?.caseId && workspace.case(risk.watchlist.caseId) ? null : workspace.openCase({ company, runId: null, finding: null, department: 'credit', title: 'Early warning: ' + reason.slice(0, 120), note: 'Watchlist ' + grade + ', review by ' + reviewDate + '.' }, actor)
+          const caseId = opened?.case.id ?? risk.watchlist!.caseId
+          if (opened) workspace.updateCase(opened.case.id, { assignee: actor.id, status: 'in_progress' }, actor)
+          const saved = workspace.saveRisk({ ...risk, watchlist: { grade, owner: text(body.owner, 120, actor.name) || actor.name, reviewDate, reason, since: risk.watchlist?.since ?? new Date().toISOString(), by: actor.name, caseId } })
+          workspace.appendActivity(company.id, 'Client put on the watchlist (' + grade + ')', reason + ' · review by ' + reviewDate, actor.name, { grade, reviewDate, caseId })
+          return reply(200, saved)
+        }
+        if (sub === 'watchlist' && subId === 'clear') {
+          if (!risk.watchlist) throw fail(409, 'The client is not on the watchlist')
+          workspace.appendActivity(company.id, 'Client taken off the watchlist', text(body.note, 400, 'Watch ended.') || 'Watch ended.', actor.name, { was: risk.watchlist.grade })
+          return reply(200, workspace.saveRisk({ ...risk, watchlist: null }))
+        }
+        if (sub === 'freeze' && !subId) {
+          if (risk.freeze) throw fail(409, risk.freeze.status === 'active' ? 'Drawdowns are already frozen' : 'A freeze is already waiting for approval')
+          const reason = text(body.reason, 400, '').trim()
+          if (!reason) throw fail(400, 'Say why drawdowns should stop')
+          workspace.appendActivity(company.id, 'Drawdown freeze requested', reason + ' · waiting for a second approver', actor.name, {})
+          return reply(200, workspace.saveRisk({ ...risk, freeze: { status: 'requested', reason, requestedBy: actor.name, requestedAt: new Date().toISOString(), approvedBy: null, approvedAt: null } }))
+        }
+        if (sub === 'freeze' && subId === 'approve') {
+          if (risk.freeze?.status !== 'requested') throw fail(409, 'No freeze is waiting for approval')
+          // Four eyes: the employee who asked for the freeze cannot approve it.
+          if (risk.freeze.requestedBy === actor.name) throw fail(409, 'A second employee has to approve the freeze (switch employee from the menu)')
+          workspace.appendActivity(company.id, 'Drawdown freeze approved', 'Drawdowns of the undrawn ' + money(company.creditLine.limit - company.creditLine.drawn) + ' are stopped · asked by ' + risk.freeze.requestedBy, actor.name, {})
+          return reply(200, workspace.saveRisk({ ...risk, freeze: { ...risk.freeze, status: 'active', approvedBy: actor.name, approvedAt: new Date().toISOString() } }))
+        }
+        if (sub === 'freeze' && subId === 'lift') {
+          if (!risk.freeze) throw fail(409, 'Drawdowns are not frozen')
+          workspace.appendActivity(company.id, risk.freeze.status === 'active' ? 'Drawdown freeze lifted' : 'Drawdown freeze request withdrawn', text(body.note, 400, ''), actor.name, {})
+          return reply(200, workspace.saveRisk({ ...risk, freeze: null }))
+        }
+      }
+
+      // ─── The assistant on a monitoring signal ────────────────────────────
+      if (method === 'POST' && area === 'monitoring' && (id === 'assess' || id === 'discuss' || id === 'notice')) {
+        const body = await readJson(req)
+        const company = companyOf(body.companyId)
+        if (!company.creditLine) throw fail(400, 'Only credit clients are monitored')
+        const events = ctx.monitor.events({ companyId: company.id, limit: 300 })
+        const event = typeof body.eventId === 'string' ? events.find(e => e.id === body.eventId) ?? null : null
+        const url = typeof body.url === 'string' ? body.url : event?.data?.url
+        const page = url ? ctx.monitor.crawledPage(company.id, url) : null
+        if (!event && !page) throw fail(404, 'No such signal')
+        const signal: Signal = { title: event?.title ?? page!.title, detail: event?.detail ?? page!.sentence ?? page!.title, source: event?.source ?? 'news', severity: event?.severity ?? page!.severity ?? 'info', url, site: event?.data?.site ?? page?.site, published: event?.data?.published ?? page?.published, text: page?.text, reason: page?.reason ?? event?.data?.foundBy ?? null }
+        const others = events.filter(e => e.severity !== 'info' && !e.reviewedAt && e.id !== event?.id && e.data?.url !== url).slice(0, 8).map((e: MonitorEvent): Signal => ({ title: e.title, detail: e.detail, source: e.source, severity: e.severity, published: e.data?.published }))
+        const facts = signalFacts(company, signal, store.runs(company.id).find(r => r.status === 'completed') ?? null, workspace.risk(company.id), others)
+        await ctx.refreshProvider()
+        const controller = new AbortController()
+        res.on('close', () => { if (!res.writableEnded) controller.abort(new Error('employee left')) })
+        const actor = actorOf(req)
+        if (id === 'assess') {
+          const note = await riskNote(engine.codex, facts, signal, controller.signal)
+          workspace.appendActivity(company.id, 'Risk note written', note.value.headline + ' · ' + note.value.severity, note.author, { url, eventId: event?.id ?? null })
+          return reply(200, { ...note.value, author: note.author, unsupported: note.unsupported })
+        }
+        if (id === 'discuss') {
+          const question = text(body.question, 600, '').trim()
+          if (!question) throw fail(400, 'Ask a question')
+          const history = Array.isArray(body.history) ? body.history.slice(-6).map((h: any) => ({ question: String(h.question ?? '').slice(0, 600), answer: String(h.answer ?? '').slice(0, 1200) })) : []
+          const answer = await discuss(engine.codex, facts, question, history, controller.signal)
+          return reply(200, { ...answer.value, author: answer.author, unsupported: answer.unsupported })
+        }
+        const contact = contactFor(company, body.contactId)
+        const written = await informationRequest(engine.codex, facts, actor, contact, language(body.language), controller.signal)
+        const caseId = workspace.risk(company.id).watchlist?.caseId ?? null
+        const request = newRequest(company, caseId, contact, written.value, written.author)
+        if (caseId) workspace.addEvent(caseId, 'request', request.subject, actor, { requestId: request.id, author: written.author, unsupported: written.unsupported })
+        workspace.appendActivity(company.id, 'Request for information drafted', request.subject, actor.name, { requestId: request.id, url })
+        return reply(201, { request, author: written.author, unsupported: written.unsupported })
+      }
+
+      // A test signal for one client: the next check finds it through the real steps, marked simulated.
+      if (is('POST', 'monitoring', 3) && id === 'simulate') {
+        const body = await readJson(req)
+        const company = companyOf(body.companyId)
+        const spec = SIMULATIONS.find(x => x.kind === body.kind)
+        if (!company.creditLine || !spec) throw fail(400, 'Choose a credit client and one of the test signals')
+        const actor = actorOf(req)
+        if (body.clear) {
+          ctx.monitor.clear(company.id, spec.kind)
+          workspace.appendActivity(company.id, 'Test signal cleared', spec.label, actor.name, { kind: spec.kind })
+        } else {
+          ctx.monitor.simulate(company.id, spec.kind, actor.name)
+          workspace.appendActivity(company.id, 'Test signal planted', spec.label + ' (simulated, to rehearse monitoring; nothing real happened)', actor.name, { kind: spec.kind })
+        }
+        return reply(200, ctx.monitor.status())
       }
       if (method === 'POST' && area === 'monitoring' && id === 'events' && parts[4] === 'review') {
         const event = ctx.monitor.review(sub!, actorOf(req).name)

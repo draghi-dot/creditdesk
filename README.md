@@ -1,4 +1,4 @@
-# CreditDesk
+# Finra
 
 Internal corporate-lending workspace for reviewing 50 company financing applications, used by employees in four departments (Legal, Finance, Credit, Compliance). A React + TypeScript + Vite workspace backed by a local **assessment engine** (Node 25, no framework) that runs real review workers over each dossier's original PDFs.
 
@@ -24,6 +24,11 @@ Requirements: Node 25 (TypeScript runs natively, `node:sqlite` built in), Popple
 | `CREDITDESK_MONITOR_WEB` | on | `off` skips the news part of monitoring |
 | `CREDITDESK_BATCH_CONCURRENCY` | 2 with the model, 6 without | How many assessments Run all keeps going at once |
 | `CREDITDESK_ANAF` | on | `off` skips the live ANAF lookup (tests use this) |
+| `CREDITDESK_PACE` | 1 | How long each assessment step stays in view (1 ≈ a minute per run before the model; 0 runs flat out, as the tests do) |
+| `CREDITDESK_CRAWL_MODEL` | `gpt-6-luna` | The light model (low effort, one call per check, titles and quoted sentences only) that judges the news; the keyword rules decide when no model answers |
+| `CREDITDESK_MONITOR_OPEN` | 12 | Articles the news crawler opens per client per check, newest first |
+| `CREDITDESK_REAL_EMAIL` | off | Sending is simulated (recorded as sent, nothing leaves Finra) unless this is `on`; then test and live Gmail delivery can be chosen |
+| `CREDITDESK_ONBOARD` | on | Assesses, at start, any credit client without a completed assessment |
 | `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` | — | Google OAuth client for Gmail (or save the client JSON as `.data/google-oauth.json`) |
 
 ## How an assessment works
@@ -93,16 +98,23 @@ The workspace opens as **Ioana Marinescu, Legal counsel**. Click your name (bott
 
 ## Credit clients and live monitoring
 
-**Companies → Credit clients** lists ten companies whose financing was approved and drawn (`public/data/clients.json`). They are real listed companies (CUI and register name confirmed in ANAF) with dossiers made by the dataset's own generator in its healthy profile (`python3 scripts/generate-clients.py`); each has a credit line: limit, drawn amount, term, rate, covenants, collateral, relationship manager and review date. They assess Eligible with no problems and can be assessed again at any time; the 50 applications stay applications (Run all covers those).
+**Companies → Credit clients** lists eleven companies whose financing was approved and drawn (`public/data/clients.json`). They are real listed companies (CUI and register name confirmed in ANAF) with dossiers made by the dataset's own generator in its healthy profile (`python3 scripts/generate-clients.py`); each has a credit line: limit, drawn amount, term, rate, covenants, collateral, relationship manager and review date. They assess Eligible with no problems and can be assessed again at any time; the 50 applications stay applications (Run all covers those).
 
 **Live monitoring** (sidebar) checks every client every `CREDITDESK_MONITOR_MINUTES` (60), one at a time, and on *Check now*:
 
 - **ANAF register, live**: registration status, inactive flag, VAT, name and address, compared with the previous check (deregistration, dissolution, insolvency or inactivity raise an alert).
-- **Public news**, in the manner of the AgentResearchFinanciar crawler: business-news RSS feeds (ZF, Profit.ro, Economica, Financial Intelligence, News.ro, Digi24, Mediafax, G4Media, StartupCafe) are read, articles naming the client are opened only where robots.txt allows (two seconds between requests to a host), kept by SHA-256, and the sentence naming the company is quoted and classified (insolvency, enforcement, investigation → alert; litigation, management change, losses → watch; results, contracts → info). A search engine that answers with a challenge page is not worked around; a page that cannot be read is reported as such.
+- **Public news**, in the manner of the AgentResearchFinanciar crawler: a news search for the client's name (Bing News), the pages G4Media, Financial Intelligence and Economica keep for it, and business-news RSS feeds (ZF, Profit.ro, Economica, Financial Intelligence, News.ro, Digi24, Mediafax, G4Media, StartupCafe) are read, articles naming the client are opened only where robots.txt allows (two seconds between requests to a host), kept by SHA-256, and the sentence naming the company is quoted and classified (insolvency, enforcement, investigation → alert; litigation, management change, losses → watch; results, contracts → info). A search engine that answers with a challenge page is not worked around; a page that cannot be read is reported as such.
+  Every article found is listed in the client's **News crawler** window (company page); the newest are opened where robots.txt allows, kept by SHA-256 with a snapshot of the page, which opens inside Finra with its scripts off. Risk words in the sentence naming the company (insolvency, enforcement, investigation, litigation, strike, state aid or restructuring, management change, losses) raise a change to review; news older than 90 days is kept for the record only. TAROM, not listed but much in the news, is the client to show this with.
 - **Credit line**: covenants (DSCR, debt/EBITDA, liquidity) against the latest completed assessment, re-checked as soon as a new assessment finishes; annual review due within 30 days.
 - **Search the web** (on request): the assistant looks for the past year's news; each article is kept only when its quoted sentence is found on the page.
 
 Events stream live into the feed; each can be marked reviewed (recorded in the activity log) or sent to a department as a case.
+
+**Early warning.** A critical signal (insolvency of the client itself, enforcement, an investigation, ANAF declaring it inactive, a covenant breach) shows as a red banner on the client's page, at the top of Today and in Live monitoring. *Review with the assistant* opens the signal with the risk assistant, which reads it against the credit line (drawn, undrawn, collateral, maturity), the latest assessment and the other open signals, writes a risk note and proposes what banks usually do. Each action is the employee's and is recorded: put on the watchlist (amber or red, owner, review date; a case opens in Credit), request information (drafted under the facility's information undertakings, sent as simulated), freeze drawdowns (asked by one employee, in force once a second one approves), run a new assessment, send to Legal. The employee can talk the signal through with the assistant, in the dialog or next to the article in the crawler's reader.
+
+## From application to signed client
+
+The assessment's tabs are a path: Assessment → Financials → Documents → Scenarios → Activity & checks → **Decision**. Each section is marked reviewed (recorded with the employee and the time); the Decision tab is the end of the path and shows what is left: an eligible assessment (always the application as submitted, not a what-if or another scenario), every section reviewed, the analyst's approval recommendation, a **second employee's** credit approval (the engine refuses the analyst who recommended), the contract sent for signature (simulated) and the signature recorded. Signing makes the company a credit client: a credit line is made from the application (limit, term, rate, covenants from the policy, collateral), it moves from Applications to Credit clients, leaves Run all, and live monitoring starts at once.
 
 ## Gmail
 
@@ -112,7 +124,7 @@ Requests to companies are sent from each employee's own Gmail, only when the emp
 2. Configure the **OAuth consent screen** (External is fine) and add the Gmail addresses that will send as test users. Scopes: `gmail.send`, `openid`, `email`.
 3. **Credentials → Create credentials → OAuth client ID → Desktop app**, then download the JSON.
 4. Save it as `banking-workspace/.data/google-oauth.json` (or set `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`) and restart `npm run dev`.
-5. In CreditDesk, click your name → **Connect Gmail**, sign in with Google, and you come back with "Gmail connected".
+5. In Finra, click your name → **Connect Gmail**, sign in with Google, and you come back with "Gmail connected".
 
 A Desktop client accepts the `http://127.0.0.1:<port>/api/gmail/callback` redirect on any port. With a *Web application* client instead, register `http://127.0.0.1:5173/api/gmail/callback` (dev) and `http://127.0.0.1:8787/api/gmail/callback` (`npm start`). Refresh tokens stay in the engine database under `.data/` (not in git); *Disconnect* in the same menu revokes them. A sent request is logged on its case and in the company activity log.
 

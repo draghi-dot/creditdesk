@@ -4,8 +4,9 @@ import type { Company, Policy, Portfolio } from './types'
 import type { AssessmentDigest, AssessmentSummary } from './assessment'
 import type { ActivityEvent } from './workspace'
 import { DEPARTMENTS, departmentName } from './workspace'
-import { Badge, Button, CompanyMark, Dialog, DocumentViewer, Loading, NotAssessed, Toast } from './components'
-import { Directory, Overview, PolicyPage, WorkspaceAudit } from './Portfolio'
+import { Badge, Button, Dialog, DocumentViewer, Loading, NotAssessed, Toast } from './components'
+import { Directory, PolicyPage, WorkspaceAudit } from './Portfolio'
+import Today from './Today'
 import CompanyDetail from './CompanyDetail'
 import CompanyEntry from './CompanyEntry'
 import AssessmentRun from './AssessmentRun'
@@ -13,10 +14,19 @@ import Departments, { CasePage } from './Departments'
 import Monitoring, { ClientsTable } from './LiveMonitoring'
 import type { EngineHealth } from './runs'
 import { getHealth, startRun, useRunIndex } from './runs'
-import { disconnectGmail, gmailConnectUrl, listActivity, recordActivity, useCases, useMonitoring, useSession } from './people'
+import { disconnectGmail, getClients, gmailConnectUrl, listActivity, recordActivity, useCases, useMonitoring, useSession } from './people'
+
+/** The first visit of the day opens on Today; later visits go straight to the companies. */
+function landing() {
+  try {
+    const day = new Date().toDateString(), seen = localStorage.getItem('creditdesk.day')
+    localStorage.setItem('creditdesk.day', day)
+    return seen === day ? '/companies' : '/overview'
+  } catch { return '/companies' }
+}
 
 function useRoute() {
-  const [route, setRoute] = useState(() => window.location.hash.slice(1) || '/companies')
+  const [route, setRoute] = useState(() => window.location.hash.slice(1) || landing())
   useEffect(() => { const handler = () => setRoute(window.location.hash.slice(1) || '/companies'); window.addEventListener('hashchange', handler); return () => window.removeEventListener('hashchange', handler) }, [])
   return [route, (target: string) => { window.location.hash = target; window.scrollTo({ top: 0 }) }] as const
 }
@@ -45,6 +55,9 @@ export default function App() {
   const [starting, setStarting] = useState(false)
   useEffect(() => { getHealth().then(setHealth).catch(() => setHealth(null)) }, [offline])
   const refreshActivity = useCallback(() => listActivity().then(setEvents).catch(() => {}), [])
+  // Credit clients come from the engine: the approved lines, and applications whose contract was signed since.
+  const loadClients = useCallback(() => getClients().then(v => setClients(v.clients)).catch(() => fetch('/data/clients.json').then(r => r.ok ? r.json() : { clients: [] }).then(v => setClients(v.clients ?? [])).catch(() => {})), [])
+  useEffect(() => { const reload = () => loadClients(); window.addEventListener('creditdesk:clients', reload); return () => window.removeEventListener('creditdesk:clients', reload) }, [loadClients])
   useEffect(() => { refreshActivity() }, [refreshActivity, me?.id])
   useEffect(() => {
     const controller = new AbortController()
@@ -52,7 +65,7 @@ export default function App() {
       setData(value)
       try { const saved = JSON.parse(localStorage.getItem('creditdesk.policy.v1') || 'null'); setPolicy(saved && saved.politica_id === value.policy.politica_id ? { ...value.policy, ...saved } : value.policy) } catch { setPolicy(value.policy) }
     }
-    fetch('/data/clients.json', { signal: controller.signal }).then(r => r.ok ? r.json() : { clients: [] }).then(v => setClients(v.clients ?? [])).catch(() => {})
+    loadClients()
     fetch('/data/portfolio.json', { signal: controller.signal }).then(r => { if (!r.ok) throw new Error('The company data could not be loaded.'); return r.json() }).then(initialize)
       .catch(e => { if (e.name !== 'AbortError') setError(e.message) })
     return () => controller.abort()
@@ -64,6 +77,7 @@ export default function App() {
     window.addEventListener('keydown', keydown)
     return () => window.removeEventListener('keydown', keydown)
   }, [])
+  useEffect(() => { const changed = () => refreshSession(); window.addEventListener('creditdesk:session', changed); return () => window.removeEventListener('creditdesk:session', changed) }, [refreshSession])
   useEffect(() => { if (!toast) return; const id = setTimeout(() => setToast(''), 4200); return () => clearTimeout(id) }, [toast])
   // Back from Google's sign-in page: ?gmail=connected, or the reason it did not connect.
   useEffect(() => {
@@ -94,7 +108,9 @@ export default function App() {
   const companyId = path.startsWith('/companies/') ? segments[2] : null
   const sub = segments[3] as 'run' | 'assessment' | undefined
   const subRunId = segments[4]
-  const everyone = useMemo(() => [...(data?.companies ?? []), ...clients], [data, clients])
+  // A signed application is a credit client, no longer an application.
+  const applications = useMemo(() => (data?.companies ?? []).filter(c => !clients.some(k => k.id === c.id)), [data, clients])
+  const everyone = useMemo(() => [...applications, ...clients], [applications, clients])
   const company = everyone.find(c => c.id === companyId)
   const view = companyId ? 'companies' : segments[1] || 'companies'
   const counts = [...assessments.values()].reduce((acc, result) => { acc[result.decision] = (acc[result.decision] || 0) + 1; return acc }, {} as Record<string, number>)
@@ -111,6 +127,8 @@ export default function App() {
     } finally { setStarting(false) }
   }
   const needsAttention = (counts.CONDITIONAT || 0) + (counts.DATE_INSUFICIENTE || 0)
+  // A new assessment asked for from elsewhere (the early-warning assistant).
+  useEffect(() => { const run = (e: Event) => { const target = everyone.find(c => c.id === (e as CustomEvent<string>).detail); if (target) runNew(target) }; window.addEventListener('creditdesk:run', run); return () => window.removeEventListener('creditdesk:run', run) }, [everyone, policy])
   const { state: monitoring } = useMonitoring()
   const monitoringOpen = (monitoring?.clients ?? []).reduce((n, c) => n + c.open, 0)
   const openMine = (myCases ?? []).filter(c => c.status !== 'resolved')
@@ -131,24 +149,24 @@ export default function App() {
     } catch { setToast('The policy could not be saved in this browser.') }
   }
   const choose = async (id: string) => { setUserMenu(false); const s = await switchUser(id); refreshCases(); if (s) setToast('Signed in as ' + s.user.name + ' · ' + departmentName(s.user.department)) }
-  const title = company ? company.name : view === 'overview' ? 'Overview' : view === 'queue' ? 'Review queue' : view === 'audit' ? 'Audit trail' : view === 'policy' ? 'Credit policy' : view === 'departments' || view === 'cases' ? 'Departments' : view === 'monitoring' ? 'Live monitoring' : view === 'clients' ? 'Credit clients' : 'Companies'
+  const title = company ? company.name : view === 'overview' ? 'Today' : view === 'queue' ? 'Review queue' : view === 'audit' ? 'Audit trail' : view === 'policy' ? 'Credit policy' : view === 'departments' || view === 'cases' ? 'Departments' : view === 'monitoring' ? 'Live monitoring' : view === 'clients' ? 'Credit clients' : 'Companies'
   // On assessment pages the navigation folds to an icon rail unless the employee chose otherwise.
   const assessmentPage = sub === 'run' || sub === 'assessment'
   const collapsed = navPreference ?? assessmentPage
   const toggleNav = () => { const next = !collapsed; setNavPreference(next); try { localStorage.setItem('creditdesk.nav.collapsed', String(next)) } catch { /* private mode */ } }
-  const item = (target: string, active: boolean, Icon: typeof Users, label: string, count?: number | null) =>
-    <button className={'nav-item' + (active ? ' active' : '')} onClick={() => nav(target)} title={label}><Icon size={18} /><span className="nav-text">{label}</span>{count ? <span className="nav-count">{count}</span> : null}</button>
+  const item = (target: string, active: boolean, Icon: typeof Users, label: string, count?: number | null, hint?: string) =>
+    <button className={'nav-item' + (active ? ' active' : '')} onClick={() => nav(target)} title={hint ?? label}><Icon size={18} /><span className="nav-text">{label}</span>{count ? <span className="nav-count" aria-label={hint}>{count}</span> : null}</button>
   return <div className={'app-shell' + (collapsed ? ' nav-collapsed' : '')}>
     {sidebar && <button className="sidebar-scrim" aria-label="Close navigation" onClick={() => setSidebar(false)} />}
     <aside className={'sidebar' + (sidebar ? ' sidebar-open' : '')}>
-      <a className="brand" href="#/companies"><span className="brand-symbol"><span>C</span><ArrowRight size={18} strokeWidth={2.7} /></span><div>CreditDesk<span>Corporate lending</span></div></a>
+      <a className="brand" href="#/overview" aria-label="finra"><span className="wordmark"><u>fin</u>ra</span><span className="wordmark wordmark-short"><u>f</u></span></a>
       <button className="nav-collapse" onClick={toggleNav} aria-label={collapsed ? 'Expand navigation' : 'Collapse navigation'} title={collapsed ? 'Expand navigation' : 'Collapse navigation'}>{collapsed ? <PanelLeftOpen size={16} /> : <PanelLeftClose size={16} />}</button>
       <nav aria-label="Main navigation">
-        {item('/overview', view === 'overview', LayoutDashboard, 'Overview')}
+        {item('/overview', view === 'overview', LayoutDashboard, 'Today')}
         {item('/companies', view === 'companies' || view === 'clients', FolderClosed, 'Companies', everyone.length || null)}
         {item('/queue', view === 'queue', ListFilter, 'Review queue', needsAttention)}
         {item('/departments' + (me ? '/' + me.department : ''), view === 'departments' || view === 'cases', Users, 'Departments', openMine.length)}
-        {item('/monitoring', view === 'monitoring', Activity, 'Live monitoring', monitoringOpen || null)}
+        {item('/monitoring', view === 'monitoring', Activity, 'Live monitoring', monitoringOpen || null, monitoringOpen ? monitoringOpen + (monitoringOpen === 1 ? ' change found by monitoring is' : ' changes found by monitoring are') + ' waiting for review' : undefined)}
       </nav>
       <div className="nav-label">Governance</div>
       <nav aria-label="Governance navigation">
@@ -180,19 +198,19 @@ export default function App() {
           company && sub === 'assessment' && subRunId ? <CompanyDetail key={subRunId} company={company} runId={subRunId} workspacePolicy={policy} events={events.filter(e => e.companyId === company.id)} onBack={() => navigate('/companies/' + company.id)} onRunNew={() => runNew(company)} showEvidence={id => showEvidence(company, id)} record={record} toast={setToast} /> :
           company ? <CompanyEntry key={company.id} company={company} runs={(runs ?? []).filter(r => r.companyId === company.id)} health={health} offline={offline} starting={starting} onBack={() => navigate('/companies')} onView={id => navigate('/companies/' + company.id + '/assessment/' + id)} onLive={id => navigate('/companies/' + company.id + '/run/' + id)} onRun={() => runNew(company)} onCase={id => nav('/cases/' + id)} toast={setToast} gmail={session?.gmail ?? null} /> :
           companyId ? <div className="empty-state"><h2>Company not found</h2><Button onClick={() => nav('/companies')}>Back to companies</Button></div> :
-          view === 'overview' ? <Overview companies={data.companies} assessments={assessments} latest={latest} onOpen={id => nav('/companies/' + id)} onQueue={() => nav('/queue')} /> :
+          view === 'overview' ? <Today me={me} companies={applications} clients={clients} assessments={assessments} latest={latest} runs={runs ?? []} events={events} nav={nav} /> :
           view === 'policy' ? <PolicyPage policy={policy} original={data.policy} onSave={onPolicySave} /> :
-          view === 'audit' ? <WorkspaceAudit companies={data.companies} events={events} runs={runs ?? []} onOpen={id => nav('/companies/' + id)} /> :
-          view === 'cases' && segments[2] ? <CasePage key={segments[2]} caseId={segments[2]} companies={data.companies} session={session} onCompany={id => nav('/companies/' + id)} onDepartment={d => nav('/departments/' + d)} toast={setToast} onChange={refreshCases} /> :
+          view === 'audit' ? <WorkspaceAudit companies={everyone} events={events} runs={runs ?? []} onOpen={id => nav('/companies/' + id)} /> :
+          view === 'cases' && segments[2] ? <CasePage key={segments[2]} caseId={segments[2]} companies={everyone} session={session} onCompany={id => nav('/companies/' + id)} onDepartment={d => nav('/departments/' + d)} toast={setToast} onChange={refreshCases} /> :
           view === 'monitoring' ? <Monitoring clients={clients} onOpen={id => nav('/companies/' + id)} toast={setToast} /> :
-          view === 'clients' ? <><CompaniesTabs view="clients" applications={data.companies.length} clients={clients.length} onView={nav} /><div className="page-heading"><div><h1>Credit clients<span className="heading-count">{clients.length}</span></h1><p>Companies whose financing was approved and drawn. They can be assessed again at any time, and Live monitoring checks them continuously.</p></div></div><ClientsTable clients={clients} latest={latest} onOpen={id => nav('/companies/' + id)} /></> :
+          view === 'clients' ? <div className="page-enter"><div className="page-heading"><div><CompaniesTabs view="clients" applications={applications.length} clients={clients.length} onView={nav} /><p>Approved and drawn credit lines. Live monitoring checks each one every hour.</p></div></div><ClientsTable clients={clients} latest={latest} onOpen={id => nav('/companies/' + id)} /></div> :
           view === 'departments' ? <Departments department={DEPARTMENTS.some(d => d.id === segments[2]) ? segments[2] as typeof DEPARTMENTS[number]['id'] : me?.department ?? 'legal'} session={session} onDepartment={d => nav('/departments/' + d)} onCase={id => nav('/cases/' + id)} onSessionChange={refreshSession} toast={setToast} /> :
-          <><CompaniesTabs view="applications" applications={data.companies.length} clients={clients.length} onView={nav} /><Directory key={view} companies={data.companies} assessments={assessments} latest={latest} queue={view === 'queue'} initialStatus={new URLSearchParams(route.split('?')[1] || '').get('status') || ''} onOpen={id => nav('/companies/' + id)} onQueue={() => nav('/queue')} toast={setToast} policy={policy} runs={runs ?? []} onRunsChanged={refreshRuns} /></>}
+          <><Directory heading={view === 'queue' ? undefined : <CompaniesTabs view="applications" applications={applications.length} clients={clients.length} onView={nav} />} key={view} companies={applications} assessments={assessments} latest={latest} queue={view === 'queue'} initialStatus={new URLSearchParams(route.split('?')[1] || '').get('status') || ''} onOpen={id => nav('/companies/' + id)} onQueue={() => nav('/queue')} toast={setToast} policy={policy} runs={runs ?? []} onRunsChanged={refreshRuns} /></>}
       </main>
     </div>
     {searchOpen && <Dialog title="Find a company" description="Search by company name, CUI, ticker or dossier number." onClose={() => { setSearchOpen(false); setSearch('') }}>
       <div className="command-search"><Search size={19} /><input autoFocus value={search} onChange={e => setSearch(e.target.value)} placeholder="Company name or CUI…" aria-label="Find company" /></div>
-      <div className="command-results">{matches.map(c => <button key={c.id} onClick={() => { nav('/companies/' + c.id); setSearchOpen(false); setSearch('') }}><CompanyMark company={c} /><div><strong>{c.name}</strong><span>{c.id} · CUI {c.cui}</span></div>{assessments.get(c.id) ? <Badge decision={assessments.get(c.id)!.decision} small /> : <NotAssessed small />}<ChevronRight size={16} /></button>)}{!matches.length && <p className="no-results">No matching companies. Try a different name or CUI.</p>}</div><div className="command-footer"><Command size={13} />All {data?.companies.length ?? 0} companies<span>Esc to close</span></div>
+      <div className="command-results">{matches.map(c => <button key={c.id} onClick={() => { nav('/companies/' + c.id); setSearchOpen(false); setSearch('') }}><div><strong>{c.name}</strong><span>{c.id} · CUI {c.cui}</span></div>{assessments.get(c.id) ? <Badge decision={assessments.get(c.id)!.decision} small /> : <NotAssessed small />}<ChevronRight size={16} /></button>)}{!matches.length && <p className="no-results">No matching companies. Try a different name or CUI.</p>}</div><div className="command-footer"><Command size={13} />All {data?.companies.length ?? 0} companies<span>Esc to close</span></div>
     </Dialog>}
     {doc && <DocumentViewer company={doc.company} document={doc.document} onClose={() => setDoc(null)} toast={setToast} />}
     {toast && <Toast message={toast} />}

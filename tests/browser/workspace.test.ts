@@ -38,15 +38,15 @@ const SAMPLE = `(() => {
 
 test('opening a company runs nothing and offers the two actions', async () => {
   await page.goto(engine.url + '/#/companies/' + COMPANY)
-  await page.waitFor(`[...document.querySelectorAll('.entry-choice h2')].map(h => h.textContent).join('|') === 'View assessment|Run new assessment'`, 'the two actions')
-  assert.ok(await page.eval(`document.body.textContent.includes('Not assessed yet')`))
-  assert.equal(await page.eval(`[...document.querySelectorAll('.entry-choice button')].find(b => b.textContent.includes('View assessment')).disabled`), true)
+  await page.waitFor(`[...document.querySelectorAll('.verdict-actions button')].map(b => b.textContent).join('|') === 'View assessment|Run assessment'`, 'the two actions')
+  assert.ok(await page.eval(`document.querySelector('.verdict').textContent.includes('Not assessed yet')`))
+  assert.equal(await page.eval(`[...document.querySelectorAll('.verdict-actions button')].find(b => b.textContent.includes('View assessment')).disabled`), true)
   await page.screenshot(shots + '1-entry.png')
   assert.deepEqual((await engine.get('/companies/' + COMPANY + '/runs')).runs, [], 'nothing ran on open')
 })
 
 test('a live run fills the map from the stream and opens the first finding on its original page, outlined', async () => {
-  await page.click('.entry-choice button', 'Run new assessment')
+  await page.click('.verdict-actions button', 'Run assessment')
   runId = (await page.waitFor<string>(`location.hash.match(/\\/run\\/([0-9a-f-]{36})/)?.[1]`, 'the live run page'))
   const samples: Sample[] = []
   let liveShot = false
@@ -64,11 +64,17 @@ test('a live run fills the map from the stream and opens the first finding on it
   const settled = (s: Sample) => (s.nodes['map-done'] ?? 0) + (s.nodes['map-attention'] ?? 0)
   assert.ok(samples.some(s => s.status === 'running' && (total(s) < 10 || settled(s) < total(s))), 'map observed before every worker finished')
   await page.waitFor(`document.querySelectorAll('.map-node.map-done, .map-node.map-attention').length === 10`, 'all ten workers settled')
+  await page.waitFor(`!!document.querySelector('.ws-top.map-collapsed')`, 'the map folding aside after the run')
+  // Once the run is done its activity is no longer a tab; the evidence is, next to the problems to solve.
+  assert.deepEqual(await page.eval(`[...document.querySelectorAll('.ws-tabs [role="tab"]')].map(t => t.textContent.replace(/\\d+$/, ''))`), ['Problems', 'Ask', 'Sources'])
+  assert.match(await page.eval(`document.querySelector('.ws-tabs [aria-selected="true"]').textContent`), /^Problems/)
+  // The outlined line is also shown enlarged beside the page.
+  assert.ok(await page.eval(`document.querySelectorAll('.closeup .closeup-crop').length > 0`), 'enlarged lines beside the page')
   // The first finding opens by itself (no click): its original page renders with the problem in red, and the
   // producing worker is highlighted. Without a model the run can finish before the page image has rendered.
   const opened = samples.find(s => s.evidence && s.issue > 0) ?? await page.waitFor<Sample>(`(() => { const s = ${SAMPLE}; return s.evidence && s.issue > 0 && s })()`, 'the first finding to open on its page')
   assert.ok(opened.highlighted, 'producing worker highlighted on the map')
-  assert.match(await page.eval(`document.querySelector('[role="tab"][aria-selected="true"]')?.textContent`), /^Evidence/, 'the Evidence tab opened by itself')
+  assert.match(await page.eval(`document.querySelector('[role="tab"][aria-selected="true"]')?.textContent`), /^Problems/, 'the problems view opened by itself')
   if (!liveShot) await page.screenshot(shots + '2-live-evidence.png')
   // Every outline sits on the rendered page image.
   const placement = await page.eval<{ inside: boolean; marks: number }>(`(() => {
@@ -94,12 +100,18 @@ test('Ask answers inside the workspace and says which model answered', async () 
   assert.ok(answer.text.length > 20, answer.text)
   assert.match(answer.meta, llm === 'none' ? /engine · no model/ : /Codex/)
   await page.screenshot(shots + '4-ask.png')
+  // Asking from an outlined figure names it and asks straight away.
+  await page.click('[role="tab"]', 'Problems')
+  await page.waitFor(`document.querySelector('.closeup-ask')`, 'the enlarged lines')
+  await page.eval(`document.querySelector('.closeup-ask').click()`)
+  const asked = await page.waitFor<string>(`document.querySelector('.ws-tabs [aria-selected="true"]')?.textContent.startsWith('Ask') && [...document.querySelectorAll('.ask-q')].at(-1)?.textContent`, 'the question about the figure')
+  assert.match(asked, /^“.+” \(.+, page \d+\): why is this a problem, and what would resolve it\?$/)
 })
 
 test('View assessment then opens the completed run', async () => {
   await page.goto(engine.url + '/#/companies/' + COMPANY)
-  await page.waitFor(`[...document.querySelectorAll('.entry-choice button')].some(b => b.textContent.includes('View assessment') && !b.disabled)`, 'View assessment enabled')
-  await page.click('.entry-choice button', 'View assessment')
+  await page.waitFor(`[...document.querySelectorAll('.verdict-actions button')].some(b => b.textContent.includes('View assessment') && !b.disabled)`, 'View assessment enabled')
+  await page.click('.verdict-actions button', 'View assessment')
   await page.waitFor(`location.hash.includes('/assessment/${runId}')`, 'the completed assessment route')
   await page.waitFor(`document.querySelectorAll('.map-node').length === 10`, 'the recorded map')
   await page.screenshot(shots + '5-assessment.png')
@@ -108,12 +120,12 @@ test('View assessment then opens the completed run', async () => {
 
 test('a problem is sent to its department from the assessment and opens as a case there', async () => {
   await page.goto(engine.url + '/#/companies/' + COMPANY + '/assessment/' + runId)
-  await page.waitFor(`document.querySelector('.problems .problem-actions')`, 'the ranked problems')
-  await page.click('.problems .problem-actions button', 'Send to Finance')
+  await page.waitFor(`document.querySelector('.pnav-row.active') && document.querySelector('.finding-actions')`, 'the problems with the first one open')
+  await page.click('.finding-actions button', 'Send to Finance')
   await page.waitFor(`document.querySelector('dialog[open] .department-choice label.checked')?.textContent.startsWith('Finance')`, 'Finance chosen already')
   await page.type('dialog[open] textarea', 'Please confirm which amount the client applied for.')
   await page.click('dialog[open] button[type="submit"]', 'Send to Finance')
-  const chip = await page.waitFor<string>(`document.querySelector('.problems .sent-to')?.textContent`, 'the case chip on the problem')
+  const chip = await page.waitFor<string>(`document.querySelector('.finding-actions .sent-to')?.textContent`, 'the case chip on the problem')
   assert.match(chip, /^#\d+ · Finance · Open/)
   await page.goto(engine.url + '/#/departments/finance')
   await page.waitFor(`document.querySelectorAll('.case-table tbody tr').length === 1`, 'the case in Finance')
@@ -125,7 +137,7 @@ test('a problem is sent to its department from the assessment and opens as a cas
   const timeline = await page.eval<{ who: string; note: string }[]>(`[...document.querySelectorAll('.timeline li')].map(li => ({ who: li.querySelector('p').textContent.replace(li.querySelector('time').textContent, ''), note: li.querySelector('blockquote')?.textContent ?? '' }))`)
   assert.deepEqual(timeline.map(t => t.who), ['Ioana Marinescu sent this problem to Finance', 'Assistant looked up the company contact', 'Assistant suggested an email to the company'])
   assert.equal(timeline[0].note, 'Please confirm which amount the client applied for.')
-  assert.match(await page.eval(`document.querySelector('.delivery-mode').textContent`), /^Test delivery: Send puts a copy in your own mailbox/)
+  assert.match(await page.eval(`document.querySelector('.delivery-mode').textContent`), /^Simulated sending: Send records the email as sent/)
   await page.screenshot(shots + '6-case.png')
   assert.deepEqual(page.errors, [])
 })

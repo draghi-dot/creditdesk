@@ -31,7 +31,7 @@ export async function startEngine(env: Record<string, string>): Promise<EnginePr
   const child = spawn(process.execPath, ['server/index.ts'], {
     cwd: new URL('../..', import.meta.url).pathname,
     // Monitoring reaches the public web on a schedule; a test turns it on explicitly.
-    env: { ...process.env, PORT: String(port), CREDITDESK_DATA: data, CREDITDESK_MONITOR: 'off', ...env },
+    env: { ...process.env, PORT: String(port), CREDITDESK_DATA: data, CREDITDESK_MONITOR: 'off', CREDITDESK_ONBOARD: 'off', CREDITDESK_PACE: '0', ...env },
     stdio: ['ignore', 'pipe', 'pipe'],
   })
   let output = ''

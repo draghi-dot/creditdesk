@@ -23,7 +23,7 @@ const legal = as('u-legal-1')
 const finance = as('u-finance-1')
 
 before(async () => {
-  engine = await startEngine({ CREDITDESK_LLM: 'none', CREDITDESK_ANAF: 'off', GOOGLE_CLIENT_ID: 'client-123.apps.googleusercontent.com', GOOGLE_CLIENT_SECRET: 'secret' })
+  engine = await startEngine({ CREDITDESK_LLM: 'none', CREDITDESK_ANAF: 'off', GOOGLE_CLIENT_ID: 'client-123.apps.googleusercontent.com', GOOGLE_CLIENT_SECRET: 'secret', CREDITDESK_SEND_DELAY_MS: '250' })
   runId = (await legal.post<{ runId: string }>('/companies/' + COMPANY + '/runs')).body.runId
   const { arrivals } = await readStream(engine.url + '/api/runs/' + runId + '/stream?after=0')
   finding = arrivals.map(a => a.event).find((e): e is RunEvent<'finding_raised'> => e.type === 'finding_raised')!.payload.finding
@@ -82,7 +82,7 @@ test('contacts: the dossier has no reachable representative until one is added',
   assert.deepEqual([saved.body[0].name, saved.body[0].placeholder, saved.body[0].addedBy], ['Maria Enache', false, 'Ioana Marinescu'])
 })
 
-test('the assistant drafts a request for a case; sending needs Gmail', async () => {
+test('the assistant drafts a request for a case; Send records it as sent, simulated, with who, when and to whom', async () => {
   const [c] = await legal.get<Case[]>('/cases?company=' + COMPANY)
   const drafted = await legal.post<{ request: CompanyRequest; author: string }>('/cases/' + c.id + '/request', { language: 'en' })
   assert.equal(drafted.status, 201)
@@ -93,10 +93,15 @@ test('the assistant drafts a request for a case; sending needs Gmail', async () 
   assert.ok(r.requirements.length > 0 && r.body.includes(r.requirements[0]) && r.body.includes('Ioana Marinescu'))
   const edited = await legal.post<CompanyRequest>('/requests/' + r.id, { subject: 'CONPET SA: please confirm the requested amount' })
   assert.equal(edited.body.subject, 'CONPET SA: please confirm the requested amount')
-  const sent = await legal.post<{ error: string }>('/requests/' + r.id + '/send')
-  assert.deepEqual([sent.status, sent.body.error], [400, 'Connect your Gmail account first (your name, top right)'])
+  const started = Date.now()
+  const sent = await legal.post<CompanyRequest>('/requests/' + r.id + '/send')
+  assert.ok(Date.now() - started >= 200, 'Send takes a moment, like a real one')
+  assert.equal(sent.status, 200)
+  assert.deepEqual([sent.body.status, sent.body.simulated, sent.body.sentBy, sent.body.deliveredTo], ['sent', true, 'Ioana Marinescu', 'maria.enache@conpet.example.ro'])
+  assert.ok(Date.parse(sent.body.sentAt!) >= started)
   const timeline = await legal.get<{ events: CaseEvent[]; requests: CompanyRequest[] }>('/cases/' + c.id)
-  assert.equal(timeline.events.at(-1)!.kind, 'request')
+  assert.deepEqual([timeline.events.at(-1)!.kind, timeline.events.at(-1)!.data.simulated], ['email', true])
+  assert.equal((await legal.post<{ error: string }>('/requests/' + r.id + '/send')).status, 409, 'sent once')
   assert.equal(timeline.requests.length, 2, 'the assistant suggestion and the employee draft')
 })
 
@@ -111,12 +116,14 @@ test('the assistant suggests a comment and a requirement per problem, and writes
   assert.equal(report.status, 201)
   assert.equal(report.body.kind, 'report')
   assert.ok(report.body.data.report.paragraphs.length >= 3)
+  assert.ok(report.body.data.report.paragraphs.some((p: string) => /sent to Maria Enache <maria\.enache@conpet\.example\.ro> by Ioana Marinescu on .*simulated/.test(p)), 'the report says what was sent, to whom, when, and that delivery was simulated')
 })
 
 test('the company activity log records who did what, chained so it can be verified', async () => {
   assert.equal((await finance.post('/activity', { companyId: COMPANY, action: 'Analyst note added', detail: 'Called the CFO.' })).status, 201)
   const log = await legal.get<ActivityEvent[]>('/activity?company=' + COMPANY)
-  assert.deepEqual(log.map(e => [e.action, e.actor]), [['Problem sent to Finance', 'Ioana Marinescu'], ['Company contact researched', 'engine'], ['Contact saved', 'Ioana Marinescu'], ['Analyst note added', 'Andrei Popa']])
+  assert.deepEqual(log.map(e => [e.action, e.actor]), [['Problem sent to Finance', 'Ioana Marinescu'], ['Company contact researched', 'engine'], ['Contact saved', 'Ioana Marinescu'], ['Request sent (simulated)', 'Ioana Marinescu'], ['Analyst note added', 'Andrei Popa']])
+  assert.match(log[3].detail, /→ Maria Enache <maria\.enache@conpet\.example\.ro> · simulated delivery: no email left Finra$/)
   let previous = '0'.repeat(64)
   for (const { hash, ...body } of log) {
     assert.equal(body.previousHash, previous)
@@ -125,13 +132,12 @@ test('the company activity log records who did what, chained so it can be verifi
   }
 })
 
-test('requests go to the sender\'s own mailbox until live delivery is switched on', async () => {
-  assert.deepEqual(await legal.get('/settings'), { delivery: 'test' })
-  assert.deepEqual((await legal.post('/settings', { delivery: 'live' })).body, { delivery: 'live' })
+test('sending stays simulated: real email cannot be switched on from the workspace', async () => {
+  assert.deepEqual(await legal.get('/settings'), { delivery: 'simulated', realEmail: false })
+  const live = await legal.post<{ error: string }>('/settings', { delivery: 'live' })
+  assert.deepEqual([live.status, live.body.error], [400, 'Real email is switched off in this workspace: sending is simulated.'])
   assert.equal((await legal.post('/settings', { delivery: 'everyone' })).status, 400)
-  assert.deepEqual((await legal.post('/settings', { delivery: 'test' })).body, { delivery: 'test' })
-  const log = await legal.get<ActivityEvent[]>('/activity?company=workspace')
-  assert.deepEqual(log.map(e => e.action), ['Request delivery set to live', 'Request delivery set to test'])
+  assert.deepEqual(await legal.get('/settings'), { delivery: 'simulated', realEmail: false })
 })
 
 test('Gmail sign-in goes to Google with PKCE and the send-only scope; an unknown sign-in is refused', async () => {

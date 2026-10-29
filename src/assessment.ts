@@ -144,6 +144,8 @@ export interface AskAnswer {
   durationMs: number
   /** Figures in the answer that are not in the run's facts. */
   unsupported: string[]
+  /** What was done to answer, in order. */
+  steps?: string[]
 }
 
 /** A document the analyst added to a company's dossier after intake. */

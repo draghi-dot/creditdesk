@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react'
-import type { Policy } from './types'
-import type { ActivityEvent, Case, CaseEvent, CaseReport, CaseStatus, CompanyRequest, Contact, Delivery, DepartmentId, GmailState, SuggestionSet, User, WorkspaceSettings } from './workspace'
+import type { Company, Policy } from './types'
+import type { ActivityEvent, Case, CaseEvent, CaseReport, CaseStatus, ClientRisk, CompanyRequest, Contact, Delivery, DepartmentId, GmailState, ReviewSection, RiskAction, SuggestionSet, User, WatchGrade, Workflow, WorkspaceSettings } from './workspace'
 import { api, setActingUser } from './runs'
-import type { ClientStatus, MonitorActivity, MonitorEvent, MonitorWorker } from './monitoring'
+import type { ClientStatus, Crawl, CrawledPage, MonitorActivity, MonitorEvent, MonitorWorker, SimulationKind } from './monitoring'
 
 export interface Session { user: User; users: User[]; gmail: GmailState }
 
@@ -10,7 +10,9 @@ export function useSession() {
   const [session, setSession] = useState<Session | null>(null)
   const refresh = useCallback(() => api<Session>('/me').then(s => { setSession(s); return s }).catch(() => null), [])
   useEffect(() => { refresh() }, [refresh])
-  const switchUser = useCallback((id: string) => { setActingUser(id); return refresh() }, [refresh])
+  // Every part of the page follows a change of employee made anywhere.
+  useEffect(() => { const again = () => { refresh() }; window.addEventListener('creditdesk:session', again); return () => window.removeEventListener('creditdesk:session', again) }, [refresh])
+  const switchUser = useCallback((id: string) => { setActingUser(id); window.dispatchEvent(new Event('creditdesk:session')); return refresh() }, [refresh])
   return { session, refresh, switchUser }
 }
 
@@ -29,6 +31,7 @@ export interface Drafted { request: CompanyRequest; author: string; unsupported:
 export const draftCaseRequest = (id: string, options: { language: 'en' | 'ro'; instructions?: string; contactId?: string }) => post<Drafted>('/cases/' + id + '/request', options)
 export const draftCompanyRequest = (companyId: string, options: { findingIds?: string[]; language: 'en' | 'ro'; instructions?: string; contactId?: string }) => post<Drafted>('/companies/' + companyId + '/requests', options)
 export const listRequests = (companyId: string) => api<CompanyRequest[]>('/companies/' + companyId + '/requests')
+export const listAllRequests = () => api<CompanyRequest[]>('/requests')
 export const saveRequest = (id: string, change: Partial<Pick<CompanyRequest, 'subject' | 'body' | 'requirements' | 'to'>>) => post<CompanyRequest>('/requests/' + id, change)
 export const sendRequest = (id: string) => post<CompanyRequest>('/requests/' + id + '/send')
 
@@ -74,6 +77,26 @@ export const getMonitoring = () => api<MonitoringState>('/monitoring')
 export const checkNow = (companyId?: string) => post<ClientStatus[]>('/monitoring/check', companyId ? { companyId } : {})
 export const researchClient = (companyId: string) => post<{ result: string }>('/monitoring/research', { companyId })
 export const reviewEvent = (id: string) => post<MonitorEvent>('/monitoring/events/' + id + '/review')
+// Credit clients: list, watch status, drawdowns, and the assistant on a signal.
+export const getClients = () => api<{ clients: Company[]; risk: ClientRisk[] }>('/clients')
+export const getRisk = (companyId: string) => api<ClientRisk>('/clients/' + companyId + '/risk')
+export const setWatchlist = (companyId: string, input: { grade: WatchGrade; reason: string; reviewDate?: string; owner?: string }) => post<ClientRisk>('/clients/' + companyId + '/watchlist', input)
+export const clearWatchlist = (companyId: string, note: string) => post<ClientRisk>('/clients/' + companyId + '/watchlist/clear', { note })
+export const requestFreeze = (companyId: string, reason: string) => post<ClientRisk>('/clients/' + companyId + '/freeze', { reason })
+export const approveFreeze = (companyId: string) => post<ClientRisk>('/clients/' + companyId + '/freeze/approve')
+export const liftFreeze = (companyId: string, note: string) => post<ClientRisk>('/clients/' + companyId + '/freeze/lift', { note })
+export interface SignalRef { companyId: string; eventId?: string; url?: string }
+export interface RiskNoteView { severity: 'critical' | 'high' | 'medium' | 'low'; headline: string; summary: string; exposure: string; grade: 'red' | 'amber' | 'none'; actions: { kind: RiskAction; why: string }[]; author: string; unsupported: string[] }
+export const assessSignal = (ref: SignalRef) => post<RiskNoteView>('/monitoring/assess', ref)
+export const discussSignal = (ref: SignalRef, question: string, history: { question: string; answer: string }[]) => post<{ answer: string; actions: RiskAction[]; author: string; unsupported: string[] }>('/monitoring/discuss', { ...ref, question, history })
+export const draftNotice = (ref: SignalRef, language: 'en' | 'ro') => post<Drafted>('/monitoring/notice', { ...ref, language })
+// From an application to a signed client.
+export const getWorkflow = (companyId: string, runId: string) => api<Workflow>('/companies/' + companyId + '/workflow?run=' + runId)
+export const workflowStep = (companyId: string, runId: string, action: 'review' | 'approve' | 'send' | 'sign', section?: ReviewSection) => post<Workflow>('/companies/' + companyId + '/workflow', { runId, action, section })
+export const getCrawl = (companyId: string) => api<Crawl>('/monitoring/crawl?company=' + companyId)
+export const getCrawledPage = (companyId: string, url: string) => api<CrawledPage>('/monitoring/page?' + new URLSearchParams({ company: companyId, url }))
+export const snapshotUrl = (sha: string) => '/api/monitoring/snapshot/' + sha
+export const simulate = (companyId: string, kind: SimulationKind, clear = false) => post<ClientStatus[]>('/monitoring/simulate', { companyId, kind, clear })
 
 /** Monitoring status and events, kept current from the engine's live feed. */
 export function useMonitoring() {

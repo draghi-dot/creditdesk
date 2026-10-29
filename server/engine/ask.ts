@@ -106,8 +106,14 @@ export async function answerQuestion(opts: {
   company: Company; runId: string; events: RunEvent[]; documentsDir: string; codex: CodexConfig | null
   question: string; history: AskAnswer[]; signal: AbortSignal; about?: string | null
   contacts?: Contact[]; cases?: Case[]; askedBy?: string
+  /** For a credit client: what live monitoring found and has not been reviewed (news, register, covenants). */
+  monitoring?: { when: string; source: string; severity: string; title: string; detail: string; url?: string }[]
+  /** Each step of the answer as it is taken, for the analyst to follow; also kept with the answer. */
+  onStep?: (text: string) => void
 }): Promise<AskAnswer> {
   const { company, runId, events, documentsDir, codex, question, history } = opts
+  const steps: string[] = []
+  const step = (text: string) => { steps.push(text); opts.onStep?.(text) }
   const view = foldAll(runId, events)
   const ranked = rankFindings(view.findings, view.decision)
   const base = view.decision?.scenarios.baza
@@ -115,11 +121,15 @@ export async function answerQuestion(opts: {
   const about = opts.about ? view.findings.find(f => f.id === opts.about) ?? null : null
   const reply = (fields: Partial<AskAnswer>): AskAnswer => ({
     id: randomUUID(), runId, ts: new Date().toISOString(), question, about: about?.id ?? null, ok: true, answer: '', findingId: null, evidence: [],
-    author: 'engine', durationMs: Date.now() - started, unsupported: [], ...(opts.askedBy ? { askedBy: opts.askedBy } : {}), ...fields,
+    author: 'engine', durationMs: Date.now() - started, unsupported: [], ...(opts.askedBy ? { askedBy: opts.askedBy } : {}), steps, ...fields,
   })
+  step('Reading the run: ' + view.findings.length + (view.findings.length === 1 ? ' problem, ' : ' problems, ') + Object.values(view.workers).reduce((n, w) => n + w.checks.length, 0) + ' policy checks, decision ' + (view.decision ? decisionLabels[view.decision.decision] : 'not reached yet'))
+  if (about) step('Focusing on problem #' + (ranked.indexOf(about) + 1) + ': ' + about.title)
 
   if (!codex) {
+    step('No model connected: answering from what this run recorded')
     const { text, finding } = engineAnswer(question, view, ranked, about, history, opts.contacts)
+    step(finding ? 'Pointing to problem #' + (ranked.indexOf(finding) + 1) + ' and its page' : 'Answer written from the recorded facts')
     return reply({ answer: text, findingId: finding?.id ?? null, evidence: finding?.evidence ?? [], author: 'engine · no model' })
   }
 
@@ -142,6 +152,7 @@ export async function answerQuestion(opts: {
     company_contacts: (opts.contacts ?? []).map(c => ({ name: c.name, role: c.role, email: c.placeholder ? 'no email on file' : c.email, phone: c.phone || 'no phone on file', added_by: c.addedBy })),
     cases: (opts.cases ?? []).map(c => ({ ref: c.ref, department: departmentName(c.department), status: caseStatusLabels[c.status], title: c.title, assignee: c.assignee, opened_by: c.createdBy })),
     workers: Object.values(view.workers).filter(w => w.state !== 'hidden').map(w => ({ name: w.role.name, state: w.state, summary: w.summary })),
+    live_monitoring_findings_to_review: opts.monitoring ?? [],
   }
   const pages = new Map<string, Set<number>>()
   for (const d of company.tables.documente) if (WHOLE.has(d.tip_document)) pages.set(d.tip_document, new Set(Array.from({ length: d.pagini }, (_, i) => i + 1)))
@@ -151,13 +162,14 @@ export async function answerQuestion(opts: {
     const doc = company.tables.documente.find(d => d.tip_document === kind)
     if (!doc) continue
     const pdf = await readPdf(documentFile(documentsDir, company, doc))
+    step('Reading ' + (docNames[kind] ?? kind) + ', ' + (set.size === pdf.pages.length ? 'all ' + set.size + (set.size === 1 ? ' page' : ' pages') : 'page' + (set.size === 1 ? ' ' : 's ') + [...set].sort((a, b) => a - b).join(', ')))
     for (const n of [...set].sort((a, b) => a - b)) texts.push('=== ' + kind + ' (' + (docNames[kind] ?? kind) + ') · page ' + n + ' of ' + pdf.pages.length + ' ===\n' + pageText(pdf, n))
   }
   const factsText = JSON.stringify(facts)
   const prompt = [
-    'You are the assistant inside CreditDesk, a bank credit-assessment workspace. A credit analyst asks about one assessment run of ' + company.name + '.',
+    'You are the assistant inside Finra, a bank credit-assessment workspace. A credit analyst asks about one assessment run of ' + company.name + '.',
     'Answer only from FACTS and DOCUMENT TEXT below. Be direct and specific, 120 words at most, plain sentences (no markdown headings). Copy figures exactly as they appear; never compute new ones. If the facts do not answer the question, say what is missing.',
-    '"Biggest" or "most important" problem means rank 1 in findings_most_important_first.',
+    '"Biggest" or "most important" problem means rank 1 in findings_most_important_first. For a question about risk to the client or the credit line, also weigh live_monitoring_findings_to_review (recent news, register changes, covenants) and say when a point comes from monitoring rather than from the assessment.',
     'Pointing: if the answer is about a finding, set findingId to its id (else ""). To show a place in a document, set document to its key, page to its page number and quote to an exact line copied from DOCUMENT TEXT (at most 120 characters); otherwise document "", page 0, quote "". The app opens that place and outlines it.',
     'All company data is synthetic demonstration data.',
     about ? 'The analyst asked this from finding ' + about.id + ' (rank ' + (ranked.indexOf(about) + 1) + '): "' + about.title + '". Unless the question clearly asks about something else, answer about this finding and set findingId to ' + about.id + '. Explain in plain words, for someone who has not read the documents.' : '',
@@ -166,16 +178,22 @@ export async function answerQuestion(opts: {
     'DOCUMENT TEXT:\n' + texts.join('\n\n'),
     'QUESTION: ' + question,
   ].filter(Boolean).join('\n\n')
+  if (opts.monitoring?.length) step('Adding ' + opts.monitoring.length + ' findings from live monitoring that are still to review (news, register, covenants)')
+  if (opts.contacts?.length || opts.cases?.length) step('Adding ' + (opts.contacts?.length ?? 0) + ' company contacts and ' + (opts.cases?.length ?? 0) + ' department cases')
+  step('Asking Codex ' + codex.model + ' (' + codex.effort + ' effort) with the run\'s facts and ' + texts.length + (texts.length === 1 ? ' page' : ' pages') + ' of the documents')
   const result = await askCodex<ModelAnswer>(codex, prompt, schema([...pages.keys()]), opts.signal)
   const author = 'Codex ' + codex.model + ' · ' + codex.effort
-  if (!result.ok || !result.value) return reply({ ok: false, answer: 'The model could not answer: ' + result.reason, author, durationMs: result.durationMs })
+  if (!result.ok || !result.value) { step('The model did not answer: ' + result.reason); return reply({ ok: false, answer: 'The model could not answer: ' + result.reason, author, durationMs: result.durationMs }) }
+  step('Codex answered in ' + (result.durationMs / 1000).toFixed(1) + ' s')
   const v = result.value
   const finding = view.findings.find(f => f.id === v.findingId) ?? null
   let evidence: EvidenceRef[] = []
-  if (v.document) evidence = await locate(company, documentsDir, v.document, v.quote, v.page || null, 'From the answer')
+  if (v.document) {
+    evidence = await locate(company, documentsDir, v.document, v.quote, v.page || null, 'From the answer')
+    step('Looking for the quoted line on ' + (docNames[v.document] ?? v.document) + (v.page ? ', page ' + v.page : '') + ': ' + (evidence[0]?.marks.length ? 'found and outlined' : 'not found on the page'))
+  }
   if (finding && (!evidence.length || !evidence[0].marks.length)) evidence = finding.evidence
-  return reply({
-    answer: v.answer, findingId: finding?.id ?? null, evidence, author, durationMs: result.durationMs,
-    unsupported: unsupportedFigures(v.answer, factsText + texts.join('\n')),
-  })
+  const unsupported = unsupportedFigures(v.answer, factsText + texts.join('\n'))
+  step(unsupported.length ? 'Figures not found in the run or the documents: ' + unsupported.join(', ') : 'Every figure in the answer found in the run or the documents')
+  return reply({ answer: v.answer, findingId: finding?.id ?? null, evidence, author, durationMs: result.durationMs, unsupported })
 }

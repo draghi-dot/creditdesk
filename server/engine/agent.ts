@@ -17,12 +17,12 @@ import { askCodex } from './codex.ts'
 import { unsupportedFigures } from './workers.ts'
 
 export type Language = 'en' | 'ro'
-interface Written<T> { value: T; author: string; unsupported: string[]; reason?: string }
+export interface Written<T> { value: T; author: string; unsupported: string[]; reason?: string }
 
 const docName = (kind: string) => docNames[kind] ?? kind
 /** Times as the bank's people read them (Bucharest), not UTC. */
-const local = (iso: string | null) => iso ? new Date(iso).toLocaleString('en-GB', { timeZone: 'Europe/Bucharest', day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }) : null
-const LANGUAGE: Record<Language, string> = { en: 'English', ro: 'Romanian (formal, using "dumneavoastră")' }
+export const local = (iso: string | null) => iso ? new Date(iso).toLocaleString('en-GB', { timeZone: 'Europe/Bucharest', day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }) : null
+export const LANGUAGE: Record<Language, string> = { en: 'English', ro: 'Romanian (formal, using "dumneavoastră")' }
 
 function findingFacts(f: Finding) {
   return {
@@ -45,14 +45,14 @@ function plainRequirement(f: Finding): string {
   return 'Provide information on: ' + f.title.toLowerCase() + '.'
 }
 
-async function write<T>(codex: CodexConfig | null, prompt: string, schema: object, facts: string, text: (v: T) => string, fallback: () => T, signal: AbortSignal): Promise<Written<T>> {
+export async function write<T>(codex: CodexConfig | null, prompt: string, schema: object, facts: string, text: (v: T) => string, fallback: () => T, signal: AbortSignal): Promise<Written<T>> {
   if (!codex) return { value: fallback(), author: 'engine', unsupported: [] }
   const answer = await askCodex<T>(codex, prompt, schema, signal)
   if (!answer.ok || !answer.value) return { value: fallback(), author: 'engine (model unavailable: ' + answer.reason + ')', unsupported: [], reason: answer.reason }
   return { value: answer.value, author: 'Codex ' + codex.model + ' · ' + codex.effort, unsupported: unsupportedFigures(text(answer.value), facts) }
 }
 
-const DRAFT_SCHEMA = {
+export const DRAFT_SCHEMA = {
   type: 'object', additionalProperties: false, required: ['subject', 'body', 'requirements'],
   properties: { subject: { type: 'string' }, body: { type: 'string' }, requirements: { type: 'array', items: { type: 'string' } } },
 }
@@ -121,12 +121,13 @@ const REPORT_SCHEMA = {
 export async function caseReport(opts: { company: Company; case: Case; events: CaseEvent[]; requests: CompanyRequest[]; codex: CodexConfig | null; signal: AbortSignal }): Promise<Written<CaseReport>> {
   const c = opts.case
   const timeline = opts.events.filter(e => e.kind !== 'report').map(e => ({ when: local(e.ts), who: e.author, what: e.kind, text: e.text, data: e.data }))
-  const requests = opts.requests.map(r => ({ subject: r.subject, status: r.status, to: r.to.name || r.to.email, requirements: r.requirements, sent_at: local(r.sentAt) }))
+  const requests = opts.requests.map(r => ({ subject: r.subject, status: r.status, to: (r.to.name ? r.to.name + ' ' : '') + '<' + r.to.email + '>', requirements: r.requirements, sent_at: local(r.sentAt), sent_by: r.sentBy, delivery: r.simulated ? 'simulated: recorded as sent, no email left Finra' : r.testDelivery ? 'test copy to the sender' : r.status === 'sent' ? 'sent through Gmail' : null }))
   const facts = JSON.stringify({ ...requestFacts(opts.company), case: { ref: c.ref, department: departmentName(c.department), status: c.status, assignee: c.assignee, opened_by: c.createdBy, opened_at: local(c.createdAt) }, problem: c.finding ? findingFacts(c.finding) : { title: c.title }, timeline, requests })
   const prompt = [
     'Write a short case report for the ' + departmentName(c.department) + ' department of a bank about case ' + c.ref + ' for ' + opts.company.name + '.',
     'title: one line. paragraphs: 3-5 short paragraphs: the problem and where it is in the documents; why it matters; what has been done so far (who, when); what is outstanding and the recommended next step. At most 180 words in total.',
     'Use only FACTS. Copy figures exactly as given; never compute new ones. Plain language for a colleague taking over the case.',
+    'For each email in requests that was sent, say what it asked, to whom (with the address), when and by whom, and say plainly when its delivery was simulated.',
     'FACTS: ' + facts,
   ].join('\n')
   return write<CaseReport>(opts.codex, prompt, REPORT_SCHEMA, facts, v => [v.title, ...v.paragraphs].join('\n'), () => ({
@@ -135,7 +136,7 @@ export async function caseReport(opts: { company: Company; case: Case; events: C
       c.finding ? c.finding.observed + ' Compared against: ' + c.finding.comparedAgainst : c.title,
       c.finding?.whyItMatters ?? '',
       'Opened by ' + c.createdBy + ' on ' + local(c.createdAt) + '; ' + opts.events.filter(e => e.kind === 'comment').length + ' comment(s); status ' + c.status.replace('_', ' ') + (c.assignee ? ', assigned to ' + c.assignee : ', not assigned') + '.',
-      requests.length ? 'Requests to the company: ' + requests.map(r => r.subject + ' (' + r.status + ')').join('; ') + '.' : 'No request has been sent to the company yet.',
+      requests.length ? requests.map(r => r.status === 'sent' ? 'Email “' + r.subject + '” sent to ' + r.to + ' by ' + r.sent_by + ' on ' + r.sent_at + (r.delivery ? ' (' + r.delivery + ')' : '') + '.' : 'Email “' + r.subject + '” to ' + r.to + ': ' + (r.status === 'draft' ? 'drafted, not sent yet' : 'not sent') + '.').join(' ') : 'No request has been sent to the company yet.',
     ].filter(Boolean),
   }), opts.signal)
 }

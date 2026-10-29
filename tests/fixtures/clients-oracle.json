@@ -618,5 +618,67 @@
     "garant_capabil": false
    }
   ]
+ },
+ {
+  "dosar_id": "TEST-DOS-061",
+  "numai_pentru_test": true,
+  "profil_test": "sanatos",
+  "descriere_test": "Documente complete, flux suficient si garantii suficiente.",
+  "politica_id": "POL-DEMO-HACK-001",
+  "indicatori_calculati": {
+   "cfads_12_luni": 14434580.9,
+   "serviciu_datorie_12_luni": 6414299.23,
+   "dscr": 2.250375,
+   "dscr_lunar_min": 1.886029,
+   "lichiditate_curenta": 4.045935,
+   "datorie_ebitda": 1.791807,
+   "vechime_luni_demo": 247
+  },
+  "scenarii": [
+   {
+    "scenariu_id": "TEST-SCN-061-BAZA",
+    "tip_scenariu": "baza",
+    "rezultat_asteptat": "ELIGIBIL",
+    "motive": [
+     "Reguli DEMO indeplinite; aprobare umana simulata inainte de semnare."
+    ],
+    "acoperire_garantii": 1.4,
+    "valoare_garantii_eligibile": 12961200.0,
+    "garant_capabil": false
+   },
+   {
+    "scenariu_id": "TEST-SCN-061-GARANTII",
+    "tip_scenariu": "garantii_suplimentare",
+    "rezultat_asteptat": "ELIGIBIL",
+    "motive": [
+     "Reguli DEMO indeplinite; aprobare umana simulata inainte de semnare."
+    ],
+    "acoperire_garantii": 2.1,
+    "valoare_garantii_eligibile": 19441800.0,
+    "garant_capabil": false
+   },
+   {
+    "scenariu_id": "TEST-SCN-061-GARANT",
+    "tip_scenariu": "garant_suplimentar",
+    "rezultat_asteptat": "CONDITIONAT",
+    "motive": [
+     "Garantul fictiv nu are capacitate demonstrata."
+    ],
+    "acoperire_garantii": 1.4,
+    "valoare_garantii_eligibile": 12961200.0,
+    "garant_capabil": false
+   },
+   {
+    "scenariu_id": "TEST-SCN-061-CASH50",
+    "tip_scenariu": "cash_colateral",
+    "rezultat_asteptat": "CONDITIONAT",
+    "motive": [
+     "Cash 50% fara dovada blocarii/provenientei; nu intra in acoperire."
+    ],
+    "acoperire_garantii": 1.4,
+    "valoare_garantii_eligibile": 12961200.0,
+    "garant_capabil": false
+   }
+  ]
  }
 ]

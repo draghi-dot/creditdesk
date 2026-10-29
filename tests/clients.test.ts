@@ -20,8 +20,8 @@ const policy = (JSON.parse(readFileSync(new URL('../public/data/portfolio.json',
 const clients: Company[] = JSON.parse(readFileSync(new URL('../public/data/clients.json', import.meta.url), 'utf8')).clients
 const oracle = JSON.parse(readFileSync(new URL('./fixtures/clients-oracle.json', import.meta.url), 'utf8'))
 
-test('the ten credit clients have approved credit lines and assess Eligible with no problems, as the generator expects', async () => {
-  assert.equal(clients.length, 10)
+test('the eleven credit clients have approved credit lines and assess Eligible with no problems, as the generator expects', async () => {
+  assert.equal(clients.length, 11)
   const store = new Store(join(mkdtempSync(join(tmpdir(), 'clients-')), 'runs.sqlite'))
   const engine = new Engine(store, new URL('../public/documents', import.meta.url).pathname, null)
   for (const client of clients) {
@@ -81,6 +81,35 @@ test('reviewing a monitoring event records who did it', async () => {
   assert.equal(log.at(-1).action, 'Monitoring event reviewed')
 })
 
+test('a planted test signal is found by the next check through the real steps, marked simulated, and clearing it puts things back', async () => {
+  const id = 'TEST-DOS-053'
+  const raised = async (title: RegExp) => (await waitFor(() => engine.get<{ events: MonitorEvent[] }>('/monitoring'), s => s.events.some(e => e.companyId === id && title.test(e.title)))).events.find(e => e.companyId === id && title.test(e.title))!
+  for (const kind of ['news-insolvency', 'register-vat', 'covenant-dscr']) await engine.post('/monitoring/simulate', { companyId: id, kind })
+  let state = await engine.get<{ clients: ClientStatus[] }>('/monitoring')
+  assert.deepEqual(state.clients.find(c => c.companyId === id)!.planted.sort(), ['covenant-dscr', 'news-insolvency', 'register-vat'])
+  await engine.post('/monitoring/check', { companyId: id })
+  const news = await raised(/^Insolvency: Cemacon a cerut/)
+  assert.deepEqual([news.severity, news.data?.simulated, news.data?.url], ['alert', true, undefined])
+  assert.match(news.detail, /Cemacon a depus la tribunal cererea de deschidere a procedurii de insolvență/)
+  assert.ok(news.data!.steps!.some(t => t.startsWith('Test signal planted by Ioana Marinescu')) && /: Insolvency → critical, needs action$/.test(news.data!.steps!.at(-1)!), news.data!.steps!.join(' | '))
+  const vat = await raised(/^VAT registration cancelled$/)
+  assert.deepEqual([vat.severity, vat.detail, vat.data?.simulated], ['watch', 'VAT: true → false', true])
+  assert.ok(vat.data!.steps!.some(t => /ANAF is not asked/.test(t)))
+  const breach = await raised(/^Covenant breach$/)
+  assert.match(breach.detail, /^DSCR 1\.05× below 1\.20× · simulated quarterly figures$/)
+  state = await engine.get('/monitoring')
+  assert.equal(state.clients.find(c => c.companyId === id)!.status, 'alert')
+  // Checking again raises nothing new; clearing removes the signals and records who did what.
+  const count = (await engine.get<{ events: MonitorEvent[] }>('/monitoring')).events.filter(e => e.companyId === id).length
+  await engine.post('/monitoring/check', { companyId: id })
+  await waitFor(() => engine.get<{ clients: ClientStatus[] }>('/monitoring'), s => !s.clients.find(c => c.companyId === id)!.checking && !s.clients.find(c => c.companyId === id)!.queued)
+  await new Promise(r => setTimeout(r, 300))
+  assert.equal((await engine.get<{ events: MonitorEvent[] }>('/monitoring')).events.filter(e => e.companyId === id).length, count)
+  for (const kind of ['news-insolvency', 'register-vat', 'covenant-dscr']) await engine.post('/monitoring/simulate', { companyId: id, kind, clear: true })
+  assert.deepEqual((await engine.get<{ clients: ClientStatus[] }>('/monitoring')).clients.find(c => c.companyId === id)!.planted, [])
+  assert.deepEqual((await engine.get('/activity?company=' + id)).map((a: any) => a.action).filter((a: string) => a.startsWith('Test signal')), ['Test signal planted', 'Test signal planted', 'Test signal planted', 'Test signal cleared', 'Test signal cleared', 'Test signal cleared'])
+})
+
 test('the news check reads feeds, opens matching articles only where robots.txt allows, and quotes the sentence naming the client', async () => {
   delete process.env.CREDITDESK_MONITOR_WEB
   const client = clients.find(c => c.symbol === 'CEON')!
@@ -105,22 +134,36 @@ test('the news check reads feeds, opens matching articles only where robots.txt 
     const monitor = new Monitor(db, [client], () => null, 60)
     await monitor.check(client)
     const news = monitor.events().filter(e => e.source === 'web')
-    assert.equal(news.length, 2)
+    assert.equal(news.length, 1, 'only news that needs attention is raised; the rest is listed by the crawler')
     const insolvency = news.find(e => e.data?.url?.includes('insolventa'))!
     assert.deepEqual([insolvency.severity, insolvency.title], ['alert', 'Insolvency: Cemacon intră în insolvență'])
     assert.match(insolvency.detail, /Cemacon a cerut deschiderea procedurii|Cemacon a depus la tribunal cererea de deschidere a procedurii de insolvență/)
     assert.equal(insolvency.data?.published, '2026-10-27')
     assert.match(insolvency.data?.sha256 ?? '', /^[0-9a-f]{64}$/)
-    const blocked = news.find(e => e.data?.url?.includes('blocked'))!
-    assert.equal(blocked.data?.note, 'blocked.example-press.ro robots.txt disallows /cemacon-contract')
+    const { pages, crawl } = monitor.crawl(client.id)
+    assert.deepEqual(pages.map(p => [p.status, p.topic, p.severity]).sort(), [['blocked', 'Contracts and investment', 'info'], ['read', 'Insolvency', 'alert']])
+    const blocked = pages.find(p => p.url.includes('blocked'))!
+    assert.equal(blocked.note, 'blocked.example-press.ro robots.txt disallows /cemacon-contract')
+    assert.equal(crawl!.found, 2)
+    assert.ok(crawl!.sources.some(x => x.name === 'Bing News search' && x.about === 'company'), 'the company is searched for by name')
+    assert.match(monitor.crawledPage(client.id, 'https://news.example-press.ro/cemacon-insolventa')!.text!, /cererea de deschidere a procedurii de insolvență/)
     assert.ok(!requested.includes('https://blocked.example-press.ro/cemacon-contract'), 'a page robots.txt forbids is never fetched')
     assert.ok(!requested.includes('https://news.example-press.ro/alta'), 'articles that do not name the client are not opened')
     // The same articles are not reported twice.
     await monitor.check(client)
-    assert.equal(monitor.events().filter(e => e.source === 'web').length, 2)
+    assert.equal(monitor.events().filter(e => e.source === 'web').length, 1)
     assert.equal(monitor.status()[0].status, 'alert')
   } finally {
     globalThis.fetch = realFetch
     process.env.CREDITDESK_MONITOR_WEB = 'off'
   }
+})
+
+test('a new data folder assesses every credit client by itself, so each one starts with an assessment on file', async () => {
+  const fresh = await startEngine({ CREDITDESK_LLM: 'none', CREDITDESK_ANAF: 'off', CREDITDESK_MONITOR_WEB: 'off', CREDITDESK_ONBOARD: 'on' })
+  try {
+    const runs = await waitFor(() => fresh.get<{ companyId: string; status: string; startedBy: string }[]>('/runs'), r => clients.every(c => r.some(x => x.companyId === c.id && x.status === 'completed')))
+    assert.ok(runs.filter(r => clients.some(c => c.id === r.companyId)).every(r => r.startedBy === 'Credit committee'))
+    assert.ok(!runs.some(r => !clients.some(c => c.id === r.companyId)), 'applications are left for the employee to start')
+  } finally { await fresh.stop() }
 })

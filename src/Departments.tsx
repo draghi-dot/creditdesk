@@ -5,7 +5,7 @@ import type { Company } from './types'
 import type { Finding } from './assessment'
 import type { Case, CaseEvent, CaseStatus, CompanyRequest, Contact, DepartmentId, User } from './workspace'
 import { DEPARTMENTS, caseStatusLabels, departmentFor, departmentName } from './workspace'
-import { Button, Dialog } from './components'
+import { Button, Dialog, Select } from './components'
 import { EvidenceViewer, ImpactTag, emphasize } from './AssessmentUI'
 import { when } from './runs'
 import type { Session } from './people'
@@ -24,6 +24,8 @@ export function SendToDepartment({ companyId, runId, finding, existing, onSent, 
 }) {
   const [open, setOpen] = useState(false)
   const [department, setDepartment] = useState<DepartmentId>(departmentFor(finding))
+  // The same control shows the next problem when the employee moves on: its usual department comes with it.
+  useEffect(() => { setDepartment(departmentFor(finding)); setNote(''); setError('') }, [finding.id])
   const [note, setNote] = useState('')
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
@@ -91,7 +93,7 @@ function AddEmployee({ department, onClose, onAdded }: { department: DepartmentI
   return <Dialog title="Add an employee" onClose={onClose}><form onSubmit={submit}><div className="form-content form-grid">
     <label className="field-label">Name<input required minLength={2} autoFocus value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} /></label>
     <label className="field-label">Job title<input value={form.title} placeholder="e.g. Legal advisor" onChange={e => setForm({ ...form, title: e.target.value })} /></label>
-    <label className="field-label">Department<select value={form.department} onChange={e => setForm({ ...form, department: e.target.value as DepartmentId })}>{DEPARTMENTS.map(d => <option key={d.id} value={d.id}>{d.name}</option>)}</select></label>
+    <label className="field-label">Department<Select label="Department" value={form.department} onChange={v => setForm({ ...form, department: v as DepartmentId })} options={DEPARTMENTS.map(d => ({ value: d.id, label: d.name }))} /></label>
     {error && <p className="form-error"><CircleAlert size={14} />{error}</p>}
   </div><div className="dialog-actions"><Button type="button" onClick={onClose}>Cancel</Button><Button variant="primary" type="submit"><Plus size={14} />Add employee</Button></div></form></Dialog>
 }
@@ -104,7 +106,7 @@ const eventText = (e: CaseEvent): string => {
     case 'moved': return 'moved the case from ' + departmentName(e.data.from) + ' to ' + departmentName(e.data.to)
     case 'contact': return 'looked up the company contact'
     case 'request': return e.author === 'Assistant' ? 'suggested an email to the company' : 'drafted a request to the company' + (String(e.data?.author ?? '').startsWith('Codex') ? ' with the assistant' : '')
-    case 'email': return e.data?.test ? 'sent a test copy of the request to ' + e.data.deliveredTo : 'sent the request to ' + (e.data?.to?.name || e.data?.to?.email)
+    case 'email': return e.data?.test ? 'sent a test copy of the request to ' + e.data.deliveredTo : 'sent the request to ' + (e.data?.to?.name ? e.data.to.name + ' <' + e.data.to.email + '>' : e.data?.to?.email) + (e.data?.simulated ? ' (simulated delivery)' : '')
     case 'report': return 'wrote a case report' + (String(e.data?.author ?? '').startsWith('Codex') ? ' with the assistant' : '')
     default: return 'commented'
   }
@@ -138,9 +140,9 @@ export function CasePage({ caseId, companies, session, onCompany, onDepartment, 
       <div><h1><span className="case-ref">{c.ref}</span>{c.title}</h1>
         <p><button className="link-button" onClick={() => onCompany(company.id)}>{company.name}</button> · sent by {c.createdBy} · {when(c.createdAt)}{f && <> · <ImpactTag impact={f.impact} /></>}</p></div>
       <div className="case-controls">
-        <label>Status<select value={c.status} onChange={e => change({ status: e.target.value as CaseStatus })}>{STATUSES.map(s => <option key={s} value={s}>{caseStatusLabels[s]}</option>)}</select></label>
-        <label>Assigned to<select value={members.find(u => u.name === c.assignee)?.id ?? ''} onChange={e => change({ assignee: e.target.value || null })}><option value="">Not assigned</option>{members.map(u => <option key={u.id} value={u.id}>{u.name}</option>)}</select></label>
-        <label>Department<select value={c.department} onChange={e => change({ department: e.target.value as DepartmentId })}>{DEPARTMENTS.map(d => <option key={d.id} value={d.id}>{d.name}</option>)}</select></label>
+        <label>Status<Select label="Status" value={c.status} onChange={v => change({ status: v as CaseStatus })} options={STATUSES.map(s => ({ value: s, label: caseStatusLabels[s] }))} /></label>
+        <label>Assigned to<Select label="Assigned to" value={members.find(u => u.name === c.assignee)?.id ?? ''} onChange={v => change({ assignee: v || null })} options={[{ value: '', label: 'Not assigned' }, ...members.map(u => ({ value: u.id, label: u.name }))]} /></label>
+        <label>Department<Select label="Department" value={c.department} onChange={v => change({ department: v as DepartmentId })} options={DEPARTMENTS.map(d => ({ value: d.id, label: d.name }))} /></label>
         {session && c.assignee !== session.user.name && session.user.department === c.department && <Button small onClick={() => change({ assignee: session.user.id, ...(c.status === 'open' ? { status: 'in_progress' } : {}) })}>Take this case</Button>}
       </div>
     </header>

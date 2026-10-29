@@ -1,8 +1,8 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import type { ComponentType, ReactNode } from 'react'
 import { createPortal } from 'react-dom'
-import { Bot, Check, ChevronLeft, ChevronRight, CircleAlert, ExternalLink, FileSearch, Fingerprint, Globe2, Hourglass, Landmark, Layers3, ListChecks, LoaderCircle, Maximize2, ScanLine, ShieldCheck, Workflow, X } from 'lucide-react'
-import type { AgentId, EvidenceRef, FindingImpact, FindingView, NoteView, RunView, WorkerView } from './assessment'
+import { Bot, Check, ChevronLeft, ChevronRight, CircleAlert, ExternalLink, FileSearch, Fingerprint, Globe2, Hourglass, Landmark, Layers3, ListChecks, LoaderCircle, Maximize2, MessageSquareText, ScanLine, ShieldCheck, Workflow, X } from 'lucide-react'
+import type { AgentId, EvidenceMark, EvidenceRef, FindingImpact, FindingView, NoteView, RunView, WorkerView } from './assessment'
 import { docNames } from './documents'
 import { clock, duration, originalPdfUrl, pageImageUrl } from './runs'
 
@@ -30,6 +30,8 @@ const LAYOUT: Record<AgentId, [number, number]> = {
 const SIZES = {
   full: { w: 176, h: 92, gx: 12, gy: 26 },
   compact: { w: 132, h: 56, gx: 10, gy: 30 },
+  /** Left to right, for a wide and short space (the live run). */
+  wide: { w: 186, h: 96, gx: 62, gy: 30 },
 }
 const PAD = 14
 
@@ -51,10 +53,12 @@ function layers(view: RunView): Map<AgentId, number> {
  * The agent map. A worker appears only once the engine has revealed it
  * (waiting on a dispatched dependency) or dispatched it.
  */
-export function AgentMap({ view, selected, highlight, onSelect, compact = false, fit = false }: {
+export function AgentMap({ view, selected, highlight, onSelect, compact = false, fit = false, maxScale = 1.12, horizontal = false }: {
   view: RunView; selected: AgentId | null; highlight: AgentId | null; onSelect: (id: AgentId) => void; compact?: boolean
   /** Scale to fit the container's height as well as its width. */
-  fit?: boolean
+  fit?: boolean; maxScale?: number
+  /** Dependencies flow left to right instead of top to bottom. */
+  horizontal?: boolean
 }) {
   const box = useRef<HTMLDivElement>(null)
   const [size, setSize] = useState({ width: 720, height: 600 })
@@ -64,16 +68,16 @@ export function AgentMap({ view, selected, highlight, onSelect, compact = false,
     observer.observe(box.current)
     return () => observer.disconnect()
   }, [])
-  const { w: NODE_W, h: NODE_H, gx, gy } = compact ? SIZES.compact : SIZES.full
+  const { w: NODE_W, h: NODE_H, gx, gy } = compact ? SIZES.compact : horizontal ? SIZES.wide : SIZES.full
   const cells = useMemo(() => {
     const depth = layers(view)
-    return new Map(view.order.map(id => [id, LAYOUT[id] ?? [0, depth.get(id)!]] as const))
-  }, [view.order.join()])
+    return new Map(view.order.map(id => { const [col, row] = LAYOUT[id] ?? [0, depth.get(id)!]; return [id, horizontal ? [row, col] as [number, number] : [col, row] as [number, number]] as const }))
+  }, [view.order.join(), horizontal])
   const columns = Math.max(...[...cells.values()].map(c => c[0])) + 1
   const rowCount = Math.max(...[...cells.values()].map(c => c[1])) + 1
   const logicalWidth = columns * (NODE_W + gx) - gx + PAD * 2
   const logicalHeight = rowCount * (NODE_H + gy) - gy + PAD * 2
-  const scale = fit ? Math.max(.35, Math.min(1.12, size.width / logicalWidth, size.height / logicalHeight)) : Math.min(1, size.width / logicalWidth)
+  const scale = fit ? Math.max(.35, Math.min(maxScale, size.width / logicalWidth, size.height / logicalHeight)) : Math.min(1, size.width / logicalWidth)
   const pos = new Map<AgentId, { x: number; y: number }>()
   for (const [id, [col, row]] of cells) pos.set(id, { x: PAD + col * (NODE_W + gx), y: PAD + row * (NODE_H + gy) })
   const visible = (id: AgentId) => view.workers[id] && view.workers[id].state !== 'hidden'
@@ -85,11 +89,16 @@ export function AgentMap({ view, selected, highlight, onSelect, compact = false,
           <defs><marker id="map-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="currentColor" /></marker></defs>
           {edges.map(({ from, to }) => {
             const a = pos.get(from)!, b = pos.get(to)!
-            const x1 = a.x + NODE_W / 2, y1 = a.y + NODE_H, x2 = b.x + NODE_W / 2, y2 = b.y
-            const mid = (y1 + y2) / 2
+            const x1 = horizontal ? a.x + NODE_W : a.x + NODE_W / 2, y1 = horizontal ? a.y + NODE_H / 2 : a.y + NODE_H
+            const x2 = horizontal ? b.x : b.x + NODE_W / 2, y2 = horizontal ? b.y + NODE_H / 2 : b.y
+            const mid = horizontal ? (x1 + x2) / 2 : (y1 + y2) / 2
             const source = view.workers[from].state, target = view.workers[to].state
             const state = target === 'running' ? 'flowing' : source === 'done' || source === 'attention' ? 'delivered' : 'pending'
-            return <path key={from + to} className={'map-edge map-edge-' + state} d={'M' + x1 + ',' + y1 + ' C' + x1 + ',' + mid + ' ' + x2 + ',' + mid + ' ' + x2 + ',' + (y2 - 2)} markerEnd="url(#map-arrow)" />
+            const d = horizontal ? 'M' + x1 + ',' + y1 + ' C' + mid + ',' + y1 + ' ' + mid + ',' + y2 + ' ' + (x2 - 2) + ',' + y2
+              : 'M' + x1 + ',' + y1 + ' C' + x1 + ',' + mid + ' ' + x2 + ',' + mid + ' ' + x2 + ',' + (y2 - 2)
+            // Work flowing into an agent that is working: dots travel along the link.
+            return <g key={from + to}><path className={'map-edge map-edge-' + state} d={d} markerEnd="url(#map-arrow)" />
+              {state === 'flowing' && [0, .6, 1.2].map(begin => <circle key={begin} r="3.2" className="edge-dot"><animateMotion dur="1.8s" begin={begin + 's'} repeatCount="indefinite" path={d} /></circle>)}</g>
           })}
         </svg>
         {view.order.filter(visible).map(id => {
@@ -105,7 +114,8 @@ export function AgentMap({ view, selected, highlight, onSelect, compact = false,
               {w.state === 'running' ? <LoaderCircle size={10} className="spin" /> : w.state === 'waiting' ? <Hourglass size={10} /> : w.state === 'attention' ? <CircleAlert size={10} /> : w.state === 'done' ? <Check size={10} /> : w.state === 'failed' || w.state === 'cancelled' ? <X size={10} /> : null}
               {stateLabel[w.state]}</span>{w.findings.length > 0 && <span className="map-node-count" title={w.findings.length + ' findings'}>{w.findings.length}</span>}</div>
             <strong>{w.role.name}</strong>
-            <span className="map-node-text" title={text}>{text}</span>
+            <span className="map-node-text" title={text}>{w.state === 'running' ? w.role.role : text}</span>
+            {w.state === 'running' && <span className="map-bubble" key={text}>{text}</span>}
             {w.llm && <span className={'map-node-model' + (w.llm.running ? ' running' : '')}>{w.llm.running ? 'Model working' : w.llm.ok ? 'Model ' + ((w.llm.durationMs ?? 0) / 1000).toFixed(1) + ' s' : 'Model failed'}</span>}
           </button>
         })}
@@ -121,8 +131,9 @@ export function emphasize(text: string): ReactNode[] {
 }
 
 /** One rendered original page with its marks; scrolls its container to the focused mark. */
-function PageCanvas({ companyId, evidence: ref, page, scrollRef, focus, large = false }: {
-  companyId: string; evidence: EvidenceRef; page: number; scrollRef: React.RefObject<HTMLDivElement | null>; focus: number | null; large?: boolean
+function PageCanvas({ companyId, evidence: ref, page, scrollRef, focus, large = false, zoom = 1, onFocus, onAsk }: {
+  companyId: string; evidence: EvidenceRef; page: number; scrollRef: React.RefObject<HTMLDivElement | null>; focus: number | null; large?: boolean; zoom?: number
+  onFocus?: (i: number) => void; onAsk?: (mark: EvidenceMark) => void
 }) {
   const [loaded, setLoaded] = useState(false)
   useEffect(() => setLoaded(false), [ref.file, page])
@@ -134,16 +145,23 @@ function PageCanvas({ companyId, evidence: ref, page, scrollRef, focus, large = 
     const img = box.querySelector('img')
     if (!img) return
     const y = ref.marks[target].box.y0 / ref.pageHeight * img.clientHeight
-    box.scrollTo({ top: Math.max(0, y - box.clientHeight / 3), behavior: 'smooth' })
-  }, [loaded, onMarks, ref.documentId, ref.page, target, focus])
+    const x = ref.marks[target].box.x0 / ref.pageWidth * img.clientWidth
+    box.scrollTo({ top: Math.max(0, y - box.clientHeight / 3), left: Math.max(0, x - box.clientWidth / 5), behavior: 'smooth' })
+  }, [loaded, onMarks, ref.documentId, ref.page, target, focus, zoom])
   const labelled = focus ?? ref.marks.findIndex(x => x.tone === 'issue')
-  return <div className={'evidence-page' + (large ? ' evidence-page-large' : '')}>
+  // The line the problem is on is banded across the whole page, and the rest of the page is dimmed around it.
+  const lines = onMarks ? ref.marks.filter(m => m.tone === 'issue') : []
+  return <div className={'evidence-page' + (large ? ' evidence-page-large' : '') + (zoom > 1 ? ' zoomed' : '') + (loaded && lines.length ? ' spotlit' : '')}>
     <img src={pageImageUrl(companyId, ref.file, page)} alt={(docNames[ref.kind] ?? ref.kind) + ', page ' + page} onLoad={() => setLoaded(true)} />
     {!loaded && <div className="evidence-loading"><LoaderCircle size={18} className="spin" />Rendering original page…</div>}
-    {loaded && onMarks && ref.marks.map((m, i) => <div key={i} className={'evidence-mark mark-' + m.tone + (focus === i ? ' mark-focus' : '')} style={{
+    {loaded && lines.map((m, i) => <div key={'line' + i} className="evidence-line" style={{ top: (m.box.y0 - 4) / ref.pageHeight * 100 + '%', height: (m.box.y1 - m.box.y0 + 8) / ref.pageHeight * 100 + '%' }} />)}
+    {loaded && onMarks && ref.marks.map((m, i) => <div key={i} className={'evidence-mark mark-' + m.tone + (focus === i ? ' mark-focus' : '') + (i === labelled ? ' mark-spot' : '')} style={{
       left: (m.box.x0 - 3) / ref.pageWidth * 100 + '%', top: (m.box.y0 - 2.5) / ref.pageHeight * 100 + '%',
       width: (m.box.x1 - m.box.x0 + 6) / ref.pageWidth * 100 + '%', height: (m.box.y1 - m.box.y0 + 5) / ref.pageHeight * 100 + '%',
-    }} title={m.label}>{i === labelled && <span className={'evidence-mark-label ' + (m.box.x1 / ref.pageWidth < .55 ? 'label-right' : 'label-above')}>{m.label}</span>}</div>)}
+    }} title={m.label} onClick={() => onFocus?.(i)}>
+      {i === labelled ? <span className={'evidence-mark-label ' + (m.box.x1 / ref.pageWidth < .55 ? 'label-right' : 'label-above')}><span>{m.label}</span>{onAsk && <button onClick={e => { e.stopPropagation(); onAsk(m) }} title="Ask the assistant about this figure"><MessageSquareText size={11} />Ask</button>}</span>
+        : onAsk && <button className="mark-ask" onClick={e => { e.stopPropagation(); onAsk(m) }} title={'Ask about ' + m.label}><MessageSquareText size={11} />Ask</button>}
+    </div>)}
   </div>
 }
 
@@ -160,13 +178,26 @@ function FigureList({ evidence: ref, page, focus, onFocus }: { evidence: Evidenc
  * Original page as rendered by the engine, with the finding's marks outlined.
  * "Expand" opens a large in-page view; `aside` is shown next to it there.
  */
-export function EvidenceViewer({ companyId, evidence, title, aside }: { companyId: string; evidence: EvidenceRef[]; title?: string; aside?: ReactNode }) {
-  const [index, setIndex] = useState(0)
+export function EvidenceViewer({ companyId, evidence, title, aside, focus: focusProp, onFocus, index: indexProp, onIndex, figures = true, onAskMark }: {
+  companyId: string; evidence: EvidenceRef[]; title?: string; aside?: ReactNode
+  /** Set to share the outlined figure in focus and the document shown with a panel beside the viewer. */
+  focus?: number | null; onFocus?: (i: number | null) => void; index?: number; onIndex?: (i: number) => void
+  /** The list of outlined figures above the page; off when shown beside it. */
+  figures?: boolean; onAskMark?: (mark: EvidenceMark, ref: EvidenceRef) => void
+}) {
+  const [indexState, setIndexState] = useState(0)
   const [page, setPage] = useState(evidence[0]?.page ?? 1)
-  const [focus, setFocus] = useState<number | null>(null)
+  const [focusState, setFocusState] = useState<number | null>(null)
+  const focus = focusProp !== undefined ? focusProp : focusState
+  const setFocus = onFocus ?? setFocusState
+  const index = indexProp ?? indexState
+  const setIndex = onIndex ?? setIndexState
   const [expanded, setExpanded] = useState(false)
   const [zoom, setZoom] = useState(1)
   const scroller = useRef<HTMLDivElement>(null)
+  // In a narrow panel the page opens enlarged at the problem, so the figures can be read without expanding.
+  const [inline, setInline] = useState<number | null>(null)
+  useLayoutEffect(() => { if (inline === null && scroller.current) setInline(scroller.current.clientWidth < 560 ? 1.6 : 1) })
   const bigScroller = useRef<HTMLDivElement>(null)
   const key = evidence.map(e => e.documentId + e.page).join()
   useEffect(() => { setIndex(0); setPage(evidence[0]?.page ?? 1); setFocus(null) }, [key])
@@ -188,10 +219,11 @@ export function EvidenceViewer({ companyId, evidence, title, aside }: { companyI
     <div className="evidence-toolbar">
       <div><strong>{docNames[ref.kind] ?? ref.kind}</strong><span>{ref.file} · SHA-256 {ref.sha256.slice(0, 12)}…</span></div>
       {pager}
-      <button className="evidence-expand" onClick={() => setExpanded(true)} title="Expand in the page"><Maximize2 size={13} />Expand</button>
+      <div className="doc-zoom inline-zoom">{[1, 1.6, 2.2].map(z => <button key={z} className={(inline ?? 1) === z ? 'active' : ''} onClick={() => setInline(z)}>{z === 1 ? 'Fit' : Math.round(z * 100) + '%'}</button>)}</div>
+      <button className="evidence-expand" onClick={() => setExpanded(true)} title="Open the page full screen"><Maximize2 size={13} />Expand</button>
     </div>
-    <FigureList evidence={ref} page={page} focus={focus} onFocus={setFocus} />
-    <div className="evidence-page-scroll" ref={scroller}><PageCanvas companyId={companyId} evidence={ref} page={page} scrollRef={scroller} focus={focus} /></div>
+    {figures && <FigureList evidence={ref} page={page} focus={focus} onFocus={setFocus} />}
+    <div className="evidence-page-scroll" ref={scroller}><div className="evidence-zoom" style={{ width: (inline ?? 1) * 100 + '%' }}><PageCanvas companyId={companyId} evidence={ref} page={page} scrollRef={scroller} focus={focus} zoom={inline ?? 1} onFocus={setFocus} onAsk={onAskMark && (m => onAskMark(m, ref))} /></div></div>
     {back}
     <div className="evidence-legend"><span><i className="legend-issue" />Problem</span><span><i className="legend-reference" />Compared with</span></div>
     {/* Rendered at the document root: containers with transforms or container queries would otherwise clip a fixed overlay. */}
@@ -206,10 +238,41 @@ export function EvidenceViewer({ companyId, evidence, title, aside }: { companyI
         </header>
         <div className="doc-lightbox-body">
           <aside>{aside}<h5>Outlined on this page</h5><FigureList evidence={ref} page={page} focus={focus} onFocus={setFocus} />{page !== ref.page && <p className="doc-lightbox-hint">Nothing is outlined on page {page}.</p>}{tabs}</aside>
-          <div className="doc-lightbox-page" ref={bigScroller}><div style={{ width: zoom === 1 ? '100%' : zoom * 100 + '%' }}><PageCanvas companyId={companyId} evidence={ref} page={page} scrollRef={bigScroller} focus={focus} large /></div>{back}</div>
+          <div className="doc-lightbox-page" ref={bigScroller}><div style={{ width: zoom === 1 ? '100%' : zoom * 100 + '%' }}><PageCanvas companyId={companyId} evidence={ref} page={page} scrollRef={bigScroller} focus={focus} large zoom={zoom} onFocus={setFocus} onAsk={onAskMark && (m => { setExpanded(false); onAskMark(m, ref) })} /></div>{back}</div>
         </div>
       </div>
     </div>, document.body)}
+  </div>
+}
+
+/**
+ * The outlined lines of the page, cut out and enlarged so they can be read
+ * without zooming: the problem first, then what it was compared with.
+ * Selecting one scrolls the page to it.
+ */
+export function Closeups({ companyId, evidence: ref, focus, onFocus, onAsk }: { companyId: string; evidence: EvidenceRef; focus: number | null; onFocus: (i: number) => void; onAsk?: (mark: EvidenceMark) => void }) {
+  if (!ref.marks.length) return null
+  const order = ref.marks.map((m, i) => ({ m, i })).sort((a, b) => (a.m.tone === b.m.tone ? 0 : a.m.tone === 'issue' ? -1 : 1) || a.m.box.y0 - b.m.box.y0)
+  const image = 'url("' + pageImageUrl(companyId, ref.file, ref.page) + '")'
+  return <div className="closeups">
+    <h5>On {docNames[ref.kind] ?? ref.kind}, page {ref.page}</h5>
+    {order.map(({ m, i }) => {
+      const pad = 4
+      const w = Math.min(ref.pageWidth, Math.max(m.box.x1 - m.box.x0 + 44, 200))
+      const x0 = Math.min(Math.max(0, m.box.x0 - 18), ref.pageWidth - w)
+      const y0 = Math.max(0, m.box.y0 - pad)
+      const h = Math.min(ref.pageHeight - y0, m.box.y1 - m.box.y0 + pad * 2)
+      const at = m.label.indexOf(': ')
+      return <div key={i} className={'closeup closeup-' + m.tone + (focus === i ? ' active' : '')}>
+        <button className="closeup-main" onClick={() => onFocus(i)} title="Show it on the page">
+          <span className="closeup-label"><i />{at > 0 ? <>{m.label.slice(0, at)}<strong>{m.label.slice(at + 2)}</strong></> : m.label}</span>
+          <span className="closeup-crop" style={{ paddingTop: h / w * 100 + '%', backgroundImage: image, backgroundSize: ref.pageWidth / w * 100 + '% auto', backgroundPosition: (w < ref.pageWidth ? x0 / (ref.pageWidth - w) * 100 : 0) + '% ' + (h < ref.pageHeight ? y0 / (ref.pageHeight - h) * 100 : 0) + '%' }}>
+            <b style={{ left: (m.box.x0 - x0 - 2) / w * 100 + '%', top: (m.box.y0 - y0 - 2) / h * 100 + '%', width: (m.box.x1 - m.box.x0 + 4) / w * 100 + '%', height: (m.box.y1 - m.box.y0 + 4) / h * 100 + '%' }} />
+          </span>
+        </button>
+        {onAsk && <button className="closeup-ask" onClick={() => onAsk(m)} title={'Ask the assistant about ' + m.label}><MessageSquareText size={12} />Ask</button>}
+      </div>
+    })}
   </div>
 }
 

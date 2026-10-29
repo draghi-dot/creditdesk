@@ -16,6 +16,8 @@ export interface Company {
   creditLine?: CreditLine
   /** Names the company goes by in the news, for monitoring. */
   monitorTerms?: string[]
+  /** False for a company not listed on the exchange. */
+  listed?: boolean
 }
 export interface Policy {
   politica_id: string

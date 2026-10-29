@@ -1,6 +1,6 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { authUrl, exchangeCode, message, pkce, send } from '../server/gmail.ts'
+import { MissingSendPermission, authUrl, exchangeCode, message, pkce, send } from '../server/gmail.ts'
 
 const client = { clientId: 'id.apps.googleusercontent.com', clientSecret: 'secret' }
 
@@ -25,11 +25,25 @@ test('sign-in uses PKCE; the code is exchanged for a refresh token and the mailb
   let sent: URLSearchParams | null = null
   globalThis.fetch = async (_url: any, init: any) => {
     sent = new URLSearchParams(String(init.body))
-    return new Response(JSON.stringify({ access_token: 'a', refresh_token: 'r-1', id_token: 'h.' + claims + '.s' }), { status: 200 })
+    return new Response(JSON.stringify({ access_token: 'a', refresh_token: 'r-1', id_token: 'h.' + claims + '.s', scope: 'openid https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/gmail.send' }), { status: 200 })
   }
   assert.deepEqual(await exchangeCode(client, 'code-1', 'http://127.0.0.1:5173/api/gmail/callback', verifier), { refreshToken: 'r-1', email: 'ioana@bank.example.ro' })
   assert.equal(sent!.get('code_verifier'), verifier)
   assert.equal(sent!.get('grant_type'), 'authorization_code')
+})
+
+test('a mailbox connected with the send permission unticked is refused, and its token revoked', async () => {
+  const claims = Buffer.from(JSON.stringify({ email: 'ioana@bank.example.ro' })).toString('base64url')
+  const urls: string[] = []
+  globalThis.fetch = async (url: any) => {
+    urls.push(String(url))
+    return new Response(JSON.stringify({ access_token: 'a', refresh_token: 'r-2', id_token: 'h.' + claims + '.s', scope: 'openid https://www.googleapis.com/auth/userinfo.email' }), { status: 200 })
+  }
+  await assert.rejects(exchangeCode(client, 'code-2', 'http://127.0.0.1:5173/api/gmail/callback', pkce().verifier), /tick “Send email on your behalf”/)
+  assert.equal(urls.at(-1), 'https://oauth2.googleapis.com/revoke')
+  // A token stored before this check: Gmail's refusal is recognised so the mailbox can be forgotten.
+  globalThis.fetch = async (url: any) => String(url).includes('oauth2') ? new Response(JSON.stringify({ access_token: 'a' }), { status: 200 }) : new Response(JSON.stringify({ error: { message: 'Request had insufficient authentication scopes.' } }), { status: 403 })
+  await assert.rejects(send(client, 'r-2', 'x'), MissingSendPermission)
 })
 
 test('sending refreshes the access token and posts the message base64url-encoded', async () => {

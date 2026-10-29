@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react'
 import type { FormEvent } from 'react'
-import { ArrowRight, Check, ChevronDown, ChevronRight, ExternalLink, Globe2, Landmark, LoaderCircle, Newspaper, RefreshCw, Scale, Send, ShieldCheck } from 'lucide-react'
+import { AlertTriangle, ArrowRight, Bot, Check, ChevronDown, ChevronLeft, ChevronRight, ExternalLink, Globe2, Landmark, LoaderCircle, Newspaper, RefreshCw, Scale, Search, Send, ShieldCheck, X } from 'lucide-react'
+import { PagePreview, RiskChip, SignalDialog, useClientRisks, useRisk } from './EarlyWarning'
+import { riskStatus } from './workspace'
 import type { Company } from './types'
 import type { CheckResult, ClientStatus, MonitorActivity, MonitorEvent, MonitorWorker } from './monitoring'
-import { sourceLabels, workerLabels } from './monitoring'
+import { compactSteps, sourceLabels, workerLabels } from './monitoring'
 import type { DepartmentId } from './workspace'
 import { DEPARTMENTS, departmentName } from './workspace'
 import { money, ratio } from './analysis'
-import { Button, CompanyMark, Dialog } from './components'
+import { Button, Dialog } from './components'
 import type { AssessmentSummary } from './assessment'
 import { checkNow, openCase, researchClient, reviewEvent, useMonitoring } from './people'
 
@@ -51,28 +53,76 @@ function Usage({ company }: { company: Company }) {
   return <div className="usage"><div className="usage-bar"><i style={{ width: share(company) + '%' }} /></div><span><strong>{share(company)}%</strong> drawn · {money(line.drawn, true)} of {money(line.limit, true)}</span></div>
 }
 
+// ─── Finding clients: search, status and pages, for a book of any size ──────
+
+type ClientFilter = 'all' | 'review' | 'clear' | 'pending'
+const PAGE = 25
+function useClientList(clients: Company[], statuses: ClientStatus[]) {
+  const [query, setQuery] = useState('')
+  const [filter, setFilter] = useState<ClientFilter>('all')
+  const [page, setPage] = useState(1)
+  const statusOf = (c: Company) => statuses.find(x => x.companyId === c.id)
+  const kind = (c: Company): ClientFilter => { const s = statusOf(c); return !s?.lastCheck ? 'pending' : s.open > 0 || s.status === 'alert' ? 'review' : 'clear' }
+  const counts = { all: clients.length, review: 0, clear: 0, pending: 0 } as Record<ClientFilter, number>
+  for (const c of clients) counts[kind(c)]++
+  const q = query.trim().toLowerCase()
+  const matching = clients.filter(c => (filter === 'all' || kind(c) === filter) && (!q || [c.name, c.cui, c.symbol, c.id, c.sector, c.creditLine?.facilityId].join(' ').toLowerCase().includes(q)))
+  const pages = Math.max(1, Math.ceil(matching.length / PAGE))
+  const current = Math.min(page, pages)
+  useEffect(() => setPage(1), [query, filter])
+  return { query, setQuery, filter, setFilter, counts, matching, shown: matching.slice((current - 1) * PAGE, current * PAGE), page: current, pages, setPage, statusOf }
+}
+
+function ClientToolbar({ list, total }: { list: ReturnType<typeof useClientList>; total: number }) {
+  const tabs: [ClientFilter, string][] = [['all', 'All'], ['review', 'To review'], ['clear', 'All clear'], ['pending', 'Not checked yet']]
+  return <div className="mon-toolbar">
+    <label className="search-input"><Search size={16} /><input placeholder={'Search ' + total + ' clients by name, CUI or facility…'} value={list.query} onChange={e => list.setQuery(e.target.value)} aria-label="Search credit clients" />{list.query && <button aria-label="Clear search" onClick={() => list.setQuery('')}><X size={13} /></button>}</label>
+    <div className="seg" role="tablist" aria-label="Filter clients">{tabs.filter(([k]) => k === 'all' || list.counts[k] > 0).map(([k, label]) => <button key={k} role="tab" aria-selected={list.filter === k} className={(list.filter === k ? 'active ' : '') + 'seg-' + k} onClick={() => list.setFilter(k)}>{label}<span>{list.counts[k]}</span></button>)}</div>
+  </div>
+}
+
+function Pages({ list }: { list: ReturnType<typeof useClientList> }) {
+  if (list.matching.length <= PAGE) return <div className="mon-foot">{list.matching.length} of {list.counts.all} clients</div>
+  return <div className="mon-foot"><span>{(list.page - 1) * PAGE + 1}–{Math.min(list.page * PAGE, list.matching.length)} of {list.matching.length}</span>
+    <button className="pagination-arrow" disabled={list.page === 1} onClick={() => list.setPage(list.page - 1)} aria-label="Previous page"><ChevronLeft size={15} /></button>
+    <button className="pagination-arrow" disabled={list.page === list.pages} onClick={() => list.setPage(list.page + 1)} aria-label="Next page"><ChevronRight size={15} /></button></div>
+}
+
+/** One worker's verdict in a table cell: an icon, a word or two, the detail on hover. */
+function Verdict({ worker, result, active }: { worker: MonitorWorker; result?: CheckResult; active?: boolean }) {
+  const Icon = WORKERS.find(w => w.id === worker)!.icon
+  return <span className={'verdict-chip tone-' + (active ? 'working' : result?.tone ?? 'off')} title={workerLabels[worker] + ': ' + (result?.detail ?? 'not checked yet')}>
+    {active ? <LoaderCircle size={12} className="spin" /> : result?.tone === 'ok' ? <Check size={12} strokeWidth={2.6} /> : <Icon size={12} />}{active ? 'Checking' : result ? result.label : 'Not yet'}</span>
+}
+
 // ─── Credit clients table (Companies → Credit clients) ───────────────────────
 
 export function ClientsTable({ clients, latest, onOpen }: { clients: Company[]; latest: Map<string, AssessmentSummary>; onOpen: (id: string) => void }) {
   const { state } = useMonitoring()
+  const risks = useClientRisks()
   const now = useClock()
+  const list = useClientList(clients, state?.clients ?? [])
   return <section className="portfolio-panel clients-panel">
-    <div className="table-scroll"><table className="company-table clients-table"><thead><tr><th>Company</th><th>Credit line</th><th>Drawn</th><th>Maturity</th><th>Covenants</th><th>Monitoring</th><th /></tr></thead><tbody>
-      {clients.map(c => {
+    <ClientToolbar list={list} total={clients.length} />
+    <div className="table-scroll"><table className="company-table clients-table"><thead><tr><th>Company</th><th>Credit line</th><th>Drawn</th><th>Maturity</th><th>Covenants</th><th>Status</th><th>Monitoring</th><th /></tr></thead><tbody>
+      {list.shown.map(c => {
         const line = c.creditLine!
-        const s = state?.clients.find(x => x.companyId === c.id)
+        const s = list.statusOf(c)
         const covenants = s?.checks.covenants
         return <tr key={c.id} onClick={() => onOpen(c.id)}>
-          <td><div className="company-cell"><CompanyMark company={c} /><div><span className="company-name">{c.name}</span><span>{c.sector}</span></div></div></td>
+          <td><div className="company-cell"><div><span className="company-name">{c.name}</span><span>{c.sector} · {line.facilityId}</span></div></div></td>
           <td><span className="table-amount">{money(line.limit)}</span><span className="cell-subtext">{line.product}</span></td>
           <td><Usage company={c} /></td>
           <td><span className="table-amount">{line.maturity}</span><span className="cell-subtext">review {line.nextReview}</span></td>
           <td>{covenants ? <span className={'mon-pill tone-pill-' + covenants.tone}>{covenants.label}</span> : latest.get(c.id) ? <span className="mon-pill mon-unknown">Waiting for check</span> : <span className="mon-pill mon-unknown">Not assessed</span>}</td>
+          <td><RiskChip risk={risks.get(c.id) ?? null} /></td>
           <td><MonitorStatus status={s} /><span className="cell-subtext">{s?.lastCheck ? 'checked ' + ago(s.lastCheck, now) : ''}</span></td>
           <td><ChevronRight className="row-chevron" size={17} /></td>
         </tr>
       })}
     </tbody></table></div>
+    {!list.matching.length && <div className="case-empty"><Search size={18} /><strong>No client matches.</strong></div>}
+    <Pages list={list} />
   </section>
 }
 
@@ -102,23 +152,28 @@ function SendEvent({ event, company, onSent }: { event: MonitorEvent; company: C
 
 /** One change, one line; open it for the evidence and what to do. */
 function Change({ event, company, onOpen, onChange, toast, now }: { event: MonitorEvent; company?: Company; onOpen?: (id: string) => void; onChange: () => void; toast: (s: string) => void; now: number }) {
-  const [open, setOpen] = useState(false)
-  return <li className={'change sev-line-' + event.severity + (event.reviewedAt ? ' reviewed' : '')}>
+  const [reviewing, setReviewing] = useState(false)
+  // Something found a moment ago opens by itself, so how it was found is in view straight away.
+  const fresh = now - Date.parse(event.ts) < 30_000
+  const [open, setOpen] = useState(fresh && event.severity !== 'info')
+  return <li className={'change sev-line-' + event.severity + (event.reviewedAt ? ' reviewed' : '') + (fresh ? ' fresh' : '')}>
     <button className="change-row" onClick={() => setOpen(o => !o)} aria-expanded={open}>
       <span className={'dot dot-' + event.severity} />
-      <span className="change-title">{event.title}</span>
+      <span className="change-title">{event.severity === 'alert' && !event.reviewedAt && <span className="critical-tag">Critical</span>}{event.data?.simulated && <span className="sim-tag">Simulated</span>}{event.title}</span>
       {company && <span className="change-client">{company.name}</span>}
       <span className="change-time">{ago(event.ts, now)}</span>
       <ChevronDown size={14} className={open ? 'flip' : ''} />
     </button>
     {open && <div className="change-body">
       <p className={event.source === 'web' ? 'quote' : ''}>{event.detail}</p>
+      {!!event.data?.steps?.length && <ol className="found-steps" aria-label="How it was found">{compactSteps(event.data.steps).map((step, i, all) => <li key={i} className={i === all.length - 1 ? 'last' : ''}>{step}</li>)}</ol>}
       <div className="change-foot">
         <span>{sourceLabels[event.source]}</span>
         {event.data?.url && <a href={event.data.url} target="_blank" rel="noreferrer"><ExternalLink size={11} />{event.data.site ?? 'source'}{event.data.published ? ' · ' + event.data.published : ''}</a>}
         {event.data?.sha256 && <span className="hash-chip" title={'SHA-256 of the page as read: ' + event.data.sha256}>{event.data.sha256.slice(0, 10)}</span>}
         {event.data?.note && <span>{event.data.note}</span>}
         <span className="feed-actions">
+          {company && event.severity !== 'info' && <button className="text-button strong" onClick={() => setReviewing(true)}><Bot size={12} />Review with the assistant</button>}
           {company && onOpen && <button className="text-button" onClick={() => onOpen(company.id)}>Open company<ArrowRight size={12} /></button>}
           {event.reviewedAt ? <span className="feed-reviewed"><Check size={11} />Reviewed by {event.reviewedBy}</span>
             : event.severity !== 'info' && <button className="text-button" onClick={async () => { await reviewEvent(event.id); onChange() }}>Mark reviewed</button>}
@@ -126,85 +181,98 @@ function Change({ event, company, onOpen, onChange, toast, now }: { event: Monit
         </span>
       </div>
     </div>}
+    {reviewing && company && <SignalDialog company={company} event={event} onClose={() => setReviewing(false)} toast={toast} />}
   </li>
 }
 
 export default function Monitoring({ clients, onOpen, toast }: { clients: Company[]; onOpen: (id: string) => void; toast: (s: string) => void }) {
   const { state, refresh } = useMonitoring()
   const now = useClock()
-  const [showRoutine, setShowRoutine] = useState(false)
+  const risks = useClientRisks()
+  const [showAll, setShowAll] = useState(false)
   const [researching, setResearching] = useState<string | null>(null)
   const byId = new Map(clients.map(c => [c.id, c]))
   const statuses = state?.clients ?? []
+  const list = useClientList(clients, statuses)
   const checking = statuses.find(s => s.checking)
   const next = statuses.map(s => s.nextCheck).filter((x): x is string => !!x).sort()[0]
   const last = statuses.map(s => s.lastCheck).filter((x): x is string => !!x).sort().at(-1)
   const activity = state?.activity ?? []
   const lastStep = (worker: MonitorWorker): MonitorActivity | undefined => [...activity].reverse().find(a => a.worker === worker)
-  const events = (state?.events ?? []).filter(e => e.title !== 'checked')
-  const changes = events.filter(e => !routine(e))
-  const routineEvents = events.filter(routine)
-  const open = changes.filter(e => e.severity !== 'info' && !e.reviewedAt).length
-  const nowCompany = state?.now ? byId.get(state.now.companyId) : undefined
+  const events = (state?.events ?? []).filter(e => e.title !== 'checked' && !routine(e))
+  const toReview = events.filter(e => e.severity !== 'info' && !e.reviewedAt)
+  const critical = toReview.filter(e => e.severity === 'alert')
+  // What to look at, by client, the clients with the most first.
+  const watching = [...toReview.filter(e => e.severity === 'watch').reduce((m, e) => m.set(e.companyId, [...(m.get(e.companyId) ?? []), e]), new Map<string, MonitorEvent[]>())].sort((a, b) => b[1].length - a[1].length)
+  const bannerTop = critical.find(e => e.data?.snapshot) ?? critical[0] ?? watching[0]?.[1].find(e => e.data?.snapshot)
+  const [reviewing, setReviewing] = useState<MonitorEvent | null>(null)
+  const feed = showAll ? events : toReview
+  // Long registered names give way to the name the company goes by (TAROM).
+  const short = (id: string) => { const c = byId.get(id); return !c ? id : c.name.replace(/ S\.?A\.?$/, '').length > 22 && c.monitorTerms?.[0] ? c.monitorTerms[0].toUpperCase() : c.name.replace(/ S\.?A\.?$/, '') }
   return <div className="page-enter monitoring-page">
-    {/* What is happening, and when it happens next */}
-    <section className="live-hero">
-      <div className="live-clock">
+    <div className="page-heading"><div><h1>Live monitoring</h1><p>Every credit client, checked against the ANAF register, the news and its covenants.</p></div></div>
+
+    {(critical.length > 0 || watching.length > 0) && <section className={'risk-banner compact ' + (critical.length ? 'critical' : 'watched')} role="alert"><span className="risk-banner-icon"><AlertTriangle size={20} /></span>
+      <div className="risk-banner-main"><strong>{critical.length ? critical.length + ' critical ' + (critical.length === 1 ? 'signal needs' : 'signals need') + ' action' : 'Signals to look at'}</strong>
+        <ul>{critical.slice(0, 3).map(e => <li key={e.id}><span className="critical-tag">Critical</span><button onClick={() => setReviewing(e)}>{short(e.companyId)}: {e.title}</button></li>)}
+          {watching.slice(0, critical.length ? 2 : 4).map(([id, list]) => <li key={id}><button onClick={() => onOpen(id)}><b>{short(id)}</b> · {list.length} to look at: {[...new Set(list.map(e => e.title.split(':')[0]))].slice(0, 3).join(', ')}</button></li>)}</ul></div>
+      {bannerTop?.data?.snapshot && bannerTop.data.sha256 && <PagePreview sha={bannerTop.data.sha256} title={bannerTop.title} onOpen={() => setReviewing(bannerTop)} />}
+    </section>}
+    {/* Outside the banner, so the banner's own text styles do not reach into the dialog. */}
+    {reviewing && byId.get(reviewing.companyId) && <SignalDialog company={byId.get(reviewing.companyId)!} event={reviewing} onClose={() => setReviewing(null)} toast={toast} />}
+    <section className={'mon-bar' + (checking ? ' is-checking' : '')}>
+      <div className="mon-clock">
         <span className="live-badge"><i />Live</span>
-        {checking ? <><h1>Checking now</h1><p>{byId.get(checking.companyId)?.name} · {statuses.filter(s => s.queued).length} more in line</p></>
-          : next ? <><h1>Next check in {countdown(next, now)}</h1><p>Every client is checked every {state?.intervalMinutes ?? 60} minutes · last round {last ? clockTime(last) + ' (' + ago(last, now) + ')' : '—'}</p></>
-          : <><h1>Starting the first round</h1><p>Each client is checked as soon as the engine starts.</p></>}
+        <div><span className="mon-clock-label">{checking ? 'Checking now' : next ? 'Next round in' : 'Starting'}</span>
+          <strong>{checking ? short(checking.companyId) : next ? countdown(next, now) : '—'}</strong></div>
+        <span className="mon-last">{checking ? statuses.filter(s => s.queued).length + ' more in line' : last ? 'Last round ' + clockTime(last) + ' · every ' + (state?.intervalMinutes ?? 60) + ' min' : 'First round running'}</span>
       </div>
-      <div className="live-now">
-        <span className="live-label">Right now</span>
-        {checking && state?.now ? <><strong>{nowCompany?.name}</strong><span>{workerLabels[state.now.worker]}: {lastStep(state.now.worker)?.text ?? 'starting'}</span></>
-          : <><strong>Waiting for the next round</strong><span>{statuses.length} clients · {open ? open + (open === 1 ? ' change' : ' changes') + ' to review' : 'nothing waiting for review'}</span></>}
-        <Button small onClick={async () => { await checkNow(); refresh(); toast('Checking every client now') }} disabled={!!checking}><RefreshCw size={13} />Check all now</Button>
-      </div>
-    </section>
-
-    {/* Who does the checking, and what they are doing */}
-    <section className="workers">
-      {WORKERS.map(w => {
-        const step = lastStep(w.id)
+      <div className="mon-workers">{WORKERS.map(w => {
         const busy = !!checking && state?.now?.worker === w.id
-        return <article key={w.id} className={'worker-card' + (busy ? ' busy' : '')}>
-          <header><span className="worker-icon"><w.icon size={17} /></span><h2>{workerLabels[w.id]}</h2><span className={'worker-state ' + (busy ? 'working' : step ? 'done' : 'idle')}>{busy ? <><LoaderCircle size={11} className="spin" />Working</> : step ? 'Done' : 'Waiting'}</span></header>
-          <p>{w.does}</p>
-          <div className="worker-last">{step ? <><span>{byId.get(step.companyId)?.name.replace(/ S\.?A\.?$/, '')} · {clockTime(step.ts)}</span>{step.text}</> : 'No step yet in this session.'}</div>
-        </article>
-      })}
-    </section>
-    <section className="live-log panel">
-      <div className="side-card-head"><h2>Live log</h2><span className="side-card-count">every step, as it happens</span></div>
-      <ol>{activity.slice(-9).reverse().map((a, i) => <li key={a.ts + i} className={'log-' + a.state}><time>{new Date(a.ts).toLocaleTimeString('en-GB')}</time><span className="log-worker">{workerLabels[a.worker]}</span><span className="log-client">{byId.get(a.companyId)?.name.replace(/ S\.?A\.?$/, '')}</span><span className="log-text">{a.text}</span></li>)}
-        {!activity.length && <li className="log-empty">The log fills in during the next check. Press Check all now to watch one.</li>}</ol>
+        const step = lastStep(w.id)
+        return <div key={w.id} className={'mon-worker' + (busy ? ' busy' : '')} title={w.does}>
+          <span className="mon-worker-icon">{busy ? <LoaderCircle size={15} className="spin" /> : <w.icon size={15} />}</span>
+          <div><strong>{workerLabels[w.id]}</strong><span>{busy ? step?.text ?? 'Starting' : step ? short(step.companyId) + ' · ' + clockTime(step.ts) : 'Waiting'}</span></div>
+        </div>
+      })}</div>
+      <Button onClick={async () => { await checkNow(); refresh(); toast('Checking every client now') }} disabled={!!checking}><RefreshCw size={14} />Check all now</Button>
     </section>
 
-    <div className="monitoring-layout">
-      {/* Clients at a glance */}
-      <section className="client-cards">
-        {clients.map(c => {
-          const s = statuses.find(x => x.companyId === c.id)
-          return <article key={c.id} className={'client-card st-' + (s?.checking ? 'checking' : s?.status ?? 'unknown')}>
-            <header><button className="link-button" onClick={() => onOpen(c.id)}>{c.name}</button><MonitorStatus status={s} /></header>
-            <Usage company={c} />
-            <div className="src-tiles">{WORKERS.map(w => <SourceTile key={w.id} worker={w.id} result={s?.checks[w.id]} active={s?.working === w.id} />)}</div>
-            <footer><span>{s?.lastCheck ? 'Checked ' + ago(s.lastCheck, now) : s?.queued ? 'In line' : 'Not checked yet'}{s?.nextCheck && !s.checking ? ' · next in ' + countdown(s.nextCheck, now) : ''}</span>
-              <button className="text-button" onClick={async () => { await checkNow(c.id); refresh() }} disabled={s?.checking || s?.queued}><RefreshCw size={12} />Check</button>
-              <button className="text-button" onClick={async () => { setResearching(c.id); try { toast((await researchClient(c.id)).result); refresh() } catch (e: any) { toast(e.message) } finally { setResearching(null) } }} disabled={researching === c.id} title="The assistant searches the past year's news">{researching === c.id ? <LoaderCircle size={12} className="spin" /> : <Globe2 size={12} />}Web</button></footer>
-          </article>
-        })}
+    <div className="mon-layout">
+      <section className="panel mon-clients">
+        <ClientToolbar list={list} total={clients.length} />
+        <div className="table-scroll"><table className="mon-table"><thead><tr><th>Client</th><th>Drawn</th><th>Register</th><th>News</th><th>Covenants</th><th>Checked</th><th /></tr></thead><tbody>
+          {list.shown.map(c => {
+            const s = list.statusOf(c)
+            return <tr key={c.id} className={s?.checking ? 'row-checking' : s?.status === 'alert' ? 'row-critical' : s && s.open > 0 ? 'row-review' : ''}>
+              <td><button className="mon-name" onClick={() => onOpen(c.id)}>{c.name}</button><span className="cell-subtext">{c.sector}{!!s?.planted.length && <span className="sim-tag">Test signal planted</span>}{risks.get(c.id) && riskStatus(risks.get(c.id)!).tone !== 'ok' && <RiskChip risk={risks.get(c.id)!} />}</span></td>
+              <td><span className="mini-usage"><i style={{ width: share(c) + '%' }} /></span><span className="cell-subtext">{share(c)}% of {money(c.creditLine!.limit, true)}</span></td>
+              {WORKERS.map(w => <td key={w.id}><Verdict worker={w.id} result={s?.checks[w.id]} active={s?.working === w.id} /></td>)}
+              <td><span className="mon-when">{s?.checking ? 'now' : s?.lastCheck ? ago(s.lastCheck, now) : s?.queued ? 'in line' : '—'}</span><span className="cell-subtext">{s?.nextCheck && !s.checking ? 'next ' + countdown(s.nextCheck, now) : ''}</span></td>
+              <td className="mon-row-actions"><div>
+                <button className="ws-icon" title="Check this client now" aria-label={'Check ' + c.name + ' now'} onClick={async () => { await checkNow(c.id); refresh() }} disabled={s?.checking || s?.queued}><RefreshCw size={13} /></button>
+                <button className="ws-icon" title="Search the past year's news on the web" aria-label={'Search the web for ' + c.name} onClick={async () => { setResearching(c.id); try { toast((await researchClient(c.id)).result); refresh() } catch (e: any) { toast(e.message) } finally { setResearching(null) } }} disabled={researching === c.id}>{researching === c.id ? <LoaderCircle size={13} className="spin" /> : <Globe2 size={13} />}</button>
+              </div></td>
+            </tr>
+          })}
+        </tbody></table></div>
+        {!list.matching.length && <div className="case-empty"><Search size={18} /><strong>No client matches.</strong></div>}
+        <Pages list={list} />
       </section>
 
-      {/* What changed */}
-      <section className="panel changes">
-        <div className="side-card-head"><h2>What changed</h2><span className="side-card-count">{open ? open + ' to review' : 'all reviewed'}</span></div>
-        {changes.length ? <ol>{changes.map(e => <Change key={e.id} event={e} company={byId.get(e.companyId)} onOpen={onOpen} onChange={refresh} toast={toast} now={now} />)}</ol>
-          : <div className="case-empty"><ShieldCheck size={20} /><strong>No changes found.</strong><p>Register readings, news and covenants are as they were.</p></div>}
-        <button className="routine-toggle" onClick={() => setShowRoutine(v => !v)}><Check size={13} />{routineEvents.length} routine {routineEvents.length === 1 ? 'check' : 'checks'} with nothing to report<ChevronDown size={13} className={showRoutine ? 'flip' : ''} /></button>
-        {showRoutine && <ol className="routine">{routineEvents.map(e => <Change key={e.id} event={e} company={byId.get(e.companyId)} onOpen={onOpen} onChange={refresh} toast={toast} now={now} />)}</ol>}
-      </section>
+      <aside className="mon-side">
+        <section className="panel changes">
+          <div className="side-card-head"><h2>{showAll ? 'All changes' : 'To review'}</h2><span className={'mon-count' + (toReview.length ? ' has' : '')}>{toReview.length}</span>
+            <button className="text-button" onClick={() => setShowAll(v => !v)}>{showAll ? 'Only to review' : 'Show all'}</button></div>
+          {feed.length ? <ol>{feed.slice(0, 30).map(e => <Change key={e.id} event={e} company={byId.get(e.companyId)} onOpen={onOpen} onChange={refresh} toast={toast} now={now} />)}</ol>
+            : <div className="case-empty"><ShieldCheck size={20} /><strong>Nothing to review.</strong></div>}
+        </section>
+        <section className="panel live-log">
+          <div className="side-card-head"><h2>Live log</h2>{checking && <span className="live-badge small"><i />now</span>}</div>
+          <ol>{activity.slice(-10).reverse().map((a, i) => <li key={a.ts + i} className={'log-' + a.state}><time>{new Date(a.ts).toLocaleTimeString('en-GB')}</time><div><span>{workerLabels[a.worker]} · {short(a.companyId)}</span>{a.text}</div></li>)}
+            {!activity.length && <li className="log-empty">Fills in during the next round.</li>}</ol>
+        </section>
+      </aside>
     </div>
   </div>
 }
@@ -235,6 +303,7 @@ function Headroom({ label, value, limit, max }: { label: string; value: number |
 
 export function ClientPanel({ company, latest, toast }: { company: Company; latest: AssessmentSummary | null; toast: (s: string) => void }) {
   const { state, refresh } = useMonitoring()
+  const { risk } = useRisk(company.id)
   const now = useClock()
   const [researching, setResearching] = useState(false)
   const line = company.creditLine!
@@ -242,7 +311,7 @@ export function ClientPanel({ company, latest, toast }: { company: Company; late
   const recent = (state?.events ?? []).filter(e => e.companyId === company.id && e.title !== 'checked' && !routine(e)).slice(0, 3)
   const m = latest?.digest?.metrics
   return <section className="panel client-panel">
-    <div className="side-card-head"><h2>Credit line {line.facilityId}</h2><span className="side-card-count">{line.product} · approved {line.approvedAt} by {line.approvedBy} · {line.relationshipManager}</span><MonitorStatus status={s} /></div>
+    <div className="side-card-head"><h2>Credit line {line.facilityId}</h2><span className="side-card-count">{line.product} · approved {line.approvedAt} by {line.approvedBy} · {line.relationshipManager}</span><RiskChip risk={risk} /><MonitorStatus status={s} /></div>
     <div className="client-visuals">
       <div className="cv-block"><h3>Drawn</h3><div className="cv-big">{share(company)}%</div><Usage company={company} /></div>
       <div className="cv-block"><h3>Term</h3><div className="cv-big">{Math.max(0, Math.round((Date.parse(line.maturity) - now) / (30.44 * 86_400_000)))}<small> months left</small></div><Timeline company={company} now={now} /></div>
@@ -254,7 +323,7 @@ export function ClientPanel({ company, latest, toast }: { company: Company; late
     </div>
     <div className="client-monitor">
       <div className="cm-head"><span className="live-badge small"><i />Live monitoring</span>
-        <span>{s?.checking ? 'checking now' : s?.lastCheck ? 'checked ' + ago(s.lastCheck, now) : 'first check pending'}{s?.nextCheck && !s.checking ? ' · next in ' + countdown(s.nextCheck, now) : ''}</span>
+        <span className={s?.checking ? 'cm-live' : ''}>{s?.checking ? (() => { const a = [...(state?.activity ?? [])].reverse().find(x => x.companyId === company.id); return 'Checking now' + (a ? ' · ' + workerLabels[a.worker] + ': ' + a.text : '') })() : s?.lastCheck ? 'checked ' + ago(s.lastCheck, now) : 'first check pending'}{s?.nextCheck && !s.checking ? ' · next in ' + countdown(s.nextCheck, now) : ''}</span>
         <button className="text-button" onClick={async () => { await checkNow(company.id); refresh() }} disabled={s?.checking || s?.queued}><RefreshCw size={12} />Check now</button>
         <button className="text-button" onClick={async () => { setResearching(true); try { toast((await researchClient(company.id)).result); refresh() } catch (e: any) { toast(e.message) } finally { setResearching(false) } }} disabled={researching}>{researching ? <LoaderCircle size={12} className="spin" /> : <Globe2 size={12} />}Search the web</button></div>
       <div className="src-tiles wide">{WORKERS.map(w => <SourceTile key={w.id} worker={w.id} result={s?.checks[w.id]} active={s?.working === w.id} />)}</div>

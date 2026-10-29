@@ -150,13 +150,13 @@ async function ask<T>(ctx: WorkerContext, purpose: string, prompt: string, schem
 
 const intake: Worker = async ctx => {
   const inventory = ctx.tables.documente
-  ctx.activity('Opening the dossier inventory: ' + plural(inventory.length, 'original PDF') + ' recorded')
+  await ctx.activity('Opening the dossier inventory: ' + plural(inventory.length, 'original PDF') + ' recorded')
   let verified = 0
   for (const kind of REQUIRED_DOCUMENTS) {
     const doc = inventory.find(d => d.tip_document === kind)
     if (!doc) continue
     const file = documentFile(ctx.env.documentsDir, ctx.company, doc)
-    ctx.activity((doc.supplied ? 'Fingerprinting analyst-added ' : 'Fingerprinting ') + name(kind) + ' · ' + (doc.supplied?.originalName ?? basename(doc.fisier)), doc.document_id, 1)
+    await ctx.activity((doc.supplied ? 'Fingerprinting analyst-added ' : 'Fingerprinting ') + name(kind) + ' · ' + (doc.supplied?.originalName ?? basename(doc.fisier)), doc.document_id, 1)
     if (!existsSync(file)) continue
     const digest = createHash('sha256').update(readFileSync(file)).digest('hex')
     ctx.board.documents.set(kind, doc)
@@ -201,7 +201,7 @@ const extraction: Worker = async ctx => {
     fields += located
     pages += pdf.pages.length
     const lines = pdf.pages.reduce((n, p) => n + p.lines.length, 0)
-    ctx.activity('Extracted ' + name(kind) + ': ' + plural(pdf.pages.length, 'page') + ', ' + (located ? plural(located, 'field') + ' with positions' : plural(lines, 'line') + ' of free text'), doc.document_id, 1)
+    await ctx.activity('Extracted ' + name(kind) + ': ' + plural(pdf.pages.length, 'page') + ', ' + (located ? plural(located, 'field') + ' with positions' : plural(lines, 'line') + ' of free text'), doc.document_id, 1)
   }
   return fields.toLocaleString('en-GB') + ' fields located on ' + plural(pages, 'page')
 }
@@ -213,7 +213,7 @@ const ledger: Worker = async ctx => {
   for (const [kind, doc] of ctx.board.documents) {
     if (!SOURCE_TABLES[kind]) continue
     const pdf = ctx.board.extracted.get(kind)!
-    ctx.activity(doc.supplied?.mode === 'ingested' ? name(kind) + ' was added by the analyst and had no recorded data: its printed fields become the recorded data'
+    await ctx.activity(doc.supplied?.mode === 'ingested' ? name(kind) + ' was added by the analyst and had no recorded data: its printed fields become the recorded data'
       : (doc.supplied ? 'Comparing the analyst-added ' : 'Comparing ') + name(kind) + ' with the recorded ' + SOURCE_TABLES[kind].table + ' data', doc.document_id, 1)
     const result = compareDocument(ctx.tables, kind, doc.document_id, pdf)
     compared += result.compared
@@ -244,7 +244,7 @@ const ledger: Worker = async ctx => {
   }
   const balance = ctx.tables.balanta
   if (ctx.board.documents.has('balanta')) {
-    ctx.activity('Re-adding the trial balance: ' + plural(balance.filter(r => r.include_in_total).length, 'account') + ' included in totals', ctx.board.documents.get('balanta')!.document_id)
+    await ctx.activity('Re-adding the trial balance: ' + plural(balance.filter(r => r.include_in_total).length, 'account') + ' included in totals', ctx.board.documents.get('balanta')!.document_id)
     const { issues, totals } = ledgerIssues(balance)
     ctx.board.ledger = issues
     const explained = issues.some(i => i.kind !== 'unbalanced_totals')
@@ -302,16 +302,16 @@ const ledger: Worker = async ctx => {
 
 const cashflow: Worker = async ctx => {
   const request = ctx.tables.solicitari[0]
-  ctx.activity('Rebuilding 12 months of debt service: existing facilities plus ' + money(request.suma_solicitata) + ' over ' + request.durata_luni + ' months', ctx.board.documents.get('serviciu_datorie')?.document_id)
+  await ctx.activity('Rebuilding 12 months of debt service: existing facilities plus ' + money(request.suma_solicitata) + ' over ' + request.durata_luni + ' months', ctx.board.documents.get('serviciu_datorie')?.document_id)
   const analysis = rulesNow(ctx)
   const m = analysis.metrics
-  if (m.cfads === null) ctx.activity('Cash-flow projection not in the dossier: coverage cannot be computed')
+  if (m.cfads === null) await ctx.activity('Cash-flow projection not in the dossier: coverage cannot be computed')
   else {
-    ctx.activity('CFADS ' + money(m.cfads) + ' against ' + money(m.debtService) + ' of debt service · DSCR ' + ratio(m.dscr), ctx.board.documents.get('cashflow')?.document_id)
+    await ctx.activity('CFADS ' + money(m.cfads) + ' against ' + money(m.debtService) + ' of debt service · DSCR ' + ratio(m.dscr), ctx.board.documents.get('cashflow')?.document_id)
     const weakest = analysis.monthly.reduce((w, x) => x.cfads / x.service < w.cfads / w.service ? x : w)
-    ctx.activity('Weakest month ' + weakest.month + ': ' + ratio(weakest.cfads / weakest.service), ctx.board.documents.get('cashflow')?.document_id)
+    await ctx.activity('Weakest month ' + weakest.month + ': ' + ratio(weakest.cfads / weakest.service), ctx.board.documents.get('cashflow')?.document_id)
   }
-  ctx.activity('Liquidity ' + ratio(m.liquidity) + ' · debt/EBITDA ' + ratio(m.leverage) + ' · own contribution ' + m.contribution.toFixed(1) + '%', ctx.board.documents.get('situatii_2025')?.document_id)
+  await ctx.activity('Liquidity ' + ratio(m.liquidity) + ' · debt/EBITDA ' + ratio(m.leverage) + ' · own contribution ' + m.contribution.toFixed(1) + '%', ctx.board.documents.get('situatii_2025')?.document_id)
   const rules = reportRules(ctx, analysis, r => r.id.startsWith('FIN-'))
   const raised = await ruleFindings(ctx, analysis, rules, m.cfads !== null ? { 'FIN-01': money(m.cfads) + ' CFADS against ' + money(m.debtService) + ' debt service over 12 months' } : {})
   return (m.dscr === null ? 'DSCR not computable' : 'DSCR ' + ratio(m.dscr)) + ' · liquidity ' + ratio(m.liquidity) + (raised ? ' · ' + plural(raised, 'finding') : '')
@@ -322,13 +322,13 @@ const cashflow: Worker = async ctx => {
 const credit: Worker = async ctx => {
   const t = ctx.tables
   const crc = t.verificari_credit.find(r => r.tip_raport === 'CRC')
-  ctx.activity('Credit bureau report: ' + (ctx.board.documents.has('crc_demo') ? 'status ' + crc?.status + ', dated ' + crc?.data_raport : 'not in the dossier'), ctx.board.documents.get('crc_demo')?.document_id)
+  await ctx.activity('Credit bureau report: ' + (ctx.board.documents.has('crc_demo') ? 'status ' + crc?.status + ', dated ' + crc?.data_raport : 'not in the dossier'), ctx.board.documents.get('crc_demo')?.document_id)
   const cip = t.verificari_credit.find(r => r.tip_raport !== 'CRC')
-  if (cip) ctx.activity('Payment incident report: ' + plural((cip.incidente ?? []).length, 'incident'), ctx.board.documents.get('cip_demo')?.document_id)
+  if (cip) await ctx.activity('Payment incident report: ' + plural((cip.incidente ?? []).length, 'incident'), ctx.board.documents.get('cip_demo')?.document_id)
   const worst = Math.max(0, ...t.credite_leasing.map(r => r.zile_intarziere || 0))
-  ctx.activity(plural(t.credite_leasing.length, 'facility', 'facilities') + ' on file · longest arrears ' + worst + ' days', ctx.board.documents.get('credite_leasing')?.document_id)
+  await ctx.activity(plural(t.credite_leasing.length, 'facility', 'facilities') + ' on file · longest arrears ' + worst + ' days', ctx.board.documents.get('credite_leasing')?.document_id)
   const fiscal = t.situatie_fiscala[0]
-  ctx.activity('Tax position: ' + money(fiscal?.obligatii_restante ?? null) + ' outstanding, taxpayer status ' + (fiscal?.status_inactivitate ?? 'unknown'), ctx.board.documents.get('situatie_fiscala')?.document_id)
+  await ctx.activity('Tax position: ' + money(fiscal?.obligatii_restante ?? null) + ' outstanding, taxpayer status ' + (fiscal?.status_inactivitate ?? 'unknown'), ctx.board.documents.get('situatie_fiscala')?.document_id)
   const analysis = rulesNow(ctx)
   const rules = reportRules(ctx, analysis, r => r.id.startsWith('CRD-'))
   const raised = await ruleFindings(ctx, analysis, rules)
@@ -342,10 +342,10 @@ const collateral: Worker = async ctx => {
   const base = t.scenarii.find(s => s.tip_scenariu === 'baza')
   for (const id of base?.garantie_ids ?? []) {
     const g = t.garantii.find(r => r.garantie_id === id)
-    if (g) ctx.activity('Collateral ' + id + ': ' + g.tip + ', accepted ' + money(g.valoare_acceptata_banca) + ', prior charges ' + money(g.sarcini_anterioare) + ', enforceability ' + (g.executabilitate_verificata ? 'verified' : 'not verified'), ctx.board.documents.get('garantii')?.document_id)
+    if (g) await ctx.activity('Collateral ' + id + ': ' + g.tip + ', accepted ' + money(g.valoare_acceptata_banca) + ', prior charges ' + money(g.sarcini_anterioare) + ', enforceability ' + (g.executabilitate_verificata ? 'verified' : 'not verified'), ctx.board.documents.get('garantii')?.document_id)
   }
   const analysis = rulesNow(ctx)
-  ctx.activity('Accepted collateral ' + money(analysis.metrics.collateral) + ' covers ' + (analysis.metrics.coverage * 100).toFixed(0) + '% of ' + money(analysis.metrics.amount))
+  await ctx.activity('Accepted collateral ' + money(analysis.metrics.collateral) + ' covers ' + (analysis.metrics.coverage * 100).toFixed(0) + '% of ' + money(analysis.metrics.amount))
   const rules = reportRules(ctx, analysis, r => r.id === 'COL-01')
   const raised = await ruleFindings(ctx, analysis, rules)
   return (analysis.metrics.coverage * 100).toFixed(0) + '% coverage · ' + (raised ? 'below 110%' : 'meets policy')
@@ -356,7 +356,7 @@ const collateral: Worker = async ctx => {
 const research: Worker = async ctx => {
   const company = ctx.tables.companii[0]
   const cui = String(company?.cui ?? ctx.company.cui)
-  ctx.activity('Querying the ANAF public taxpayer register for CUI ' + cui + ' (live)')
+  await ctx.activity('Querying the ANAF public taxpayer register for CUI ' + cui + ' (live)')
   const today = new Date().toISOString().slice(0, 10)
   const anaf = await lookupAnaf(cui, today, ctx.signal)
   ctx.checkpoint()
@@ -364,7 +364,7 @@ const research: Worker = async ctx => {
   const fields: NoteField[] = []
   if (anaf.found) {
     const a = anaf.found
-    ctx.activity('ANAF answered in ' + anaf.durationMs + ' ms: ' + a.name + ' · ' + a.registrationStatus)
+    await ctx.activity('ANAF answered in ' + anaf.durationMs + ' ms: ' + a.name + ' · ' + a.registrationStatus)
     const sameName = sameCompanyName(a.name, ctx.company.name)
     const sameCui = String(a.cui) === cui
     const deregistered = /RADIER/i.test(a.registrationStatus)
@@ -393,14 +393,14 @@ const research: Worker = async ctx => {
       })
     }
   } else {
-    ctx.activity(anaf.error ? anaf.error : 'ANAF has no taxpayer with CUI ' + cui)
+    await ctx.activity(anaf.error ? anaf.error : 'ANAF has no taxpayer with CUI ' + cui)
     lines.push(anaf.error ?? 'No taxpayer found for CUI ' + cui + '.')
     fields.push({ label: 'Result', value: anaf.error ?? 'No taxpayer found for CUI ' + cui, tone: 'warn' })
     ctx.board.identity = [{ label: 'ANAF', value: anaf.error ?? 'no taxpayer found' }]
   }
   lines.push('Only the name and CUI are compared with the register.')
   ctx.note({ title: 'ANAF public register', text: lines.join('\n'), author: anaf.found ? 'ANAF PlatitorTvaRest v9 · live, ' + anaf.durationMs + ' ms' : 'ANAF · not confirmed', verified: Boolean(anaf.found), evidence: [], fields })
-  for (const source of ctx.tables.cercetare_web ?? []) ctx.activity('Captured source: ' + source.furnizor + ' · ' + source.categorie + ' (collected ' + String(source.colectat_la).slice(0, 10) + ', match ' + source.potrivire_entitate + ')')
+  for (const source of ctx.tables.cercetare_web ?? []) await ctx.activity('Captured source: ' + source.furnizor + ' · ' + source.categorie + ' (collected ' + String(source.colectat_la).slice(0, 10) + ', match ' + source.potrivire_entitate + ')')
   const analysis = rulesNow(ctx)
   const rules = reportRules(ctx, analysis, r => r.id === 'KYC-01')
   await ruleFindings(ctx, analysis, rules)
@@ -423,8 +423,8 @@ const LEGAL_SCHEMA = {
 
 const legal: Worker = async ctx => {
   const t = ctx.tables
-  ctx.activity('Reading the litigation register: ' + plural(t.litigii.length, 'case'), ctx.board.documents.get('litigii_demo')?.document_id, 1)
-  for (const lit of t.litigii) ctx.activity('Case ' + lit.numar_dosar + ': ' + (lit.rol_procesual === 'parat' ? 'defendant' : 'claimant') + ', exposure ' + money(lit.expunere_estimata) + ', identity ' + lit.potrivire_entitate, ctx.board.documents.get('litigii_demo')?.document_id, 1)
+  await ctx.activity('Reading the litigation register: ' + plural(t.litigii.length, 'case'), ctx.board.documents.get('litigii_demo')?.document_id, 1)
+  for (const lit of t.litigii) await ctx.activity('Case ' + lit.numar_dosar + ': ' + (lit.rol_procesual === 'parat' ? 'defendant' : 'claimant') + ', exposure ' + money(lit.expunere_estimata) + ', identity ' + lit.potrivire_entitate, ctx.board.documents.get('litigii_demo')?.document_id, 1)
   const analysis = rulesNow(ctx)
   const rules = reportRules(ctx, analysis, r => r.id.startsWith('LEG-'))
   let raised = await ruleFindings(ctx, analysis, rules)
@@ -480,11 +480,11 @@ const policy: Worker = async ctx => {
   const observations = observationsFrom(ctx.board)
   ctx.board.observations = observations
   const analysis = evaluate(ctx.company, p, observations)
-  ctx.activity('Applying ' + p.politica_id + ' version ' + p.versiune + ' to ' + plural(analysis.rules.length, 'rule result') + ': DSCR ≥ ' + p.dscr_min + ', liquidity ≥ ' + p.lichiditate_min + ', debt/EBITDA ≤ ' + p.datorie_ebitda_max)
+  await ctx.activity('Applying ' + p.politica_id + ' version ' + p.versiune + ' to ' + plural(analysis.rules.length, 'rule result') + ': DSCR ≥ ' + p.dscr_min + ', liquidity ≥ ' + p.lichiditate_min + ', debt/EBITDA ≤ ' + p.datorie_ebitda_max)
   const failing = analysis.rules.filter(r => r.state !== 'pass' && r.state !== 'info')
-  ctx.activity(failing.length ? plural(failing.length, 'rule') + ' not met: ' + failing.map(r => r.id).join(', ') : 'Every rule is met')
+  await ctx.activity(failing.length ? plural(failing.length, 'rule') + ' not met: ' + failing.map(r => r.id).join(', ') : 'Every rule is met')
   const scenarios = Object.fromEntries((Object.keys(scenarioLabels) as Scenario[]).map(s => [s, s === 'baza' ? analysis : evaluate(ctx.company, p, observations, s)])) as Record<Scenario, Analysis>
-  ctx.activity('Scenario outcomes: ' + (Object.keys(scenarios) as Scenario[]).map(s => scenarioLabels[s] + ' → ' + decisionLabels[scenarios[s].decision]).join(' · '))
+  await ctx.activity('Scenario outcomes: ' + (Object.keys(scenarios) as Scenario[]).map(s => scenarioLabels[s] + ' → ' + decisionLabels[scenarios[s].decision]).join(' · '))
   ctx.env.emit('decision_reached', ctx.id, { decision: analysis.decision, reasons: analysis.reasons.map(r => r.id + ' · ' + r.title + ': ' + r.observed), observations, scenarios })
   return decisionLabels[analysis.decision] + (analysis.reasons.length ? ' · ' + analysis.reasons.map(r => r.id).join(', ') : '')
 }
@@ -564,7 +564,7 @@ const handoff: Worker = async ctx => {
   const facts = reportFacts(ctx, analysis, scenarios)
   const factsText = JSON.stringify(facts)
   const ids = new Set(ctx.board.findings.map(f => f.id))
-  ctx.activity('Writing the assessment report: ' + decisionLabels[analysis.decision] + ', ' + plural(ctx.board.findings.length, 'finding') + ', ' + plural(ctx.board.checks.length, 'check'))
+  await ctx.activity('Writing the assessment report: ' + decisionLabels[analysis.decision] + ', ' + plural(ctx.board.findings.length, 'finding') + ', ' + plural(ctx.board.checks.length, 'check'))
   const answer = await ask<AssessmentReport>(ctx, 'write the assessment report', [
     'You are the analyst handoff worker in a bank credit assessment. Write the assessment report a credit analyst will read before taking over this case.',
     'Use only the FACTS below. Copy every figure exactly as it appears in the facts (they are already formatted); never compute or round new figures.',

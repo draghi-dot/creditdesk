@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
-import { ArrowRight, ChevronLeft, ChevronRight, CircleAlert, FileSearch, FileText, History, Lightbulb, LoaderCircle, PlayCircle, Radio } from 'lucide-react'
+import { ArrowRight, Banknote, CalendarClock, ChevronLeft, ChevronRight, CircleAlert, FileSearch, FileText, History, Landmark, Lightbulb, LoaderCircle, PlayCircle } from 'lucide-react'
 import type { AssessmentSummary, FindingView } from './assessment'
 import { REQUIRED_DOCUMENTS, ROLES, foldAll, rankFindings } from './assessment'
 import type { Company } from './types'
 import type { Case, CompanyRequest, Contact, GmailState, SuggestionSet } from './workspace'
 import { caseStatusLabels, departmentName } from './workspace'
 import { money } from './analysis'
-import { Badge, Button, CompanyMark } from './components'
+import { Badge, Button, NotAssessed } from './components'
 import { ImpactTag } from './AssessmentUI'
 import type { EngineHealth } from './runs'
 import { duration, getRun, when } from './runs'
@@ -15,6 +15,9 @@ import { draftCompanyRequest, getSuggestions, listRequests, makeSuggestions, use
 import { ContactsCard, DraftRequestButton, RequestList, SendChecklist } from './Requests'
 import { SendToDepartment, StatusChip } from './Departments'
 import { ClientPanel } from './LiveMonitoring'
+import { CrawlerPanel } from './Crawler'
+import { RiskBanner, SignalDialog } from './EarlyWarning'
+import type { MonitorEvent } from './monitoring'
 import './assessment.css'
 
 const statusLabel: Record<AssessmentSummary['status'], string> = { created: 'Starting', running: 'In progress', completed: 'Completed', failed: 'Failed', cancelled: 'Cancelled' }
@@ -36,6 +39,7 @@ export default function CompanyEntry({ company, runs, health, offline, starting,
   const [problems, setProblems] = useState<FindingView[] | null>(null)
   const [contacts, setContacts] = useState<Contact[]>([])
   const [requests, setRequests] = useState<CompanyRequest[]>([])
+  const [signal, setSignal] = useState<MonitorEvent | null>(null)
   const loadRequests = () => listRequests(company.id).then(setRequests).catch(() => {})
   useEffect(() => { loadRequests() }, [company.id])
   useEffect(() => {
@@ -45,48 +49,43 @@ export default function CompanyEntry({ company, runs, health, offline, starting,
   const model = health?.provider.id === 'codex' ? 'Codex ' + health.provider.model : null
   const open = (cases ?? []).filter(c => c.status !== 'resolved')
   return <div className="company-page entry-page page-enter">
+    {signal && <SignalDialog company={company} event={signal} onClose={() => setSignal(null)} toast={toast} />}
     <div className="dossier-breadcrumb"><button onClick={onBack}><ChevronLeft size={14} />Companies</button><ChevronRight size={12} /><span>{company.id}</span></div>
-    <div className="entry-header">
-      <CompanyMark company={company} large />
-      <div className="entry-identity"><div className="company-title-line"><h1>{company.name}</h1><span className="ticker-tag">{company.symbol}</span></div>
-        <p>{company.sector}<span className="inline-dot">·</span>CUI {company.cui}<span className="inline-dot">·</span>{company.city || 'Romania'}</p></div>
-      <dl className="entry-request">
-        <div><dt>Requested</dt><dd>{money(request.suma_solicitata)}</dd></div>
-        <div><dt>Term</dt><dd>{request.durata_luni} months</dd></div>
-        <div><dt>Facility</dt><dd>{String(request.tip_facilitate).replaceAll('_', ' ').replace(/^./, c => c.toUpperCase())}</dd></div>
-        <div><dt>Documents</dt><dd className={dossier.state?.missing.length ? 'text-red' : ''}>{dossier.state ? (REQUIRED_DOCUMENTS.length - dossier.state.missing.length) + ' of ' + REQUIRED_DOCUMENTS.length : company.tables.documente.length + ' PDFs'}</dd></div>
+    <header className="co-header">
+      <div className="co-identity">
+        <div className="co-tags"><span className="co-id-tag">{company.id}</span>{company.creditLine && <span className="co-client-tag">Credit client · {company.creditLine.facilityId}</span>}</div>
+        <h1>{company.name}</h1>
+        <p>{company.sector}<i />CUI {company.cui}<i />{company.city || 'Romania'}{company.listed !== false && <><i />BVB {company.symbol}</>}</p>
+      </div>
+      <dl className="co-facts">
+        <div><dt><Banknote size={14} />Requested</dt><dd>{money(request.suma_solicitata)}</dd></div>
+        <div><dt><CalendarClock size={14} />Term</dt><dd>{request.durata_luni} months</dd></div>
+        <div><dt><Landmark size={14} />Facility</dt><dd>{String(request.tip_facilitate).replaceAll('_', ' ').replace(/^./, c => c.toUpperCase())}</dd></div>
+        <div className={dossier.state?.missing.length ? 'fact-bad' : ''}><dt><FileText size={14} />Documents</dt><dd>{dossier.state ? (REQUIRED_DOCUMENTS.length - dossier.state.missing.length) + ' of ' + REQUIRED_DOCUMENTS.length : company.tables.documente.length + ' PDFs'}</dd></div>
       </dl>
-    </div>
+    </header>
 
     {offline && <div className="entry-offline"><CircleAlert size={16} /><div><strong>The assessment engine is not running.</strong><span>Start the workspace with <code>npm run dev</code> (or <code>npm start</code> after a build) to view or run assessments.</span></div></div>}
     {!offline && dossier.state && <MissingDocuments company={company} state={dossier.state} onAdded={dossier.reload} onRunNew={onRun} />}
-    {company.creditLine && <ClientPanel company={company} latest={latest} toast={toast} />}
 
-    <div className="entry-actions">
-      <section className={'entry-choice' + (latest ? '' : ' entry-choice-empty')}>
-        <div className="entry-choice-icon"><FileSearch size={20} /></div>
-        <h2>View assessment</h2>
-        {latest ? <>
-          <p>The latest completed assessment: problems, the original pages they are on, every policy check and the report.</p>
-          <div className="entry-latest"><Badge decision={latest.decision!} /><span>{when(latest.endedAt!)}</span><span>{latest.findings} {latest.findings === 1 ? 'problem' : 'problems'}</span>{latest.startedBy && <span>run by {latest.startedBy}</span>}</div>
-          <Button variant="dark" onClick={() => onView(latest.runId)}>View assessment<ArrowRight size={15} /></Button>
-        </> : <>
-          <p><strong>Not assessed yet.</strong> {runs.length ? 'Earlier runs did not complete.' : 'No assessment has been run for this company.'} Run one to review its documents.</p>
-          <Button disabled>View assessment</Button>
-        </>}
-      </section>
-      <section className="entry-choice entry-choice-primary">
-        <div className="entry-choice-icon"><PlayCircle size={20} /></div>
-        <h2>Run new assessment</h2>
-        <p>{ROLES.length} checks read the {company.tables.documente.length} original documents. Results and problems appear as they come in.</p>
-        <ul className="entry-run-facts">
-          <li><FileText size={12} />{model ? model + ' reads the contract and writes the report' : 'Without a model: the checks run, the engine writes the report'}</li>
-          <li><Radio size={12} />ANAF public register lookup for CUI {company.cui}</li>
-        </ul>
+    <section className={'entry-actions verdict verdict-' + (latest?.decision ?? 'NONE')}>
+      <div className="verdict-state">
+        {latest ? <Badge decision={latest.decision!} large /> : <NotAssessed large />}
+        <div>
+          <strong>{latest ? (latest.findings ? latest.findings + (latest.findings === 1 ? ' problem to resolve' : ' problems to resolve') : 'No problems found') : 'Not assessed yet'}</strong>
+          <span>{latest ? 'Assessed ' + when(latest.endedAt!) + (latest.startedBy ? ' by ' + latest.startedBy : '') + ' · ' + runs.length + (runs.length === 1 ? ' run' : ' runs') + ' kept'
+            : runs.length ? 'Earlier runs did not complete.' : ROLES.length + ' checks read the ' + company.tables.documente.length + ' original documents' + (model ? '; ' + model + ' reads the contract' : '') + '.'}</span>
+        </div>
+      </div>
+      <div className="verdict-actions">
+        <Button variant="dark" onClick={() => latest && onView(latest.runId)} disabled={!latest}><FileSearch size={15} />View assessment</Button>
         {active ? <Button variant="primary" onClick={() => onLive(active.runId)}><LoaderCircle size={15} className="spin" />Assessment in progress · open it</Button>
-          : <Button variant="primary" onClick={onRun} disabled={starting || offline}>{starting ? 'Starting…' : 'Run new assessment'}<ArrowRight size={15} /></Button>}
-      </section>
-    </div>
+          : <Button variant="primary" onClick={onRun} disabled={starting || offline}><PlayCircle size={15} />{starting ? 'Starting…' : latest ? 'Run new assessment' : 'Run assessment'}</Button>}
+      </div>
+    </section>
+    {company.creditLine && <RiskBanner company={company} onReview={setSignal} toast={toast} />}
+    {company.creditLine && <CrawlerPanel company={company} toast={toast} />}
+    {company.creditLine && <ClientPanel company={company} latest={latest} toast={toast} />}
 
     <div className="entry-layout">
       <div className="entry-main">

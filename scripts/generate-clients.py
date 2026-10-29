@@ -7,7 +7,9 @@ tables as the 50 applications. Identities are real listed companies whose CUI
 and name were confirmed in the ANAF register; financial data is generated like
 the rest of the dataset. Writes the PDFs to public/documents/<dossier>/, the
 clients to public/data/clients.json and the generator's expected results to
-tests/fixtures/clients-oracle.json (tests only).
+tests/fixtures/clients-oracle.json (tests only). Clients already generated are
+kept as they are (their documents and fingerprints do not change); only new
+ones are generated.
 
     python3 scripts/generate-clients.py
 """
@@ -31,12 +33,15 @@ CLIENTS = [
     ('DN', 'DN AGRAR GROUP S.A.', '24020501', 'agricultura', '0141', 'Alba Iulia', 'Dairy & agriculture'),
     ('NRF', 'NOROFERT S.A.', '12972762', 'inputuri agricole', '2015', 'Bucuresti', 'Agricultural inputs'),
     ('HAI', 'HOLDE AGRI INVEST S.A.', '39549730', 'agricultura', '0111', 'Bucuresti', 'Crop farming'),
+    # Not listed on the exchange; much in the news, which makes it the client to show monitoring with. CUI checked in ANAF on 28 Oct 2026.
+    ('TAROM', 'COMPANIA NATIONALA DE TRANSPORTURI AERIENE ROMANE TAROM SA', '477647', 'transport aerian', '5110', 'Otopeni', 'Air transport'),
 ]
+UNLISTED = {'TAROM'}
 FIRST = 51
 MANAGERS = ['Elena Dumitrescu', 'Andrei Popa', 'Cristina Dobre']
 # Names each company goes by in the news (its BVB symbol alone is too ambiguous to match on).
 TERMS = {'TEL': ['Transelectrica'], 'TTS': ['Transport Trade Services'], 'CEON': ['Cemacon'], 'SCD': ['Zentiva'], 'TBM': ['Turbomecanica'],
-         'CRC': ['Chimcomplex'], 'RORX': ['Romaero'], 'DN': ['DN Agrar'], 'NRF': ['Norofert'], 'HAI': ['Holde Agri', 'Holde']}
+         'CRC': ['Chimcomplex'], 'RORX': ['Romaero'], 'DN': ['DN Agrar'], 'NRF': ['Norofert'], 'HAI': ['Holde Agri', 'Holde'], 'TAROM': ['Tarom']}
 
 
 def month_add(day: date, months: int) -> date:
@@ -52,13 +57,18 @@ def main() -> None:
     gen.TABLES = {k: [] for k in gen.SCHEMAS}
     policy = json.loads((ROOT / 'public/data/portfolio.json').read_text())['policy']
     clients, oracle = [], []
+    existing_file = ROOT / 'public/data/clients.json'
+    existing = {c['id']: c for c in json.loads(existing_file.read_text())['clients']} if existing_file.exists() else {}
+    existing_oracle = {o['dosar_id']: o for o in json.loads((ROOT / 'tests/fixtures/clients-oracle.json').read_text())} if (ROOT / 'tests/fixtures/clients-oracle.json').exists() else {}
     for n, (symbol, name, cui, sector_ro, caen, city, sector) in enumerate(CLIENTS):
         idx = FIRST + n
+        dossier = f'TEST-DOS-{idx:03}'
+        if dossier in existing and dossier in existing_oracle and (ROOT / 'public/documents' / dossier).exists():
+            clients.append(existing[dossier]); oracle.append(existing_oracle[dossier]); continue
         bundle = gen.generate_company(idx, {'simbol': symbol, 'denumire': name, 'cui': cui, 'sector_demo': sector_ro, 'caen_ipoteza': caen, 'oras_demo': city})
         assert bundle['case'] == 'sanatos', bundle['case']
         expected = gen.evaluate(bundle)
         assert expected['scenarii'][0]['rezultat_asteptat'] == 'ELIGIBIL', (symbol, expected['scenarii'][0])
-        dossier = f'TEST-DOS-{idx:03}'
         tables = bundle['tables']
         target = ROOT / 'public/documents' / dossier
         if target.exists(): shutil.rmtree(target)
@@ -68,10 +78,10 @@ def main() -> None:
         request = tables['solicitari'][0]
         approved = date(2025, 11, 3) + timedelta(days=29 * n)
         start = approved + timedelta(days=14)
-        drawn_share = [0.62, 0.81, 0.74, 0.9, 0.55, 0.68, 0.77, 0.85, 0.6, 0.71][n]
+        drawn_share = [0.62, 0.81, 0.74, 0.9, 0.55, 0.68, 0.77, 0.85, 0.6, 0.71, 0.66][n]
         collateral = [g for g in tables['garantii'] if g['garantie_id'] in tables['scenarii'][0]['garantie_ids']]
         clients.append({
-            'id': dossier, 'symbol': symbol, 'name': name, 'cui': cui, 'sector': sector, 'city': city.split(',')[0], 'tables': tables, 'monitorTerms': TERMS[symbol],
+            'id': dossier, 'symbol': symbol, 'name': name, 'cui': cui, 'sector': sector, 'city': city.split(',')[0], 'tables': tables, 'monitorTerms': TERMS[symbol], **({'listed': False} if symbol in UNLISTED else {}),
             'creditLine': {
                 'facilityId': f'CL-2026-{idx:03}', 'product': 'Investment loan', 'limit': request['suma_solicitata'], 'currency': 'RON',
                 'drawn': round(request['suma_solicitata'] * drawn_share, 2), 'rate': request['dobanda_anuala_ipoteza'],

@@ -1,5 +1,5 @@
 /**
- * CreditDesk assessment engine: HTTP API, live run streams (SSE) and
+ * Finra assessment engine: HTTP API, live run streams (SSE) and
  * original-page rendering. In development Vite proxies /api here; in
  * production this process also serves the built workspace from dist/.
  */
@@ -18,6 +18,7 @@ import { type StoredUpload, documentFile, effectiveCompany, inspectUpload } from
 import { REQUIRED_DOCUMENTS } from '../src/assessment.ts'
 import type { DossierUpload, EventPayloads } from '../src/assessment.ts'
 import type { Company } from '../src/types.ts'
+import type { CreditLine } from '../src/monitoring.ts'
 import { readPdf, renderPage } from './engine/pdf.ts'
 import { readJson, send } from './http.ts'
 import { Batch } from './engine/batch.ts'
@@ -51,6 +52,15 @@ let providerDetail = 'model calls disabled (CREDITDESK_LLM=none)'
 let providerChecked = false
 const engine = new Engine(store, documentsDir, null)
 const workspace = new Workspace(store.db)
+/** An application whose contract was signed, as a credit client: its credit line, and the name it goes by in the news. */
+const asClient = (app: Company, creditLine: CreditLine): Company => ({ ...app, creditLine, monitorTerms: [app.name.replace(/\s+(S\.?\s?A\.?|S\.?R\.?L\.?)$/i, '').trim()] })
+for (const signed of workspace.signedClients()) {
+  const app = companies.get(signed.companyId)
+  if (!app || clients.some(c => c.id === app.id)) continue
+  const client = asClient(app, signed.creditLine)
+  clients.push(client)
+  companies.set(client.id, client)
+}
 const actorOf = (req: IncomingMessage) => workspace.user(String(req.headers['x-user'] ?? '')) ?? workspace.user(DEFAULT_USER)!
 
 async function refreshProvider(): Promise<void> {
@@ -122,15 +132,29 @@ function dossierFile(companyId: string, file: string): { path: string; pages: nu
 }
 
 const publicUpload = ({ path: _path, ...u }: StoredUpload): DossierUpload => u
+/** Steps of questions being answered right now, by the id the browser gave the question. */
+const asking = new Map<string, string[]>()
 
-const batch = new Batch(engine, async companyId => {
+const dossierOf = async (companyId: string) => {
   const uploads = store.uploads(companyId)
   return { company: await effectiveCompany(companies.get(companyId)!, uploads), uploads: uploads.map(publicUpload) }
-})
-const monitor = new Monitor(store.db, clients, id => store.runs(id).find(r => r.status === 'completed') ?? null, Number(process.env.CREDITDESK_MONITOR_MINUTES) || 60)
+}
+const batch = new Batch(engine, dossierOf)
+// The news is weighed by the lightest model Codex offers, at low effort: one short call per check.
+const lightModel = () => engine.codex ? { ...engine.codex, model: process.env.CREDITDESK_CRAWL_MODEL ?? 'gpt-6-luna', effort: 'low' } : null
+const monitor = new Monitor(store.db, clients, id => store.runs(id).find(r => r.status === 'completed') ?? null, Number(process.env.CREDITDESK_MONITOR_MINUTES) || 60, join(dataDir, 'pages', 'web'), lightModel)
 // A client's new assessment is checked against its covenants straight away.
 engine.onSettled((_runId, companyId) => { if (clients.some(c => c.id === companyId)) monitor.enqueue(companyId) })
-const workspaceRoute = workspaceRoutes({ workspace, store, engine, batch, companies, applications: portfolio.companies.map(c => c.id), monitor, dataDir, policyFrom, refreshProvider })
+const workspaceRoute = workspaceRoutes({ workspace, store, engine, batch, companies, applications: portfolio.companies.map(c => c.id).filter(id => !clients.some(c => c.id === id)), monitor, dataDir, policyFrom, refreshProvider,
+  // A signed application becomes a credit client at once: monitored from now on, and no longer in Run all.
+  makeClient: (app, creditLine) => {
+    const client = asClient(app, creditLine)
+    if (!clients.some(c => c.id === client.id)) clients.push(client)
+    companies.set(client.id, client)
+    monitor.addClient(client)
+    return client
+  },
+  clients: () => clients })
 
 async function addDocument(req: IncomingMessage, res: ServerResponse, companyId: string, kind: string, originalName: string) {
   const company = await currentCompany(companyId)
@@ -187,6 +211,13 @@ async function handle(req: IncomingMessage, res: ServerResponse) {
   const parts = url.pathname.split('/').filter(Boolean)
   if (parts[0] !== 'api') return serveStatic(req, res, url.pathname)
   if (await workspaceRoute(req, res, url, parts)) return
+  // Every company's dossier in one answer: the required documents still missing once the employee's uploads count.
+  if (req.method === 'GET' && parts[1] === 'dossiers' && parts.length === 2) {
+    return send(res, 200, Object.fromEntries([...companies.values()].map(c => {
+      const added = store.uploads(c.id).map(u => u.kind)
+      return [c.id, { missing: REQUIRED_DOCUMENTS.filter(k => !added.includes(k) && !c.tables.documente.some(d => d.tip_document === k)), added }]
+    })))
+  }
   if (parts[1] === 'companies' && companies.has(parts[2]) && parts[3] === 'documents') {
     const companyId = parts[2]
     if (req.method === 'GET' && parts.length === 4) {
@@ -248,6 +279,8 @@ async function handle(req: IncomingMessage, res: ServerResponse) {
     }
     case 'GET /runs/:run/questions':
       return send(res, 200, store.questions(runId!))
+    case 'GET /runs/:run/ask/:run':
+      return send(res, 200, { steps: asking.get(parts[4]) ?? [] })
     case 'POST /runs/:run/ask': {
       const run = store.run(runId!)
       if (!run) return send(res, 404, { error: 'No such run' })
@@ -258,8 +291,13 @@ async function handle(req: IncomingMessage, res: ServerResponse) {
       const controller = new AbortController()
       res.on('close', () => { if (!res.writableEnded) controller.abort(new Error('analyst left')) })
       const asked = await runCompany(run.runId)
-      const answer = await answerQuestion({ company: asked, runId: run.runId, events: store.events(run.runId), documentsDir, codex: engine.codex, question, history: store.questions(run.runId), signal: controller.signal, about: typeof body.findingId === 'string' ? body.findingId : null,
-        contacts: workspace.contacts(asked), cases: workspace.cases({ companyId: asked.id }), askedBy: actorOf(req).name })
+      // The steps taken so far, for the analyst's screen to follow while the answer is worked out.
+      const askId = typeof body.askId === 'string' && /^[0-9a-f-]{36}$/.test(body.askId) ? body.askId : null
+      if (askId) { asking.set(askId, []); setTimeout(() => asking.delete(askId), 10 * 60_000).unref() }
+      const answer = await answerQuestion({ onStep: text => { if (askId) asking.get(askId)?.push(text) }, company: asked, runId: run.runId, events: store.events(run.runId), documentsDir, codex: engine.codex, question, history: store.questions(run.runId), signal: controller.signal, about: typeof body.findingId === 'string' ? body.findingId : null,
+        contacts: workspace.contacts(asked), cases: workspace.cases({ companyId: asked.id }), askedBy: actorOf(req).name,
+        monitoring: asked.creditLine ? monitor.events({ companyId: asked.id, limit: 200 }).filter(e => e.severity !== 'info' && !e.reviewedAt).slice(0, 25)
+          .map(e => ({ when: e.data?.published ?? e.ts.slice(0, 10), source: e.source === 'web' ? 'news · ' + (e.data?.site ?? '') : e.source, severity: e.severity, title: e.title, detail: e.detail, ...(e.data?.url ? { url: e.data.url } : {}) })) : undefined })
       if (!controller.signal.aborted) store.saveQuestion(answer)
       return send(res, 200, answer)
     }
@@ -280,7 +318,15 @@ const server = createServer((req, res) => {
 
 await refreshProvider()
 if (process.env.CREDITDESK_MONITOR !== 'off') monitor.start()
+// Credit clients were assessed when their credit was approved. A client without a completed
+// assessment (a new data folder, say) gets one now, a few at a time like Run all; monitoring
+// then checks its covenants as each one finishes.
+const unassessed = clients.filter(c => !engine.activeRun(c.id) && !store.runs(c.id).some(r => r.status === 'completed')).map(c => c.id)
+if (unassessed.length && process.env.CREDITDESK_ONBOARD !== 'off') {
+  new Batch(engine, dossierOf).start(unassessed, portfolio.policy, Number(process.env.CREDITDESK_BATCH_CONCURRENCY) || (engine.codex ? 2 : 6), 'Credit committee')
+  console.log('Assessing ' + unassessed.length + ' credit clients that have no completed assessment yet')
+}
 server.listen(port, '127.0.0.1', () => {
-  console.log('CreditDesk engine on http://127.0.0.1:' + port + ' · data ' + dataDir)
+  console.log('Finra engine on http://127.0.0.1:' + port + ' · data ' + dataDir)
   console.log('Model provider: ' + (engine.codex ? 'Codex ' + engine.codex.model + ' (' + engine.codex.effort + ')' : 'none') + ' · ' + providerDetail)
 })

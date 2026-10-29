@@ -31,8 +31,10 @@ export const cancelRun = (runId: string) => api<{ cancelled: boolean }>('/runs/'
 export const runWhatIf = (runId: string, settings: Simulation) =>
   api<Record<Scenario, Analysis>>('/runs/' + runId + '/what-if', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ settings }) })
 /** Ask about a run; the engine answers from its facts and locates what the answer points to. */
-export const askQuestion = (runId: string, question: string, findingId?: string | null) =>
-  api<AskAnswer>('/runs/' + runId + '/ask', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ question, findingId }) })
+export const askQuestion = (runId: string, question: string, findingId?: string | null, askId?: string) =>
+  api<AskAnswer>('/runs/' + runId + '/ask', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ question, findingId, askId }) })
+/** The steps taken so far for a question being answered. */
+export const askSteps = (runId: string, askId: string) => api<{ steps: string[] }>('/runs/' + runId + '/ask/' + askId)
 export const listQuestions = (runId: string) => api<AskAnswer[]>('/runs/' + runId + '/questions')
 export const getRun = (runId: string) => api<{ summary: AssessmentSummary; events: RunEvent[]; active: boolean }>('/runs/' + runId)
 export const verifyRunOnServer = (runId: string) => api<{ ok: boolean; events: number; brokenAt: number | null }>('/runs/' + runId + '/verify')
@@ -43,6 +45,9 @@ export const originalPdfUrl = (companyId: string, file: string, page: number) =>
 export interface DossierDocument { kind: string; documentId: string; file: string; pages: number; sha256: string; supplied: { uploadId: string; by: string; at: string; originalName: string; replaces: boolean; mode: string } | null }
 export interface DossierState { documents: DossierDocument[]; missing: string[]; uploads: DossierUpload[] }
 export const getDossier = (companyId: string) => api<DossierState>('/companies/' + companyId + '/documents')
+/** For every company: required documents still missing, and the kinds the employees added. */
+export type Dossiers = Record<string, { missing: string[]; added: string[] }>
+export const getDossiers = () => api<Dossiers>('/dossiers')
 /** Add a document to the dossier; the engine checks it is this company's document of this type before accepting it. */
 export const addDocument = (companyId: string, kind: string, file: File) =>
   api<DossierUpload>('/companies/' + companyId + '/documents?kind=' + encodeURIComponent(kind) + '&name=' + encodeURIComponent(file.name), { method: 'POST', headers: { 'content-type': 'application/pdf' }, body: file })

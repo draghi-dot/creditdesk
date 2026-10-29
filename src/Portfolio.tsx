@@ -1,14 +1,16 @@
 import { useEffect, useMemo, useState } from 'react'
-import { ArrowDown, ArrowDownToLine, ArrowRight, ArrowUpDown, Building2, Check, CheckCheck, ChevronLeft, ChevronRight, Clock3, FileCheck2, FileText, FolderClosed, LayoutGrid, ListFilter, LoaderCircle, Play, RotateCcw, Search, ShieldCheck, Table2, X } from 'lucide-react'
+import type { ReactNode } from 'react'
+import { ArrowDown, ArrowDownToLine, ArrowRight, ArrowUpDown, Building2, Check, CheckCheck, ChevronLeft, ChevronRight, Clock3, FileCheck2, FileText, LayoutGrid, ListFilter, LoaderCircle, Play, RotateCcw, Search, ShieldCheck, Table2, X } from 'lucide-react'
 import type { AuditEvent, Company, Decision, Policy } from './types'
 import type { AssessmentDigest, AssessmentSummary } from './assessment'
 import { REQUIRED_DOCUMENTS } from './assessment'
 import { decisionLabels, money, ratio } from './analysis'
-import { Badge, Button, CompanyMark, Dialog, Empty, NotAssessed, SectionHeading } from './components'
+import { Badge, Button, Dialog, Empty, NotAssessed, SectionHeading, Select } from './components'
 import { downloadFile } from './storage'
-import { DEPARTMENTS } from './workspace'
+import type { Dossiers } from './runs'
+import { getDossiers } from './runs'
 import type { BatchStatus } from './people'
-import { batchStatus, findAllContacts, findAllStatus, runAll, stopAll, useCases } from './people'
+import { batchStatus, findAllContacts, findAllStatus, runAll, stopAll } from './people'
 import type { FindAllStatus } from './people'
 
 /** The engine's recorded result of the latest completed run, for companies that have one. */
@@ -18,31 +20,52 @@ const states: Decision[] = ['ELIGIBIL', 'CONDITIONAT', 'DATE_INSUFICIENTE', 'NEE
 const NOT_ASSESSED = 'NONE'
 const requested = (c: Company) => c.tables.solicitari[0].suma_solicitata
 
-export function Stats({ companies, assessments }: { companies: Company[]; assessments: Assessments }) {
+/** Decision filter values: one decision, every company needing attention, or the not assessed. */
+const ATTENTION = 'ATTENTION'
+const matchesStatus = (decision: string, status: string) => !status || decision === status || (status === ATTENTION && (decision === 'CONDITIONAT' || decision === 'DATE_INSUFICIENTE'))
+
+/** The four headline numbers; each one filters the list to its companies. */
+export function Stats({ companies, assessments, active = '', onPick }: { companies: Company[]; assessments: Assessments; active?: string; onPick: (status: string) => void }) {
   const counts = Object.fromEntries(states.map(s => [s, companies.filter(c => assessments.get(c.id)?.decision === s).length]))
   const total = companies.reduce((n, c) => n + c.tables.solicitari[0].suma_solicitata, 0)
+  const notAssessed = companies.length - companies.filter(c => assessments.has(c.id)).length
+  const share = (n: number) => companies.length ? n / companies.length * 100 + '%' : '0%'
+  const card = (status: string, tone: string, label: string, count: number, caption: ReactNode, bar: ReactNode) =>
+    <button className={'stat-card stat-pick stat-' + tone + (active === status ? ' picked' : '')} aria-pressed={active === status} onClick={() => onPick(active === status && status ? '' : status)}>
+      <span className="stat-label">{label}</span>
+      <span className="stat-number">{count}</span>
+      <span className="stat-bar">{bar}</span>
+      <span className="stat-caption">{caption}</span>
+    </button>
   return <div className="stats-grid">
-    <div className="stat-card"><div className="stat-label">Total applications<FolderClosed size={17} /></div><div className="stat-number">{companies.length}<span className="stat-unit">dossiers</span></div><div className="stat-caption">{companies.length - assessments.size ? <><strong>{companies.length - assessments.size}</strong> not yet assessed<span className="caption-dot">·</span></> : null}<strong>{money(total, true)}</strong> requested</div></div>
-    <div className="stat-card"><div className="stat-label">Meet the policy<span className="stat-dot green" /></div><div className="stat-number">{counts.ELIGIBIL}<span className="stat-tag tag-green">Eligible</span></div><div className="stat-caption">Ready for an analyst's review</div></div>
-    <div className="stat-card"><div className="stat-label">Need attention<span className="stat-dot amber" /></div><div className="stat-number">{counts.CONDITIONAT + counts.DATE_INSUFICIENTE}<span className="stat-tag tag-amber">To review</span></div><div className="stat-caption">{counts.CONDITIONAT} conditional<span className="caption-dot">·</span>{counts.DATE_INSUFICIENTE} incomplete</div></div>
-    <div className="stat-card"><div className="stat-label">Do not meet the policy<span className="stat-dot red" /></div><div className="stat-number">{counts.NEELIGIBIL}<span className="stat-tag tag-red">Not eligible</span></div><div className="stat-caption">Repayment or fiscal criteria unmet</div></div>
+    {card('', 'all', 'All applications', companies.length, <>{notAssessed ? notAssessed + ' not assessed · ' : ''}{money(total, true)} requested</>,
+      <>{states.map(s => <i key={s} className={'seg-' + s} style={{ width: share(counts[s]) }} />)}</>)}
+    {card('ELIGIBIL', 'green', 'Eligible', counts.ELIGIBIL, 'Meet the policy · ready for review', <i className="seg-ELIGIBIL" style={{ width: share(counts.ELIGIBIL) }} />)}
+    {card(ATTENTION, 'amber', 'Need attention', counts.CONDITIONAT + counts.DATE_INSUFICIENTE, counts.CONDITIONAT + ' conditional · ' + counts.DATE_INSUFICIENTE + ' incomplete',
+      <><i className="seg-CONDITIONAT" style={{ width: share(counts.CONDITIONAT) }} /><i className="seg-DATE_INSUFICIENTE" style={{ width: share(counts.DATE_INSUFICIENTE) }} /></>)}
+    {card('NEELIGIBIL', 'red', 'Not eligible', counts.NEELIGIBIL, 'Repayment or fiscal criteria unmet', <i className="seg-NEELIGIBIL" style={{ width: share(counts.NEELIGIBIL) }} />)}
   </div>
 }
 
-export function Directory({ companies, assessments, latest, queue, initialStatus, onOpen, toast, policy, onRunsChanged }: { companies: Company[]; assessments: Assessments; latest: Latest; queue: boolean; initialStatus: string; onOpen: (id: string) => void; onQueue: () => void; toast: (s: string) => void; policy: Policy; runs: AssessmentSummary[]; onRunsChanged: () => void }) {
+export function Directory({ companies, assessments, latest, queue, initialStatus, onOpen, toast, policy, onRunsChanged, heading }: { heading?: ReactNode; companies: Company[]; assessments: Assessments; latest: Latest; queue: boolean; initialStatus: string; onOpen: (id: string) => void; onQueue: () => void; toast: (s: string) => void; policy: Policy; runs: AssessmentSummary[]; onRunsChanged: () => void }) {
   const [query, setQuery] = useState('')
   const [status, setStatus] = useState(initialStatus)
   const [sector, setSector] = useState('')
   const [sort, setSort] = useState('dossier')
   const [page, setPage] = useState(1)
-  const [pageSize, setPageSize] = useState(10)
-  const [layout, setLayout] = useState<'table' | 'grid'>('table')
+  const [pageSize, setPageSize] = useState(12)
+  const [layout, setLayoutState] = useState<'table' | 'grid'>(() => { try { return localStorage.getItem('creditdesk.companies.layout') === 'table' ? 'table' : 'grid' } catch { return 'grid' } })
+  const setLayout = (next: 'table' | 'grid') => { setLayoutState(next); try { localStorage.setItem('creditdesk.companies.layout', next) } catch { /* private mode */ } }
   const [selected, setSelected] = useState<Set<string>>(new Set())
   const [filterOpen, setFilterOpen] = useState(false)
   const [minAmount, setMinAmount] = useState('')
   const [maxAmount, setMaxAmount] = useState('')
   const [anomaliesOnly, setAnomaliesOnly] = useState(false)
   useEffect(() => setStatus(initialStatus), [initialStatus])
+  // What is missing counts the documents employees added, not only the dossier as submitted.
+  const [dossiers, setDossiers] = useState<Dossiers | null>(null)
+  useEffect(() => { getDossiers().then(setDossiers).catch(() => {}) }, [])
+  const missingOf = (c: Company) => dossiers?.[c.id]?.missing.length ?? Math.max(0, REQUIRED_DOCUMENTS.length - c.tables.documente.length)
   const decisionOf = (c: Company) => assessments.get(c.id)?.decision ?? NOT_ASSESSED
   const available = companies.filter(c => !queue || ['CONDITIONAT', 'DATE_INSUFICIENTE'].includes(decisionOf(c)))
   const counts = Object.fromEntries([...states, NOT_ASSESSED].map(s => [s, available.filter(c => decisionOf(c) === s).length]))
@@ -50,7 +73,7 @@ export function Directory({ companies, assessments, latest, queue, initialStatus
   const filtered = useMemo(() => available.filter(c => {
     const observed = latest.get(c.id)?.observations
     return (!query || [c.name, c.symbol, c.cui, c.id, c.sector].join(' ').toLowerCase().includes(query.toLowerCase())) &&
-      (!status || decisionOf(c) === status) && (!sector || c.sector === sector) &&
+      matchesStatus(decisionOf(c), status) && (!sector || c.sector === sector) &&
       (!minAmount || requested(c) >= Number(minAmount)) && (!maxAmount || requested(c) <= Number(maxAmount)) &&
       (!anomaliesOnly || !!observed && (observed.discrepancies.length > 0 || observed.missingDocuments.length > 0 || ['DATA-02', 'DATA-03', 'DATA-04'].some(id => assessments.get(c.id)?.failing.includes(id))))
   }).sort((a, b) => sort === 'name' ? a.name.localeCompare(b.name) : sort === 'amount-desc' ? requested(b) - requested(a) :
@@ -74,37 +97,43 @@ export function Directory({ companies, assessments, latest, queue, initialStatus
     toast(rows.length + ' company dossiers exported')
   }
   return <div className="page-enter">
-    <div className="page-heading"><div><h1>{queue ? 'Review queue' : 'Companies'}<span className="heading-count">{available.length}</span></h1><p>{queue ? 'Assessed companies with conditions or missing evidence.' : 'Every application, its latest assessment and its documents.'}</p></div><div className="page-actions">{!queue && <FindContacts toast={toast} />}{!queue && <RunAll policy={policy} total={companies.length} onChange={onRunsChanged} toast={toast} />}<Button onClick={() => exportCsv()}><ArrowDownToLine size={16} />Export list</Button></div></div>
-    <Stats companies={companies} assessments={assessments} />
+    <div className="page-heading"><div>{heading ?? <h1>{queue ? 'Review queue' : 'Applications'}</h1>}<p>{queue ? 'Assessed applications with conditions or missing evidence.' : 'Financing requests waiting for a decision.'}</p></div><div className="page-actions"><Button onClick={() => exportCsv()} title="Download the list as CSV"><ArrowDownToLine size={16} />Export</Button>{!queue && <FindContacts toast={toast} />}{!queue && <RunAll policy={policy} total={companies.length} onChange={onRunsChanged} toast={toast} />}</div></div>
+    <Stats companies={available} assessments={assessments} active={status} onPick={setStatus} />
     <section className="portfolio-panel">
-      <div className="directory-heading"><h2>{queue ? 'Companies requiring attention' : 'All companies'}<span>{available.length} companies</span></h2><div className="view-toggle"><button className={layout === 'table' ? 'selected' : ''} onClick={() => setLayout('table')} aria-label="Table view"><Table2 size={16} /></button><button className={layout === 'grid' ? 'selected' : ''} onClick={() => setLayout('grid')} aria-label="Grid view"><LayoutGrid size={16} /></button></div></div>
       <div className="filter-tabs" role="tablist" aria-label="Filter companies by decision"><button role="tab" aria-selected={!status} className={!status ? 'active' : ''} onClick={() => setStatus('')}>All companies<span>{available.length}</span></button>{states.map(s => <button role="tab" aria-selected={status === s} className={status === s ? 'active' : ''} key={s} onClick={() => setStatus(s)}><span className={'tab-dot dot-' + s} />{decisionLabels[s]}<span>{counts[s]}</span></button>)}{!queue && <button role="tab" aria-selected={status === NOT_ASSESSED} className={status === NOT_ASSESSED ? 'active' : ''} onClick={() => setStatus(NOT_ASSESSED)}><span className="tab-dot dot-NONE" />Not assessed<span>{counts[NOT_ASSESSED]}</span></button>}</div>
-      <div className="directory-toolbar"><label className="search-input"><Search size={17} /><input aria-label="Search company directory" placeholder="Search company, CUI or dossier ID…" value={query} onChange={e => setQuery(e.target.value)} />{query && <button aria-label="Clear search" onClick={() => setQuery('')}><X size={14} /></button>}</label><div className="toolbar-controls"><label className="select-wrap sector-select"><Building2 size={15} /><select aria-label="Filter by sector" value={sector} onChange={e => setSector(e.target.value)}><option value="">All sectors</option>{sectors.map(s => <option key={s}>{s}</option>)}</select></label><Button small onClick={() => setFilterOpen(true)}><ListFilter size={15} />Filters{(minAmount || maxAmount || anomaliesOnly) && <span className="filter-active-dot" />}</Button><label className="select-wrap sort-select"><ArrowUpDown size={14} /><select value={sort} onChange={e => setSort(e.target.value)} aria-label="Sort companies"><option value="dossier">Dossier order</option><option value="name">Company name</option><option value="amount-desc">Amount: highest</option><option value="amount-asc">Amount: lowest</option></select></label></div></div>
+      <div className="directory-toolbar"><label className="search-input"><Search size={17} /><input aria-label="Search company directory" placeholder="Search company, CUI or dossier ID…" value={query} onChange={e => setQuery(e.target.value)} />{query && <button aria-label="Clear search" onClick={() => setQuery('')}><X size={14} /></button>}</label><div className="toolbar-controls"><div className="view-toggle"><button className={layout === 'table' ? 'selected' : ''} onClick={() => setLayout('table')} aria-label="Table view"><Table2 size={16} /></button><button className={layout === 'grid' ? 'selected' : ''} onClick={() => setLayout('grid')} aria-label="Grid view"><LayoutGrid size={16} /></button></div><Select label="Sector" icon={<Building2 size={15} />} className="sector-select" value={sector} onChange={setSector} options={[{ value: '', label: 'All sectors' }, ...sectors.map(s => ({ value: s, label: s, hint: String(available.filter(c => c.sector === s).length) }))]} /><Button small onClick={() => setFilterOpen(true)}><ListFilter size={15} />Filters{(minAmount || maxAmount || anomaliesOnly) && <span className="filter-active-dot" />}</Button><Select label="Sort" icon={<ArrowUpDown size={14} />} value={sort} onChange={setSort} options={[{ value: 'dossier', label: 'Dossier order' }, { value: 'name', label: 'Company name' }, { value: 'amount-desc', label: 'Amount: highest' }, { value: 'amount-asc', label: 'Amount: lowest' }]} /></div></div>
       {(selected.size > 0 || activeFilters) && <div className="selection-bar"><span>{selected.size ? selected.size + ' companies selected' : filtered.length + ' matching companies'}</span>{!!selected.size && <><button onClick={() => exportCsv(true)}><ArrowDownToLine size={13} />Export selection</button><button onClick={() => setSelected(new Set())}>Deselect all</button></>}{activeFilters && <button className="clear-filters" onClick={reset}><X size={13} />Clear filters</button>}</div>}
       {!filtered.length ? <Empty title="No companies match these filters">Try another company name or CUI, or <button className="text-button" onClick={reset}>clear your filters</button>.</Empty> :
         layout === 'table' ? <div className="table-scroll"><table className="company-table"><thead><tr><th className="checkbox-cell"><input aria-label="Select visible companies" type="checkbox" checked={allSelected} onChange={() => setSelected(s => { const n = new Set(s); visible.forEach(c => allSelected ? n.delete(c.id) : n.add(c.id)); return n })} /></th><th>Company<ArrowDown size={12} /></th><th>Requested financing</th><th>Assessment</th><th>Debt coverage<span className="table-help" title="DSCR = cash available for debt service divided by debt payments">?</span></th><th>Documents</th><th /></tr></thead><tbody>{visible.map(c => {
           const a = assessments.get(c.id)
-          return <tr key={c.id} onClick={() => onOpen(c.id)} className={selected.has(c.id) ? 'row-selected' : ''}><td className="checkbox-cell" onClick={e => e.stopPropagation()}><input type="checkbox" checked={selected.has(c.id)} onChange={() => toggle(c.id)} aria-label={'Select ' + c.name} /></td><td><div className="company-cell"><CompanyMark company={c} /><div><button className="company-name" aria-label={'Open ' + c.name}>{c.name}</button><span>{c.sector}<span className="inline-dot">·</span>{c.symbol}</span></div></div></td><td><strong className="table-amount">{money(requested(c))}</strong><span className="cell-subtext">Investment loan · {c.tables.solicitari[0].durata_luni} months</span></td><td>{a ? <Badge decision={a.decision} /> : <NotAssessed />}</td><td>{a ? <div className="dscr-cell"><strong className={a.metrics.dscr == null ? 'text-muted' : a.metrics.dscr < 1.2 ? 'text-red' : ''}>{ratio(a.metrics.dscr)}</strong><span className="mini-meter"><i className={a.metrics.dscr != null && a.metrics.dscr < 1.2 ? 'meter-red' : ''} style={{ width: a.metrics.dscr == null ? '0%' : Math.min(100, a.metrics.dscr / 3 * 100) + '%' }} /></span></div> : <span className="text-muted">—</span>}</td><td>{c.tables.documente.length < REQUIRED_DOCUMENTS.length ? <span className="document-count document-missing" title="Open the company to upload it"><FileText size={15} />{REQUIRED_DOCUMENTS.length - c.tables.documente.length} missing</span> : <span className="document-count"><FileText size={15} />{c.tables.documente.length}<span>files</span></span>}</td><td><ChevronRight className="row-chevron" size={17} /></td></tr>
+          return <tr key={c.id} onClick={() => onOpen(c.id)} className={selected.has(c.id) ? 'row-selected' : ''}><td className="checkbox-cell" onClick={e => e.stopPropagation()}><input type="checkbox" checked={selected.has(c.id)} onChange={() => toggle(c.id)} aria-label={'Select ' + c.name} /></td><td><div className="company-cell"><div><button className="company-name" aria-label={'Open ' + c.name}>{c.name}</button><span>{c.sector}<span className="inline-dot">·</span>{c.symbol}</span></div></div></td><td><strong className="table-amount">{money(requested(c))}</strong><span className="cell-subtext">Investment loan · {c.tables.solicitari[0].durata_luni} months</span></td><td>{a ? <Badge decision={a.decision} /> : <NotAssessed />}</td><td>{a ? <div className="dscr-cell"><strong className={a.metrics.dscr == null ? 'text-muted' : a.metrics.dscr < 1.2 ? 'text-red' : ''}>{ratio(a.metrics.dscr)}</strong><span className="mini-meter"><i className={a.metrics.dscr != null && a.metrics.dscr < 1.2 ? 'meter-red' : ''} style={{ width: a.metrics.dscr == null ? '0%' : Math.min(100, a.metrics.dscr / 3 * 100) + '%' }} /></span></div> : <span className="text-muted">—</span>}</td><td>{missingOf(c) > 0 ? <span className="document-count document-missing" title="Open the company to upload it"><FileText size={15} />{missingOf(c)} missing</span> : <span className="document-count"><FileText size={15} />{REQUIRED_DOCUMENTS.length}<span>files</span></span>}</td><td><ChevronRight className="row-chevron" size={17} /></td></tr>
         })}</tbody></table></div> :
-          <div className="company-grid">{visible.map(c => { const a = assessments.get(c.id); return <button className="company-grid-card" key={c.id} onClick={() => onOpen(c.id)}><div><CompanyMark company={c} />{a ? <Badge decision={a.decision} small /> : <NotAssessed small />}</div><h3>{c.name}</h3><p>{c.sector} · CUI {c.cui}</p><div className="grid-card-metrics"><span>Requested<strong>{money(requested(c))}</strong></span><span>DSCR<strong>{a ? ratio(a.metrics.dscr) : '—'}</strong></span></div><div className="grid-card-footer"><span><FileText size={13} />{c.tables.documente.length} source documents</span><ArrowRight size={15} /></div></button> })}</div>}
-      <div className="table-pagination"><div>Showing <strong>{filtered.length ? (currentPage - 1) * pageSize + 1 : 0}–{Math.min(currentPage * pageSize, filtered.length)}</strong> of <strong>{filtered.length}</strong> companies</div><div className="pagination-controls"><label>Rows per page<select aria-label="Rows per page" value={pageSize} onChange={e => setPageSize(Number(e.target.value))}><option>10</option><option>20</option><option>50</option></select></label><button className="pagination-arrow" disabled={currentPage === 1} onClick={() => setPage(p => p - 1)} aria-label="Previous page"><ChevronLeft size={16} /></button>{Array.from({ length: pages }, (_, i) => <button key={i} className={'page-number' + (currentPage === i + 1 ? 'current' : '')} onClick={() => setPage(i + 1)} aria-label={'Page ' + (i + 1)} aria-current={currentPage === i + 1 ? 'page' : undefined}>{i + 1}</button>)}<button className="pagination-arrow" disabled={currentPage === pages} onClick={() => setPage(p => p + 1)} aria-label="Next page"><ChevronRight size={16} /></button></div></div>
+          <div className="company-grid">{visible.map(c => <CompanyCard key={c.id} company={c} assessment={assessments.get(c.id)} run={latest.get(c.id)} missing={missingOf(c)} added={dossiers?.[c.id]?.added.length ?? 0} onOpen={() => onOpen(c.id)} />)}</div>}
+      <div className="table-pagination"><div>Showing <strong>{filtered.length ? (currentPage - 1) * pageSize + 1 : 0}–{Math.min(currentPage * pageSize, filtered.length)}</strong> of <strong>{filtered.length}</strong> companies</div><div className="pagination-controls"><label>Per page<Select small label="Per page" value={String(pageSize)} onChange={v => setPageSize(Number(v))} options={['12', '24', '48'].map(v => ({ value: v, label: v }))} /></label><button className="pagination-arrow" disabled={currentPage === 1} onClick={() => setPage(p => p - 1)} aria-label="Previous page"><ChevronLeft size={16} /></button>{Array.from({ length: pages }, (_, i) => <button key={i} className={'page-number' + (currentPage === i + 1 ? 'current' : '')} onClick={() => setPage(i + 1)} aria-label={'Page ' + (i + 1)} aria-current={currentPage === i + 1 ? 'page' : undefined}>{i + 1}</button>)}<button className="pagination-arrow" disabled={currentPage === pages} onClick={() => setPage(p => p + 1)} aria-label="Next page"><ChevronRight size={16} /></button></div></div>
     </section>
     <div className="directory-footnote"><ShieldCheck size={14} /><span>Outcomes shown are from each company's latest completed assessment run. Companies without one are not assessed.</span><span>Financial reference: 30 Sep 2026</span></div>
     {filterOpen && <Dialog title="Refine the portfolio" description="Combine financing range and source-quality filters." onClose={() => setFilterOpen(false)}><div className="form-content"><label className="field-label">Minimum financing (RON)<input type="number" min="0" value={minAmount} onChange={e => setMinAmount(e.target.value)} placeholder="No minimum" /></label><label className="field-label">Maximum financing (RON)<input type="number" min="0" value={maxAmount} onChange={e => setMaxAmount(e.target.value)} placeholder="No maximum" /></label><label className="checkbox-label"><input type="checkbox" checked={anomaliesOnly} onChange={e => setAnomaliesOnly(e.target.checked)} /><span><strong>Only dossiers whose latest assessment found source problems</strong><small>Missing documents, unbalanced ledgers, duplicate accounts, mixed units or conflicting amounts.</small></span></label></div><div className="dialog-actions"><Button onClick={() => { setMinAmount(''); setMaxAmount(''); setAnomaliesOnly(false) }}><RotateCcw size={14} />Reset</Button><Button variant="primary" onClick={() => setFilterOpen(false)}>Show matching companies<ArrowRight size={15} /></Button></div></Dialog>}
   </div>
 }
 
-export function Overview({ companies, assessments, latest, onOpen, onQueue }: { companies: Company[]; assessments: Assessments; latest: Latest; onOpen: (id: string) => void; onQueue: () => void }) {
-  const counts = [...states.map(s => ({ state: s as string, count: companies.filter(c => assessments.get(c.id)?.decision === s).length })), { state: NOT_ASSESSED, count: companies.length - assessments.size }]
-  const volume = companies.reduce((n, c) => n + c.tables.solicitari[0].suma_solicitata, 0)
-  const sectors = [...new Set(companies.map(c => c.sector))].map(s => ({ name: s, companies: companies.filter(c => c.sector === s) })).map(s => ({ ...s, amount: s.companies.reduce((n, c) => n + c.tables.solicitari[0].suma_solicitata, 0) })).sort((a, b) => b.amount - a.amount).slice(0, 5)
-  const priorities = [...companies].filter(c => assessments.get(c.id)?.reasons.length).sort((a, b) => assessments.get(b.id)!.reasons.length - assessments.get(a.id)!.reasons.length).slice(0, 5)
-  let offset = 0
-  return <div className="page-enter"><div className="page-heading"><div><h1>Overview</h1><p>Where the applications stand and what needs attention.</p></div><Button onClick={onQueue}>Open review queue<ArrowRight size={16} /></Button></div><Stats companies={companies} assessments={assessments} />
-    <div className="overview-grid"><section className="panel"><SectionHeading title="Assessment distribution" subtitle={'Latest completed runs · ' + latest.size + ' of ' + companies.length + ' companies assessed'} /><div className="distribution-content"><div className="donut"><svg viewBox="0 0 180 180" role="img" aria-label="Distribution of company assessment outcomes"><circle cx="90" cy="90" r="70" fill="none" stroke="#f0f1f3" strokeWidth="19" />{counts.map(({ state, count }) => { const length = count / companies.length * 439.823; const start = offset; offset += length; return <circle key={state} className={'donut-' + state} cx="90" cy="90" r="70" fill="none" strokeWidth="19" strokeDasharray={length - 4 + ' ' + (439.823 - length + 4)} strokeDashoffset={-start} transform="rotate(-90 90 90)" /> })}</svg><div><strong>{latest.size}</strong><span>assessed</span></div></div><div className="distribution-legend">{counts.map(({ state, count }) => <div key={state}><span className={'tab-dot dot-' + state} /><span>{state === NOT_ASSESSED ? 'Not assessed' : decisionLabels[state as Decision]}</span><strong>{count}</strong><small>{Math.round(count / companies.length * 100)}%</small></div>)}</div></div></section>
-    <section className="panel"><SectionHeading title="Financing by sector" subtitle="Top five sectors by requested amount" /><div className="sector-chart">{sectors.map((s, i) => <div key={s.name}><div><span><span className="sector-rank">{String(i + 1).padStart(2, '0')}</span>{s.name}</span><strong>{money(s.amount, true)}</strong></div><span className="sector-bar"><i style={{ width: s.amount / sectors[0].amount * 100 + '%' }} /></span></div>)}</div><div className="chart-footer">Across all sectors<strong>{money(volume)}</strong></div></section></div>
-    <div className="overview-lower"><section className="panel"><SectionHeading title="Needs attention" subtitle="Assessed companies with the most open checks" action={<button className="text-button" onClick={onQueue}>View all<ArrowRight size={14} /></button>} /><div className="priority-list">{!priorities.length && <p className="priority-empty">No assessed company has open checks. Run assessments from Companies.</p>}{priorities.map(c => <button key={c.id} onClick={() => onOpen(c.id)}><CompanyMark company={c} /><div><strong>{c.name}</strong><span>{assessments.get(c.id)!.reasons[0].title} · {assessments.get(c.id)!.reasons.length} outstanding checks</span></div><Badge decision={assessments.get(c.id)!.decision} small /><ChevronRight size={16} /></button>)}</div></section><DepartmentSummary /></div>
-  </div>
+/** A company in the grid: its outcome first, then the name, the request and the state of its dossier. */
+function CompanyCard({ company: c, assessment: a, run, missing, added, onOpen }: { company: Company; assessment?: AssessmentDigest; run?: AssessmentSummary; missing: number; added: number; onOpen: () => void }) {
+  const dscr = a?.metrics.dscr
+  return <button className={'company-card card-' + (a?.decision ?? 'NONE')} onClick={onOpen}>
+    <div className="cc-top">{a ? <Badge decision={a.decision} /> : <NotAssessed />}{run && run.findings > 0 && <span className="cc-problems">{run.findings} {run.findings === 1 ? 'problem' : 'problems'}</span>}</div>
+    <h3>{c.name}</h3>
+    <p className="cc-sub">{c.sector}<span>·</span>{c.city || 'Romania'}<span>·</span>CUI {c.cui}</p>
+    <dl className="cc-figures">
+      <div><dt>Requested</dt><dd>{money(requested(c), true)}</dd></div>
+      <div><dt>Term</dt><dd>{c.tables.solicitari[0].durata_luni} mo</dd></div>
+      <div><dt>DSCR</dt><dd className={dscr == null ? 'text-muted' : dscr < 1.2 ? 'text-red' : 'text-green'}>{a ? ratio(dscr) : '—'}</dd></div>
+    </dl>
+    <div className="cc-foot">
+      <span className={missing > 0 ? 'cc-missing' : ''}><FileText size={13} />{missing > 0 ? missing + ' document' + (missing === 1 ? '' : 's') + ' missing' : REQUIRED_DOCUMENTS.length + ' documents' + (added ? ' · ' + added + ' added' : '')}</span>
+      <span className="cc-when">{run?.endedAt ? 'Assessed ' + new Date(run.endedAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) : 'Not assessed yet'}</span>
+      <ArrowRight size={15} />
+    </div>
+  </button>
 }
 
 export function PolicyPage({ policy, original, onSave }: { policy: Policy; original: Policy; onSave: (p: Policy) => Promise<void> }) {
@@ -136,7 +165,7 @@ export function WorkspaceAudit({ companies, events, runs, onOpen }: { companies:
   })
   return <div className="page-enter"><div className="page-heading"><div><h1>Audit trail</h1><p>Every assessment run and every action by an employee, newest first.</p></div><Button onClick={() => downloadFile('creditdesk-audit-trail.json', JSON.stringify({ exportedAt: new Date().toISOString(), activity: events, runs: baselines }, null, 2))}><ArrowDownToLine size={16} />Export activity</Button></div>
     <div className="audit-summary"><div><ShieldCheck size={20} /><span><strong>{events.length}</strong> employee actions</span></div><div><FileCheck2 size={20} /><span><strong>{runs.length}</strong> assessment runs</span></div><div><Clock3 size={20} /><span><strong>{new Set(events.map(e => e.actor)).size}</strong> employees involved</span></div></div>
-    <section className="panel"><div className="audit-toolbar"><label className="search-input"><Search size={17} /><input aria-label="Search audit activity" value={query} onChange={e => setQuery(e.target.value)} placeholder="Search companies, events or notes…" /></label><label className="select-wrap"><ListFilter size={15} /><select value={kind} onChange={e => setKind(e.target.value)} aria-label="Filter audit events"><option value="all">All activity</option><option value="analyst">Employee actions only</option><option value="runs">Assessment runs only</option></select></label></div>
+    <section className="panel"><div className="audit-toolbar"><label className="search-input"><Search size={17} /><input aria-label="Search audit activity" value={query} onChange={e => setQuery(e.target.value)} placeholder="Search companies, events or notes…" /></label><Select label="Activity" icon={<ListFilter size={15} />} value={kind} onChange={setKind} options={[{ value: 'all', label: 'All activity' }, { value: 'analyst', label: 'Employee actions only' }, { value: 'runs', label: 'Assessment runs only' }]} /></div>
       {!all.length ? <Empty title="No matching activity">Assessment runs and actions by employees appear here.</Empty> : <div className="workspace-audit-list">{all.map(e => { const c = companies.find(c => c.id === e.companyId); return <div key={e.id} className="workspace-audit-event"><span className={'timeline-marker' + (e.hash ? ' marker-yellow' : '')}>{e.hash ? <ShieldCheck size={15} /> : <FileCheck2 size={15} />}</span><div><div><strong>{e.action}</strong><time>{new Date(e.time).toLocaleString('en-GB', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })}</time></div><p>{e.detail}</p><div className="audit-event-bottom">{c ? <button className="text-button" onClick={() => onOpen(c.id)}>{c.name}<ArrowRight size={12} /></button> : <span>Workspace</span>}<span>{e.actor}</span>{e.hash && <span title={e.hash} className="hash-chip"><ShieldCheck size={11} />{e.hash.slice(0, 12)}</span>}</div></div></div> })}</div>}
     </section><div className="directory-footnote"><ShieldCheck size={14} /><span>Assessment runs are hash-chained per run by the engine. Employee actions are chained per company on the server and can be verified in the browser.</span></div>
   </div>
@@ -169,18 +198,6 @@ function RunAll({ policy, total, onChange, toast }: { policy: Policy; total: num
       <div className="dialog-actions"><Button onClick={() => setConfirm(false)}>Cancel</Button><Button variant="primary" onClick={async () => { setConfirm(false); try { setStatus(await runAll(policy)); onChange(); toast('Assessments started for all companies') } catch (e: any) { toast(e.message) } }}><Play size={15} />Run {total} assessments</Button></div>
     </Dialog>}
   </>
-}
-
-/** Open cases per department, each linking to its department. */
-function DepartmentSummary() {
-  const { cases } = useCases({})
-  return <section className="panel department-summary"><SectionHeading title="Open cases by department" subtitle="Problems sent from assessments" />
-    <div>{DEPARTMENTS.map(d => {
-      const open = (cases ?? []).filter(c => c.department === d.id && c.status !== 'resolved')
-      const waiting = open.filter(c => c.status === 'waiting').length
-      return <a key={d.id} href={'#/departments/' + d.id}><span className="dept-name">{d.name}</span><span className="dept-meta">{waiting ? waiting + ' waiting on the company' : d.handles}</span><strong>{open.length}</strong><ChevronRight size={15} /></a>
-    })}</div>
-  </section>
 }
 
 /** The assistant looks up the published contact of every company that has none yet, one company at a time. */

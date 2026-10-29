@@ -1,15 +1,87 @@
 import { useEffect, useRef, useState } from 'react'
 import type { ButtonHTMLAttributes, ReactNode } from 'react'
-import { ArrowDownToLine, ArrowUpRight, Check, CheckCheck, ChevronRight, CircleAlert, CircleHelp, Clock3, Copy, FileText, LoaderCircle, ShieldCheck, X } from 'lucide-react'
+import { createPortal } from 'react-dom'
+import { ArrowDownToLine, ArrowUpRight, Check, CheckCheck, ChevronDown, ChevronRight, CircleAlert, CircleHelp, Clock3, Copy, FileText, LoaderCircle, ShieldCheck, X } from 'lucide-react'
 import type { AuditEvent, AuditRule, Company, Decision, Row, RuleState } from './types'
 import { decisionLabels, documentUrl } from './analysis'
 import { verifyEventChain } from './storage'
 
-export function Badge({ decision, small = false }: { decision: Decision; small?: boolean }) {
-  return <span className={'badge badge-' + decision + (small ? ' badge-small' : '')}><span />{decisionLabels[decision]}</span>
+const badgeIcons: Record<Decision, typeof Check> = { ELIGIBIL: Check, CONDITIONAT: Clock3, DATE_INSUFICIENTE: CircleHelp, NEELIGIBIL: X }
+export function Badge({ decision, small = false, large = false }: { decision: Decision; small?: boolean; large?: boolean }) {
+  const Icon = badgeIcons[decision]
+  return <span className={'badge badge-' + decision + (small ? ' badge-small' : '') + (large ? ' badge-large' : '')}><Icon size={large ? 15 : 12} strokeWidth={2.4} />{decisionLabels[decision]}</span>
 }
-export function NotAssessed({ small = false }: { small?: boolean }) {
-  return <span className={'badge badge-NONE' + (small ? ' badge-small' : '')}><span />Not assessed</span>
+export function NotAssessed({ small = false, large = false }: { small?: boolean; large?: boolean }) {
+  return <span className={'badge badge-NONE' + (small ? ' badge-small' : '') + (large ? ' badge-large' : '')}><span />Not assessed</span>
+}
+
+export interface SelectOption { value: string; label: string; hint?: string }
+/**
+ * A dropdown that looks like the rest of the workspace instead of the
+ * operating system's menu. Arrow keys, Enter, Escape and typing a letter work;
+ * long lists get a filter box. The list is placed with fixed coordinates so
+ * scrolling panels and dialogs do not clip it.
+ */
+export function Select({ value, onChange, options, label, icon, className = '', small = false, disabled = false }: {
+  value: string; onChange: (value: string) => void; options: SelectOption[]; label: string; icon?: ReactNode; className?: string; small?: boolean; disabled?: boolean
+}) {
+  const [open, setOpen] = useState(false)
+  const [active, setActive] = useState(0)
+  const [filter, setFilter] = useState('')
+  const [place, setPlace] = useState<{ left: number; top?: number; bottom?: number; width: number; maxHeight: number } | null>(null)
+  const button = useRef<HTMLButtonElement>(null)
+  const list = useRef<HTMLDivElement>(null)
+  const current = options.find(o => o.value === value)
+  const searchable = options.length > 9
+  const shown = filter ? options.filter(o => o.label.toLowerCase().includes(filter.toLowerCase())) : options
+  const host = button.current?.closest('dialog') ?? document.body
+  const close = (focus = true) => { setOpen(false); setFilter(''); if (focus) button.current?.focus() }
+  const pick = (o: SelectOption | undefined) => { if (!o) return; onChange(o.value); close() }
+  const show = () => {
+    const r = button.current!.getBoundingClientRect()
+    const below = window.innerHeight - r.bottom - 12, above = r.top - 12
+    const up = below < 240 && above > below
+    setPlace({ left: Math.min(r.left, window.innerWidth - Math.max(r.width, 200) - 8), width: Math.max(r.width, 200), maxHeight: Math.min(340, up ? above : below), ...(up ? { bottom: window.innerHeight - r.top + 6 } : { top: r.bottom + 6 }) })
+    setActive(Math.max(0, options.findIndex(o => o.value === value)))
+    setOpen(true)
+  }
+  useEffect(() => {
+    if (!open) return
+    const outside = (e: MouseEvent) => { if (!list.current?.contains(e.target as Node) && !button.current?.contains(e.target as Node)) close(false) }
+    const scrolled = (e: Event) => { if (!list.current?.contains(e.target as Node)) close(false) }
+    document.addEventListener('mousedown', outside)
+    window.addEventListener('scroll', scrolled, true)
+    window.addEventListener('resize', scrolled)
+    return () => { document.removeEventListener('mousedown', outside); window.removeEventListener('scroll', scrolled, true); window.removeEventListener('resize', scrolled) }
+  }, [open])
+  useEffect(() => { list.current?.querySelector('.select-option.active')?.scrollIntoView({ block: 'nearest' }) }, [active, open])
+  const key = (e: React.KeyboardEvent) => {
+    if (!open) { if (['ArrowDown', 'ArrowUp', 'Enter', ' '].includes(e.key)) { e.preventDefault(); show() } return }
+    if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); close() }
+    else if (e.key === 'ArrowDown') { e.preventDefault(); setActive(a => Math.min(shown.length - 1, a + 1)) }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); setActive(a => Math.max(0, a - 1)) }
+    else if (e.key === 'Home') { e.preventDefault(); setActive(0) }
+    else if (e.key === 'End') { e.preventDefault(); setActive(shown.length - 1) }
+    else if (e.key === 'Enter' || (e.key === ' ' && !searchable)) { e.preventDefault(); pick(shown[active]) }
+    else if (e.key === 'Tab') close(false)
+    else if (!searchable && e.key.length === 1) { const i = options.findIndex(o => o.label.toLowerCase().startsWith(e.key.toLowerCase())); if (i >= 0) setActive(i) }
+  }
+  return <>
+    <button ref={button} type="button" className={'select' + (small ? ' select-small' : '') + (open ? ' open' : '') + ' ' + className} onClick={() => open ? close() : show()} onKeyDown={key}
+      aria-haspopup="listbox" aria-expanded={open} aria-label={label + ': ' + (current?.label ?? '')} disabled={disabled}>
+      {icon}<span className="select-value">{current?.label ?? label}</span><ChevronDown size={14} className="select-chevron" />
+    </button>
+    {open && place && createPortal(<div ref={list} className="select-popover" style={{ position: 'fixed', left: place.left, top: place.top, bottom: place.bottom, minWidth: place.width, maxHeight: place.maxHeight }} onKeyDown={key}>
+      {searchable && <input autoFocus className="select-filter" placeholder={'Find ' + label.toLowerCase() + '…'} value={filter} onChange={e => { setFilter(e.target.value); setActive(0) }} aria-label={'Filter ' + label} />}
+      <div className="select-options" role="listbox" aria-label={label}>
+        {shown.map((o, i) => <div key={o.value} role="option" aria-selected={o.value === value} className={'select-option' + (i === active ? ' active' : '') + (o.value === value ? ' chosen' : '')}
+          onMouseEnter={() => setActive(i)} onMouseDown={e => e.preventDefault()} onClick={() => pick(o)}>
+          <span>{o.label}{o.hint && <small>{o.hint}</small>}</span>{o.value === value && <Check size={14} />}
+        </div>)}
+        {!shown.length && <div className="select-none">No match</div>}
+      </div>
+    </div>, host)}
+  </>
 }
 export function Button({ children, variant = 'secondary', small, className = '', ...props }: ButtonHTMLAttributes<HTMLButtonElement> & { variant?: 'primary' | 'secondary' | 'ghost' | 'dark'; small?: boolean }) {
   return <button className={'button button-' + variant + (small ? ' button-small' : '') + ' ' + className} {...props}>{children}</button>
@@ -28,17 +100,20 @@ export function Empty({ title, children }: { title: string; children: ReactNode 
 export function SectionHeading({ title, subtitle, action }: { title: string; subtitle?: string; action?: ReactNode }) {
   return <div className="section-heading"><div><h2>{title}</h2>{subtitle && <p>{subtitle}</p>}</div>{action}</div>
 }
+let openDialogs = 0
 export function Dialog({ title, description, children, onClose, wide = false }: { title: string; description?: string; children: ReactNode; onClose: () => void; wide?: boolean }) {
   const ref = useRef<HTMLDialogElement>(null)
   useEffect(() => {
     ref.current?.showModal()
-    const bodyOverflow = document.body.style.overflow
+    // The page stays still while any dialog is open; counted, so dialogs opened over dialogs cannot leave it locked.
+    openDialogs++
     document.body.style.overflow = 'hidden'
-    return () => { document.body.style.overflow = bodyOverflow }
+    return () => { if (--openDialogs <= 0) { openDialogs = 0; document.body.style.overflow = '' } }
   }, [])
-  return <dialog ref={ref} className={'dialog' + (wide ? ' dialog-wide' : '')} onCancel={e => { e.preventDefault(); onClose() }} onClick={e => { if (e.target === e.currentTarget) onClose() }}>
+  // Rendered at the end of the page, so the styles of whatever opened it (a banner, a list row) cannot reach inside.
+  return createPortal(<dialog ref={ref} className={'dialog' + (wide ? ' dialog-wide' : '')} onCancel={e => { e.preventDefault(); onClose() }} onClick={e => { if (e.target === e.currentTarget) onClose() }}>
     <div className="dialog-header"><div><h2>{title}</h2>{description && <p>{description}</p>}</div><button className="icon-button" onClick={onClose} aria-label="Close dialog"><X size={20} /></button></div>{children}
-  </dialog>
+  </dialog>, document.body)
 }
 export function DocumentViewer({ company, document: doc, onClose, toast }: { company: Company; document: Row; onClose: () => void; toast: (s: string) => void }) {
   return <Dialog wide title={doc.tip_document.replaceAll('_', ' ')} description={company.name + ' · ' + doc.document_id} onClose={onClose}>

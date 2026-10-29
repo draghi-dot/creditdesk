@@ -33,7 +33,7 @@ export async function inspectUpload(company: Company, kind: string, file: string
   const text = pdf.pages.slice(0, 1).flatMap(p => p.lines.map(l => l.text)).join('\n')
   const header = /Dosar: (TEST-DOS-\d+) \| Document: TEST-DOC-\d+-([A-Z0-9_]+)/.exec(text)
   const cui = /\| CUI (\d+)/.exec(text)?.[1]
-  if (!header) return { ok: false, reason: 'CreditDesk could not confirm which dossier and document this is: the PDF does not carry the dossier header. Add documents in the dossier format.' }
+  if (!header) return { ok: false, reason: 'Finra could not confirm which dossier and document this is: the PDF does not carry the dossier header. Add documents in the dossier format.' }
   const [, dossier, printedKind] = header
   if (dossier !== company.id) return { ok: false, reason: 'This document belongs to dossier ' + dossier + ', not to ' + company.name + ' (' + company.id + ').' }
   if (cui && cui !== String(company.cui)) return { ok: false, reason: 'The document is for CUI ' + cui + '; ' + company.name + ' has CUI ' + company.cui + '.' }

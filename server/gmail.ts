@@ -14,7 +14,13 @@ import { join } from 'node:path'
 
 export interface OAuthClient { clientId: string; clientSecret: string }
 
-export const SCOPES = ['openid', 'email', 'https://www.googleapis.com/auth/gmail.send']
+const SEND_SCOPE = 'https://www.googleapis.com/auth/gmail.send'
+export const SCOPES = ['openid', 'email', SEND_SCOPE]
+/** Said when Google connected the mailbox but the send permission was left unticked. */
+export const NO_SEND = 'Google connected the mailbox without permission to send email. Connect Gmail again and tick “Send email on your behalf” on Google\'s page.'
+
+/** Gmail refused because the stored permission does not include sending. */
+export class MissingSendPermission extends Error {}
 const AUTH = 'https://accounts.google.com/o/oauth2/v2/auth'
 const TOKEN = 'https://oauth2.googleapis.com/token'
 const SEND = 'https://gmail.googleapis.com/gmail/v1/users/me/messages/send'
@@ -55,7 +61,9 @@ async function token(params: Record<string, string>): Promise<Record<string, any
 /** Exchange the code Google returned for a refresh token and the mailbox address (from the ID token). */
 export async function exchangeCode(client: OAuthClient, code: string, redirectUri: string, verifier: string): Promise<{ refreshToken: string; email: string }> {
   const body = await token({ code, client_id: client.clientId, client_secret: client.clientSecret, redirect_uri: redirectUri, grant_type: 'authorization_code', code_verifier: verifier })
-  if (!body.refresh_token) throw new Error('Google did not return a refresh token; remove CreditDesk from the Google account\'s third-party access and connect again.')
+  // Google lets the person untick each permission; without the send one the mailbox is of no use here.
+  if (!String(body.scope ?? '').split(' ').includes(SEND_SCOPE)) { if (body.refresh_token) await revoke(body.refresh_token); throw new Error(NO_SEND) }
+  if (!body.refresh_token) throw new Error('Google did not return a refresh token; remove Finra from the Google account\'s third-party access and connect again.')
   const claims = JSON.parse(Buffer.from(String(body.id_token ?? '').split('.')[1] ?? '', 'base64url').toString('utf8') || '{}')
   if (!claims.email) throw new Error('Google did not say which mailbox was connected.')
   return { refreshToken: body.refresh_token, email: claims.email }
@@ -84,6 +92,7 @@ export async function send(client: OAuthClient, refreshToken: string, raw: strin
     body: JSON.stringify({ raw: base64url(raw) }), signal: AbortSignal.timeout(30_000),
   })
   const body = await res.json().catch(() => ({})) as Record<string, any>
+  if (res.status === 403 && /insufficient.*scope/i.test(body.error?.message ?? '')) throw new MissingSendPermission(NO_SEND)
   if (!res.ok) throw new Error('Gmail did not send the message: ' + (body.error?.message ?? 'HTTP ' + res.status))
   return { id: body.id }
 }

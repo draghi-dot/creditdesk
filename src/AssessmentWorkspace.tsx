@@ -1,21 +1,21 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import type { FormEvent, ReactNode } from 'react'
-import { ArrowRight, ArrowUpRight, Check, CircleAlert, ClipboardCopy, Download, FileSearch, FileText, FileX2, ListChecks, LoaderCircle, MessageSquareText, PanelLeftClose, PanelLeftOpen, Radio, Send, ShieldCheck, X } from 'lucide-react'
-import type { AgentId, AskAnswer, CheckResult, EvidenceRef, FindingView, RunEvent, RunView } from './assessment'
+import { ArrowRight, ArrowUpRight, Check, CircleAlert, ClipboardCopy, Download, FileText, FileX2, ListChecks, LoaderCircle, MessageSquareText, PanelLeftClose, PanelLeftOpen, Radio, Send, ShieldCheck, X } from 'lucide-react'
+import type { AgentId, AskAnswer, CheckResult, EvidenceMark, EvidenceRef, FindingView, RunEvent, RunView } from './assessment'
 import { DEPENDENT_CHECKS, REQUIRED_DOCUMENTS, rankFindings } from './assessment'
 import type { Company } from './types'
 import { decisionLabels, ratio } from './analysis'
 import { docNames } from './documents'
-import { AgentMap, EvidenceViewer, FindingDetail, ImpactTag, NoteCard, emphasize, workerIcons } from './AssessmentUI'
+import { AgentMap, Closeups, EvidenceViewer, FindingDetail, ImpactTag, NoteCard, emphasize, workerIcons } from './AssessmentUI'
 import type { EngineHealth } from './runs'
-import { askQuestion, clock, duration, getHealth, listQuestions } from './runs'
+import { askQuestion, askSteps, clock, duration, getHealth, listQuestions } from './runs'
 import { AddDocumentButton } from './DossierDocuments'
 import type { Case } from './workspace'
 import { SendToDepartment } from './Departments'
 import { useCases } from './people'
 import { downloadFile } from './storage'
 
-type Panel = 'evidence' | 'ask' | 'activity' | 'sources'
+type Panel = 'problems' | 'ask' | 'activity' | 'sources'
 /** A finding, or a place in the documents: from an answer, or opened while reading a finding (`back`). */
 type Focus = { finding: string } | { evidence: EvidenceRef[]; title: string; back?: string } | null
 
@@ -24,8 +24,6 @@ const DWELL_MS = 2600
 
 const SUGGESTIONS = ['What is the biggest problem?', 'Why did the assessment reach this decision?', 'Which documents have to be corrected?', 'Who is the company contact?']
 const ABOUT_SUGGESTIONS = ['Explain this problem in plain words', 'What would resolve it?', 'Which figures cause it?', 'How does it change the decision?']
-
-const storedMap = () => { try { return localStorage.getItem('creditdesk.map.hidden') === 'true' } catch { return false } }
 
 export function describe(e: RunEvent, view: RunView): string | null {
   const p = e.payload as any
@@ -58,15 +56,48 @@ export default function AssessmentWorkspace({ company, view, events, live, conne
   company: Company; view: RunView; events: RunEvent[]; live: boolean; connection?: string; initialPanel?: Panel; onRunNew?: () => void
 }) {
   const ranked = useMemo(() => rankFindings(view.findings, view.decision), [view.findings.length, view.decision])
-  const [panel, setPanel] = useState<Panel>(initialPanel ?? (live ? 'activity' : ranked.length ? 'evidence' : 'ask'))
-  const [focus, setFocus] = useState<Focus>(!live && ranked[0] ? { finding: ranked[0].id } : null)
+  const running = view.status === 'running' || view.status === 'created'
+  // Activity is what to watch while the run works; once it is done the evidence and the problems matter.
+  const [panel, setPanel] = useState<Panel>(initialPanel ?? (live && running ? 'activity' : 'problems'))
+  const [focus, setFocus] = useState<Focus>(!(live && running) && ranked[0] ? { finding: ranked[0].id } : null)
   const [follow, setFollow] = useState(live)
   const [shownAt, setShownAt] = useState(0)
   const [worker, setWorker] = useState<AgentId | null>(null)
-  const [mapHidden, setMapHidden] = useState(storedMap)
+  // The map is the centre of attention while the run works; once it is done the map slides
+  // aside into a rail and the evidence takes the room, opened on the most important problem.
+  const [mapOpen, setMapOpen] = useState(live && running)
+  // While the run works only the map is shown, with its activity underneath; the panel comes in once it is done.
+  const [watching, setWatching] = useState(live && running)
+  const wasRunning = useRef(running)
+  useEffect(() => {
+    if (!wasRunning.current || running) { wasRunning.current = running; return }
+    wasRunning.current = false
+    setPanel(p => p === 'activity' ? 'problems' : p)
+    setWorker(null)
+    setFollow(f => { if (f && ranked[0]) setFocus({ finding: ranked[0].id }); return false })
+    const timer = window.setTimeout(() => { setMapOpen(false); setWatching(false) }, 1600)
+    return () => window.clearTimeout(timer)
+  }, [running])
   const [askAbout, setAskAbout] = useState<string | null>(null)
+  const [queued, setQueued] = useState<{ question: string; nonce: number } | null>(null)
+  // Asking about one outlined figure: the question names it and where it is, and is asked straight away.
+  const askMark = (f: FindingView, m: EvidenceMark, ref: EvidenceRef) => {
+    const where = (docNames[ref.kind] ?? ref.kind) + ', page ' + ref.page
+    setAskAbout(f.id)
+    setQueued({ question: '“' + m.label + '” (' + where + '): ' + (m.tone === 'issue' ? 'why is this a problem, and what would resolve it?' : 'how does it bear on this problem?'), nonce: Date.now() })
+    setPanel('ask')
+  }
   const top = useRef<HTMLDivElement>(null)
-  const toggleMap = () => setMapHidden(h => { try { localStorage.setItem('creditdesk.map.hidden', String(!h)) } catch { /* private mode */ } return !h })
+  const toggleMap = () => setMapOpen(o => !o)
+  // While the run works, the map fills the window below it, so it is seen whole without scrolling.
+  const [fitHeight, setFitHeight] = useState<number | null>(null)
+  useLayoutEffect(() => {
+    if (!watching) { setFitHeight(null); return }
+    const fit = () => { const el = top.current; if (el) setFitHeight(Math.max(360, Math.round(window.innerHeight - (el.getBoundingClientRect().top + window.scrollY) - 14))) }
+    fit()
+    window.addEventListener('resize', fit)
+    return () => window.removeEventListener('resize', fit)
+  }, [watching])
 
   // Live: open each finding as the engine raises it, in the order raised.
   const raised = view.findings
@@ -79,7 +110,7 @@ export default function AssessmentWorkspace({ company, view, events, live, conne
     const timer = window.setTimeout(() => {
       setFocus({ finding: next.id })
       setShownAt(Date.now())
-      setPanel(p => p === 'ask' || p === 'sources' ? p : 'evidence')
+      setPanel(p => p === 'ask' || p === 'sources' ? p : 'problems')
     }, Math.max(0, shownAt + DWELL_MS - Date.now()))
     return () => window.clearTimeout(timer)
   }, [follow, raised.length, focusedId, shownAt])
@@ -87,7 +118,7 @@ export default function AssessmentWorkspace({ company, view, events, live, conne
   const open = (next: Focus, scroll = false) => {
     setFollow(false)
     setFocus(next)
-    setPanel('evidence')
+    setPanel('problems')
     if (scroll) top.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
   // An answer opens its finding, unless it located a different passage of its own.
@@ -106,39 +137,61 @@ export default function AssessmentWorkspace({ company, view, events, live, conne
   const routing = { company, runId: view.runId, completed: view.status === 'completed', caseFor, onSent: () => { refreshCases() }, onOpenCase: (c: Case) => { window.location.hash = '/cases/' + c.id } }
 
   return <div className="ws">
-    <div className={'ws-top' + (mapHidden ? ' map-hidden' : '')} ref={top}>
-      {mapHidden ? <section className="ws-map-rail" aria-label="Review progress (hidden)">
-        <button className="ws-icon" onClick={toggleMap} title="Show the review progress" aria-label="Show the review progress"><PanelLeftOpen size={14} /></button>
-        {view.order.filter(id => view.workers[id].state !== 'hidden').map(id => { const w = view.workers[id]; const Icon = workerIcons[id]; return <button key={id} className={'rail-worker state-' + w.state + (highlight === id ? ' rail-highlight' : '')} title={w.role.name + ' · ' + w.state + (w.summary ? ' · ' + w.summary : '')} onClick={() => { setWorker(id); setPanel('activity') }}><Icon size={14} />{w.findings.length > 0 && <span>{w.findings.length}</span>}</button> })}
-      </section> : <section className="ws-map">
-        <div className="ws-heading"><h2>Review progress</h2><MapStatus view={view} live={live} /><button className="ws-icon" onClick={toggleMap} title="Hide the map to give the evidence more room" aria-label="Hide the review progress"><PanelLeftClose size={14} /></button></div>
-        <AgentMap view={view} selected={worker} highlight={highlight} fit onSelect={id => { setWorker(w => w === id ? null : id); setPanel('activity') }} />
-        <div className="ws-legend"><span><i className="lg-waiting" />Waiting</span><span><i className="lg-running" />Working</span><span><i className="lg-done" />Done</span><span><i className="lg-attention" />Raised findings</span><span className="ws-legend-hint">Select a step to see what it did</span></div>
-      </section>}
+    {watching && <AgentStrip view={view} selected={worker} onSelect={id => setWorker(w => w === id ? null : id)} />}
+    <div className={'ws-top' + (mapOpen ? '' : ' map-collapsed') + (watching ? ' live-run' : '')} ref={top} style={watching && fitHeight ? { height: fitHeight } : undefined}>
+      <div className="ws-mapbox">
+        <section className="ws-map-rail" aria-label="Review progress (folded)" aria-hidden={mapOpen}>
+          <button className="ws-icon" onClick={toggleMap} title="Show the review map" aria-label="Show the review map" tabIndex={mapOpen ? -1 : 0}><PanelLeftOpen size={14} /></button>
+          {view.order.filter(id => view.workers[id].state !== 'hidden').map(id => { const w = view.workers[id]; const Icon = workerIcons[id]; return <button key={id} tabIndex={mapOpen ? -1 : 0} className={'rail-worker state-' + w.state + (highlight === id ? ' rail-highlight' : '')} title={w.role.name + ' · ' + w.state + (w.summary ? ' · ' + w.summary : '')} onClick={() => { setWorker(id); setPanel(running ? 'activity' : 'problems') }}><Icon size={14} />{w.findings.length > 0 && <span>{w.findings.length}</span>}</button> })}
+        </section>
+        <section className="ws-map" aria-hidden={!mapOpen}>
+          <div className="ws-heading"><h2>Review map</h2><MapStatus view={view} live={live} /><button className="ws-icon" onClick={toggleMap} title="Fold the map to give the evidence more room" aria-label="Fold the review map" tabIndex={mapOpen ? 0 : -1}><PanelLeftClose size={14} /></button></div>
+          <AgentMap view={view} selected={worker} highlight={highlight} fit maxScale={watching ? 1.3 : 1.12} horizontal={watching} onSelect={id => { setWorker(w => w === id ? null : id); setPanel(running ? 'activity' : 'problems') }} />
+          <div className="ws-legend"><span><i className="lg-waiting" />Waiting</span><span><i className="lg-running" />Working</span><span><i className="lg-done" />Done</span><span><i className="lg-attention" />Found problems</span><span className="ws-legend-hint">Select a step to see what it did</span></div>
+        </section>
+      </div>
       <aside className="ws-panel">
         <div className="ws-tabs" role="tablist">
-          <button role="tab" aria-selected={panel === 'evidence'} className={panel === 'evidence' ? 'active' : ''} onClick={() => setPanel('evidence')}><FileSearch size={13} />Evidence{ranked.length > 0 && <span className="ws-count alert">{ranked.length}</span>}</button>
+          <button role="tab" aria-selected={panel === 'problems'} className={panel === 'problems' ? 'active' : ''} onClick={() => setPanel('problems')}><CircleAlert size={13} />Problems{ranked.length > 0 && <span className="ws-count alert">{ranked.length}</span>}</button>
           <button role="tab" aria-selected={panel === 'ask'} className={panel === 'ask' ? 'active' : ''} onClick={() => setPanel('ask')}><MessageSquareText size={13} />Ask</button>
-          <button role="tab" aria-selected={panel === 'activity'} className={panel === 'activity' ? 'active' : ''} onClick={() => setPanel('activity')}><Radio size={13} />Activity</button>
+          {(running || panel === 'activity') && <button role="tab" aria-selected={panel === 'activity'} className={panel === 'activity' ? 'active' : ''} onClick={() => setPanel('activity')}><Radio size={13} />Activity</button>}
           <button role="tab" aria-selected={panel === 'sources'} className={panel === 'sources' ? 'active' : ''} onClick={() => setPanel('sources')}><ShieldCheck size={13} />Sources{view.notes.length > 0 && <span className="ws-count">{view.notes.length}</span>}</button>
         </div>
         <div className="ws-panel-body">
-          {panel === 'evidence' && <EvidencePanel company={company} view={view} finding={focusedFinding} rank={focusedFinding ? rankOf(focusedFinding.id) : 0} total={ranked.length}
+          {panel === 'problems' && <EvidencePanel company={company} view={view} finding={focusedFinding} ranked={ranked} worker={worker} onClearWorker={() => setWorker(null)}
             location={focus && 'evidence' in focus ? focus : null} follow={follow} live={live}
-            onFollow={() => { setFollow(true); setShownAt(0) }} onClose={() => setFocus(null)} onStep={d => { const i = ranked.findIndex(f => f.id === focusedId); const n = ranked[i + d]; if (n) open({ finding: n.id }) }}
-            onWorker={id => { setWorker(id); setPanel('activity') }} onTop={() => ranked[0] && open({ finding: ranked[0].id })} onLocate={(evidence, title) => open({ evidence, title, back: focusedId ?? undefined })} onBack={id => open({ finding: id })}
-            onAsk={id => { setAskAbout(id); setPanel('ask') }} ranked={ranked} onSelect={id => open({ finding: id })} onRunNew={onRunNew} routing={routing} />}
-          <div hidden={panel !== 'ask'} className="ws-ask-wrap"><AskPanel view={view} onOpen={openAnswer} about={askAbout ? view.findings.find(f => f.id === askAbout) ?? null : null} aboutRank={askAbout ? rankOf(askAbout) : 0} onClearAbout={() => setAskAbout(null)} /></div>
+            onFollow={() => { setFollow(true); setShownAt(0) }} onClose={() => setFocus(null)} onStep={d => { const i = ranked.findIndex(f => f.id === (focusedId ?? ranked[0]?.id)); const n = ranked[i + d]; if (n) open({ finding: n.id }) }}
+            onWorker={id => { setWorker(id); setPanel(running ? 'activity' : 'problems') }} onLocate={(evidence, title) => open({ evidence, title, back: focusedId ?? undefined })} onBack={id => open({ finding: id })}
+            onAsk={id => { setAskAbout(id || null); setPanel('ask') }} onAskMark={askMark} onSelect={id => open({ finding: id })} onRunNew={onRunNew} routing={routing} />}
+          <div hidden={panel !== 'ask'} className="ws-ask-wrap"><AskPanel view={view} onOpen={openAnswer} about={askAbout ? view.findings.find(f => f.id === askAbout) ?? null : null} aboutRank={askAbout ? rankOf(askAbout) : 0} onClearAbout={() => setAskAbout(null)} queued={queued} /></div>
           {panel === 'activity' && <ActivityPanel view={view} events={events} worker={worker} onClear={() => setWorker(null)} connection={connection} />}
           {panel === 'sources' && <div className="ws-sources">{view.notes.length ? view.notes.map(n => <NoteCard key={n.seq} note={n} view={view} />) : <Empty icon={<ShieldCheck size={20} />} title="No sources yet">Identity research and legal review post what they consulted here.</Empty>}</div>}
         </div>
       </aside>
     </div>
 
+    {watching && <section className="ws-section live-activity"><ActivityPanel view={view} events={events} worker={worker} onClear={() => setWorker(null)} connection={connection} /></section>}
     <CheckStrip view={view} live={live} />
-    <ProblemList view={view} ranked={ranked} focused={focusedId} live={live} onOpen={id => open({ finding: id }, true)} routing={routing} onRunNew={onRunNew} />
     <ReportView company={company} view={view} live={live} ranked={ranked} onOpen={id => open({ finding: id }, true)} />
   </div>
+}
+
+/** All ten agents at a glance while the run works: who is working, who is done, who found problems. */
+function AgentStrip({ view, selected, onSelect }: { view: RunView; selected: AgentId | null; onSelect: (id: AgentId) => void }) {
+  const ws = view.order.map(id => view.workers[id])
+  const done = ws.filter(w => w.state === 'done' || w.state === 'attention').length
+  const working = ws.filter(w => w.state === 'running')
+  return <section className="agent-strip" aria-label="The ten review agents">
+    <div className="agent-strip-head">
+      <div><strong>{working.length ? working.length + (working.length === 1 ? ' agent working' : ' agents working') : done === ws.length ? 'All agents done' : 'Agents starting'}</strong>
+        <span>{working.map(w => w.role.name).join(' · ') || (done === ws.length ? 'Writing the result' : 'Dispatching the first agents')}</span></div>
+      <div className="agent-progress"><span>{done} of {ws.length} done</span><i><b style={{ width: done / ws.length * 100 + '%' }} /></i></div>
+    </div>
+    <div className="agent-chips">{ws.map(w => { const Icon = workerIcons[w.role.id]; return <button key={w.role.id} className={'agent-chip st-' + w.state + (selected === w.role.id ? ' selected' : '')} onClick={() => onSelect(w.role.id)} title={w.role.role}>
+      <span className="agent-chip-icon"><Icon size={14} /></span><span className="agent-chip-name">{w.role.name}</span>
+      <span className="agent-chip-state">{w.state === 'running' ? <><LoaderCircle size={10} className="spin" />{w.llm?.running ? 'Model' : 'Working'}</> : w.state === 'done' ? <><Check size={10} />Done</> : w.state === 'attention' ? <><CircleAlert size={10} />{w.findings.length}</> : w.state === 'waiting' ? 'Waiting' : w.state === 'failed' ? 'Failed' : 'Not started'}</span>
+    </button> })}</div>
+  </section>
 }
 
 function MapStatus({ view, live }: { view: RunView; live: boolean }) {
@@ -154,39 +207,61 @@ function Empty({ icon, title, children }: { icon: ReactNode; title: string; chil
 
 interface Routing { company: Company; runId: string; completed: boolean; caseFor: (f: FindingView) => Case | null; onSent: (c: Case) => void; onOpenCase: (c: Case) => void }
 
-function EvidencePanel({ company, view, finding, rank, total, location, follow, live, onFollow, onClose, onStep, onWorker, onTop, onLocate, onBack, onAsk, ranked, onSelect, onRunNew, routing }: {
-  company: Company; view: RunView; finding: FindingView | null; rank: number; total: number; location: { evidence: EvidenceRef[]; title: string; back?: string } | null
-  follow: boolean; live: boolean; onFollow: () => void; onClose: () => void; onStep: (d: number) => void; onWorker: (id: AgentId) => void; onTop: () => void
+/**
+ * The problems to solve and their evidence side by side: the ranked list, the
+ * problem in hand with what can be done about it and its lines enlarged, and
+ * the original page with the figures outlined.
+ */
+function EvidencePanel({ company, view, finding, ranked, worker, onClearWorker, location, follow, live, onFollow, onClose, onStep, onWorker, onLocate, onBack, onAsk, onAskMark, onSelect, onRunNew, routing }: {
+  company: Company; view: RunView; finding: FindingView | null; ranked: FindingView[]; worker: AgentId | null; onClearWorker: () => void
+  location: { evidence: EvidenceRef[]; title: string; back?: string } | null
+  follow: boolean; live: boolean; onFollow: () => void; onClose: () => void; onStep: (d: number) => void; onWorker: (id: AgentId) => void
   onLocate: (evidence: EvidenceRef[], title: string) => void; onBack: (findingId: string) => void
-  onAsk: (findingId: string) => void; ranked: FindingView[]; onSelect: (findingId: string) => void; onRunNew?: () => void; routing: Routing
+  onAsk: (findingId: string) => void; onAskMark: (f: FindingView, m: EvidenceMark, ref: EvidenceRef) => void; onSelect: (findingId: string) => void; onRunNew?: () => void; routing: Routing
 }) {
-  const missing = finding && !finding.evidence.length ? finding.missingDocument ?? (finding.ruleIds.includes('DATA-01') ? REQUIRED_DOCUMENTS.find(k => finding.title.endsWith(docNames[k])) : undefined) : undefined
-  if (finding) return <div className="ws-evidence">
-    <div className="ws-evidence-bar">
-      <span className="ws-rank">#{rank}<small>of {total}</small></span>
-      <span className="ws-rank-label">{rank === 1 ? 'Top problem' : 'Problem ' + rank}</span>
-      <button className="ask-about" onClick={() => onAsk(finding.id)} title="Ask the assistant about this problem"><MessageSquareText size={12} />Ask about this</button>
-      {routing.completed && <SendToDepartment small companyId={company.id} runId={routing.runId} finding={finding} existing={routing.caseFor(finding)} onSent={routing.onSent} onOpen={routing.onOpenCase} />}
-      {live && view.status === 'running' && <button className={'follow-toggle' + (follow ? ' on' : '')} onClick={onFollow}>{follow ? 'Following' : 'Follow new'}</button>}
-      <button className="ws-icon" onClick={() => onStep(-1)} disabled={rank <= 1} aria-label="Previous problem">‹</button>
-      <button className="ws-icon" onClick={() => onStep(1)} disabled={rank >= total} aria-label="Next problem">›</button>
-      <button className="ws-icon" onClick={onClose} aria-label="Close"><X size={13} /></button>
-    </div>
-    <FindingDetail finding={finding} view={view} onWorker={onWorker} compact />
-    {missing ? <MissingDocument company={company} view={view} kind={missing} onLocate={onLocate} onRunNew={onRunNew} /> : <EvidenceViewer companyId={company.id} evidence={finding.evidence} title={finding.observed}
-      aside={<LightboxContext finding={finding} rank={rank} ranked={ranked} view={view} onSelect={onSelect} onAsk={onAsk} />} />}
-  </div>
-  if (location) return <div className="ws-evidence">
+  const current = finding ?? ranked[0] ?? null
+  const [mark, setMark] = useState<number | null>(null)
+  const [doc, setDoc] = useState(0)
+  useEffect(() => { setMark(null); setDoc(0) }, [current?.id])
+  if (location) return <div className="ws-evidence ws-location">
     <div className="ws-evidence-bar">{location.back
       ? <><button className="ws-back" onClick={() => onBack(location.back!)}>‹ Back to problem</button><span className="ws-location-title">Dossier document: {location.title}</span></>
       : <><MessageSquareText size={13} /><span className="ws-location-title">From your question: “{location.title}”</span></>}<button className="ws-icon" onClick={onClose} aria-label="Close"><X size={13} /></button></div>
     <EvidenceViewer companyId={company.id} evidence={location.evidence} title="The answer did not point to a place in the documents." />
   </div>
-  return <Empty icon={<FileSearch size={20} />} title={total ? 'Select a problem' : view.status === 'completed' ? 'No problems found' : 'No problems found yet'}>
-    {total ? <>Pick a problem from the ranked list below, or <button className="text-button" onClick={onTop}>open the most important one<ArrowRight size={12} /></button></> :
-      view.status === 'completed' ? 'Every document reconciled and every policy check passed. Ask a question or read the report below.' :
-        'When a check finds a problem, its original page opens here with the figures outlined.'}
-  </Empty>
+  if (!current) return view.status === 'completed' ? <AllClear view={view} onAsk={() => onAsk('')} />
+    : <Empty icon={<LoaderCircle size={20} className={live ? 'spin' : ''} />} title="No problems found yet">When a check finds a problem, its original page opens here with the figures outlined.</Empty>
+  const rank = ranked.indexOf(current) + 1
+  const missing = !current.evidence.length ? current.missingDocument ?? (current.ruleIds.includes('DATA-01') ? REQUIRED_DOCUMENTS.find(k => current.title.endsWith(docNames[k])) : undefined) : undefined
+  const ref = current.evidence[Math.min(doc, current.evidence.length - 1)]
+  const list = worker ? ranked.filter(f => f.worker === worker) : ranked
+  return <div className="ws-evidence">
+    <div className="ws-evidence-bar">
+      <span className="ws-rank">#{rank}<small>of {ranked.length}</small></span>
+      <span className="ws-rank-label">{rank === 1 ? 'Top problem' : 'Problem ' + rank}</span>
+      {live && view.status === 'running' && <button className={'follow-toggle' + (follow ? ' on' : '')} onClick={onFollow}>{follow ? 'Following' : 'Follow new'}</button>}
+      <button className="ws-icon" onClick={() => onStep(-1)} disabled={rank <= 1} aria-label="Previous problem">‹</button>
+      <button className="ws-icon" onClick={() => onStep(1)} disabled={rank >= ranked.length} aria-label="Next problem">›</button>
+    </div>
+    <div className="ws-evidence-side">
+      <nav className="pnav" aria-label="Problems to solve">
+        <div className="pnav-head"><span className="problems-count has">{list.length}</span><strong>To solve</strong>{worker && <button className="filter-chip" onClick={onClearWorker}>{view.workers[worker]?.role.name}<X size={12} /></button>}</div>
+        <ol>{list.map(f => { const sent = routing.caseFor(f); return <li key={f.id}><button className={'pnav-row impact-' + f.impact + (f.id === current.id ? ' active' : '')} onClick={() => onSelect(f.id)}>
+          <span className="pnav-rank">{ranked.indexOf(f) + 1}</span><span className="pnav-title">{f.title}</span>{sent && <span className="pnav-case" title={'Case ' + sent.ref + ' in ' + sent.department}>{sent.ref}</span>}</button></li> })}</ol>
+        {worker && !list.length && <p className="pnav-none">{view.workers[worker]?.role.name} found no problems.</p>}
+      </nav>
+      {ref && !missing && <Closeups companyId={company.id} evidence={ref} focus={mark} onFocus={setMark} onAsk={m => onAskMark(current, m, ref)} />}
+      <FindingDetail finding={current} view={view} onWorker={onWorker} compact />
+      <div className="finding-actions">
+        {missing && <AddDocumentButton company={routing.company} kind={missing} label="Upload document" compact onRunNew={onRunNew} />}
+        {routing.completed && <SendToDepartment small companyId={company.id} runId={routing.runId} finding={current} existing={routing.caseFor(current)} onSent={routing.onSent} onOpen={routing.onOpenCase} />}
+        <button className="ask-about" onClick={() => onAsk(current.id)}><MessageSquareText size={12} />Ask about this problem</button>
+      </div>
+    </div>
+    {missing ? <MissingDocument company={company} view={view} kind={missing} onLocate={onLocate} onRunNew={onRunNew} />
+      : <EvidenceViewer companyId={company.id} evidence={current.evidence} title={current.observed} figures={false} focus={mark} onFocus={setMark} index={doc} onIndex={setDoc}
+        onAskMark={(m, r) => onAskMark(current, m, r)} aside={<LightboxContext finding={current} rank={rank} ranked={ranked} view={view} onSelect={onSelect} onAsk={onAsk} />} />}
+  </div>
 }
 
 /** Next to the expanded page: the problem, and the other problems on the same document. */
@@ -228,10 +303,10 @@ function MissingDocument({ company, view, kind, onLocate, onRunNew }: { company:
   </div>
 }
 
-function AskPanel({ view, onOpen, about, aboutRank, onClearAbout }: { view: RunView; onOpen: (a: AskAnswer) => void; about: FindingView | null; aboutRank: number; onClearAbout: () => void }) {
+function AskPanel({ view, onOpen, about, aboutRank, onClearAbout, queued }: { view: RunView; onOpen: (a: AskAnswer) => void; about: FindingView | null; aboutRank: number; onClearAbout: () => void; queued: { question: string; nonce: number } | null }) {
   const [items, setItems] = useState<AskAnswer[]>([])
   const [text, setText] = useState('')
-  const [pending, setPending] = useState<{ question: string; since: number } | null>(null)
+  const [pending, setPending] = useState<{ question: string; since: number; steps: string[] } | null>(null)
   const [, tick] = useState(0)
   const [health, setHealth] = useState<EngineHealth | null>(null)
   const list = useRef<HTMLDivElement>(null)
@@ -243,17 +318,21 @@ function AskPanel({ view, onOpen, about, aboutRank, onClearAbout }: { view: RunV
   const ask = async (question: string) => {
     if (!question.trim() || pending) return
     setText('')
-    setPending({ question, since: Date.now() })
+    const askId = crypto.randomUUID()
+    setPending({ question, since: Date.now(), steps: [] })
+    // Follow the steps the engine takes while it works the answer out.
+    const follow = window.setInterval(() => askSteps(view.runId, askId).then(r => setPending(p => p && p.question === question ? { ...p, steps: r.steps } : p)).catch(() => {}), 450)
     try {
-      const answer = await askQuestion(view.runId, question, about?.id)
+      const answer = await askQuestion(view.runId, question, about?.id, askId)
       setItems(prev => [...prev, answer])
       // Jump to where the answer points, unless it is the problem the analyst is already asking about.
       if (answer.ok && (answer.findingId || answer.evidence.length) && !(about && answer.findingId === about.id)) onOpen(answer)
     } catch (e: any) {
       setItems(prev => [...prev, { id: String(Date.now()), runId: view.runId, ts: new Date().toISOString(), question, ok: false, answer: e.message || 'The engine could not answer.', findingId: null, evidence: [], author: 'engine', durationMs: 0, unsupported: [] }])
-    } finally { setPending(null) }
+    } finally { window.clearInterval(follow); setPending(null) }
   }
   const submit = (e: FormEvent) => { e.preventDefault(); ask(text) }
+  useEffect(() => { if (queued) ask(queued.question) }, [queued?.nonce])
   return <div className="ask">
     <div className="ask-list" ref={list}>
       {!items.length && !pending && <div className="ask-intro"><MessageSquareText size={18} /><strong>Ask about this assessment</strong><p>{model ? model + ' answers' : 'Answers come'} from this run's findings, checks and original documents. When an answer points somewhere, the page opens with the place outlined.</p></div>}
@@ -262,6 +341,7 @@ function AskPanel({ view, onOpen, about, aboutRank, onClearAbout }: { view: RunV
         <div className={'ask-a' + (a.ok ? '' : ' ask-error')}>
           {a.about && <span className="ask-about-tag">About #{view.findings.findIndex(f => f.id === a.about) >= 0 ? rankFindings(view.findings, view.decision).findIndex(f => f.id === a.about) + 1 : '?'} · {view.findings.find(f => f.id === a.about)?.title}</span>}
           <p>{emphasize(a.answer)}</p>
+          {!!a.steps?.length && <details className="ask-steps"><summary>How it answered · {a.steps.length} steps</summary><ol>{a.steps.map((s, i) => <li key={i}>{s}</li>)}</ol></details>}
           <div className="ask-meta">
             <span>{a.author}{a.durationMs ? ' · ' + (a.durationMs / 1000).toFixed(1) + ' s' : ''}</span>
             {a.ok && (a.unsupported.length ? <span className="note-flag"><CircleAlert size={11} />Unverified: {a.unsupported.join(', ')}</span> : <span className="note-verified"><ShieldCheck size={11} />Figures verified</span>)}
@@ -269,7 +349,11 @@ function AskPanel({ view, onOpen, about, aboutRank, onClearAbout }: { view: RunV
           </div>
         </div>
       </div>)}
-      {pending && <div className="ask-turn"><div className="ask-q">{pending.question}</div><div className="ask-a ask-pending"><LoaderCircle size={13} className="spin" />Reading the run and its documents · {((Date.now() - pending.since) / 1000).toFixed(0)} s</div></div>}
+      {pending && <div className="ask-turn"><div className="ask-q">{pending.question}</div><div className="ask-a ask-pending ask-thinking">
+        <div className="ask-thinking-head"><LoaderCircle size={13} className="spin" />Working on it · {((Date.now() - pending.since) / 1000).toFixed(0)} s</div>
+        <ol>{pending.steps.map((s, i) => <li key={i} className={i === pending.steps.length - 1 ? 'now' : 'done'}>{i === pending.steps.length - 1 ? <LoaderCircle size={11} className="spin" /> : <Check size={11} />}{s}</li>)}
+          {!pending.steps.length && <li className="now"><LoaderCircle size={11} className="spin" />Starting</li>}</ol>
+      </div></div>}
     </div>
     {health && !model && <div className="ask-model-off"><CircleAlert size={12} /><span><strong>No model connected</strong> · {health.providerDetail}. Answers restate what this run recorded.</span></div>}
     {about && <div className="ask-context"><MessageSquareText size={12} /><span>Asking about <strong>#{aboutRank} {about.title}</strong></span><button className="ws-icon" onClick={onClearAbout} aria-label="Ask about the whole assessment instead"><X size={12} /></button></div>}
@@ -344,32 +428,30 @@ function CheckStrip({ view, live }: { view: RunView; live: boolean }) {
   </section>
 }
 
-function ProblemList({ view, ranked, focused, live, onOpen, routing, onRunNew }: { view: RunView; ranked: FindingView[]; focused: string | null; live: boolean; onOpen: (id: string) => void; routing: Routing; onRunNew?: () => void }) {
-  return <section className="ws-section">
-    <div className="ws-section-head"><CircleAlert size={16} /><h2>Problems, most important first</h2><span>{ranked.length ? ranked.length + (ranked.length === 1 ? ' problem' : ' problems') + ' · blocks decision → fails policy → condition → advisory' : ''}</span></div>
-    {!ranked.length ? <div className="problems-none">{view.status === 'completed' ? <><Check size={18} /><div><strong>No problems found</strong><span>All documents reconciled with the recorded data and every policy check was met.</span></div></>
-      : <><LoaderCircle size={16} className={live ? 'spin' : ''} /><div><strong>{live ? 'No problems found so far' : 'No problems recorded'}</strong><span>{live ? 'The review is still running.' : 'This run did not record findings.'}</span></div></>}</div> :
-    <ol className="problems">{ranked.map((f, i) => {
-      const Icon = workerIcons[f.worker]
-      const where = f.evidence[0]
-      const missing = f.missingDocument ?? (f.ruleIds.includes('DATA-01') && !f.evidence.length ? REQUIRED_DOCUMENTS.find(k => f.title.endsWith(docNames[k])) : undefined)
-      return <li key={f.id} className={'problem impact-row-' + f.impact + (focused === f.id ? ' active' : '')}>
-        <button className="problem-main" onClick={() => onOpen(f.id)}>
-          <span className="problem-rank">{i + 1}</span>
-          <div className="problem-body">
-            <div className="problem-top"><ImpactTag impact={f.impact} /><strong>{f.title}</strong></div>
-            <p>{emphasize(f.observed)}</p>
-            <div className="problem-meta"><span><Icon size={11} />{view.workers[f.worker]?.role.name}</span>{where ? <span><FileSearch size={11} />{docNames[where.kind] ?? where.kind} · page {where.page}</span> : <span><FileSearch size={11} />No document</span>}{f.ruleIds.length > 0 && <span>{f.ruleIds.join(', ')}</span>}</div>
-          </div>
-        </button>
-        <div className="problem-actions">
-          {missing && <AddDocumentButton company={routing.company} kind={missing} label="Upload document" compact onRunNew={onRunNew} />}
-          {routing.completed && <SendToDepartment small companyId={routing.company.id} runId={routing.runId} finding={f} existing={routing.caseFor(f)} onSent={routing.onSent} onOpen={routing.onOpenCase} />}
-          <button className="problem-open" onClick={() => onOpen(f.id)}>Open<ArrowRight size={13} /></button>
-        </div>
-      </li>
-    })}</ol>}
-  </section>
+/** The run's key figures against the policy, for the report and the all-clear view. */
+function keyFigures(view: RunView): { label: string; value: string; need: string; ok: boolean | null }[] {
+  const m = view.decision?.scenarios.baza.metrics
+  const p = view.policy
+  return m && p ? [
+    { label: 'DSCR', value: ratio(m.dscr), need: 'min ' + ratio(p.dscr_min), ok: m.dscr === null ? null : m.dscr >= p.dscr_min },
+    { label: 'Lowest month', value: ratio(m.monthlyDscr), need: 'min 1.00×', ok: m.monthlyDscr === null ? null : m.monthlyDscr >= 1 },
+    { label: 'Liquidity', value: ratio(m.liquidity), need: 'min ' + ratio(p.lichiditate_min), ok: m.liquidity === null ? null : m.liquidity >= p.lichiditate_min },
+    { label: 'Debt / EBITDA', value: ratio(m.leverage), need: 'max ' + ratio(p.datorie_ebitda_max), ok: m.leverage === null ? null : m.leverage <= p.datorie_ebitda_max },
+    { label: 'Collateral', value: (m.coverage * 100).toFixed(0) + '%', need: 'min 110%', ok: m.coverage >= 1.1 || m.guarantorCapable },
+    { label: 'Own contribution', value: m.contribution.toFixed(1) + '%', need: 'min ' + p.aport_min_procente + '%', ok: m.contribution + .001 >= p.aport_min_procente },
+  ] : []
+}
+
+/** In place of an empty panel when the run found nothing: what was checked, and what to do next. */
+function AllClear({ view, onAsk }: { view: RunView; onAsk: () => void }) {
+  const figures = keyFigures(view)
+  return <div className="all-clear">
+    <span className="all-clear-icon"><Check size={22} strokeWidth={2.6} /></span>
+    <strong>No problems to solve</strong>
+    <p>Every document reconciled with the recorded data and every policy check was met.</p>
+    {figures.length > 0 && <div className="all-clear-figures">{figures.map(f => <div key={f.label} className={f.ok === false ? 'fig-bad' : 'fig-ok'}><span>{f.label}</span><strong>{f.value}</strong><small>{f.need}</small></div>)}</div>}
+    <div className="all-clear-actions"><button className="button button-secondary" onClick={() => document.querySelector('.report')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}><FileText size={14} />Read the report</button><button className="button button-secondary" onClick={onAsk}><MessageSquareText size={14} />Ask a question</button></div>
+  </div>
 }
 
 function reportMarkdown(view: RunView, company: Company): string {
@@ -390,16 +472,7 @@ function ReportView({ company, view, live, ranked, onOpen }: { company: Company;
   }
   const { report, author, verified, unsupported } = view.report
   const rank = (id: string) => ranked.findIndex(f => f.id === id) + 1
-  const m = view.decision?.scenarios.baza.metrics
-  const p = view.policy
-  const figures = m && p ? [
-    { label: 'DSCR', value: ratio(m.dscr), need: 'min ' + ratio(p.dscr_min), ok: m.dscr === null ? null : m.dscr >= p.dscr_min },
-    { label: 'Lowest month', value: ratio(m.monthlyDscr), need: 'min 1.00×', ok: m.monthlyDscr === null ? null : m.monthlyDscr >= 1 },
-    { label: 'Liquidity', value: ratio(m.liquidity), need: 'min ' + ratio(p.lichiditate_min), ok: m.liquidity === null ? null : m.liquidity >= p.lichiditate_min },
-    { label: 'Debt / EBITDA', value: ratio(m.leverage), need: 'max ' + ratio(p.datorie_ebitda_max), ok: m.leverage === null ? null : m.leverage <= p.datorie_ebitda_max },
-    { label: 'Collateral', value: (m.coverage * 100).toFixed(0) + '%', need: 'min 110%', ok: m.coverage >= 1.1 || m.guarantorCapable },
-    { label: 'Own contribution', value: m.contribution.toFixed(1) + '%', need: 'min ' + p.aport_min_procente + '%', ok: m.contribution + .001 >= p.aport_min_procente },
-  ] : []
+  const figures = keyFigures(view)
   return <section className="ws-section report">
     <div className="ws-section-head"><FileText size={16} /><h2>Assessment report</h2><span>{author}</span>
       {verified ? <span className="note-verified"><ShieldCheck size={11} />Every figure checked against the run</span> : <span className="note-flag"><CircleAlert size={11} />Unverified figures: {unsupported.join(', ')}</span>}
